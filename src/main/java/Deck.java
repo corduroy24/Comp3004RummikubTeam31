@@ -3,7 +3,7 @@ import java.util.Random;
 
 public class Deck {
 
-	private Tile DeckofTiles[] = new Tile[106]; // deck that we will be using
+	private Tile DeckofTiles[] = new Tile[104]; // deck that we will be using, no joker functionality
 	int count = 0;
 
 	public Deck() { // populates the deck with all 106 tiles
@@ -18,9 +18,9 @@ public class Deck {
 				}
 			}
 		}
-		Tile T = new Tile();
-		DeckofTiles[104] = T;
-		DeckofTiles[104] = T;
+	//	Tile T = new Tile();       THESE ARE JOKERS AND WILL BE USED IN ITERATION 2
+	//	DeckofTiles[104] = T;
+	//	DeckofTiles[104] = T;
 	
 	}
 
