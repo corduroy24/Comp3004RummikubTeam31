@@ -1,20 +1,19 @@
-
 public class Tile {
 	protected  String Color;
 	protected  int Number;
-	protected String[] Colors = { "R", "B", "G", "O" };
-	protected  int[] Numbers = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 };
-	
+	//1,2,3,4 respectively Red Blue Green Orange
+	  String[] Colors = { "R", "B", "G", "O" };
+	  int[] Numbers = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 };
 
-	public  Tile createTile(int x, int y) { // create a tile with the specific color and number
+
+	Tile (int x, int y) { // create a tile with the specific color and number
 		this.Color = Colors[x - 1];
 		this.Number = Numbers[y - 1];
-		return this;
-	}
-	public Tile() {};
-	public Tile(int x, int y) { Color = Colors[x - 1]; Number = Numbers[y - 1];};
 	
+	}
 
+
+	
 	public String getColor() {
 		return Color;
 	}
@@ -23,10 +22,10 @@ public class Tile {
 		return Number;
 	}
 
-	public Tile addWild() { // used to add a wild tile to the deck
+	public Tile() { // used to add a wild tile to the deck
 		this.Color = "Wild";
 		this.Number = 14;
-		return this;
+
 	}
 
 }
