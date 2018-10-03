@@ -2,8 +2,8 @@
 public class Tile {
 	protected  String Color;
 	protected  int Number;
-	  String[] Colors = { "Blue", "Black", "Red", "Yellow" };
-	  int[] Numbers = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 };
+	protected String[] Colors = { "R", "B", "G", "O" };
+	protected  int[] Numbers = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 };
 	
 
 	public  Tile createTile(int x, int y) { // create a tile with the specific color and number
@@ -11,6 +11,9 @@ public class Tile {
 		this.Number = Numbers[y - 1];
 		return this;
 	}
+	public Tile() {};
+	public Tile(int x, int y) { Color = Colors[x - 1]; Number = Numbers[y - 1];};
+	
 
 	public String getColor() {
 		return Color;
