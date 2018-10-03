@@ -20,7 +20,7 @@ public class Deck {
 		}
 	//	Tile T = new Tile();       THESE ARE JOKERS AND WILL BE USED IN ITERATION 2
 	//	DeckofTiles[104] = T;
-	//	DeckofTiles[104] = T;
+	//	DeckofTiles[105] = T;
 	
 	}
 
