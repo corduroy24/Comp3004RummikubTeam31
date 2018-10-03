@@ -42,4 +42,14 @@ public class Deck {
 		return DeckofTiles[x];
 	}
 
+	public Tile Draw() {    //Draw a card from the deck then decrease deck size by 1 (also remove card drawn)
+		Tile T = DeckofTiles[DeckofTiles.length-1];
+		DeckofTiles[DeckofTiles.length-1]=null;
+		Tile [] DeckofTiles2 = new Tile[DeckofTiles.length-1];  //new Deck with right size
+		for (int i=0;i<DeckofTiles.length-1;i++) {           //transfer all cards to new Deck
+			DeckofTiles2[i]=DeckofTiles[i];
+		}
+		DeckofTiles=DeckofTiles2;
+		return T;
+	}
 }
