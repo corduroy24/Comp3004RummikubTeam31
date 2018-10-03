@@ -23,4 +23,13 @@ public class Test extends TestCase {
 		assertEquals(different,true);
 	}
 	
+	public void testDraw() throws IOException {  //Tests if draw works and takes one card away from deck
+		Deck Deck = new Deck();	
+		Tile[] DeckofTiles = Deck.getDeck();
+		int length1=DeckofTiles.length; 
+		Tile T= Deck.Draw();
+		Tile[] DeckofTiles2 = Deck.getDeck();
+		int length2=DeckofTiles2.length;
+		assertEquals(length1-1,length2);
+	}
 }

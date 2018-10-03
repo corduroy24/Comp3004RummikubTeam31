@@ -1,10 +1,11 @@
-
 import java.util.Random;
 
 public class Deck {
+	int length=104;
+	Tile DeckofTiles[] = new Tile[length]; // deck that we will be using, no joker functionality
 
-	private Tile DeckofTiles[] = new Tile[104]; // deck that we will be using, no joker functionality
 	int count = 0;
+	
 
 	public Deck() { // populates the deck with all 106 tiles
 		for (int z = 0; z < 2; z++) {
@@ -30,7 +31,6 @@ public class Deck {
 			Tile temp = DeckofTiles[i];
 			DeckofTiles[i] = DeckofTiles[index];
 			DeckofTiles[index] = temp; // trades i and index values
-
 		}
 	}
 
@@ -45,11 +45,13 @@ public class Deck {
 	public Tile Draw() {    //Draw a card from the deck then decrease deck size by 1 (also remove card drawn)
 		Tile T = DeckofTiles[DeckofTiles.length-1];
 		DeckofTiles[DeckofTiles.length-1]=null;
-		Tile [] DeckofTiles2 = new Tile[DeckofTiles.length-1];  //new Deck with right size
+		length=length-1;
+		Tile [] DeckofTiles2 = new Tile[length];  //new Deck with right size
 		for (int i=0;i<DeckofTiles.length-1;i++) {           //transfer all cards to new Deck
-			DeckofTiles2[i]=DeckofTiles[i];
+			DeckofTiles2[i]=DeckofTiles[i];;
 		}
-		DeckofTiles=DeckofTiles2;
+		DeckofTiles=DeckofTiles2; 
 		return T;
+		
 	}
 }
