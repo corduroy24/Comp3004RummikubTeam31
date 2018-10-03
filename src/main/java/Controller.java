@@ -6,8 +6,8 @@ public class Controller {
 		Deck.Shuffle();
 		Tile[] DeckofTiles = Deck.getDeck();
 		
-		System.out.println(DeckofTiles[100].getColor());  
-		System.out.println(DeckofTiles[8].getNumber());  
+		System.out.println(DeckofTiles[100].getColor());  //examples of how to use getcolour and getnumber functions
+		System.out.println(DeckofTiles[8].getNumber());  //take these off, this is only for explaining sake
 		
 	}
 	

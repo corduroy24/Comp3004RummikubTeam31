@@ -18,10 +18,10 @@ public class Deck {
 				}
 			}
 		}
-
-		// DeckofTiles[35].Color="Blue";
-		// DeckofTiles[104] = Tile.addWild();
-		// DeckofTiles[105] = Tile.addWild();
+		Tile T = new Tile();
+		DeckofTiles[104] = T;
+		DeckofTiles[104] = T;
+	
 	}
 
 	public void Shuffle() { // shuffle function uses trading tiles functionality

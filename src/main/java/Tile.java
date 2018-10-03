@@ -22,10 +22,10 @@ public class Tile {
 		return Number;
 	}
 
-	public Tile addWild() { // used to add a wild tile to the deck
+	public Tile() { // used to add a wild tile to the deck
 		this.Color = "Wild";
 		this.Number = 14;
-		return this;
+
 	}
 
 }
