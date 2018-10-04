@@ -4,9 +4,9 @@ public class HumanTest extends TestCase{
 	
 	public void  testTurn() {
 		
-		Player humanPlayer = new Player ();
+		HumanPlayer humanPlayer = new HumanPlayer ();
 		assertTrue(humanPlayer.getTurn()); 
-		humanPlayer.setTurn(False); 
+		humanPlayer.setTurn(false); 
 		assertFalse(humanPlayer.getTurn()); 
 	}
 }
