@@ -53,4 +53,7 @@ public class HumanPlayer {
     	return playerHand.size(); 
     }
 	
+    public void playTileFromHand(Tile tileToRemove) {
+    	playerHand.remove(tileToRemove); 
+    }
 }

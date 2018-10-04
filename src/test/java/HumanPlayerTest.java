@@ -50,11 +50,11 @@ public class HumanPlayerTest extends TestCase{
 		}
 		double randomD;
 		int randomI; 
-		for(int i = initialSizeOfHand; i >= 0; i--) {
-			randomD = (initialSizeOfHand - 0)Math.random(); 
+		for(int i = initialSizeOfHand; i > 0; i--) {
+			randomD = Math.random()*(i - 0); 
 			randomI = (int)randomD; 
 			tileToPlay = humanPlayer.getPlayerHand().get(randomI);
-			humanPlayer.getPlayerHand().playTile(tileToPlay); 
+			humanPlayer.playTileFromHand(tileToPlay); 
 		}
 		
 		assertTrue(humanPlayer.getPlayerHand().isEmpty()); 
