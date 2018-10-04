@@ -8,11 +8,11 @@ public class PlayerHandTest extends TestCase{
 		int initialSizeOfHand = 14; 
 		
 		for(int i = 0; i < initialSizeOfHand; i++) {
-			humanPlayer.getHand().addTile(deck.Draw()); 
+			humanPlayer.getPlayerHand().addTile(deck.Draw()); 
 		}
 		
-		assertNotNull(humanPlayer.getHand());  
-		assertEquals(initialSizeOfHand, humanPlayer.getHand().sizeOfHand());
+		assertNotNull(humanPlayer.getPlayerHand());  
+		assertEquals(initialSizeOfHand, humanPlayer.getPlayerHand().sizeOfHand());
 	}
 
 }

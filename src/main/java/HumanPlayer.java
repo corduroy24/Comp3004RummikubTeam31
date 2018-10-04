@@ -1,11 +1,14 @@
+import java.util.List;
 
 public class HumanPlayer {
 	
 	private boolean isTurn = false;
 	private boolean isTileTaken = false;
 	private boolean isTilePlaced = false;
-
 	
+	private PlayerHand playerHand = new PlayerHand(); 
+	
+
 	public HumanPlayer () {
 		isTurn = true; //Human player by default has the first turn in our game
 	}
@@ -33,5 +36,9 @@ public class HumanPlayer {
 	public void setIsTilePlaced(boolean tilePlaced) {//sets the status of the placing a tile or not 
 		this.isTilePlaced  = tilePlaced; 
 	}
+	
+    public PlayerHand getPlayerHand() {
+    	return this.playerHand;
+    }
 	
 }
