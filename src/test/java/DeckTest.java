@@ -2,7 +2,7 @@ import java.io.IOException;
 
 import junit.framework.TestCase;
 
-public class Test extends TestCase {
+public class DeckTest extends TestCase {
 
 	public void testShuffle() throws IOException {  //Tests if shuffle works by comparing first item in array
 		boolean different=true;

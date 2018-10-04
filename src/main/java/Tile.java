@@ -1,8 +1,8 @@
-
 public class Tile {
 	protected  String Color;
 	protected  int Number;
-	  String[] Colors = { "Blue", "Black", "Red", "Yellow" };
+	//1,2,3,4 respectively Red Blue Green Orange
+	  String[] Colors = { "R", "B", "G", "O" };
 	  int[] Numbers = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 };
 
 
