@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 
 public class HumanPlayer {
@@ -5,8 +6,10 @@ public class HumanPlayer {
 	private boolean isTurn = false;
 	private boolean isTileTaken = false;
 	private boolean isTilePlaced = false;
+
+	private List<Tile> playerHand = new ArrayList<Tile>();
+
 	
-	private PlayerHand playerHand = new PlayerHand(); 
 	
 
 	public HumanPlayer () {
@@ -37,8 +40,17 @@ public class HumanPlayer {
 		this.isTilePlaced  = tilePlaced; 
 	}
 	
-    public PlayerHand getPlayerHand() {
+    public List<Tile> getPlayerHand() {
     	return this.playerHand;
+    }
+    
+    public void addTile(Tile newTile ) {
+    	playerHand.add(newTile);
+    }
+
+    
+    public int sizeOfHand() {
+    	return playerHand.size(); 
     }
 	
 }
