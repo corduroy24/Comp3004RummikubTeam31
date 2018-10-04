@@ -10,19 +10,19 @@ public class HumanTest extends TestCase{
 		assertFalse(humanPlayer.getIsTurn()); 
 	}
 	
-	public void testTileTaken() {
+	public void testTileTaken() { //tests if the player has a taken a tile or not 
 		
 		HumanPlayer humanPlayer = new HumanPlayer ();
-		assertTrue(humanPlayer.getIsTileTaken()); 
-		humanPlayer.setIsTileTaken(false); 
 		assertFalse(humanPlayer.getIsTileTaken()); 
+		humanPlayer.setIsTileTaken(true); 
+		assertTrue(humanPlayer.getIsTileTaken()); 
 	}
 	
-	public void testTilePlaced() {
+	public void testTilePlaced() { // tests if a player has placed a tile or not 
 		
 		HumanPlayer humanPlayer = new HumanPlayer ();
-		assertTrue(humanPlayer.getIsTileTaken()); 
-		humanPlayer.setIsTileTaken(false); 
-		assertFalse(humanPlayer.getIsTileTaken()); 
+		assertFalse(humanPlayer.getIsTilePlaced()); 
+		humanPlayer.setIsTilePlaced(true); 
+		assertTrue(humanPlayer.getIsTilePlaced()); 
 	}
 }
