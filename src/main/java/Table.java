@@ -11,7 +11,6 @@ public class Table {
 		}
 		return u;
 	}
-	public int get index
 
 	public boolean addTiles(ArrayList<Tile> tiles2) {
 		// TODO Auto-generated method stub
@@ -29,7 +28,7 @@ public class Table {
 
 	public ArrayList<Tile> getSetOrSequences(int i) {
 		// TODO Auto-generated method stub
-		
+		return table.get(i);		
 	}
 
 }

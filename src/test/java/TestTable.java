@@ -6,7 +6,6 @@ public class TestTable extends TestCase {
 	Table table = new Table();
 	ArrayList<Tile> tiles = new ArrayList<Tile>();
 	
-	Tile t = new Tile();
 	// first index 1,2,3,4 respectively Red Blue Green Orange
 	// second index is value;
 	Tile t1 = new Tile(1,2);
