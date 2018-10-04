@@ -44,7 +44,7 @@ public class HumanPlayer {
     	return this.playerHand;
     }
     
-    public void addTile(Tile newTile ) {
+    public void addTileToHand(Tile newTile ) {
     	playerHand.add(newTile);
     }
 
