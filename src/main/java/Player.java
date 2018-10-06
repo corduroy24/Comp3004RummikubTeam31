@@ -4,13 +4,12 @@ import java.util.List;
 public class Player {
 	private PlayerStrategy playerStrategy; 
 
+	private PlayerHand hand = new PlayerHand(); 
 	
 	private boolean isTurn = false;
 	private boolean isTileTaken = false;
 	private boolean isTilePlaced = false;
 	private boolean isFirstMeldComplete = false;
-
-	private List<Tile> playerHand = new ArrayList<Tile>();
 
 
 	public Player () {
@@ -48,31 +47,17 @@ public class Player {
 		this.isFirstMeldComplete  = firstMeldComplete; 
 	}
 	
-    public List<Tile> getPlayerHand() {
-    	return this.playerHand;
-    }
-    
-    public void addTileToHand(Tile newTile ) {
-    	playerHand.add(newTile);
-    }
 
-    
-    public int sizeOfHand() {
-    	return playerHand.size(); 
-    }
-	
-    public void playTileFromHand(Tile tileToPlay) {
-    //	this.playerStrategy.playTiles(playerHand, tileToPlay);
-    	playerHand.remove(tileToPlay); 
-
-    }
-    
     public PlayerStrategy getPlayerStrategy() {
     	return this.playerStrategy; 
     }
     
     public void setPlayerStrategy(PlayerStrategy strategy) {
     	this.playerStrategy = strategy; 
+    }
+    
+    public PlayerHand getPlayerHand () {
+    	return this.hand; 
     }
 
 }
