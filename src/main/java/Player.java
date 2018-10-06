@@ -10,10 +10,12 @@ public class Player {
 	private boolean isTileTaken = false;
 	private boolean isTilePlaced = false;
 	private boolean isFirstMeldComplete = false;
+	private int playerID = 0; 
 
-	public Player (String s) {
+	public Player (String s, int id) {
 		name=s;
 		hand = new PlayerHand(name); 
+		playerID = id; 
 	}
 	
 	public boolean getIsTurn () { //gets the current status of the players turn  

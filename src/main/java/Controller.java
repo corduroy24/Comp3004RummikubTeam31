@@ -10,7 +10,7 @@ public class Controller {
 		
 		
 		System.out.println("Starting game");
-		Player user = new Player("User");
+		Player user = new Player("User", 1);
 		Player.hand.drawFirst14(Deck);
 		Player.hand.HandReader();
 		
