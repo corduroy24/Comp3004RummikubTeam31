@@ -3,7 +3,7 @@ import junit.framework.TestCase;
 public class PlayerHandTest extends TestCase{
 	
 	public void testSizeOfHand() {
-		PlayerHand  hand  = new PlayerHand ();
+		PlayerHand  hand  = new PlayerHand ("X");
 		Deck deck = new Deck(); 
 				
 		Tile tempTile; 
@@ -21,7 +21,7 @@ public class PlayerHandTest extends TestCase{
 	}
 	
 	public void testEmptyfHand() {
-		PlayerHand  hand  = new PlayerHand ();
+		PlayerHand  hand  = new PlayerHand ("X");
 		Deck deck = new Deck(); 
 				
 		Tile tempTile_1, tempTile_2, tempTile_3; 
@@ -38,7 +38,7 @@ public class PlayerHandTest extends TestCase{
 	}
 	
 	public void testPlay() {
-		PlayerHand  hand  = new PlayerHand ();
+		PlayerHand  hand  = new PlayerHand ("X");
 		Deck deck = new Deck(); 
 		
 		
@@ -57,7 +57,7 @@ public class PlayerHandTest extends TestCase{
 	
 	
 	public void testAddTile() {
-		PlayerHand  hand  = new PlayerHand ();
+		PlayerHand  hand  = new PlayerHand ("X");
 		Deck deck = new Deck(); 
 		
 		

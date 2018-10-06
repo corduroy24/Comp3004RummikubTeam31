@@ -3,17 +3,17 @@ import java.util.List;
 
 public class Player {
 	private PlayerStrategy playerStrategy; 
-
-	static PlayerHand hand = new PlayerHand(); 
+	private static String name;
+	static PlayerHand hand; 
 	
 	private boolean isTurn = false;
 	private boolean isTileTaken = false;
 	private boolean isTilePlaced = false;
 	private boolean isFirstMeldComplete = false;
-	private String name;
 
 	public Player (String s) {
 		name=s;
+		hand = new PlayerHand(name); 
 	}
 	
 	public boolean getIsTurn () { //gets the current status of the players turn  
