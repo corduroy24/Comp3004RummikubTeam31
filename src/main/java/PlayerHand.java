@@ -2,7 +2,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PlayerHand {
-
+	
+	String name = "";
+	
+	PlayerHand(String x){
+	name=x;	
+	}
 	private ArrayList<Tile> hand = new ArrayList<Tile>();
 
 	
@@ -38,9 +43,10 @@ public class PlayerHand {
     
     public void HandReader() {
     	if (isEmpty()) {
-    		System.out.println("Player has no cards");
+    		System.out.println("Player: "+ name +" has no tiles");
     	}
     	else {
+    		System.out.println("Displaying Player: "+ name +"'s tiles");
     		for (int i=0;i<sizeOfHand();i++) {
     			String Color="";
     			if (hand.get(i).getColor().equals("O")) {
