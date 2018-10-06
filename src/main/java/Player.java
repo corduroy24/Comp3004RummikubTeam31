@@ -4,15 +4,16 @@ import java.util.List;
 public class Player {
 	private PlayerStrategy playerStrategy; 
 
-	private PlayerHand hand = new PlayerHand(); 
+	static PlayerHand hand = new PlayerHand(); 
 	
 	private boolean isTurn = false;
 	private boolean isTileTaken = false;
 	private boolean isTilePlaced = false;
 	private boolean isFirstMeldComplete = false;
+	private String name;
 
-
-	public Player () {
+	public Player (String s) {
+		name=s;
 	}
 	
 	public boolean getIsTurn () { //gets the current status of the players turn  
