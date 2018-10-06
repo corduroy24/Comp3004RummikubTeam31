@@ -73,5 +73,11 @@ public class PlayerHandTest extends TestCase{
 
 	}
 
+	public void testadd14() {
+		Deck deck = new Deck();
+		PlayerHand  hand  = new PlayerHand ("X");
+		hand.drawFirst14(deck);
+		assertEquals(hand.sizeOfHand(),14);
+	}
 	
 }
