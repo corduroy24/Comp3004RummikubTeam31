@@ -2,7 +2,7 @@ import junit.framework.TestCase;
 
 public class HumanPlayerStrategyTest extends TestCase{
 	
-	public void testPlaytiles() {
+	/*public void testPlaytiles() {
 		/*HumanPlayerStrategy humanStrategy = new HumanPlayerStrategy ();  
 		
 		Player human = new Player(); 
@@ -22,7 +22,7 @@ public class HumanPlayerStrategyTest extends TestCase{
 		
 		human.setPlayerStrategy(humanStrategy);
 		human.getPlayerStrategy().playTiles(tileToPlay);
-		assertFalse(human.getPlayerHand().contains(tileToPlay)); */
-	}
+		assertFalse(human.getPlayerHand().contains(tileToPlay)); 
+	}*/
 
 }
