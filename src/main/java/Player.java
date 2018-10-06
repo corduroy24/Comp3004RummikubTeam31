@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Player {
-	//Strategy playerStrategy; 
+	private PlayerStrategy playerStrategy; 
 
 	
 	private boolean isTurn = false;
@@ -61,8 +61,18 @@ public class Player {
     	return playerHand.size(); 
     }
 	
-    public void playTileFromHand(Tile tileToRemove) {
-    	playerHand.remove(tileToRemove); 
+    public void playTileFromHand(Tile tileToPlay) {
+    //	this.playerStrategy.playTiles(playerHand, tileToPlay);
+    	playerHand.remove(tileToPlay); 
+
+    }
+    
+    public PlayerStrategy getPlayerStrategy() {
+    	return this.playerStrategy; 
+    }
+    
+    public void setPlayerStrategy(PlayerStrategy strategy) {
+    	this.playerStrategy = strategy; 
     }
 
 }

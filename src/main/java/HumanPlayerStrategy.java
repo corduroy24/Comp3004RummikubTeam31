@@ -1,7 +1,10 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class HumanPlayer {
-	
+public class HumanPlayerStrategy implements PlayerStrategy{
+	//private Player humanPlayer = new Player(); 
+	public void playTiles(Tile tileToPlay) {
+    	return; 
+	}
 	
 }
