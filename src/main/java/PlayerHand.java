@@ -17,6 +17,7 @@ public class PlayerHand {
 		}
 	}
 	
+	
     public List<Tile> getHand() {
     	return this.hand;
     }

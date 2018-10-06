@@ -10,7 +10,7 @@ public class Player {
 	private boolean isTileTaken = false;
 	private boolean isTilePlaced = false;
 	private boolean isFirstMeldComplete = false;
-
+	
 	public Player (String s) {
 		name=s;
 		hand = new PlayerHand(name); 
