@@ -27,5 +27,10 @@ public class Tile {
 		this.Number = 14;
 
 	}
+	
+	public int calculate(Tile x,Tile y) {
+		return (x.getNumber()+y.getNumber());
+	}
 
+	
 }
