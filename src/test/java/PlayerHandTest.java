@@ -83,13 +83,21 @@ public class PlayerHandTest extends TestCase{
 	
 	public void testSortByNumber() {
 		Deck deck = new Deck();
+		deck.Shuffle();
 		PlayerHand  hand  = new PlayerHand ("X");
 		hand.drawFirst14(deck);
 		
+		hand.HandReader();
+		hand.sortTilesByNumber();
+		for(int i = 0; i < hand.sizeOfHand()-1; i++) {
+			assertTrue((hand.getTiles().get(i).getNumber() <= hand.getTiles().get(i+1).getNumber()));
+			System.out.println("-------------\n");
+			hand.HandReader();
+			
+		}
 		
-		for(int i = 0; i < hand.sizeOfHand()-1; i++)
-			assertTrue((hand.getTiles().get(i).getNumber() < hand.getTiles().get(i+1).getNumber()));
-		
+		System.out.println("-------------\n");
+		hand.HandReader();
 	}
 	
 }

@@ -1,4 +1,7 @@
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class PlayerHand {
@@ -6,7 +9,8 @@ public class PlayerHand {
 	String name = "";
 	
 	PlayerHand(String x){
-	name=x;	
+	//	super(); 
+		name=x;	
 	}
 	private ArrayList<Tile> hand = new ArrayList<Tile>();
 
@@ -72,6 +76,22 @@ public class PlayerHand {
     	}
     }
     
-   // public void sortTiles
+    public void sortTilesByNumber () {// sorts tiles from least to greatest
+    	ArrayList<Tile> sortedHand = this.hand; 
+    	
+    	Collections.sort(sortedHand, new SortByX());
+
+    }
     
 }
+
+class SortByX implements Comparator<Tile> 
+{ 
+    // Used for sorting in ascending order of 
+    // tile number 
+    public int compare(Tile a, Tile b) 
+    { 
+
+        return a.getNumber() - b.getNumber(); 
+    } 
+} 
