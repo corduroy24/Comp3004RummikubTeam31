@@ -18,9 +18,14 @@ public class PlayerHand {
 	}
 	
 	
-    public List<Tile> getHand() {
+    public List<Tile> getTiles() {
     	return this.hand;
     }
+    
+    public Tile getTile (int index) {
+    	return this.hand.get(index);
+    }
+    
     
     public void addTileToHand(Tile newTile ) {
     	hand.add(newTile);

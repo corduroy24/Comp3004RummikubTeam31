@@ -51,7 +51,7 @@ public class PlayerHandTest extends TestCase{
 		hand.playTileFromHand(tempTile);
 		
 		assertEquals(2, hand.sizeOfHand()); 
-		assertFalse(hand.getHand().contains(tempTile)); 
+		assertFalse(hand.getTiles().contains(tempTile)); 
 
 	}
 	
@@ -68,8 +68,8 @@ public class PlayerHandTest extends TestCase{
 
 				
 		assertEquals(3, hand.sizeOfHand()); 
-		assertTrue(hand.getHand().contains(tempTile)); 
-		assertEquals(tempTile.getNumber(), hand.getHand().get(0).getNumber()); 
+		assertTrue(hand.getTiles().contains(tempTile)); 
+		assertEquals(tempTile.getNumber(), hand.getTiles().get(0).getNumber()); 
 
 	}
 
@@ -78,6 +78,18 @@ public class PlayerHandTest extends TestCase{
 		PlayerHand  hand  = new PlayerHand ("X");
 		hand.drawFirst14(deck);
 		assertEquals(hand.sizeOfHand(),14);
+	}
+	
+	
+	public void testSortByNumber() {
+		Deck deck = new Deck();
+		PlayerHand  hand  = new PlayerHand ("X");
+		hand.drawFirst14(deck);
+		
+		
+		for(int i = 0; i < hand.sizeOfHand()-1; i++)
+			assertTrue((hand.getTiles().get(i).getNumber() < hand.getTiles().get(i+1).getNumber()));
+		
 	}
 	
 }

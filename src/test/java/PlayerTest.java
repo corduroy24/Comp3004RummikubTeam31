@@ -37,7 +37,7 @@ public class PlayerTest extends TestCase{
 			player.getPlayerHand().addTileToHand(deck.Draw()); 
 		}
 		
-		assertNotNull(player.getPlayerHand().getHand());  
+		assertNotNull(player.getPlayerHand().getTiles());  
 		assertEquals(initialSizeOfHand, player.getPlayerHand().sizeOfHand());
 	}
 	
@@ -54,11 +54,11 @@ public class PlayerTest extends TestCase{
 		for(int i = initialSizeOfHand; i > 0; i--) {
 			randomD = Math.random()*(i - 0); 
 			randomI = (int)randomD; 
-			tileToPlay = player.getPlayerHand().getHand().get(randomI);
+			tileToPlay = player.getPlayerHand().getTiles().get(randomI);
 			player.getPlayerHand().playTileFromHand(tileToPlay); 
 		}
 		
-		assertTrue(player.getPlayerHand().getHand().isEmpty()); 
+		assertTrue(player.getPlayerHand().getTiles().isEmpty()); 
 	}
 	
 	/*public void testFirstMeldComplete {
