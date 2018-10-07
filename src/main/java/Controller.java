@@ -1,3 +1,4 @@
+import javafx.application.Application;
 
 public class Controller {
 
@@ -5,6 +6,10 @@ public class Controller {
 		Deck Deck = new Deck();
 		Deck.Shuffle();
 		Tile[] DeckofTiles = Deck.getDeck();
+		Table table = new Table();
+		
+		//Un comment this to launch the GUI
+		//Application.launch(Ui.class, args);
 		
 		System.out.println(DeckofTiles[100].getColor());  //examples of how to use getcolour and getnumber functions
 		System.out.println(DeckofTiles[8].getNumber());  //take these off, this is only for explaining sake
