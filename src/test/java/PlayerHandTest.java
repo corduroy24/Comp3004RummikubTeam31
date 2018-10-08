@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 import junit.framework.TestCase;
 
 public class PlayerHandTest extends TestCase{
@@ -87,17 +89,25 @@ public class PlayerHandTest extends TestCase{
 		PlayerHand  hand  = new PlayerHand ("X");
 		hand.drawFirst14(deck);
 		
-		hand.HandReader();
+		//hand.HandReader();
 		hand.sortTilesByNumber();
-		for(int i = 0; i < hand.sizeOfHand()-1; i++) {
+		for(int i = 0; i < hand.sizeOfHand()-1; i++) 
 			assertTrue((hand.getTiles().get(i).getNumber() <= hand.getTiles().get(i+1).getNumber()));
-			System.out.println("-------------\n");
-			hand.HandReader();
-			
-		}
 		
-		System.out.println("-------------\n");
+	}
+	
+	public void testSortByColour () {
+		Deck deck = new Deck();
+		deck.Shuffle();
+		PlayerHand  hand  = new PlayerHand ("X");
+		hand.drawFirst14(deck);
+		
+		
 		hand.HandReader();
+		ArrayList <PlayerHand> hands = hand.seperateTilesByColour();
+		
+		//for(int i = 0; i < hands.sizeOfHand()-1; i++) 
+			//assertTrue((hands.get(i).getTiles().get<= hand.getTiles().get(i+1).getNumber()));
 	}
 	
 }
