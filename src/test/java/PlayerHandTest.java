@@ -104,10 +104,26 @@ public class PlayerHandTest extends TestCase{
 		
 		
 		hand.HandReader();
-		ArrayList <PlayerHand> hands = hand.seperateTilesByColour();
-		
-		//for(int i = 0; i < hands.sizeOfHand()-1; i++) 
-			//assertTrue((hands.get(i).getTiles().get<= hand.getTiles().get(i+1).getNumber()));
+		hand.sortTilesByColour();
+		int j =0; 
+		for(int i = 0; i < hand.sizeOfHand()-1; i++) {
+			if(hand.getTile(i).getColor() == "R"  & hand.getTile(i+1).getColor() == "R")
+				assertTrue((hand.getTiles().get(i).getNumber() <= hand.getTiles().get(i+1).getNumber()));
+			else if(hand.getTile(i).getColor() == "B"  & hand.getTile(i+1).getColor() == "B"){
+				assertTrue((hand.getTiles().get(i).getNumber() <= hand.getTiles().get(i+1).getNumber()));
+			}
+			else if(hand.getTile(i).getColor() == "G"  & hand.getTile(i+1).getColor() == "G") {
+				assertTrue((hand.getTiles().get(i).getNumber() <= hand.getTiles().get(i+1).getNumber()));
+			}
+			else if(hand.getTile(i).getColor() == "O"  & hand.getTile(i+1).getColor() == "O"){
+				assertTrue((hand.getTiles().get(i).getNumber() <= hand.getTiles().get(i+1).getNumber()));
+			}
+			
+			hand.HandReader();
+
+		}
+		hand.HandReader();
+
 	}
 	
 }

@@ -83,6 +83,43 @@ public class PlayerHand {
 
     }
     
+    public void sortTilesByColour() {
+    	ArrayList<PlayerHand> handsByColour = new ArrayList<PlayerHand>();
+    	
+    	Tile currTile; 
+    	ArrayList<Tile> tempHand = new ArrayList<Tile>(); 
+    	
+    	
+    	for(int i = 0; i < 4; i++)
+    		handsByColour.add(new PlayerHand(""+i)); 
+    	
+    	for(int i = 0; i < this.sizeOfHand(); i++) {
+    		currTile = this.getTile(i);
+    		
+    		if(currTile.getColor() == "R")
+    			handsByColour.get(0).addTileToHand(currTile);
+    		
+    		else if(currTile.getColor() == "B")
+    			handsByColour.get(1).addTileToHand(currTile);
+    		
+    		else if(currTile.getColor() == "G")
+    			handsByColour.get(2).addTileToHand(currTile);
+    		
+    		else if(currTile.getColor() == "O")
+    			handsByColour.get(3).addTileToHand(currTile);
+    	}
+    	
+    	for(int i = 0; i < 4; i++) {
+    		handsByColour.get(i).sortTilesByNumber();
+    		tempHand.addAll(handsByColour.get(i).getTiles());
+    		
+    	}
+    	
+    	this.hand = tempHand; 
+    }
+    
+ 
+    
 }
 
 class SortByX implements Comparator<Tile> 
