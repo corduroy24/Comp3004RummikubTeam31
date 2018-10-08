@@ -85,14 +85,28 @@ public class PlayerHand {
     
     public void sortTilesByColour() {
     	ArrayList<PlayerHand> handsByColour = new ArrayList<PlayerHand>();
-    	
-    	Tile currTile; 
+
     	ArrayList<Tile> tempHand = new ArrayList<Tile>(); 
+    	handsByColour = seperateByColour(); 
     	
+
+    	//sorts the hand by number then adds to hand
+    	for(int i = 0; i < 4; i++) {
+    		handsByColour.get(i).sortTilesByNumber();
+    		tempHand.addAll(handsByColour.get(i).getTiles());	
+    	}
+    	
+    	this.hand = tempHand; 
+    }
+    
+    public ArrayList<PlayerHand> seperateByColour() {
+    	ArrayList<PlayerHand> handsByColour = new ArrayList<PlayerHand>();
+    	Tile currTile; 
     	
     	for(int i = 0; i < 4; i++)
     		handsByColour.add(new PlayerHand(""+i)); 
     	
+    	//seperates the hand by colour 
     	for(int i = 0; i < this.sizeOfHand(); i++) {
     		currTile = this.getTile(i);
     		
@@ -108,17 +122,9 @@ public class PlayerHand {
     		else if(currTile.getColor() == "O")
     			handsByColour.get(3).addTileToHand(currTile);
     	}
-    	
-    	for(int i = 0; i < 4; i++) {
-    		handsByColour.get(i).sortTilesByNumber();
-    		tempHand.addAll(handsByColour.get(i).getTiles());
-    		
-    	}
-    	
-    	this.hand = tempHand; 
+    	return handsByColour; 
     }
     
- 
     
 }
 

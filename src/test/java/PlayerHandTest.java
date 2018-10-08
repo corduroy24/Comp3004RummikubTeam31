@@ -96,6 +96,7 @@ public class PlayerHandTest extends TestCase{
 		
 	}
 	
+	//testing seperatebycolour and sortbycolour
 	public void testSortByColour () {
 		Deck deck = new Deck();
 		deck.Shuffle();
@@ -103,7 +104,7 @@ public class PlayerHandTest extends TestCase{
 		hand.drawFirst14(deck);
 		
 		
-		hand.HandReader();
+		//hand.HandReader();
 		hand.sortTilesByColour();
 		int j =0; 
 		for(int i = 0; i < hand.sizeOfHand()-1; i++) {
@@ -119,11 +120,9 @@ public class PlayerHandTest extends TestCase{
 				assertTrue((hand.getTiles().get(i).getNumber() <= hand.getTiles().get(i+1).getNumber()));
 			}
 			
-			hand.HandReader();
+		//	hand.HandReader();
 
 		}
-		hand.HandReader();
-
 	}
 	
 }
