@@ -1,7 +1,9 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
-public class Player {
+public class Player implements Observer{
 	private PlayerStrategy playerStrategy; 
 	private static String name;
 	static PlayerHand hand; 
@@ -12,12 +14,18 @@ public class Player {
 	private boolean isFirstMeldComplete = false;
 	private int playerID = 0; 
 
-	public Player (String s, int id) {
+	public Player (String s, int id, PlayerStrategy strategy) {
 		name=s;
-		hand = new PlayerHand(name); 
+		hand = new PlayerHand(name+"'s Hand"); 
 		playerID = id; 
+    	this.playerStrategy = strategy; 
+
 	}
 	
+    public void update(Observable obs, Object x) {
+        System.out.println("update(" + obs + "," + x + ");");
+      }
+    
 	public boolean getIsTurn () { //gets the current status of the players turn  
 		return this.isTurn; 
 	}
@@ -55,9 +63,9 @@ public class Player {
     	return this.playerStrategy; 
     }
     
-    public void setPlayerStrategy(PlayerStrategy strategy) {
+   /* public void setPlayerStrategy(PlayerStrategy strategy) {
     	this.playerStrategy = strategy; 
-    }
+    }*/
     
     public PlayerHand getPlayerHand () {
     	return this.hand; 

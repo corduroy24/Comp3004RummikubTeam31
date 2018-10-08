@@ -4,7 +4,7 @@ public class PlayerTest extends TestCase{
 	
 	public void  testTurn() { //tests if its the players turn or not 
 		
-		Player player = new Player ("X", 1);
+		Player player = new Player ("X", 1, new HumanPlayerStrategy());
 		player.setIsTurn(true); 
 		assertTrue(player.getIsTurn()); 
 		player.setIsTurn(false); 
@@ -13,7 +13,7 @@ public class PlayerTest extends TestCase{
 	
 	public void testTileTaken() { //tests if the player has a taken a tile or not 
 		
-		Player player = new Player ("X", 1);
+		Player player = new Player ("X", 1, new HumanPlayerStrategy());
 		assertFalse(player.getIsTileTaken()); 
 		player.setIsTileTaken(true); 
 		assertTrue(player.getIsTileTaken()); 
@@ -21,7 +21,7 @@ public class PlayerTest extends TestCase{
 	
 	public void testTilePlaced() { // tests if a player has placed a tile or not 
 		
-		Player player = new Player ("X", 1);
+		Player player = new Player ("X", 1, new HumanPlayerStrategy());
 		assertFalse(player.getIsTilePlaced()); 
 		player.setIsTilePlaced(true); 
 		assertTrue(player.getIsTilePlaced()); 
@@ -30,7 +30,7 @@ public class PlayerTest extends TestCase{
 	
 	public void testInitialHand() {
 		Deck deck = new Deck(); 
-		Player player = new Player ("X", 1);
+		Player player = new Player ("X", 1, new HumanPlayerStrategy());
 		int initialSizeOfHand = 14; 
 		
 		for(int i = 0; i < initialSizeOfHand; i++) {
@@ -43,7 +43,7 @@ public class PlayerTest extends TestCase{
 	
 	public void testPlayedAllTiles() {
 		Deck deck = new Deck(); 
-		Player player = new Player ("X", 1);
+		Player player = new Player ("X", 1, new HumanPlayerStrategy());
 		int initialSizeOfHand = 14; 
 		Tile tileToPlay = new Tile();
 		for(int i = 0; i < initialSizeOfHand; i++) {
