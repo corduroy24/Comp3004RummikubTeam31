@@ -7,7 +7,8 @@ public class PlayerHandTest extends TestCase{
 	public void testSizeOfHand() {
 		PlayerHand  hand  = new PlayerHand ("X");
 		Deck deck = new Deck(); 
-				
+		deck.Shuffle();
+
 		Tile tempTile; 
 		hand.addTileToHand(tempTile  = deck.Draw());
 		hand.addTileToHand(deck.Draw());
@@ -25,7 +26,8 @@ public class PlayerHandTest extends TestCase{
 	public void testEmptyfHand() {
 		PlayerHand  hand  = new PlayerHand ("X");
 		Deck deck = new Deck(); 
-				
+		deck.Shuffle();
+
 		Tile tempTile_1, tempTile_2, tempTile_3; 
 		hand.addTileToHand(tempTile_1 = deck.Draw());
 		hand.addTileToHand(tempTile_2 = deck.Draw());
@@ -43,7 +45,8 @@ public class PlayerHandTest extends TestCase{
 		PlayerHand  hand  = new PlayerHand ("X");
 		Deck deck = new Deck(); 
 		
-		
+		deck.Shuffle();
+
 		Tile tempTile; 
 		hand.addTileToHand(tempTile  = deck.Draw());
 		hand.addTileToHand(deck.Draw());
@@ -61,7 +64,8 @@ public class PlayerHandTest extends TestCase{
 	public void testAddTile() {
 		PlayerHand  hand  = new PlayerHand ("X");
 		Deck deck = new Deck(); 
-		
+		deck.Shuffle();
+
 		
 		Tile tempTile; 
 		hand.addTileToHand(tempTile  = deck.Draw());
@@ -78,6 +82,7 @@ public class PlayerHandTest extends TestCase{
 	public void testadd14() {
 		Deck deck = new Deck();
 		PlayerHand  hand  = new PlayerHand ("X");
+		deck.Shuffle();
 		hand.drawFirst14(deck);
 		assertEquals(hand.sizeOfHand(),14);
 	}
@@ -122,6 +127,25 @@ public class PlayerHandTest extends TestCase{
 			
 		//	hand.HandReader();
 
+		}
+	}
+	
+	public void testInitialMeld () {
+		Deck deck = new Deck();
+		deck.Shuffle();
+		PlayerHand  hand  = new PlayerHand ("X");
+		hand.drawFirst14(deck);
+		
+		ArrayList<Tile> meld = new ArrayList<Tile>(); 
+		//need to create a meld class 
+		int meldTotal = 0 ; 
+		if(meld == null)
+			assertNull(meld); 
+		else {
+			for(int i = 0; i < meld.size(); i++)
+				meldTotal += meld.get(i).getNumber(); 
+			
+			assertTrue(meldTotal >= 30); 
 		}
 	}
 	
