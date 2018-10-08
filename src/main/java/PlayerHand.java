@@ -82,7 +82,8 @@ public class PlayerHand {
     	Collections.sort(sortedHand, new SortByX());
 
     }
-    
+    //inspired from 
+    //https://github.com/Ratchette/Rummikub/blob/master/src/rummikub/Hand.java
     public void sortTilesByColour() {
     	ArrayList<PlayerHand> handsByColour = new ArrayList<PlayerHand>();
 
@@ -99,6 +100,8 @@ public class PlayerHand {
     	this.hand = tempHand; 
     }
     
+    //inspired from:
+    //https://github.com/Ratchette/Rummikub/blob/master/src/rummikub/Hand.java
     public ArrayList<PlayerHand> seperateByColour() {
     	ArrayList<PlayerHand> handsByColour = new ArrayList<PlayerHand>();
     	Tile currTile; 
@@ -124,6 +127,19 @@ public class PlayerHand {
     	}
     	return handsByColour; 
     }
+    
+    /*public ArrayList<List> getInitialMeld(){
+    	int score = 0; 
+    	int largestScore = 0; 
+    	
+    	ArrayList<Tile> currPossibility; 
+    	
+    	currPossibility = this.hand.
+    	for(int i = 0; i < 5; i++) {
+    		
+    	}
+    	return null; 
+    }*/
     
     
 }

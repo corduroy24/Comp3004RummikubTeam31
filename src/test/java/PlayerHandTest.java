@@ -130,7 +130,7 @@ public class PlayerHandTest extends TestCase{
 		}
 	}
 	
-	public void testInitialMeld () {
+	/*public void testInitialMeld () {
 		Deck deck = new Deck();
 		deck.Shuffle();
 		PlayerHand  hand  = new PlayerHand ("X");
@@ -147,6 +147,6 @@ public class PlayerHandTest extends TestCase{
 			
 			assertTrue(meldTotal >= 30); 
 		}
-	}
+	}*/
 	
 }
