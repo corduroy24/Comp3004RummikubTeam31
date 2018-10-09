@@ -1,10 +1,6 @@
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashSet;
 import java.util.*;
 
-public class Deck {
+public class Deck implements Observer{
 	ArrayList<Tile> DeckofTiles = new ArrayList<Tile>(); // deck that we will be using, no joker functionality
 
 	int count = 0;
@@ -51,6 +47,11 @@ public class Deck {
 	
 	public int length() {
 		return DeckofTiles.size();
+	}
+
+	public void update(Observable o, Object arg) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

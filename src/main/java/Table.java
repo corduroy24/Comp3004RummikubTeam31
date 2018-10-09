@@ -2,8 +2,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
+import java.util.Observable;
+import java.util.Observer;
 
-public class Table {
+public class Table implements Observer{
 	private ArrayList<ArrayList<Tile>> table;
 	
 	public Table() {
@@ -108,6 +110,11 @@ public class Table {
 			}
 		}
 		return true;
+	}
+	public void update(Observable o, Object arg) {
+		// TODO Auto-generated method stub
+		System.out.println("Table Update");
+		
 	}
 	
 

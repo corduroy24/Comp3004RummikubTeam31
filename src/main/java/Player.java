@@ -6,7 +6,7 @@ import java.util.Observer;
 public class Player implements Observer{
 	private PlayerStrategy playerStrategy; 
 	private static String name;
-	static PlayerHand hand; 
+	private PlayerHand hand; 
 	
 	private boolean isTurn = false;
 	private boolean isTileTaken = false;
@@ -21,9 +21,13 @@ public class Player implements Observer{
     	this.playerStrategy = strategy; 
 
 	}
+	public PlayerHand getHand(){
+		return hand;
+	}
 	
     public void update(Observable obs, Object x) {
-        System.out.println("update(" + obs + "," + x + ");");
+        GameMaster update = (GameMaster) obs;
+        System.out.println("Update from" + obs);
       }
     
 	public boolean getIsTurn () { //gets the current status of the players turn  

@@ -1,3 +1,6 @@
+import java.util.Observable;
+import java.util.Observer;
+
 import javafx.application.Application;
 import javafx.collections.ObservableList;
 import javafx.stage.Stage;
@@ -21,7 +24,7 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 
-public class Ui extends Application implements EventHandler<ActionEvent>
+public class Ui extends Application implements EventHandler<ActionEvent>, Observer
 {
 	Stage window;
 	
@@ -43,10 +46,10 @@ public class Ui extends Application implements EventHandler<ActionEvent>
 	
 	Boolean tracing = true;
 	
-	public static void main(String [] args) 
-	{
-		launch(args);
-	}
+	//public static void main(String [] args) 
+//	{
+		//launch(args);
+	//}
 	public void start(Stage primaryStage) throws Exception 
 	{
 		window = primaryStage;
@@ -138,6 +141,11 @@ public class Ui extends Application implements EventHandler<ActionEvent>
 		newTile.setText(color+""+number);
 		newTile.setMinSize(50, 100);
 		playerHand.getChildren().add(newTile);		
+	}
+
+	public void update(Observable o, Object arg) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	
