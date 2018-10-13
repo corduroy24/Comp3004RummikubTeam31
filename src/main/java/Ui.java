@@ -45,10 +45,13 @@ public class Ui extends Application implements EventHandler<ActionEvent>, Observ
 	
 	Boolean tracing = true;
 	
-	//public static void main(String [] args) 
-//	{
-		//launch(args);
-	//}
+	/*
+	public static void main(String [] args) 
+	{
+		launch(args);
+	}
+	*/
+	
 	public void start(Stage primaryStage) throws Exception 
 	{
 		window = primaryStage;
@@ -56,8 +59,10 @@ public class Ui extends Application implements EventHandler<ActionEvent>, Observ
 		
 		//The layoutPane for the gridded table in the center
 		TilePane tablePane = new TilePane();
-		tablePane.setPrefRows(7); //Sets the row length to 12
-		tablePane.setPrefColumns(20); //Sets the column length to 12
+		tablePane.setPrefRows(7); //Sets the row length to 7
+		tablePane.setPrefColumns(20); //Sets the column length to 20
+		tablePane.setMaxWidth(1000); //Makes the resize not squish the table
+		tablePane.setMinWidth(1000); //Makes the resize not squish the table
 		ObservableList<Node> list = tablePane.getChildren();
 		
 		//Adds all of the table buttons onto the table
@@ -66,7 +71,7 @@ public class Ui extends Application implements EventHandler<ActionEvent>, Observ
 			for(int y=0;y<tableButtons.length;y++)
 			{
 				tableButtons[y][x] = new Button();
-				tableButtons[y][x].setText("x: "+x+"\ny: "+y+"\nTable\nCards");
+				tableButtons[y][x].setText("x: "+x+"\ny: "+y);
 				tableButtons[y][x].setMinSize(50, 100);
 				list.addAll(tableButtons[y][x]);
 			}
@@ -83,11 +88,82 @@ public class Ui extends Application implements EventHandler<ActionEvent>, Observ
 			playerHandButtons[x] = new Button();
 			//playerHandButtons[x].setText("x: "+x);
 			playerHandButtons[x].setMinSize(50, 100);
-			//playerHand.getChildren().add(playerHandButtons[x]);
+			
+			
+			
 		}
 		
+		//Remove once the main class sends in the hand
 		PlayerHand test1 = new PlayerHand("test1");
 		setPlayerHand(test1);
+		
+		
+		//
+		//Testing Events
+		//You can drag and drop the first player card to the first table card and it carries over number and color
+		//
+		playerHandButtons[0].setOnDragDetected(new EventHandler<MouseEvent>() {
+		    public void handle(MouseEvent event) {
+		        /* drag was detected, start a drag-and-drop gesture*/
+		        /* allow any transfer mode */
+		        Dragboard db = playerHandButtons[0].startDragAndDrop(TransferMode.ANY);
+		        
+		        /* Put a string on a dragboard */
+		        ClipboardContent content = new ClipboardContent();
+		        content.putString(playerHandButtons[0].getText());
+		        content.putUrl(playerHandButtons[0].getStyle());
+		        db.setContent(content);
+		        
+		        event.consume();
+		    }
+		});
+		tableButtons[0][0].setOnDragOver(new EventHandler<DragEvent>() {
+		    public void handle(DragEvent event) {
+		        /* data is dragged over the target */
+		        /* accept it only if it is not dragged from the same node 
+		         * and if it has a string data */
+		        if (event.getGestureSource() != tableButtons[0][0] &&
+		                event.getDragboard().hasString()) {
+		            /* allow for both copying and moving, whatever user chooses */
+		            event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
+		        }
+		        
+		        event.consume();
+		    }
+		});
+		tableButtons[0][0].setOnDragDropped(new EventHandler<DragEvent>() {
+		    public void handle(DragEvent event) {
+		        /* data dropped */
+		        /* if there is a string data on dragboard, read it and use it */
+		        Dragboard db = event.getDragboard();
+		        boolean successText = false;
+		        boolean successColor = false;
+		        if (db.hasString()) {
+		        	tableButtons[0][0].setText(db.getString());
+		        	successText = true;
+		        }
+		        if (db.hasUrl()) {
+		        	tableButtons[0][0].setStyle(db.getUrl());
+		        	successColor = true;
+		        }
+		        /* let the source know whether the string was successfully 
+		         * transferred and used */
+		        event.setDropCompleted(successText && successColor);
+		        
+		        event.consume();
+		     }
+		});
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		for(int x=0;x<playerHandButtons.length;x++)
 		{
@@ -175,19 +251,19 @@ public class Ui extends Application implements EventHandler<ActionEvent>, Observ
 			
 			if(test.getTile(x).getColor().equals("R"))
 			{
-				playerHandButtons[x].setStyle("-fx-background-color: #db4c4c;");
+				playerHandButtons[x].setStyle("-fx-background-color: #db4c4c");
 			}
 			else if(test.getTile(x).getColor().equals("B"))
 			{
-				playerHandButtons[x].setStyle("-fx-background-color: #3888d8;");
+				playerHandButtons[x].setStyle("-fx-background-color: #3888d8");
 			}
 			else if(test.getTile(x).getColor().equals("G"))
 			{
-				playerHandButtons[x].setStyle("-fx-background-color: #1a9922;");
+				playerHandButtons[x].setStyle("-fx-background-color: #1a9922");
 			}
 			else if(test.getTile(x).getColor().equals("O"))
 			{
-				playerHandButtons[x].setStyle("-fx-background-color: #c69033;");
+				playerHandButtons[x].setStyle("-fx-background-color: #c69033");
 			}
 			else
 			{
@@ -196,10 +272,8 @@ public class Ui extends Application implements EventHandler<ActionEvent>, Observ
 		}
 	}
 
-	public void update(Observable o, Object arg) {
-		// TODO Auto-generated method stub
+	public void update(Observable o, Object arg) 
+	{
 		
 	}
-	
-	
 }
