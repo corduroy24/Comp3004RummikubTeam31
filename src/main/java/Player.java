@@ -5,7 +5,7 @@ import java.util.Observer;
 
 public class Player implements Observer{
 	private PlayerStrategy playerStrategy; 
-	private static String name;
+	private String name;
 	private PlayerHand hand; 
 	
 	private boolean isTurn = false;
@@ -13,7 +13,16 @@ public class Player implements Observer{
 	private boolean isTilePlaced = false;
 	private boolean isFirstMeldComplete = false;
 	private int playerID = 0; 
+	
+	private Table table;
+	private Deck deck;
+	private int FirstPlayerPoint;
+	private int SecondPlayerPoint;
+	private int ThirdPlayerPoint;
+	private boolean win;
 
+	
+	
 	public Player (String s, int id, PlayerStrategy strategy) {
 		name=s;
 		hand = new PlayerHand(name+"'s Hand"); 
@@ -21,13 +30,22 @@ public class Player implements Observer{
     	this.playerStrategy = strategy; 
 
 	}
-	public PlayerHand getHand(){
-		return hand;
-	}
+	public PlayerHand getHand(){return hand;}
 	
     public void update(Observable obs, Object x) {
         GameMaster update = (GameMaster) obs;
-        System.out.println("Update from" + obs);
+        ArrayList<Player> enemies = update.getPlayers();
+        enemies.remove(this);
+        table = update.getTable();
+        deck = update.getDeck();
+        
+        FirstPlayerPoint = enemies.get(0).getHand().sizeOfHand();
+        SecondPlayerPoint = enemies.get(1).getHand().sizeOfHand();
+        ThirdPlayerPoint = enemies.get(2).getHand().sizeOfHand();
+        
+        System.out.println("Here is" + name);
+        System.out.println(FirstPlayerPoint + "\n" + SecondPlayerPoint + "\n" + ThirdPlayerPoint );
+        
       }
     
 	public boolean getIsTurn () { //gets the current status of the players turn  
@@ -67,12 +85,20 @@ public class Player implements Observer{
     	return this.playerStrategy; 
     }
     
-   /* public void setPlayerStrategy(PlayerStrategy strategy) {
-    	this.playerStrategy = strategy; 
-    }*/
-    
-    public PlayerHand getPlayerHand () {
-    	return this.hand; 
+    public boolean play() {
+    	return playerStrategy.playTheGame(table, hand);
     }
-
+    
+    public PlayerHand getPlayerHand () {	
+    	return this.hand; }
+    
+    public boolean isWinner() {
+    	return win;
+    }
+    public Table getTable() {return table;}
+    public Deck getDeck() {return deck;}
+    
+    
+    
+    
 }

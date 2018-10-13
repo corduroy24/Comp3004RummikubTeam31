@@ -31,6 +31,12 @@ public class Tile {
 	public int calculate(Tile x,Tile y) {
 		return (x.getNumber()+y.getNumber());
 	}
+	
+	public String toString() {
+		String out = "";
+		out += ("Color is :" + Color + " Number is " + Number);
+		return out;
+	}
 
 	
 }
