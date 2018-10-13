@@ -141,7 +141,7 @@ public class PlayerHand {
     	return null; 
     }*/
     
-    public boolean groupFound(PlayerHand x) {
+    public boolean groupFound(PlayerHand x) {           //THIS CHECKS IF HAND HAS ANY POSSIBILITIES FOR GROUPS
     	ArrayList<Tile> y = new ArrayList<Tile>();
     	y.add(x.getTile(0));
     	int count=1;
@@ -149,7 +149,7 @@ public class PlayerHand {
     		if ((x.getTile(i).getNumber())-(y.get(count-1).getNumber())==1) {
     			y.add(x.getTile(i));
     			count++;
-    			if (count==3) {
+    			if ((count==3)&&(x.sizeOfHand()-1==i)) {
     				return true;
     			}
     		}
@@ -191,6 +191,7 @@ public class PlayerHand {
     	
     	return this;
     }
+    
     
     public boolean hasPossibilities(PlayerHand x) {
     	
