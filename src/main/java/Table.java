@@ -5,7 +5,7 @@ import java.util.HashSet;
 import java.util.Observable;
 import java.util.Observer;
 
-public class Table implements Observer{
+public class Table{
 	private ArrayList<ArrayList<Tile>> table;
 	
 	public Table() {
@@ -111,10 +111,22 @@ public class Table implements Observer{
 		}
 		return true;
 	}
-	public void update(Observable o, Object arg) {
-		// TODO Auto-generated method stub
-		System.out.println("Table Update");
-		
+	
+	public ArrayList<Tile> get(int i ){
+		return table.get(i);
+	}
+	
+	public boolean equals(Table t) {
+		for(int i =0; i < table.size();i++) {
+			for(int u = 0; u < table.get(i).size();u++) {
+				if(!table.get(i).get(u).getColor().equals(t.get(i).get(u).getColor()))
+					return false;
+				if(table.get(i).get(u).getNumber() != t.get(i).get(u).getNumber())
+					return false;
+				
+			}
+		}
+		return true;
 	}
 	
 

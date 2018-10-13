@@ -7,6 +7,7 @@ import java.util.Observer;
 
 public class GameMaster extends Observable{
     
+	
 	private Player human;
 	private Player AI1;
 	private Player AI2;
@@ -15,9 +16,8 @@ public class GameMaster extends Observable{
 	private Table table;
 	private Ui GUI;
 	
-	
-	
-	public GameMaster() {
+	public GameMaster(){
+		//create human, AI1, AI2, AI3, deck table GUI
 		human = new Player("Human",1, new HumanPlayerStrategy());
 		AI1 = new Player("AI1",2, new PlayerStrategy1());
 		AI2 = new Player("AI2",3, new PlayerStrategy1());
@@ -26,16 +26,17 @@ public class GameMaster extends Observable{
 		deck.Shuffle();
 		table = new Table();
 		GUI = new Ui();
+		//Add human  and AIs to Observable
 		this.addObserver(human);
 		this.addObserver(AI1);
 		this.addObserver(AI2);
 		this.addObserver(AI3);
-		this.addObserver(deck);
-		this.addObserver(table);
 	}
 	
+	// main deck
 	public Deck getDeck() {return deck;}
 	
+	//get human and AIs to update data to each player
 	public ArrayList<Player> getPlayers(){
 		ArrayList<Player> players  = new ArrayList<Player>();
 		players.add(human);
@@ -49,26 +50,13 @@ public class GameMaster extends Observable{
 		return table;
 	}
 	
+	//draw card to human and AI
 	public void draw_card() {
 		human.getHand().drawFirst14(deck);
 		AI1.getHand().drawFirst14(deck);
 		AI2.getHand().drawFirst14(deck);
 		AI3.getHand().drawFirst14(deck);
-		setChanged();
-		notifyObservers();
-	}
-	
-	
-	
-	public void test() {
-		human.getHand().addTileToHand(deck.Draw());
-		setChanged();
-		notifyObservers();
-		AI1.getHand().addTileToHand(deck.Draw());
-		setChanged();
-		notifyObservers();
-		
-		
+		Announcement();
 	}
 	
 	public void gamestart() {
@@ -77,63 +65,49 @@ public class GameMaster extends Observable{
 		
 			if(human.play()) {
 				table = human.getTable();
-				setChanged();
-				notifyObservers();
+				Announcement();
 			}
 			else {
 				deck = human.getDeck();
-				setChanged();
-				notifyObservers();
+				Announcement();
 			}
 			
 			if(AI1.play()) {
 				table = AI1.getTable();
-				setChanged();
-				notifyObservers();
+				Announcement();
 			}
 			else {
 				deck = AI1.getDeck();
-				setChanged();
-				notifyObservers();
+				Announcement();
 			}
 			
 			if(AI2.play()) {
 				table = AI2.getTable();
-				setChanged();
-				notifyObservers();
+				Announcement();
 			}
 			else {
 				deck = AI2.getDeck();
-				setChanged();
-				notifyObservers();
+				Announcement();
 			}
 			
 			if(AI3.play()) {
 				table = AI3.getTable();
-				setChanged();
-				notifyObservers();
+				Announcement();
 			}
 			else {
 				deck = AI3.getDeck();
-				setChanged();
-				notifyObservers();
-			}
-			
-			
-			
-			
+				Announcement();
 		}
-		
+	}	
+}
+	// send notification to observers
+	public void Announcement(){
+		setChanged();
+		notifyObservers();
 	}
-	
-	
-	
-	
-	
 
 	public static void main(String[] args) {
 		GameMaster game = new GameMaster();
 		game.draw_card();
-		game.test();
 	}
 }

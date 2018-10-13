@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class Deck implements Observer{
+public class Deck{
 	ArrayList<Tile> DeckofTiles = new ArrayList<Tile>(); // deck that we will be using, no joker functionality
 
 	int count = 0;
@@ -48,10 +48,4 @@ public class Deck implements Observer{
 	public int length() {
 		return DeckofTiles.size();
 	}
-
-	public void update(Observable o, Object arg) {
-		// TODO Auto-generated method stub
-		
-	}
-	
 }

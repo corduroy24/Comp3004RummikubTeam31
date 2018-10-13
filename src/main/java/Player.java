@@ -14,12 +14,12 @@ public class Player implements Observer{
 	private boolean isFirstMeldComplete = false;
 	private int playerID = 0; 
 	
-	private Table table;
-	private Deck deck;
-	private int FirstPlayerPoint;
-	private int SecondPlayerPoint;
-	private int ThirdPlayerPoint;
-	private boolean win;
+	private Table table; // player can see table itself
+	private Deck deck; // player can see deck itself
+	private int FirstPlayerPoint; // Number of tiles on hand of first player
+	private int SecondPlayerPoint;// Number of tiles on hand of second player
+	private int ThirdPlayerPoint;// Number of tiles on hand of third player
+	private boolean win; // define winner
 
 	
 	
@@ -28,6 +28,8 @@ public class Player implements Observer{
 		hand = new PlayerHand(name+"'s Hand"); 
 		playerID = id; 
     	this.playerStrategy = strategy; 
+    	deck = new Deck();
+    	table = new Table();
 
 	}
 	public PlayerHand getHand(){return hand;}
@@ -35,16 +37,20 @@ public class Player implements Observer{
     public void update(Observable obs, Object x) {
         GameMaster update = (GameMaster) obs;
         ArrayList<Player> enemies = update.getPlayers();
+       // avoid duplicate information
         enemies.remove(this);
+        // update table and deck to decide what to play
         table = update.getTable();
         deck = update.getDeck();
         
         FirstPlayerPoint = enemies.get(0).getHand().sizeOfHand();
         SecondPlayerPoint = enemies.get(1).getHand().sizeOfHand();
         ThirdPlayerPoint = enemies.get(2).getHand().sizeOfHand();
-        
-        System.out.println("Here is" + name);
-        System.out.println(FirstPlayerPoint + "\n" + SecondPlayerPoint + "\n" + ThirdPlayerPoint );
+        System.out.println("Hello from :" + name);
+        System.out.println("Print out hand player 1: " + FirstPlayerPoint +
+        					" Print out hand player 2: " + SecondPlayerPoint +
+        					" Print out hand player 3: " + ThirdPlayerPoint);
+
         
       }
     
@@ -84,9 +90,10 @@ public class Player implements Observer{
     public PlayerStrategy getPlayerStrategy() {
     	return this.playerStrategy; 
     }
-    
+    //play function, which take table and its hand to decide how to play for this turn
+    // it return true false, so that GM can recognize update from deck or table to notify to others
     public boolean play() {
-    	return playerStrategy.playTheGame(table, hand);
+    	return playerStrategy.playTheGame(isFirstMeldComplete,table, hand);
     }
     
     public PlayerHand getPlayerHand () {	
@@ -97,6 +104,15 @@ public class Player implements Observer{
     }
     public Table getTable() {return table;}
     public Deck getDeck() {return deck;}
+    
+	public int getFirstPlayerHand() {
+		// TODO Auto-generated method stub
+		return FirstPlayerPoint;
+	}
+	public int getSecondPlayerHand() {
+		// TODO Auto-generated method stub
+		return SecondPlayerPoint;
+	}
     
     
     
