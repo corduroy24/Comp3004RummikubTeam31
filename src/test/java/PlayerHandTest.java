@@ -41,6 +41,8 @@ public class PlayerHandTest extends TestCase{
 		assertTrue(hand.isEmpty());
 	}
 	
+	
+	
 	public void testPlay() {
 		PlayerHand  hand  = new PlayerHand ("X");
 		Deck deck = new Deck(); 
@@ -87,6 +89,23 @@ public class PlayerHandTest extends TestCase{
 		assertEquals(hand.sizeOfHand(),14);
 	}
 	
+	public void testGroupFind() {      //tests if it can find a group
+		PlayerHand  hand  = new PlayerHand ("X");
+		Tile x1 = new Tile(1,3);
+		Tile x2 = new Tile(1,5);
+		Tile x3 = new Tile(1,6);
+		Tile x4 = new Tile(1,7);
+		hand.addTileToHand(x1);
+		hand.addTileToHand(x2);
+		hand.addTileToHand(x3);
+		hand.addTileToHand(x3);
+		hand.addTileToHand(x2);
+		hand.addTileToHand(x3);
+		hand.addTileToHand(x4);
+		boolean x = hand.groupFound(hand);
+		
+		assertEquals(x, true);
+	}
 	
 	public void testSortByNumber() {
 		Deck deck = new Deck();

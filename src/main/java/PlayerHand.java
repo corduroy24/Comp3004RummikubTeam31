@@ -141,6 +141,54 @@ public class PlayerHand {
     	return null; 
     }*/
     
+    public boolean groupFound(PlayerHand x) {
+    	ArrayList<Tile> y = new ArrayList<Tile>();
+    	y.add(x.getTile(0));
+    	int count=1;
+    	for (int i=1;i<x.sizeOfHand();i++) {
+    		if ((x.getTile(i).getNumber())-(y.get(count-1).getNumber())==1) {
+    			y.add(x.getTile(i));
+    			count++;
+    			if (count==3) {
+    				return true;
+    			}
+    		}
+    			else if (y.size()>2) {
+    				return true;
+    			}
+    			else if ((i==x.sizeOfHand()-1)&&(y.size()>2)){
+        			return true;
+        		}
+    			else if ((i==x.sizeOfHand()-1)&&(y.size()<3)){
+        			return false;
+        		}
+        		else if (i<x.sizeOfHand()-1) {
+        			y.clear();
+        			count=1;
+        			
+        			y.add(x.getTile(i));
+        			
+        			}
+    	}
+    	return false;
+    }
+    
+    public PlayerHand findGroup() {
+    	ArrayList<PlayerHand> colourSep = this.seperateByColour();
+    	for (int i=0;i<4;i++) {
+    	colourSep.get(i).sortTilesByNumber();
+    	}
+    	
+    	
+    	
+    	return this;
+    }
+    
+    public boolean hasPossibilities(PlayerHand x) {
+    	
+    	
+    	return false;
+    }
     
 }
 
@@ -154,3 +202,5 @@ class SortByX implements Comparator<Tile>
         return a.getNumber() - b.getNumber(); 
     } 
 } 
+
+
