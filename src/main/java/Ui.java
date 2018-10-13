@@ -1,6 +1,5 @@
 import java.util.Observable;
 import java.util.Observer;
-
 import javafx.application.Application;
 import javafx.collections.ObservableList;
 import javafx.stage.Stage;
@@ -35,7 +34,7 @@ public class Ui extends Application implements EventHandler<ActionEvent>, Observ
 	StackPane playBoard;
 	
 	Button startButton;
-	Button testButton;
+	Button endTurnButton;
 	
 	Button[][] tableButtons = new Button[20][7];
 	Button[] playerHandButtons = new Button[14];
@@ -82,8 +81,16 @@ public class Ui extends Application implements EventHandler<ActionEvent>, Observ
 		for(int x=0;x<playerHandButtons.length;x++)
 		{
 			playerHandButtons[x] = new Button();
-			playerHandButtons[x].setText("x: "+x);
+			//playerHandButtons[x].setText("x: "+x);
 			playerHandButtons[x].setMinSize(50, 100);
+			//playerHand.getChildren().add(playerHandButtons[x]);
+		}
+		
+		PlayerHand test1 = new PlayerHand("test1");
+		setPlayerHand(test1);
+		
+		for(int x=0;x<playerHandButtons.length;x++)
+		{
 			playerHand.getChildren().add(playerHandButtons[x]);
 		}
 		
@@ -94,13 +101,24 @@ public class Ui extends Application implements EventHandler<ActionEvent>, Observ
 		console.setMinHeight(100); //sets the size of the box
 		console.setMaxHeight(100); //sets the size of the box
 		
-		//The layoutPane for the overarching skeleton (holds all the other layouts)
-		BorderPane skeleton = new BorderPane();
-		skeleton.setTop(console); 
-		skeleton.setBottom(playerHand); 
-		skeleton.setCenter(tablePane); 
+		//Sets up the End Turn Button
+		endTurnButton = new Button();
+		endTurnButton.setText("End Turn");
+		endTurnButton.setMinSize(100, 100);
+		endTurnButton.setDisable(false);
 		
-		rummiScene = new Scene(skeleton);
+		//The layoutPane that seperated the Player's hand and the end turn button
+		BorderPane bottomSkeleton = new BorderPane();
+		bottomSkeleton.setCenter(playerHand);
+		bottomSkeleton.setRight(endTurnButton);
+		
+		//The layoutPane for the overarching skeleton (holds all the other layouts)
+		BorderPane bigSkeleton = new BorderPane();
+		bigSkeleton.setTop(console); 
+		bigSkeleton.setBottom(bottomSkeleton); 
+		bigSkeleton.setCenter(tablePane); 
+		
+		rummiScene = new Scene(bigSkeleton);
 		
 		window.setScene(rummiScene);
 		window.show();
@@ -115,9 +133,9 @@ public class Ui extends Application implements EventHandler<ActionEvent>, Observ
 			//window.setScene(rummiScene);
 		}
 		
-		if(event.getSource() == testButton)
+		if(event.getSource() == endTurnButton)
 		{
-			if(tracing) System.out.println("Test Button Pressed");
+			if(tracing) System.out.println("End Turn Button Pressed");
 			//window.setScene(rummiScene);
 		}
 	}
@@ -141,6 +159,41 @@ public class Ui extends Application implements EventHandler<ActionEvent>, Observ
 		newTile.setText(color+""+number);
 		newTile.setMinSize(50, 100);
 		playerHand.getChildren().add(newTile);		
+	}
+	
+	public void setPlayerHand(PlayerHand hand)
+	{
+		Deck deck = new Deck();
+		deck.Shuffle();
+		
+		PlayerHand test = new PlayerHand("test");
+		test.drawFirst14(deck);
+		
+		for(int x=0;x<14;x++)
+		{
+			playerHandButtons[x].setText(""+test.getTile(x).getNumber());
+			
+			if(test.getTile(x).getColor().equals("R"))
+			{
+				playerHandButtons[x].setStyle("-fx-background-color: #db4c4c;");
+			}
+			else if(test.getTile(x).getColor().equals("B"))
+			{
+				playerHandButtons[x].setStyle("-fx-background-color: #3888d8;");
+			}
+			else if(test.getTile(x).getColor().equals("G"))
+			{
+				playerHandButtons[x].setStyle("-fx-background-color: #1a9922;");
+			}
+			else if(test.getTile(x).getColor().equals("O"))
+			{
+				playerHandButtons[x].setStyle("-fx-background-color: #c69033;");
+			}
+			else
+			{
+				System.out.print("Something went wrong in setPlayerHand();");
+			}
+		}
 	}
 
 	public void update(Observable o, Object arg) {
