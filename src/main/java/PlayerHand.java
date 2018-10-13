@@ -175,11 +175,19 @@ public class PlayerHand {
     
     public PlayerHand findGroup() {
     	ArrayList<PlayerHand> colourSep = this.seperateByColour();
+    	int count=0;
     	for (int i=0;i<4;i++) {
     	colourSep.get(i).sortTilesByNumber();
+    	if (groupFound(colourSep.get(i))==false) {
+    		count++;
     	}
-    	
-    	
+    	}
+    	if (count==4) {
+    		//System.out.println("NO GROUPS FOUND");
+    	}
+    	else {
+    		
+    	}
     	
     	return this;
     }
