@@ -62,7 +62,9 @@ public class Ui extends Application implements EventHandler<ActionEvent>, Observ
 		tablePane.setPrefRows(7); //Sets the row length to 7
 		tablePane.setPrefColumns(20); //Sets the column length to 20
 		tablePane.setMaxWidth(1000); //Makes the resize not squish the table
-		tablePane.setMinWidth(1000); //Makes the resize not squish the table
+		tablePane.setMinWidth(1100); //Makes the resize not squish the table
+		tablePane.setHgap(5);
+		tablePane.setVgap(5);
 		ObservableList<Node> list = tablePane.getChildren();
 		
 		//Adds all of the table buttons onto the table
@@ -72,8 +74,84 @@ public class Ui extends Application implements EventHandler<ActionEvent>, Observ
 			{
 				tableButtons[y][x] = new Button();
 				tableButtons[y][x].setText("x: "+x+"\ny: "+y);
-				tableButtons[y][x].setMinSize(50, 100);
+				tableButtons[y][x].setMinSize(50, 80);
 				list.addAll(tableButtons[y][x]);
+				
+				final int numberX = x;
+				final int numberY = y;
+				//Shows the button as droppable if it isnt from itself
+				tableButtons[y][x].setOnDragOver(new EventHandler<DragEvent>() 
+				{
+				    public void handle(DragEvent event) 
+				    {
+				        if (event.getGestureSource() != tableButtons[numberY][numberX]) 
+				        {
+				            //Sets up the copy of color and number
+				            event.acceptTransferModes(TransferMode.ANY);
+				        }
+				        
+				        event.consume();
+				    }
+				});
+				
+				//Turns the button into the button that was dropped on it
+				tableButtons[y][x].setOnDragDropped(new EventHandler<DragEvent>() 
+				{
+				    public void handle(DragEvent event) 
+				    {
+				        Dragboard db = event.getDragboard();
+				        boolean successText = false;
+				        boolean successColor = false;
+				        
+				        //Add the text to the button
+				        if (db.hasString()) 
+				        {
+				        	tableButtons[numberY][numberX].setText(db.getString());
+				        	successText = true;
+				        }
+				        
+				        //Add the color to the button
+				        if (db.hasUrl()) 
+				        {
+				        	tableButtons[numberY][numberX].setStyle(db.getUrl());
+				        	successColor = true;
+				        }
+				        
+				        event.setDropCompleted(successText && successColor);
+				        event.consume();
+				     }
+				});
+				
+				//Lights up the button green if it is possible to drop the tile here
+				tableButtons[y][x].setOnDragEntered(new EventHandler<DragEvent>() 
+				{
+				    public void handle(DragEvent event) 
+				    {
+				    	//Add a check here to see if its possible for the tile to be dropped here
+				    	
+						if (event.getGestureSource() != tableButtons[numberY][numberX]) 
+						{
+							tableButtons[numberY][numberX].setTextFill(Color.GREEN);
+						}
+						else
+						{
+							tableButtons[numberY][numberX].setTextFill(Color.RED);
+						}
+						
+						event.consume();
+				    }
+				});
+				
+				//Changes the color back to normal when you stop hovering on the button
+				tableButtons[y][x].setOnDragExited(new EventHandler<DragEvent>() 
+				{
+				    public void handle(DragEvent event) 
+				    {
+				    	tableButtons[numberY][numberX].setTextFill(Color.BLACK);
+
+				        event.consume();
+				    }
+				});
 			}
 		}
 		
@@ -89,82 +167,28 @@ public class Ui extends Application implements EventHandler<ActionEvent>, Observ
 			//playerHandButtons[x].setText("x: "+x);
 			playerHandButtons[x].setMinSize(50, 100);
 			
-			
-			
+			final int number = x;
+			//Copies the color and text to a clipboard to be carried over and allows you to start dragging it
+			playerHandButtons[x].setOnDragDetected(new EventHandler<MouseEvent>() 
+			{
+			    public void handle(MouseEvent event) 
+			    {
+			        Dragboard db = playerHandButtons[number].startDragAndDrop(TransferMode.ANY);
+			        
+			        ClipboardContent content = new ClipboardContent();
+			        content.putString(playerHandButtons[number].getText());
+			        content.putUrl(playerHandButtons[number].getStyle());
+			        db.setContent(content);
+			        
+			        event.consume();
+			    }
+			});
 		}
 		
 		//Remove once the main class sends in the hand
 		PlayerHand test1 = new PlayerHand("test1");
 		setPlayerHand(test1);
-		
-		
-		//
-		//Testing Events
-		//You can drag and drop the first player card to the first table card and it carries over number and color
-		//
-		playerHandButtons[0].setOnDragDetected(new EventHandler<MouseEvent>() {
-		    public void handle(MouseEvent event) {
-		        /* drag was detected, start a drag-and-drop gesture*/
-		        /* allow any transfer mode */
-		        Dragboard db = playerHandButtons[0].startDragAndDrop(TransferMode.ANY);
-		        
-		        /* Put a string on a dragboard */
-		        ClipboardContent content = new ClipboardContent();
-		        content.putString(playerHandButtons[0].getText());
-		        content.putUrl(playerHandButtons[0].getStyle());
-		        db.setContent(content);
-		        
-		        event.consume();
-		    }
-		});
-		tableButtons[0][0].setOnDragOver(new EventHandler<DragEvent>() {
-		    public void handle(DragEvent event) {
-		        /* data is dragged over the target */
-		        /* accept it only if it is not dragged from the same node 
-		         * and if it has a string data */
-		        if (event.getGestureSource() != tableButtons[0][0] &&
-		                event.getDragboard().hasString()) {
-		            /* allow for both copying and moving, whatever user chooses */
-		            event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
-		        }
-		        
-		        event.consume();
-		    }
-		});
-		tableButtons[0][0].setOnDragDropped(new EventHandler<DragEvent>() {
-		    public void handle(DragEvent event) {
-		        /* data dropped */
-		        /* if there is a string data on dragboard, read it and use it */
-		        Dragboard db = event.getDragboard();
-		        boolean successText = false;
-		        boolean successColor = false;
-		        if (db.hasString()) {
-		        	tableButtons[0][0].setText(db.getString());
-		        	successText = true;
-		        }
-		        if (db.hasUrl()) {
-		        	tableButtons[0][0].setStyle(db.getUrl());
-		        	successColor = true;
-		        }
-		        /* let the source know whether the string was successfully 
-		         * transferred and used */
-		        event.setDropCompleted(successText && successColor);
-		        
-		        event.consume();
-		     }
-		});
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+
 		for(int x=0;x<playerHandButtons.length;x++)
 		{
 			playerHand.getChildren().add(playerHandButtons[x]);
