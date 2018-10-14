@@ -174,7 +174,7 @@ public class PlayerHand {
     	return false;
     }
     
-    public ArrayList<Tile> findRun(PlayerHand x) {
+    public ArrayList<Tile> findRun(PlayerHand x) {          //Gives you the first run it can detect. (FOR AI)
     	ArrayList<PlayerHand> colourSep = this.seperateByColour();
     	int count2=0;
     	for (int i=0;i<4;i++) {
