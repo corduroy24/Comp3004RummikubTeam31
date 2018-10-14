@@ -1,3 +1,4 @@
+import java.io.InputStream;
 import java.util.Observable;
 import java.util.Observer;
 import javafx.application.Application;
@@ -5,15 +6,16 @@ import javafx.collections.ObservableList;
 import javafx.stage.Stage;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.paint.Color;
 import javafx.scene.Node;
@@ -23,15 +25,13 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 
-public class Ui extends Application implements EventHandler<ActionEvent>, Observer
+public class Ui extends Application implements Observer
 {
 	Stage window;
 	
 	Scene mainMenuScene;
-	StackPane mainMenu;
 	
 	Scene rummiScene;
-	StackPane playBoard;
 	
 	Button startButton;
 	Button endTurnButton;
@@ -61,8 +61,7 @@ public class Ui extends Application implements EventHandler<ActionEvent>, Observ
 		TilePane tablePane = new TilePane();
 		tablePane.setPrefRows(7); //Sets the row length to 7
 		tablePane.setPrefColumns(20); //Sets the column length to 20
-		tablePane.setMaxWidth(1000); //Makes the resize not squish the table
-		tablePane.setMinWidth(1100); //Makes the resize not squish the table
+		tablePane.setMaxSize(1100, 1000); //Makes the resize not squish the table
 		tablePane.setHgap(5);
 		tablePane.setVgap(5);
 		ObservableList<Node> list = tablePane.getChildren();
@@ -165,7 +164,7 @@ public class Ui extends Application implements EventHandler<ActionEvent>, Observ
 		{
 			playerHandButtons[x] = new Button();
 			//playerHandButtons[x].setText("x: "+x);
-			playerHandButtons[x].setMinSize(50, 100);
+			playerHandButtons[x].setMinSize(50, 80);
 			
 			final int number = x;
 			//Copies the color and text to a clipboard to be carried over and allows you to start dragging it
@@ -198,14 +197,22 @@ public class Ui extends Application implements EventHandler<ActionEvent>, Observ
 		console = new TextArea();
 		console.setText("This is where it displays current players turn as well as what the AI did on their turn.\nCan also display score");
 		console.setEditable(false); //Makes it not editable
-		console.setMinHeight(100); //sets the size of the box
-		console.setMaxHeight(100); //sets the size of the box
+		console.setMinSize(1095, 100); //sets the size of the box
+		console.setMaxSize(1095, 100); //sets the size of the box
 		
 		//Sets up the End Turn Button
 		endTurnButton = new Button();
 		endTurnButton.setText("End Turn");
 		endTurnButton.setMinSize(100, 100);
 		endTurnButton.setDisable(false);
+		endTurnButton.setOnAction(new EventHandler<ActionEvent>() 
+		{
+		    public void handle(ActionEvent e) 
+		    {
+		    	//Change to send a message that players turn has ended
+		    	window.setScene(mainMenuScene);
+		    }
+		});
 		
 		//The layoutPane that seperated the Player's hand and the end turn button
 		BorderPane bottomSkeleton = new BorderPane();
@@ -220,24 +227,37 @@ public class Ui extends Application implements EventHandler<ActionEvent>, Observ
 		
 		rummiScene = new Scene(bigSkeleton);
 		
-		window.setScene(rummiScene);
-		window.show();
-	}
-	
-	public void handle(ActionEvent event) 
-	{
-		//The listener for the starting button
-		if(event.getSource() == startButton)
-		{
-			if(tracing) System.out.println("Start Button Pressed");
-			//window.setScene(rummiScene);
-		}
+		InputStream mainImagePath = getClass().getResourceAsStream("TitleImage.png");
+		Image mainImage = new Image(mainImagePath);
+		ImageView mainImageNode = new ImageView(mainImage);
+		mainImageNode.setX(300);
+		mainImageNode.setY(100);
 		
-		if(event.getSource() == endTurnButton)
+		//Sets up the End Turn Button
+		startButton = new Button();
+		startButton.setText("Start Turn");
+		startButton.setMinSize(100, 50);
+		startButton.setDisable(false);
+		startButton.setLayoutX(480);
+		startButton.setLayoutY(500);
+		startButton.setOnAction(new EventHandler<ActionEvent>() 
 		{
-			if(tracing) System.out.println("End Turn Button Pressed");
-			//window.setScene(rummiScene);
-		}
+		    public void handle(ActionEvent e) 
+		    {
+		    	window.setScene(rummiScene);
+		    }
+		});
+		
+		AnchorPane mainScreen = new AnchorPane(mainImageNode, startButton);
+		mainScreen.setMinSize(1095,	790);
+		
+		mainMenuScene = new Scene(mainScreen);
+		
+		InputStream iconImagePath = getClass().getResourceAsStream("iconImage.png");
+		Image iconImage = new Image(iconImagePath);
+		window.getIcons().add(iconImage);
+		window.setScene(mainMenuScene);
+		window.show();
 	}
 	
 	public void updateConsole(String output)
@@ -291,7 +311,8 @@ public class Ui extends Application implements EventHandler<ActionEvent>, Observ
 			}
 			else
 			{
-				System.out.print("Something went wrong in setPlayerHand();");
+				System.out.println("Something went wrong in setPlayerHand()");
+				System.out.println("Color for tile "+x+" is set to "+test.getTile(x).getColor());
 			}
 		}
 	}
