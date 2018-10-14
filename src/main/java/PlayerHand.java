@@ -141,7 +141,8 @@ public class PlayerHand {
     	return null; 
     }*/
     
-    public boolean groupFound(PlayerHand x) {           //THIS CHECKS IF HAND HAS ANY POSSIBILITIES FOR GROUPS
+    public boolean runFound(PlayerHand x) {           //THIS CHECKS IF HAND HAS ANY POSSIBILITIES FOR RUNS
+
     	ArrayList<Tile> y = new ArrayList<Tile>();
     	y.add(x.getTile(0));
     	int count=1;
@@ -173,23 +174,51 @@ public class PlayerHand {
     	return false;
     }
     
-    public PlayerHand findGroup() {
+    public ArrayList<Tile> findRun(PlayerHand x) {
     	ArrayList<PlayerHand> colourSep = this.seperateByColour();
-    	int count=0;
+    	int count2=0;
     	for (int i=0;i<4;i++) {
     	colourSep.get(i).sortTilesByNumber();
-    	if (groupFound(colourSep.get(i))==false) {
-    		count++;
+    	if ((!colourSep.get(i).hand.isEmpty())&&(runFound(colourSep.get(i))==false)) {
+    		count2++;  
     	}
     	}
-    	if (count==4) {
+    	if (count2==4) {
     		//System.out.println("NO GROUPS FOUND");
     	}
     	else {
-    		
+    		ArrayList<Tile> y = new ArrayList<Tile>();
+        	y.add(x.getTile(0));
+        	int count=1;
+        	for (int i=1;i<x.sizeOfHand();i++) {
+        		if ((x.getTile(i).getNumber())-(y.get(count-1).getNumber())==1) {
+        			y.add(x.getTile(i));
+        			count++;
+        			if ((count==3)&&(x.sizeOfHand()-1==i)) {
+        				return y;
+        			}
+        		}
+        			else if (y.size()>2) {
+        				return y;
+        			}
+        			else if ((i==x.sizeOfHand()-1)&&(y.size()>2)){
+            			return y;
+            		}
+        			else if ((i==x.sizeOfHand()-1)&&(y.size()<3)){
+            			return null;
+            		}
+            		else if (i<x.sizeOfHand()-1) {
+            			y.clear();
+            			count=1;
+            			
+            			y.add(x.getTile(i));
+            			
+            			}
+        	}
+        	return null;
     	}
     	
-    	return this;
+    	return null;
     }
     
     

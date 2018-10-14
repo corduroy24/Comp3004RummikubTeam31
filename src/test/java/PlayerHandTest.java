@@ -89,7 +89,7 @@ public class PlayerHandTest extends TestCase{
 		assertEquals(hand.sizeOfHand(),14);
 	}
 	
-	public void testGroupFind() {      //tests if it can find a group
+	public void testRunFind() {      //tests if it can find a run
 		PlayerHand  hand  = new PlayerHand ("X");
 		Tile x1 = new Tile(1,3);
 		Tile x2 = new Tile(1,5);
@@ -102,9 +102,26 @@ public class PlayerHandTest extends TestCase{
 		hand.addTileToHand(x2);
 		hand.addTileToHand(x3);
 		hand.addTileToHand(x4);
-		boolean x = hand.groupFound(hand);
+		boolean x = hand.runFound(hand);
 		
 		assertEquals(x, true);
+	}
+	
+	public void testRunAdd() {      //tests if it can find a run
+		PlayerHand  hand  = new PlayerHand ("X");
+		Tile x1 = new Tile(1,3);
+		Tile x2 = new Tile(1,5);
+		Tile x3 = new Tile(1,6);
+		Tile x4 = new Tile(1,7);
+		hand.addTileToHand(x1);
+		hand.addTileToHand(x2);
+		hand.addTileToHand(x3);
+		hand.addTileToHand(x3);
+		hand.addTileToHand(x2);
+		hand.addTileToHand(x3);
+		hand.addTileToHand(x4);
+		ArrayList<Tile> x = hand.findRun(hand);
+		assertEquals(x.get(0).getNumber(),5 );
 	}
 	
 	public void testSortByNumber() {
