@@ -143,6 +143,10 @@ public class PlayerHand {
     
     public boolean runFound(PlayerHand x) {           //THIS CHECKS IF HAND HAS ANY POSSIBILITIES FOR RUNS
 
+    	if (x.hand.isEmpty()) { 
+    		return false;
+    	}
+    	
     	ArrayList<Tile> y = new ArrayList<Tile>();
     	y.add(x.getTile(0));
     	int count=1;
@@ -175,7 +179,7 @@ public class PlayerHand {
     }
     
     public ArrayList<Tile> findRun(PlayerHand x) {          //Gives you the first run it can detect. (FOR AI)
-    	ArrayList<PlayerHand> colourSep = this.seperateByColour();
+    	ArrayList<PlayerHand> colourSep = x.seperateByColour(); 
     	int count2=0;
     	for (int i=0;i<4;i++) {
     	colourSep.get(i).sortTilesByNumber();
@@ -187,37 +191,44 @@ public class PlayerHand {
     		//System.out.println("NO GROUPS FOUND");
     	}
     	else {
-    		ArrayList<Tile> y = new ArrayList<Tile>();
-        	y.add(x.getTile(0));
-        	int count=1;
-        	for (int i=1;i<x.sizeOfHand();i++) {
-        		if ((x.getTile(i).getNumber())-(y.get(count-1).getNumber())==1) {
-        			y.add(x.getTile(i));
+    		for (int z=0;z<4;z++) {
+    			while (colourSep.get(z).hand.isEmpty()){
+    				z++;
+    			}
+    		ArrayList<Tile> y = new ArrayList<Tile>(); 
+        	y.add(colourSep.get(z).getTile(0));     
+        	int count=1;        
+        	for (int i=1;i<colourSep.get(z).sizeOfHand();i++) {  //System.out.println(y.get(0));
+        		if ((colourSep.get(z).getTile(i).getNumber())-(y.get(count-1).getNumber())==1) {
+        			y.add(colourSep.get(z).getTile(i));
         			count++;
-        			if ((count==3)&&(x.sizeOfHand()-1==i)) {
+        			if ((count>2)&&(colourSep.get(z).sizeOfHand()-1==i)) {
         				return y;
         			}
+        		}
+        		else if (count>2) {
+        			return y;
         		}
         			else if (y.size()>2) {
         				return y;
         			}
-        			else if ((i==x.sizeOfHand()-1)&&(y.size()>2)){
+        			else if ((i==colourSep.get(z).sizeOfHand()-1)&&(y.size()>2)){
             			return y;
             		}
-        			else if ((i==x.sizeOfHand()-1)&&(y.size()<3)){
+        			else if ((i==colourSep.get(z).sizeOfHand()-1)&&(y.size()<3)){
             			return null;
             		}
-            		else if (i<x.sizeOfHand()-1) {
+            		else if (i<colourSep.get(z).sizeOfHand()-1) {
             			y.clear();
             			count=1;
             			
-            			y.add(x.getTile(i));
+            			y.add(colourSep.get(z).getTile(i));
             			
             			}
         	}
-        	return null;
+
     	}
-    	
+    	}
     	return null;
     }
     

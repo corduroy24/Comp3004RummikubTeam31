@@ -109,19 +109,23 @@ public class PlayerHandTest extends TestCase{
 	
 	public void testRunAdd() {      //tests if it can find a run
 		PlayerHand  hand  = new PlayerHand ("X");
-		Tile x1 = new Tile(1,3);
+		Tile x1 = new Tile(1,4);
 		Tile x2 = new Tile(1,5);
-		Tile x3 = new Tile(1,6);
-		Tile x4 = new Tile(1,7);
+		Tile x3 = new Tile(3,6);
+		Tile x4 = new Tile(3,7);
+		Tile x5 = new Tile(3,8);
+		Tile x6 = new Tile(3,9);
+		Tile x7 = new Tile(3,10);
 		hand.addTileToHand(x1);
 		hand.addTileToHand(x2);
 		hand.addTileToHand(x3);
-		hand.addTileToHand(x3);
-		hand.addTileToHand(x2);
-		hand.addTileToHand(x3);
 		hand.addTileToHand(x4);
-		ArrayList<Tile> x = hand.findRun(hand);
-		assertEquals(x.get(0).getNumber(),5 );
+		hand.addTileToHand(x5);
+		hand.addTileToHand(x6);
+		hand.addTileToHand(x1);
+	
+		ArrayList<Tile> x = hand.findRun(hand); 
+		assertEquals(x.get(0).getNumber(), 6 );
 	}
 	
 	public void testSortByNumber() {
