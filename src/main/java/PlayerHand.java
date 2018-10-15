@@ -282,6 +282,11 @@ public class PlayerHand {
 		return false;
 	}
 
+	public void removeTile(Tile tile) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
 
 class SortByX implements Comparator<Tile> {

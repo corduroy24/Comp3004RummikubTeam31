@@ -52,6 +52,7 @@ public class Ui extends Application implements Observer
 	}
 	*/
 	
+	
 	public void start(Stage primaryStage) throws Exception 
 	{
 		window = primaryStage;

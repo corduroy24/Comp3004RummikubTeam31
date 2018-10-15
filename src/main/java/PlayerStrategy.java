@@ -2,5 +2,5 @@ import java.util.List;
 
 public interface PlayerStrategy {
 	
-	public boolean playTheGame(boolean b,Table t, PlayerHand hand);
+	public boolean playTheGame(Player p);
 }

@@ -93,7 +93,7 @@ public class Player implements Observer{
     //play function, which take table and its hand to decide how to play for this turn
     // it return true false, so that GM can recognize update from deck or table to notify to others
     public boolean play() {
-    	return playerStrategy.playTheGame(isFirstMeldComplete,table, hand);
+    	return playerStrategy.playTheGame(this);
     }
     
     public PlayerHand getPlayerHand () {	
@@ -113,7 +113,14 @@ public class Player implements Observer{
 		// TODO Auto-generated method stub
 		return SecondPlayerPoint;
 	}
+	public int getThirdPlayerHand() {
+		// TODO Auto-generated method stub
+		return ThirdPlayerPoint;
+	}
     
+	public void setWinner() {
+		win = true;
+	}
     
     
     
