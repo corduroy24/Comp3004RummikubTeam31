@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Meld {
 	
@@ -35,5 +36,31 @@ public class Meld {
 
 	public void removeTiles (ArrayList<Tile> t) {
 		meld.removeAll(t); 
+	}
+	
+	public boolean checkRun(ArrayList<Tile> t) {
+		Tile currTile; 
+		String colour = t.get(0).getColor(); 
+		int prevNum = t.get(0).getNumber(); 
+		
+		Collections.sort(t, new SortByX());
+		
+		for(int i = 1; i < t.size(); i++) {
+			currTile = t.get(i); 
+			
+			if(!(colour.equals(currTile.getColor())))
+					return false;
+			
+			if(currTile.getNumber() == prevNum + 1)
+				prevNum++; 
+			else 
+				return false; 
+		}
+		
+		return true; 
+	}
+	
+	public ArrayList<Tile> getTiles() {
+		return this.meld; 
 	}
 }

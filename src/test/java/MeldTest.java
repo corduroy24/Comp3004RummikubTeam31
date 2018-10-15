@@ -35,7 +35,7 @@ public class MeldTest extends TestCase {
 
 		Meld meld = new Meld (hand.getTiles());
 		
-		AssertTrue(meld.checkRun()); 
+		assertTrue(meld.checkRun(meld.getTiles())); 
 		
 	}
 }
