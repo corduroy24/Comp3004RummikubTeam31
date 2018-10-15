@@ -21,7 +21,7 @@ public class PlayerHand {
 		}
 	}
 
-	public List<Tile> getTiles() {
+	public ArrayList<Tile> getTiles() {
 		return this.hand;
 	}
 

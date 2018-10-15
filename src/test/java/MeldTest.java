@@ -2,7 +2,7 @@ import junit.framework.TestCase;
 
 public class MeldTest extends TestCase {
 
-	public void testInitialMeldStatus() {
+	public void testInitialMeld() {
 		
 		PlayerHand hand = new PlayerHand ("x"); 
 		Tile t1 = new Tile(1,10); 
@@ -15,8 +15,8 @@ public class MeldTest extends TestCase {
 		hand.addTileToHand(t3);
 		hand.addTileToHand(t4);
 
-		Meld meld = new Meld (hand);
+		Meld meld = new Meld (hand.getTiles());
 		
-		assertTrue(meld.validate());
+		assertTrue(meld.getStatus());
 	}
 }
