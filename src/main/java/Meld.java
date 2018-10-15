@@ -65,17 +65,25 @@ public class Meld {
 		Tile currTile; 
 		ArrayList<String> usedColours = new ArrayList<String>(); 
 		
-		if(t.size() != 3 | t.size() != 4) return false;  
+		if(t.size() != 3 & t.size() != 4) return false;  
 		
 		int setNum = t.get(0).getNumber(); 
 		usedColours.add(t.get(0).getColor()); 
 		
-		for(int i = 0; i < t.size(); i++) {
+		for(int i = 1; i < t.size(); i++) {
 			currTile = t.get(i); 
 			
-			if(currTile.getNumber() != setNum) return false;
+			if(currTile.getNumber() != setNum) {
+				System.out.println("Check 1");
+				return false;
+			}
 			
-			if(usedColours.contains(currTile.getColor())) return false; 
+			if(usedColours.contains(currTile.getColor())) {
+				System.out.println("Check 2");
+
+				return false; 
+			
+			}
 			
 			usedColours.add(currTile.getColor()); 
 		}
