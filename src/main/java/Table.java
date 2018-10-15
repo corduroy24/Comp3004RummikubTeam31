@@ -50,6 +50,7 @@ public class Table{
 	
 	//check the array is set or not
 	public boolean isSet(ArrayList<Tile> t) {
+		if (t == null) return false;
 		Collections.sort(t, new SortbyValue());
 		int NumberOfJoker = 0;
 		if (t.get(t.size()-1).getNumber()== 14) NumberOfJoker++;
@@ -83,6 +84,7 @@ public class Table{
 	} 
 	//check the array is sequence or not
 	public boolean isSequence(ArrayList<Tile> t) {
+		if (t == null) return false;
 		Collections.sort(t, new SortbyValue());
 		int NumberOfJoker = 0;
 		if (t.get(t.size()-1).getNumber()== 14) NumberOfJoker++;

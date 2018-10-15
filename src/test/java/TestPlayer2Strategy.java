@@ -1,8 +1,8 @@
 import junit.framework.TestCase;
 
-public class TestPlayer1Strategy extends TestCase{
+public class TestPlayer2Strategy extends TestCase{
 	
-	Player player = new Player("Player",999,new PlayerStrategy1());
+	Player player = new Player("Player",999,new PlayerStrategy2());
 	Tile tile = new Tile(1,12);
 	Tile tile1 = new Tile(1,11);
 	Tile tile2 = new Tile(1,10);
@@ -37,7 +37,7 @@ public class TestPlayer1Strategy extends TestCase{
 		assertTrue(player.isWinner() == false);
 		
 		
-		player = new Player("Player",999,new PlayerStrategy1());
+		player = new Player("Player",999,new PlayerStrategy2());
 		player.getHand().addTileToHand(tile);
 		player.getHand().addTileToHand(tile1);
 		player.getHand().addTileToHand(tile2);
@@ -46,7 +46,7 @@ public class TestPlayer1Strategy extends TestCase{
 		assertTrue(player.getTable().getNumberOfTile() == 3);
 		assertTrue(player.isWinner() == true);
 		
-		player = new Player("Player",999,new PlayerStrategy1());
+		player = new Player("Player",999,new PlayerStrategy2());
 		player.getHand().addTileToHand(tile);
 		player.getHand().addTileToHand(tile1);
 		player.getHand().addTileToHand(tile2);
@@ -60,7 +60,7 @@ public class TestPlayer1Strategy extends TestCase{
 		assertTrue(player.getTable().getNumberOfTile() == 3);		
 	}
 	public void testAfterFirstMove() {
-		player = new Player("Player",999,new PlayerStrategy1());
+		player = new Player("Player",999,new PlayerStrategy2());
 		//1 set 111
 		player.getHand().addTileToHand(t7);
 		player.getHand().addTileToHand(t8);
