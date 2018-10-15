@@ -146,6 +146,7 @@ public class PlayerHandTest extends TestCase{
 		for(int i = 0; i < y.size()-1; i++) {
 			assertTrue(y.get(i).getColor() !=  y.get(i+1).getColor()); 
 		}
+		
 	}
 	
 	
