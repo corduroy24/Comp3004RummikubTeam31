@@ -4,10 +4,10 @@ public class Meld {
 	
 	private boolean status; 
 	
-	private ArrayList<Tile> meld; 
+	private ArrayList<Tile> meld = new ArrayList<Tile>(); 
 	
 	public Meld (ArrayList<Tile> t) {
-		
+
 		addTiles(t); 
 		
 		//could add a check meld method here, if we werent asuuming validation of melds
