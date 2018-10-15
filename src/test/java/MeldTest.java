@@ -45,7 +45,6 @@ public class MeldTest extends TestCase {
 		
 		//////invalid run with different number 
 		PlayerHand h3 = new PlayerHand ("x"); 
-		
 		h3.addTileToHand(new Tile(1,9));
 		h3.addTileToHand(new Tile (1,10));
 		h3.addTileToHand(new Tile (1,11));
@@ -55,6 +54,23 @@ public class MeldTest extends TestCase {
 		
 		meld3.addTile(new Tile(1,6));
 		assertFalse(meld3.checkRun(meld3.getTiles()));
+		
+		//////invalid run via size 
+		PlayerHand h4 = new PlayerHand ("x"); 
+		Tile tempTile_1; 
+		Tile tempTile_2; 
+
+		h4.addTileToHand(new Tile(1,9));
+		h4.addTileToHand(new Tile (1,10));
+		h4.addTileToHand(tempTile_1 = new Tile (1,11));
+		h4.addTileToHand(tempTile_2 = new Tile (1,12));
+
+		Meld meld4 = new Meld (h4.getTiles());
+		
+		meld4.removeTile(tempTile_1);
+		meld4.removeTile(tempTile_1);
+
+		assertFalse(meld4.checkRun(meld4.getTiles()));
 	}
 	
 	public void testCheckSet() {
