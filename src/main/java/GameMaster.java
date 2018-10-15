@@ -51,7 +51,7 @@ public class GameMaster extends Observable{
 	}
 	
 	//draw card to human and AI
-	public void draw_card() {
+	public void dealInitialHand() {
 		human.getHand().drawFirst14(deck);
 		AI1.getHand().drawFirst14(deck);
 		AI2.getHand().drawFirst14(deck);
@@ -108,6 +108,6 @@ public class GameMaster extends Observable{
 
 	public static void main(String[] args) {
 		GameMaster game = new GameMaster();
-		game.draw_card();
+		game.dealInitialHand();
 	}
 }
