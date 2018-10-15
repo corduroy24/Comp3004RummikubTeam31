@@ -131,9 +131,9 @@ public class PlayerHandTest extends TestCase{
 	public void testFindGroup() { 
 		PlayerHand  hand  = new PlayerHand ("X");
 		Tile x1 = new Tile(1,4);
-		Tile x2 = new Tile(1,5);
+		Tile x2 = new Tile(4,4);
 		Tile x3 = new Tile(2,4);
-		Tile x4 = new Tile(3,7);
+		Tile x4 = new Tile(3,1);
 		hand.addTileToHand(x1);
 		hand.addTileToHand(x2);
 		hand.addTileToHand(x3);

@@ -247,19 +247,24 @@ public class PlayerHand {
 
 	//////////////////////////////////////////////////////////////////////////////////////////////
 
-	public boolean foundGroup(PlayerHand x) {
+	public boolean foundGroup(PlayerHand x) { // returns true if hand has possibility for any groups
 		ArrayList<PlayerHand> colourSep = x.seperateByColour();
+		int count = 0;
 		for (int i = 0; i < 4; i++) {
 			colourSep.get(i).sortTilesByNumber();
 			colourSep.get(i).removeDoubles();
 
 		}
-		for (int i = 0; i < 4; i++) {
-			for (int j = 0; j < 4; j++) {
+		int j=0;
+		for (int i = 0; i < 4; i++,j++) {
+			for (j=j ; j < 4; j++) {
 				for (int z = 0; z < colourSep.get(j).sizeOfHand(); z++) {
 					for (int y = 0; y < colourSep.get(i).sizeOfHand(); y++) {
 						if (colourSep.get(i).getTile(y).getNumber() == colourSep.get(j).getTile(z).getNumber()) {
-							return true;
+							count++;
+							if (count > 2) {
+								return true;
+							}
 						}
 					}
 				}
