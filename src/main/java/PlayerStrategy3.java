@@ -3,102 +3,59 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
 
-
-public class PlayerStrategy2 implements PlayerStrategy {
-
+public class PlayerStrategy3 {	
 	public boolean playTheGame(Player p) {
 		// TODO Auto-generated method stub
-		ArrayList<Tile> input = new ArrayList<Tile>();
-		
 		if(p.getIsFirstMeldComplete()) {
+			if(isCondition(p)) {
 			
+			}
+			else return false; 
+
 		}
 		else {
-			if(p.getTable().getNumberOfTile() == 0) {
-			ArrayList<Tile> hand = new ArrayList<Tile>();
-			
-			for(int i =0; i < p.getHand().sizeOfHand();i++) {
-				hand.add(p.getHand().getTile(i));
-			}
-			
+			ArrayList<Tile> hand = p.getHand().getTiles();
 			Collections.sort(hand, new SortByColor());
 			Collections.sort(hand, new SortToFindSequence());
-			
 			ArrayList<ArrayList<Tile>> sequences = getSequences(hand);
 			hand = renew(hand,sequences);
 			Collections.sort(hand, new SortbyValue());
 			Collections.sort(hand, new SortToFindSet());
-			
 			ArrayList<ArrayList<Tile>> sets = getSets(hand);
-			hand = renew(hand,sets);
-			ArrayList<ArrayList<Tile>> output = new ArrayList<ArrayList<Tile>>();
-
-			
-			Collections.sort(output, new SortByArrayList());
-			if(sets != null)
-				output.addAll(sets);
-			if(sequences != null)
-				output.addAll(sequences);
-		
-			for(int i =0; i < output.size();i++) {
-				for(int u =0; u < output.get(i).size();u++)
-					System.out.println(output.get(i).get(u).getColor() + "  " + output.get(i).get(u).getNumber());
-			}
-			
 			int point = 0;
-			ArrayList<ArrayList<Tile>> tiles = new ArrayList<ArrayList<Tile>>();
-			for(int i = output.size()-1; i > -1 ;i--) {
-				for(int u = 0; u < output.get(i).size();u++) {
-					point += output.get(i).get(u).getNumber();
-				}
-				tiles.add(output.get(i));
-				if (point >= 30) {
-					for(int j = 0; j < tiles.size();j++) {
-						p.getTable().addTiles(tiles.get(j));
-						for(int n = 0; n < tiles.get(j).size();n++) {
-							p.getHand().getTiles().remove(tiles.get(j).get(n));
-						}
-						p.getHand().HandReader();
-						p.setIsfirstMeldComplete(true);
-						return true;
-					}
+			point = getPoint(sequences,sets);
+					
+			
+			p.getHand().HandReader();
+			for(int i =0; i < sequences.size();i++) {
+				for(int u = 0; u < sequences.get(i).size();u++) {
+					System.out.println(sequences.get(i).get(u).getColor() + "  " + sequences.get(i).get(u).getNumber());
 				}
 			}
-			return false;
+			System.out.println("--------------------");
+			for(int i =0; i < sets.size();i++) {
+				for(int u = 0; u < sets.get(i).size();u++) {
+					System.out.println(sets.get(i).get(u).getColor() + "  " + sets.get(i).get(u).getNumber());
+				}
 			}
-		}	
+			
+			
+			
+		}				
 		return false;
 	}
 	
-	//sort by tile' value
-	class SortByArrayList implements Comparator<ArrayList<Tile>> 
-	{ 	
-	    public int compare(ArrayList<Tile> a , ArrayList<Tile> b) 
-	    { int x = 0;
-			int y = 0;
-			for(int i =0; i < a.size();i++)
-				x += a.get(i).getNumber();
-			for(int i =0; i < b.size();i++)
-				y += b.get(i).getNumber();
-
-			
-			return x - y;
-		
-	        
-	    } 
-	}
-	
-	private ArrayList<Tile>  renew(ArrayList<Tile> t, ArrayList<ArrayList<Tile>> sequences) {
+	private ArrayList<Tile>  renew(ArrayList<Tile> hand, ArrayList<ArrayList<Tile>> sequences) {
 		// TODO Auto-generated method stub
 		ArrayList<Tile> output;
 		if(sequences != null) {
 		for(int i =0; i < sequences.size();i++) {
 			for(int u = 0; u < sequences.get(i).size();u++) {
-			t.remove(sequences.get(i).get(u));
+			hand.remove(sequences.get(i).get(u));
 				}
 			}
 		}
-		output = t;
+		output = hand;
 		return output;
 		
 	}
@@ -178,7 +135,6 @@ public class PlayerStrategy2 implements PlayerStrategy {
 	}
 	//Function get all the sets in the List sorted by value, then sorted by color (this list is sorted 2 times)
 	public ArrayList<ArrayList<Tile>> getSets(ArrayList<Tile> hand){
-		if(hand.size() == 0) return null;
 		ArrayList<ArrayList<Tile>> sets = new ArrayList<ArrayList<Tile>>();
 		ArrayList<Tile> check = new ArrayList<Tile>();
 		int value = hand.get(0).getNumber();
@@ -212,46 +168,53 @@ public class PlayerStrategy2 implements PlayerStrategy {
 		return sets;
 	}
 	
+	public int getPoint(ArrayList<ArrayList<Tile>> a, ArrayList<ArrayList<Tile>> b) {
+		ArrayList<Integer> sum = new ArrayList<Integer>();
+		// sum size = a.size() + b.size()
+		int point = 0;
+		if(a != null && a.size() != 0) {
+			for(int i =0; i < a.size();i++) {
+				point = 0;
+				for(int u = 0; u < a.get(i).size();u++) {
+					point += a.get(i).get(u).getNumber();
+				}
+				sum.add(point);
+			}
+		}
+		point = 0;
+		if(b != null && b.size() != 0) {
+			for(int i =0; i < b.size();i++) {
+				for(int u = 0; u < b.get(i).size();u++) {
+					point += b.get(i).get(u).getNumber();
+				}
+			}
+			
+		}
+		
+		
+		return point;
+	}
+	
+	//firstInitial30
+	
+	public boolean isCondition(Player p) {
+		int sizeOfPlayerHand = p.getHand().sizeOfHand(); 
+		
+		if(sizeOfPlayerHand - 3 > p.getFirstPlayerHand()) return false; 
+		else if (sizeOfPlayerHand - 3 > p.getSecondPlayerHand()) return false; 
+		else if (sizeOfPlayerHand - 3 > p.getThirdPlayerHand()) return false; 
+		
+		return true; 
+	}
+	
+	
+
 	public static void main(String[] args) {
-		Player player = new Player("bill",123, new PlayerStrategy2());
+		Player player = new Player("name",123, new PlayerStrategy2());
 		Deck deck = new Deck();
 		deck.Shuffle();
-		Tile tile = new Tile(1,12);
-		Tile tile1 = new Tile(1,11);
-		Tile tile2 = new Tile(1,10);
-		Tile tile3 = new Tile(2,3);
-		Tile tile4 = new Tile(3,5);
-		Tile tile5 = new Tile(2,7);
-		Tile tile6 = new Tile(1,7);
-		Tile tile10 = new Tile(3,7);
-		
-		Tile t7 = new Tile(1,1);
-		Tile t8 = new Tile(2,1);
-		Tile t9 = new Tile(3,1);
-		
-		Tile t11 = new Tile(4,1);
-		Tile t12 = new Tile(4,2);
-		Tile t13 = new Tile(4,3);
-		Tile t14 = new Tile(4,4);
-		player.getPlayerHand().addTileToHand(t11);
-		player.getPlayerHand().addTileToHand(t12);
-		player.getPlayerHand().addTileToHand(t13);
-		player.getPlayerHand().addTileToHand(t14);
-		
-		player.getPlayerHand().addTileToHand(tile);
-		player.getPlayerHand().addTileToHand(tile1);
-		player.getPlayerHand().addTileToHand(tile2);
-		player.getPlayerHand().addTileToHand(tile3);
-		player.getPlayerHand().addTileToHand(tile4);
-		player.getPlayerHand().addTileToHand(tile5);
-		player.getPlayerHand().addTileToHand(tile6);
-		player.getPlayerHand().addTileToHand(tile10);
-		
-		player.getPlayerHand().addTileToHand(t7);
-		player.getPlayerHand().addTileToHand(t8);
-		//player.getPlayerHand().addTileToHand(t9);
+		player.getHand().drawFirst14(deck);
 		player.play();
 		
 	}
-	
 }

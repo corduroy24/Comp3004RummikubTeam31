@@ -43,8 +43,8 @@ public class TestPlayer2Strategy extends TestCase{
 		player.getHand().addTileToHand(tile2);
 		player.getHand().HandReader();
 		player.play();
-		assertTrue(player.getTable().getNumberOfTile() == 3);
-		assertTrue(player.isWinner() == true);
+		assertTrue(player.getTable().getNumberOfTile() == 0);
+		assertTrue(player.isWinner() == false);
 		
 		player = new Player("Player",999,new PlayerStrategy2());
 		player.getHand().addTileToHand(tile);

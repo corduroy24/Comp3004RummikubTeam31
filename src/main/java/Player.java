@@ -16,9 +16,9 @@ public class Player implements Observer{
 	
 	private Table table; // player can see table itself
 	private Deck deck; // player can see deck itself
-	private int FirstPlayerPoint; // Number of tiles on hand of first player
-	private int SecondPlayerPoint;// Number of tiles on hand of second player
-	private int ThirdPlayerPoint;// Number of tiles on hand of third player
+	private int firstPlayerPoint; // Number of tiles on hand of first player
+	private int secondPlayerPoint;// Number of tiles on hand of second player
+	private int thirdPlayerPoint;// Number of tiles on hand of third player
 	private boolean win; // define winner
 
 	
@@ -32,6 +32,8 @@ public class Player implements Observer{
     	table = new Table();
 
 	}
+	
+	
 	public PlayerHand getHand(){return hand;}
 	
     public void update(Observable obs, Object x) {
@@ -43,13 +45,13 @@ public class Player implements Observer{
         table = update.getTable();
         deck = update.getDeck();
         
-        FirstPlayerPoint = enemies.get(0).getHand().sizeOfHand();
-        SecondPlayerPoint = enemies.get(1).getHand().sizeOfHand();
-        ThirdPlayerPoint = enemies.get(2).getHand().sizeOfHand();
+        firstPlayerPoint = enemies.get(0).getHand().sizeOfHand();
+        secondPlayerPoint = enemies.get(1).getHand().sizeOfHand();
+        thirdPlayerPoint = enemies.get(2).getHand().sizeOfHand();
         System.out.println("Hello from :" + name);
-        System.out.println("Print out hand player 1: " + FirstPlayerPoint +
-        					" Print out hand player 2: " + SecondPlayerPoint +
-        					" Print out hand player 3: " + ThirdPlayerPoint);
+        System.out.println("Print out hand player 1: " + firstPlayerPoint +
+        					" Print out hand player 2: " + secondPlayerPoint +
+        					" Print out hand player 3: " + thirdPlayerPoint);
 
         
       }
@@ -107,15 +109,15 @@ public class Player implements Observer{
     
 	public int getFirstPlayerHand() {
 		// TODO Auto-generated method stub
-		return FirstPlayerPoint;
+		return firstPlayerPoint;
 	}
 	public int getSecondPlayerHand() {
 		// TODO Auto-generated method stub
-		return SecondPlayerPoint;
+		return secondPlayerPoint;
 	}
 	public int getThirdPlayerHand() {
 		// TODO Auto-generated method stub
-		return ThirdPlayerPoint;
+		return thirdPlayerPoint;
 	}
     
 	public void setWinner() {

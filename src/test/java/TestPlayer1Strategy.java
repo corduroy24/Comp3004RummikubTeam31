@@ -57,7 +57,7 @@ public class TestPlayer1Strategy extends TestCase{
 		System.out.println("hello");
 		
 		player.play();
-		assertTrue(player.getTable().getNumberOfTile() == 3);		
+		assertTrue(player.getTable().getNumberOfTile() == 0);		
 	}
 	public void testAfterFirstMove() {
 		player = new Player("Player",999,new PlayerStrategy1());
