@@ -73,17 +73,12 @@ public class Meld {
 		for(int i = 1; i < t.size(); i++) {
 			currTile = t.get(i); 
 			
-			if(currTile.getNumber() != setNum) {
-				System.out.println("Check 1");
-				return false;
-			}
+			if(currTile.getNumber() != setNum) return false;
 			
-			if(usedColours.contains(currTile.getColor())) {
-				System.out.println("Check 2");
+			
+			if(usedColours.contains(currTile.getColor())) return false; 
+			
 
-				return false; 
-			
-			}
 			
 			usedColours.add(currTile.getColor()); 
 		}
