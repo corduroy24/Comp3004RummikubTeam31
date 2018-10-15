@@ -134,13 +134,23 @@ public class PlayerHand {
 	 * } return null; }
 	 */
 
+	private void removeDoubles() {
+		// TODO Auto-generated method stub
+		ArrayList<Tile> tiles = new ArrayList<Tile>(); 
+		ArrayList<Tile> x = new ArrayList<Tile>(); 
+		x.addAll(this.hand); 
+		this.hand.clear();
+		this.hand.addAll(x); 
+		
+		tiles  = this.hand; 
+	}
 	///////////////////////////////////////////////////////////////////////////////////////////////////////
 	public boolean runFound(PlayerHand x) { // THIS CHECKS IF HAND HAS ANY POSSIBILITIES FOR RUNS
 
 		if (x.hand.isEmpty()) {
 			return false;
 		}
-
+		x.removeDoubles();
 		ArrayList<Tile> y = new ArrayList<Tile>();
 		y.add(x.getTile(0));
 		int count = 1;
@@ -168,8 +178,9 @@ public class PlayerHand {
 		return false;
 	}
 
-	public ArrayList<Tile> findRun(PlayerHand x) { // Gives you the first run it can detect. (FOR AI)
+	public ArrayList<Tile> findRun(PlayerHand x) { // Gives you the best run it can detect. (FOR AI)
 		ArrayList<PlayerHand> colourSep = x.seperateByColour();
+		
 		ArrayList<Tile>[] y = new ArrayList[4];
 		for (int i = 0; i < 4; i++) {
 			y[i] = new ArrayList<Tile>();
@@ -177,6 +188,7 @@ public class PlayerHand {
 		int count5 = 0;
 		for (int i = 0; i < 4; i++) {
 			colourSep.get(i).sortTilesByNumber();
+			colourSep.get(i).removeDoubles();
 			if ((!colourSep.get(i).hand.isEmpty()) && (runFound(colourSep.get(i)) == false)) {
 				count5++;
 			}
@@ -200,7 +212,6 @@ public class PlayerHand {
 						}
 					}
 				}
-				
 				y[z].add(colourSep.get(z).getTile(0));
 				int count = 1;
 				for (int i = 1; i < colourSep.get(z).sizeOfHand(); i++) { // System.out.println(y.get(z).get(0));
