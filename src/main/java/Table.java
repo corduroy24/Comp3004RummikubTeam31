@@ -51,12 +51,12 @@ public class Table{
 	//check the array is set or not
 	public boolean isSet(ArrayList<Tile> t) {
 		if (t == null) return false;
+		if(t.size() > 4 || t.size() < 3) return false;
 		Collections.sort(t, new SortbyValue());
 		int NumberOfJoker = 0;
 		if (t.get(t.size()-1).getNumber()== 14) NumberOfJoker++;
 		if (t.get(t.size()-2).getNumber()== 14) NumberOfJoker++;
 		int value = t.get(0).getNumber();
-		if(t.size() > 4) return false;
 		HashSet<String> set = new HashSet<String>();
 		if(t.size()-1-NumberOfJoker == 0) return true;
 		
@@ -86,6 +86,7 @@ public class Table{
 	public boolean isSequence(ArrayList<Tile> t) {
 		if (t == null) return false;
 		Collections.sort(t, new SortbyValue());
+		if(t.size() < 3) return false;
 		int NumberOfJoker = 0;
 		if (t.get(t.size()-1).getNumber()== 14) NumberOfJoker++;
 		if (t.get(t.size()-2).getNumber()== 14) NumberOfJoker++;
