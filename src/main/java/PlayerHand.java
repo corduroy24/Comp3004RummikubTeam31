@@ -5,251 +5,256 @@ import java.util.Comparator;
 import java.util.List;
 
 public class PlayerHand {
-	
+
 	String name = "";
-	
-	PlayerHand(String x){
-	//	super(); 
-		name=x;	
+
+	PlayerHand(String x) {
+		// super();
+		name = x;
 	}
+
 	private ArrayList<Tile> hand = new ArrayList<Tile>();
 
-	
 	public void drawFirst14(Deck x) {
-		for (int i=0;i<14;i++) {
+		for (int i = 0; i < 14; i++) {
 			hand.add(x.Draw());
 		}
 	}
-	
-	
-    public List<Tile> getTiles() {
-    	return this.hand;
-    }
-    
-    public Tile getTile (int index) {
-    	return this.hand.get(index);
-    }
-    
-    
-    public void addTileToHand(Tile newTile ) {
-    	hand.add(newTile);
-    }
 
-    
-    public int sizeOfHand() {
-    	return hand.size(); 
-    }
-	
-    public void playTileFromHand(Tile tileToPlay) {
-    //	this.playerStrategy.playTiles(hand, tileToPlay);
-    	hand.remove(tileToPlay); 
-    	hand.trimToSize();
+	public List<Tile> getTiles() {
+		return this.hand;
+	}
 
-    }
-    
-    public boolean isEmpty() {
-    	return hand.isEmpty();
-    }
-    
-    public void HandReader() {
-    	if (isEmpty()) {
-    		System.out.println("Player: "+ name +" has no tiles");
-    	}
-    	else {
-    		System.out.println("Displaying Player: "+ name +"'s tiles");
-    		for (int i=0;i<sizeOfHand();i++) {
-    			String Color="";
-    			if (hand.get(i).getColor().equals("O")) {
-    				Color="Orange";
-    			}
-    			if (hand.get(i).getColor().equals("B")) {
-    				Color="Blue";
-    			}
-    			if (hand.get(i).getColor().equals("G")) {
-    				Color="Green";
-    			}
-    			if (hand.get(i).getColor().equals("R")) {
-    				Color="Red";
-    			}
-    			System.out.println(i+1 +". " + Color + " " + hand.get(i).getNumber());
-    		}
-    	}
-    }
-    
-    public void sortTilesByNumber () {// sorts tiles from least to greatest
-    	ArrayList<Tile> sortedHand = this.hand; 
-    	
-    	Collections.sort(sortedHand, new SortByX());
+	public Tile getTile(int index) {
+		return this.hand.get(index);
+	}
 
-    }
-    //inspired from 
-    //https://github.com/Ratchette/Rummikub/blob/master/src/rummikub/Hand.java
-    public void sortTilesByColour() {
-    	ArrayList<PlayerHand> handsByColour = new ArrayList<PlayerHand>();
+	public void addTileToHand(Tile newTile) {
+		hand.add(newTile);
+	}
 
-    	ArrayList<Tile> tempHand = new ArrayList<Tile>(); 
-    	handsByColour = seperateByColour(); 
-    	
+	public int sizeOfHand() {
+		return hand.size();
+	}
 
-    	//sorts the hand by number then adds to hand
-    	for(int i = 0; i < 4; i++) {
-    		handsByColour.get(i).sortTilesByNumber();
-    		tempHand.addAll(handsByColour.get(i).getTiles());	
-    	}
-    	
-    	this.hand = tempHand; 
-    }
-    
-    //inspired from:
-    //https://github.com/Ratchette/Rummikub/blob/master/src/rummikub/Hand.java
-    public ArrayList<PlayerHand> seperateByColour() {
-    	ArrayList<PlayerHand> handsByColour = new ArrayList<PlayerHand>();
-    	Tile currTile; 
-    	
-    	for(int i = 0; i < 4; i++)
-    		handsByColour.add(new PlayerHand(""+i)); 
-    	
-    	//seperates the hand by colour 
-    	for(int i = 0; i < this.sizeOfHand(); i++) {
-    		currTile = this.getTile(i);
-    		
-    		if(currTile.getColor() == "R")
-    			handsByColour.get(0).addTileToHand(currTile);
-    		
-    		else if(currTile.getColor() == "B")
-    			handsByColour.get(1).addTileToHand(currTile);
-    		
-    		else if(currTile.getColor() == "G")
-    			handsByColour.get(2).addTileToHand(currTile);
-    		
-    		else if(currTile.getColor() == "O")
-    			handsByColour.get(3).addTileToHand(currTile);
-    	}
-    	return handsByColour; 
-    }
-    
-    /*public ArrayList<List> getInitialMeld(){
-    	int score = 0; 
-    	int largestScore = 0; 
-    	
-    	ArrayList<Tile> currPossibility; 
-    	
-    	currPossibility = this.hand.
-    	for(int i = 0; i < 5; i++) {
-    		
-    	}
-    	return null; 
-    }*/
-    
-    public boolean runFound(PlayerHand x) {           //THIS CHECKS IF HAND HAS ANY POSSIBILITIES FOR RUNS
+	public void playTileFromHand(Tile tileToPlay) {
+		// this.playerStrategy.playTiles(hand, tileToPlay);
+		hand.remove(tileToPlay);
+		hand.trimToSize();
 
-    	if (x.hand.isEmpty()) { 
-    		return false;
-    	}
-    	
-    	ArrayList<Tile> y = new ArrayList<Tile>();
-    	y.add(x.getTile(0));
-    	int count=1;
-    	for (int i=1;i<x.sizeOfHand();i++) {
-    		if ((x.getTile(i).getNumber())-(y.get(count-1).getNumber())==1) {
-    			y.add(x.getTile(i));
-    			count++;
-    			if ((count==3)&&(x.sizeOfHand()-1==i)) {
-    				return true;
-    			}
-    		}
-    			else if (y.size()>2) {
-    				return true;
-    			}
-    			else if ((i==x.sizeOfHand()-1)&&(y.size()>2)){
-        			return true;
-        		}
-    			else if ((i==x.sizeOfHand()-1)&&(y.size()<3)){
-        			return false;
-        		}
-        		else if (i<x.sizeOfHand()-1) {
-        			y.clear();
-        			count=1;
-        			
-        			y.add(x.getTile(i));
-        			
-        			}
-    	}
-    	return false;
-    }
-    
-    public ArrayList<Tile> findRun(PlayerHand x) {          //Gives you the first run it can detect. (FOR AI)
-    	ArrayList<PlayerHand> colourSep = x.seperateByColour(); 
-    	int count2=0;
-    	for (int i=0;i<4;i++) {
-    	colourSep.get(i).sortTilesByNumber();
-    	if ((!colourSep.get(i).hand.isEmpty())&&(runFound(colourSep.get(i))==false)) {
-    		count2++;  
-    	}
-    	}
-    	if (count2==4) {
-    		//System.out.println("NO GROUPS FOUND");
-    	}
-    	else {
-    		for (int z=0;z<4;z++) {
-    			while (colourSep.get(z).hand.isEmpty()){
-    				z++;
-    			}
-    		ArrayList<Tile> y = new ArrayList<Tile>(); 
-        	y.add(colourSep.get(z).getTile(0));     
-        	int count=1;        
-        	for (int i=1;i<colourSep.get(z).sizeOfHand();i++) {  //System.out.println(y.get(0));
-        		if ((colourSep.get(z).getTile(i).getNumber())-(y.get(count-1).getNumber())==1) {
-        			y.add(colourSep.get(z).getTile(i));
-        			count++;
-        			if ((count>2)&&(colourSep.get(z).sizeOfHand()-1==i)) {
-        				return y;
-        			}
-        		}
-        		else if (count>2) {
-        			return y;
-        		}
-        			else if (y.size()>2) {
-        				return y;
-        			}
-        			else if ((i==colourSep.get(z).sizeOfHand()-1)&&(y.size()>2)){
-            			return y;
-            		}
-        			else if ((i==colourSep.get(z).sizeOfHand()-1)&&(y.size()<3)){
-            			return null;
-            		}
-            		else if (i<colourSep.get(z).sizeOfHand()-1) {
-            			y.clear();
-            			count=1;
-            			
-            			y.add(colourSep.get(z).getTile(i));
-            			
-            			}
-        	}
+	}
 
-    	}
-    	}
-    	return null;
-    }
-    
-    
-    public boolean hasPossibilities(PlayerHand x) {
-    	
-    	
-    	return false;
-    }
-    
+	public boolean isEmpty() {
+		return hand.isEmpty();
+	}
+
+	public void HandReader() {
+		if (isEmpty()) {
+			System.out.println("Player: " + name + " has no tiles");
+		} else {
+			System.out.println("Displaying Player: " + name + "'s tiles");
+			for (int i = 0; i < sizeOfHand(); i++) {
+				String Color = "";
+				if (hand.get(i).getColor().equals("O")) {
+					Color = "Orange";
+				}
+				if (hand.get(i).getColor().equals("B")) {
+					Color = "Blue";
+				}
+				if (hand.get(i).getColor().equals("G")) {
+					Color = "Green";
+				}
+				if (hand.get(i).getColor().equals("R")) {
+					Color = "Red";
+				}
+				System.out.println(i + 1 + ". " + Color + " " + hand.get(i).getNumber());
+			}
+		}
+	}
+
+	public void sortTilesByNumber() {// sorts tiles from least to greatest
+		ArrayList<Tile> sortedHand = this.hand;
+
+		Collections.sort(sortedHand, new SortByX());
+
+	}
+
+	// inspired from
+	// https://github.com/Ratchette/Rummikub/blob/master/src/rummikub/Hand.java
+	public void sortTilesByColour() {
+		ArrayList<PlayerHand> handsByColour = new ArrayList<PlayerHand>();
+
+		ArrayList<Tile> tempHand = new ArrayList<Tile>();
+		handsByColour = seperateByColour();
+
+		// sorts the hand by number then adds to hand
+		for (int i = 0; i < 4; i++) {
+			handsByColour.get(i).sortTilesByNumber();
+			tempHand.addAll(handsByColour.get(i).getTiles());
+		}
+
+		this.hand = tempHand;
+	}
+
+	// inspired from:
+	// https://github.com/Ratchette/Rummikub/blob/master/src/rummikub/Hand.java
+	public ArrayList<PlayerHand> seperateByColour() {
+		ArrayList<PlayerHand> handsByColour = new ArrayList<PlayerHand>();
+		Tile currTile;
+
+		for (int i = 0; i < 4; i++)
+			handsByColour.add(new PlayerHand("" + i));
+
+		// seperates the hand by colour
+		for (int i = 0; i < this.sizeOfHand(); i++) {
+			currTile = this.getTile(i);
+
+			if (currTile.getColor() == "R")
+				handsByColour.get(0).addTileToHand(currTile);
+
+			else if (currTile.getColor() == "B")
+				handsByColour.get(1).addTileToHand(currTile);
+
+			else if (currTile.getColor() == "G")
+				handsByColour.get(2).addTileToHand(currTile);
+
+			else if (currTile.getColor() == "O")
+				handsByColour.get(3).addTileToHand(currTile);
+		}
+		return handsByColour;
+	}
+
+	/*
+	 * public ArrayList<List> getInitialMeld(){ int score = 0; int largestScore = 0;
+	 * 
+	 * ArrayList<Tile> currPossibility;
+	 * 
+	 * currPossibility = this.hand. for(int i = 0; i < 5; i++) {
+	 * 
+	 * } return null; }
+	 */
+
+	///////////////////////////////////////////////////////////////////////////////////////////////////////
+	public boolean runFound(PlayerHand x) { // THIS CHECKS IF HAND HAS ANY POSSIBILITIES FOR RUNS
+
+		if (x.hand.isEmpty()) {
+			return false;
+		}
+
+		ArrayList<Tile> y = new ArrayList<Tile>();
+		y.add(x.getTile(0));
+		int count = 1;
+		for (int i = 1; i < x.sizeOfHand(); i++) {
+			if ((x.getTile(i).getNumber()) - (y.get(count - 1).getNumber()) == 1) {
+				y.add(x.getTile(i));
+				count++;
+				if ((count == 3) && (x.sizeOfHand() - 1 == i)) {
+					return true;
+				}
+			} else if (y.size() > 2) {
+				return true;
+			} else if ((i == x.sizeOfHand() - 1) && (y.size() > 2)) {
+				return true;
+			} else if ((i == x.sizeOfHand() - 1) && (y.size() < 3)) {
+				return false;
+			} else if (i < x.sizeOfHand() - 1) {
+				y.clear();
+				count = 1;
+
+				y.add(x.getTile(i));
+
+			}
+		}
+		return false;
+	}
+
+	public ArrayList<Tile> findRun(PlayerHand x) { // Gives you the first run it can detect. (FOR AI)
+		ArrayList<PlayerHand> colourSep = x.seperateByColour();
+		ArrayList<Tile>[] y = new ArrayList[4];
+		for (int i = 0; i < 4; i++) {
+			y[i] = new ArrayList<Tile>();
+		}
+		int count5 = 0;
+		for (int i = 0; i < 4; i++) {
+			colourSep.get(i).sortTilesByNumber();
+			if ((!colourSep.get(i).hand.isEmpty()) && (runFound(colourSep.get(i)) == false)) {
+				count5++;
+			}
+		}
+		if (count5 == 4) {
+			// System.out.println("NO GROUPS FOUND");
+		} else {
+			for (int z = 0; z < 4; z++) {
+				while (colourSep.get(z).hand.isEmpty()) {
+					z++;
+				//	System.out.println(z);  was testing something, ignore this 
+					if (z>3) {
+						if ((y[0].size() >= y[1].size()) && (y[0].size() >= y[2].size()) && (y[0].size() >= y[3].size())) {
+							return y[0];
+						} else if ((y[1].size() >= y[2].size()) && (y[1].size() >= y[3].size())) {
+							return y[1];
+						} else if (y[2].size() > y[3].size()) {
+							return y[2];
+						} else {
+							return y[3];
+						}
+					}
+				}
+				
+				y[z].add(colourSep.get(z).getTile(0));
+				int count = 1;
+				for (int i = 1; i < colourSep.get(z).sizeOfHand(); i++) { // System.out.println(y.get(z).get(0));
+					if ((colourSep.get(z).getTile(i).getNumber()) - (y[z].get(count - 1).getNumber()) == 1) {
+						y[z].add(colourSep.get(z).getTile(i));
+						count++;
+
+					}
+
+					else if (i < colourSep.get(z).sizeOfHand() - 1) {
+						y[z].clear();
+						count = 1;
+
+						y[z].add(colourSep.get(z).getTile(i));
+					}
+				}
+
+			}
+
+		}
+		if ((y[0].size() >= y[1].size()) && (y[0].size() >= y[2].size()) && (y[0].size() >= y[3].size())) {
+			return y[0];
+		} else if ((y[1].size() >= y[2].size()) && (y[1].size() >= y[3].size())) {
+			return y[1];
+		} else if (y[2].size() > y[3].size()) {
+			return y[2];
+		} else {
+			return y[3];
+		}
+	}
+
+	//////////////////////////////////////////////////////////////////////////////////////////////
+
+	public boolean foundGroup(PlayerHand x) {
+		ArrayList<PlayerHand> colourSep = x.seperateByColour();
+		for (int i = 0; i < 4; i++) {
+
+		}
+
+		return false;
+	}
+
+	public boolean hasPossibilities(PlayerHand x) {
+
+		return false;
+	}
+
 }
 
-class SortByX implements Comparator<Tile> 
-{ 
-    // Used for sorting in ascending order of 
-    // tile number 
-    public int compare(Tile a, Tile b) 
-    { 
+class SortByX implements Comparator<Tile> {
+	// Used for sorting in ascending order of
+	// tile number
+	public int compare(Tile a, Tile b) {
 
-        return a.getNumber() - b.getNumber(); 
-    } 
-} 
-
-
+		return a.getNumber() - b.getNumber();
+	}
+}
