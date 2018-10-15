@@ -136,14 +136,15 @@ public class PlayerHand {
 
 	private void removeDoubles() {
 		// TODO Auto-generated method stub
-		ArrayList<Tile> tiles = new ArrayList<Tile>(); 
-		ArrayList<Tile> x = new ArrayList<Tile>(); 
-		x.addAll(this.hand); 
+		ArrayList<Tile> tiles = new ArrayList<Tile>();
+		ArrayList<Tile> x = new ArrayList<Tile>();
+		x.addAll(this.hand);
 		this.hand.clear();
-		this.hand.addAll(x); 
-		
-		tiles  = this.hand; 
+		this.hand.addAll(x);
+
+		tiles = this.hand;
 	}
+
 	///////////////////////////////////////////////////////////////////////////////////////////////////////
 	public boolean runFound(PlayerHand x) { // THIS CHECKS IF HAND HAS ANY POSSIBILITIES FOR RUNS
 
@@ -180,7 +181,7 @@ public class PlayerHand {
 
 	public ArrayList<Tile> findRun(PlayerHand x) { // Gives you the best run it can detect. (FOR AI)
 		ArrayList<PlayerHand> colourSep = x.seperateByColour();
-		
+
 		ArrayList<Tile>[] y = new ArrayList[4];
 		for (int i = 0; i < 4; i++) {
 			y[i] = new ArrayList<Tile>();
@@ -199,9 +200,10 @@ public class PlayerHand {
 			for (int z = 0; z < 4; z++) {
 				while (colourSep.get(z).hand.isEmpty()) {
 					z++;
-				//	System.out.println(z);  was testing something, ignore this 
-					if (z>3) {
-						if ((y[0].size() >= y[1].size()) && (y[0].size() >= y[2].size()) && (y[0].size() >= y[3].size())) {
+					// System.out.println(z); was testing something, ignore this
+					if (z > 3) {
+						if ((y[0].size() >= y[1].size()) && (y[0].size() >= y[2].size())
+								&& (y[0].size() >= y[3].size())) {
 							return y[0];
 						} else if ((y[1].size() >= y[2].size()) && (y[1].size() >= y[3].size())) {
 							return y[1];
@@ -248,9 +250,21 @@ public class PlayerHand {
 	public boolean foundGroup(PlayerHand x) {
 		ArrayList<PlayerHand> colourSep = x.seperateByColour();
 		for (int i = 0; i < 4; i++) {
+			colourSep.get(i).sortTilesByNumber();
+			colourSep.get(i).removeDoubles();
 
 		}
-
+		for (int i = 0; i < 4; i++) {
+			for (int j = 0; j < 4; j++) {
+				for (int z = 0; z < colourSep.get(j).sizeOfHand(); z++) {
+					for (int y = 0; y < colourSep.get(i).sizeOfHand(); y++) {
+						if (colourSep.get(i).getTile(y).getNumber() == colourSep.get(j).getTile(z).getNumber()) {
+							return true;
+						}
+					}
+				}
+			}
+		}
 		return false;
 	}
 

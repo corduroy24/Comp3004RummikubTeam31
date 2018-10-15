@@ -107,7 +107,7 @@ public class PlayerHandTest extends TestCase{
 		assertEquals(x, true);
 	}
 	
-	public void testRunAdd() {      //tests if it can find a run
+	public void testRunHighest() {      //tests if it can find a run and return highest value run
 		PlayerHand  hand  = new PlayerHand ("X");
 		Tile x1 = new Tile(1,4);
 		Tile x2 = new Tile(1,5);
@@ -126,6 +126,20 @@ public class PlayerHandTest extends TestCase{
 	
 		ArrayList<Tile> x = hand.findRun(hand); 
 		assertEquals(x.get(0).getNumber(), 6 );
+	}
+	
+	public void testFindGroup() { 
+		PlayerHand  hand  = new PlayerHand ("X");
+		Tile x1 = new Tile(1,4);
+		Tile x2 = new Tile(1,5);
+		Tile x3 = new Tile(2,4);
+		Tile x4 = new Tile(3,7);
+		hand.addTileToHand(x1);
+		hand.addTileToHand(x2);
+		hand.addTileToHand(x3);
+		hand.addTileToHand(x4);
+		boolean x = hand.foundGroup(hand);
+		assertEquals(x, true);
 	}
 	
 	public void testSortByNumber() {
