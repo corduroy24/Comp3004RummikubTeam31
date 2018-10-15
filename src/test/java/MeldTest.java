@@ -30,6 +30,19 @@ public class MeldTest extends TestCase {
 		
 		assertTrue(meld1.checkRun(meld1.getTiles()));
 		
+		///// valid run via adding tile
+		PlayerHand h5 = new PlayerHand ("x"); 
+		
+		h5.addTileToHand(new Tile(1,9));
+		h5.addTileToHand(new Tile (1,10));
+		h5.addTileToHand(new Tile (1,11));
+		h5.addTileToHand(new Tile (1,12));
+
+		Meld meld5 = new Meld (h5.getTiles());
+		
+		meld5.addTile(new Tile(1,13));
+		assertTrue(meld5.checkRun(meld5.getTiles()));
+		
 		///// in valid run with different colour 
 		PlayerHand h2 = new PlayerHand ("x"); 
 		
@@ -43,7 +56,7 @@ public class MeldTest extends TestCase {
 		meld2.addTile(new Tile(2,13));
 		assertFalse(meld2.checkRun(meld2.getTiles()));
 		
-		//////invalid run with different number 
+		//////valid run with different number 
 		PlayerHand h3 = new PlayerHand ("x"); 
 		h3.addTileToHand(new Tile(1,9));
 		h3.addTileToHand(new Tile (1,10));
