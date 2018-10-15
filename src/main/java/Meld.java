@@ -78,7 +78,6 @@ public class Meld {
 			
 			if(usedColours.contains(currTile.getColor())) return false; 
 			
-
 			
 			usedColours.add(currTile.getColor()); 
 		}
