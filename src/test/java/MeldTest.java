@@ -37,5 +37,6 @@ public class MeldTest extends TestCase {
 		
 		assertTrue(meld.checkRun(meld.getTiles())); 
 		
+		
 	}
 }
