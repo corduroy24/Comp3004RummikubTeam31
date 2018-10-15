@@ -56,4 +56,18 @@ public class MeldTest extends TestCase {
 		meld3.addTile(new Tile(1,6));
 		assertFalse(meld3.checkRun(meld3.getTiles()));
 	}
+	
+	public void testCheckSet() {
+		//// valid set 
+		PlayerHand h1 = new PlayerHand ("x"); 
+		
+		h1.addTileToHand(new Tile(1,9));
+		h1.addTileToHand(new Tile (2,9));
+		h1.addTileToHand(new Tile (3,9));
+		h1.addTileToHand(new Tile (4,9));
+
+		Meld meld1 = new Meld (h1.getTiles());
+		
+		assertTrue(meld1.checkSet(meld1.getTiles()));
+	}
 }
