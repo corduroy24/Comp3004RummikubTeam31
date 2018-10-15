@@ -2,6 +2,8 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
+import javafx.application.Application;
+
 
 //enum GameState {Game_Start, P1_Turn, P2_Turn, P3_Turn, P4_Turn, End_Game};
 
@@ -25,7 +27,6 @@ public class GameMaster extends Observable{
 		deck = new Deck();
 		deck.Shuffle();
 		table = new Table();
-		GUI = new Ui();
 		//Add human  and AIs to Observable
 		this.addObserver(human);
 		this.addObserver(AI1);
@@ -50,13 +51,17 @@ public class GameMaster extends Observable{
 		return table;
 	}
 	
+	public Player getHuman() {
+		return human;
+	}
+	
 	//draw card to human and AI
 	public void dealInitialHand() {
 		human.getHand().drawFirst14(deck);
 		AI1.getHand().drawFirst14(deck);
 		AI2.getHand().drawFirst14(deck);
 		AI3.getHand().drawFirst14(deck);
-		Announcement();
+		Announcement(human);
 	}
 	
 	public void gamestart() {
@@ -105,9 +110,15 @@ public class GameMaster extends Observable{
 		setChanged();
 		notifyObservers();
 	}
+	public void Announcement(Player human){
+		setChanged();
+		notifyObservers(human);
+	}
 
 	public static void main(String[] args) {
 		GameMaster game = new GameMaster();
 		game.dealInitialHand();
+		
+		//Application.launch(Ui.class, args);
 	}
 }

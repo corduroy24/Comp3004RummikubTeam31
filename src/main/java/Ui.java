@@ -43,14 +43,19 @@ public class Ui extends Application implements Observer
 	
 	HBox playerHand;
 	
+	GameMaster game = new GameMaster();
+	
 	Boolean tracing = true;
 	
 	
 	public static void main(String [] args) 
 	{
-		launch(args);
+		Application.launch(args);
 	}
+<<<<<<< HEAD
+=======
 	
+>>>>>>> 105ef1b0200b79f31ed6452f454be541fefd62df
 	
 	
 	public void start(Stage primaryStage) throws Exception 
@@ -186,8 +191,9 @@ public class Ui extends Application implements Observer
 		}
 		
 		//Remove once the main class sends in the hand
-		PlayerHand test1 = new PlayerHand("test1");
-		setPlayerHand(test1);
+		//PlayerHand test1 = new PlayerHand("test1");
+		//setPlayerHand(test1);
+		setPlayerHand(game.getHuman().getHand());
 
 		for(int x=0;x<playerHandButtons.length;x++)
 		{
@@ -256,9 +262,12 @@ public class Ui extends Application implements Observer
 		
 		InputStream iconImagePath = getClass().getResourceAsStream("iconImage.png");
 		Image iconImage = new Image(iconImagePath);
+		
 		window.getIcons().add(iconImage);
 		window.setScene(mainMenuScene);
 		window.show();
+		
+		
 	}
 	
 	public void updateConsole(String output)
