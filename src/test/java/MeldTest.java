@@ -41,7 +41,7 @@ public class MeldTest extends TestCase {
 		Meld meld2 = new Meld (h2.getTiles());
 		
 		meld2.addTile(new Tile(2,13));
-		assertTrue(meld2.checkRun(meld2.getTiles()));
+		assertFalse(meld2.checkRun(meld2.getTiles()));
 		
 		//////invalid run with different number 
 		PlayerHand h3 = new PlayerHand ("x"); 
@@ -54,6 +54,6 @@ public class MeldTest extends TestCase {
 		Meld meld3 = new Meld (h2.getTiles());
 		
 		meld3.addTile(new Tile(1,6));
-		assertTrue(meld3.checkRun(meld3.getTiles()));
+		assertFalse(meld3.checkRun(meld3.getTiles()));
 	}
 }
