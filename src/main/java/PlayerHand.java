@@ -146,6 +146,7 @@ public class PlayerHand {
 	}
 
 	///////////////////////////////////////////////////////////////////////////////////////////////////////
+	//take out PlayerHand x as a parameter 
 	public boolean runFound(PlayerHand x) { // THIS CHECKS IF HAND HAS ANY POSSIBILITIES FOR RUNS
 
 		if (x.hand.isEmpty()) {
@@ -247,7 +248,7 @@ public class PlayerHand {
 
 	//////////////////////////////////////////////////////////////////////////////////////////////
 
-	public boolean foundGroup(PlayerHand x) { // returns true if hand has possibility for any groups
+	public boolean foundSet(PlayerHand x) { // returns true if hand has possibility for any groups
 		ArrayList<PlayerHand> colourSep = x.seperateByColour();
 		
 		for (int i = 0; i < 4; i++) {
@@ -274,6 +275,65 @@ public class PlayerHand {
 		return false;
 	}
 	
+	public ArrayList<Tile> findSet() { // Gives you the best set it can detect. (FOR AI)
+		ArrayList<Tile> largestRun = null; 
+
+    	ArrayList<PlayerHand> handsByNumber; 
+    	ArrayList<ArrayList<Tile>> sets = new ArrayList<ArrayList<Tile>>(); 
+		ArrayList<Tile> currSet;
+		
+    	handsByNumber  = seperateByNumber(); 
+    	
+    	for(PlayerHand temp : handsByNumber) {//temp is the currSet
+    		currSet  = new ArrayList<Tile>(); 
+    		temp.removeDoubles();
+    		
+    		if(temp.sizeOfHand() > 2)
+    			currSet.addAll(temp.getTiles()); 
+    			sets.add(currSet); 
+    	}
+
+    	if(sets.size()>0)
+    		largestRun = sets.get(0); 
+	    for(int i = 1; i < sets.size(); i++) {
+	    	
+	    	if(getMeldScore(sets.get(i)) >= getMeldScore(largestRun)) {
+	    		largestRun = sets.get(i); 
+	    	}
+	   	}
+ 
+    	    	
+    	if(largestRun != null ) {//&& getMeldScore(largestRun) >= 30) {
+
+    		return largestRun; 
+    	}
+
+		return null;
+	}
+
+	private int getMeldScore(ArrayList<Tile> tiles){
+	   	int count = 0; 
+	   	for(int i = 0; i < tiles.size(); i++) {
+	   		count += tiles.get(i).getNumber(); 
+	   	}
+	    	//System.out.println("Count "+ count);
+	    return count; 	
+	}
+
+	private ArrayList<PlayerHand> seperateByNumber() {
+		// TODO Auto-generated method stub
+    	ArrayList<PlayerHand> handsByNumber = new ArrayList<PlayerHand>();
+
+		this.sortTilesByNumber();
+    	//used constant for max tile number 
+    	for(int i = 0; i < 14; i++)
+    		handsByNumber.add(new PlayerHand(""+i)); 
+
+    	for(int i = 0; i < this.sizeOfHand(); i++)
+    		handsByNumber.get(this.getTile(i).getNumber()).addTileToHand(this.getTile(i));
+    	
+    	return handsByNumber; 
+    }
 
 	public boolean hasPossibilities(PlayerHand x) {
 

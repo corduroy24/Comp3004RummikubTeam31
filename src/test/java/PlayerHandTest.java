@@ -128,7 +128,7 @@ public class PlayerHandTest extends TestCase{
 		assertEquals(x.get(0).getNumber(), 6 );
 	}
 	
-	public void testFindGroup() { 
+	public void testFindSet() { 
 		PlayerHand  hand  = new PlayerHand ("X");
 		Tile x1 = new Tile(1,4);
 		Tile x2 = new Tile(4,4);
@@ -138,9 +138,16 @@ public class PlayerHandTest extends TestCase{
 		hand.addTileToHand(x2);
 		hand.addTileToHand(x3);
 		hand.addTileToHand(x4);
-		boolean x = hand.foundGroup(hand);
+		boolean x = hand.foundSet(hand);
 		assertEquals(x, true);
+		
+		ArrayList<Tile> y = hand.findSet(); 
+		
+		for(int i = 0; i < y.size()-1; i++) {
+			assertTrue(y.get(i).getColor() !=  y.get(i+1).getColor()); 
+		}
 	}
+	
 	
 	public void testSortByNumber() {
 		Deck deck = new Deck();
@@ -184,23 +191,6 @@ public class PlayerHandTest extends TestCase{
 		}
 	}
 	
-	/*public void testInitialMeld () {
-		Deck deck = new Deck();
-		deck.Shuffle();
-		PlayerHand  hand  = new PlayerHand ("X");
-		hand.drawFirst14(deck);
-		
-		ArrayList<Tile> meld = new ArrayList<Tile>(); 
-		//need to create a meld class 
-		int meldTotal = 0 ; 
-		if(meld == null)
-			assertNull(meld); 
-		else {
-			for(int i = 0; i < meld.size(); i++)
-				meldTotal += meld.get(i).getNumber(); 
-			
-			assertTrue(meldTotal >= 30); 
-		}
-	}*/
+
 	
 }

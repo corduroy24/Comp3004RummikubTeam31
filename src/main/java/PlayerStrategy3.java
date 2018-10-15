@@ -9,11 +9,14 @@ public class PlayerStrategy3 {
 		if(p.getIsFirstMeldComplete()) {
 			if(isCondition(p)) {
 			
+				
 			}
-			else return false; 
-
+			else  {
+				
+			}
 		}
 		else {
+			
 			ArrayList<Tile> hand = p.getHand().getTiles();
 			Collections.sort(hand, new SortByColor());
 			Collections.sort(hand, new SortToFindSequence());
@@ -38,9 +41,6 @@ public class PlayerStrategy3 {
 					System.out.println(sets.get(i).get(u).getColor() + "  " + sets.get(i).get(u).getNumber());
 				}
 			}
-			
-			
-			
 		}				
 		return false;
 	}
