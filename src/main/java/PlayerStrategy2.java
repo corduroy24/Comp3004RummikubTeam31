@@ -14,7 +14,7 @@ public class PlayerStrategy2 implements PlayerStrategy {
 			
 		}
 		else {
-			if(p.getTable().getNumberOfTile() == 0) {
+			if(p.getTable().getNumberOfTile() != 0) {
 			ArrayList<Tile> hand = new ArrayList<Tile>();
 			
 			for(int i =0; i < p.getHand().sizeOfHand();i++) {
@@ -249,7 +249,7 @@ public class PlayerStrategy2 implements PlayerStrategy {
 		
 		player.getPlayerHand().addTileToHand(t7);
 		player.getPlayerHand().addTileToHand(t8);
-		//player.getPlayerHand().addTileToHand(t9);
+		player.getPlayerHand().addTileToHand(t9);
 		player.play();
 		
 	}

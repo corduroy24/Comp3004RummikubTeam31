@@ -6,6 +6,7 @@ public class TestPlayer1Strategy extends TestCase{
 	Tile tile = new Tile(1,12);
 	Tile tile1 = new Tile(1,11);
 	Tile tile2 = new Tile(1,10);
+
 	Tile tile3 = new Tile(2,3);
 	Tile tile4 = new Tile(3,5);
 	Tile tile5 = new Tile(2,7);
@@ -30,7 +31,6 @@ public class TestPlayer1Strategy extends TestCase{
 		player.getHand().addTileToHand(tile);
 		player.getHand().addTileToHand(tile1);
 		player.getHand().addTileToHand(tile2);
-		player.getHand().HandReader();
 		player.play();
 		assertTrue(player.getIsFirstMeldComplete() == true);
 		assertTrue(player.getTable().getNumberOfTile() == 3);
@@ -41,7 +41,6 @@ public class TestPlayer1Strategy extends TestCase{
 		player.getHand().addTileToHand(tile);
 		player.getHand().addTileToHand(tile1);
 		player.getHand().addTileToHand(tile2);
-		player.getHand().HandReader();
 		player.play();
 		assertTrue(player.getTable().getNumberOfTile() == 3);
 		assertTrue(player.isWinner() == true);
@@ -53,11 +52,9 @@ public class TestPlayer1Strategy extends TestCase{
 		player.getHand().addTileToHand(t7);
 		player.getHand().addTileToHand(t8);
 		player.getHand().addTileToHand(t9);
-		player.getHand().HandReader();
-		System.out.println("hello");
 		
 		player.play();
-		assertTrue(player.getTable().getNumberOfTile() == 0);		
+		assertTrue(player.getTable().getNumberOfTile() == 6);		
 	}
 	public void testAfterFirstMove() {
 		player = new Player("Player",999,new PlayerStrategy1());
@@ -75,6 +72,7 @@ public class TestPlayer1Strategy extends TestCase{
 		assertTrue(player.getTable().getNumberOfTile() == 3);
 		assertTrue(player.getHand().sizeOfHand() == 3);
 		
+		player = new Player("Player",999,new PlayerStrategy1());
 		//1 set 111
 		player.getHand().addTileToHand(t7);
 		player.getHand().addTileToHand(t8);

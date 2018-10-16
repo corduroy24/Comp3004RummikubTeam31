@@ -52,11 +52,6 @@ public class Ui extends Application implements Observer
 	{
 		Application.launch(args);
 	}
-<<<<<<< HEAD
-=======
-	
->>>>>>> 105ef1b0200b79f31ed6452f454be541fefd62df
-	
 	
 	public void start(Stage primaryStage) throws Exception 
 	{
