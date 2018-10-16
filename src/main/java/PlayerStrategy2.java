@@ -3,73 +3,110 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
 
-
 public class PlayerStrategy2 implements PlayerStrategy {
+	private Support functions;
 
 	public boolean playTheGame(Player p) {
 		// TODO Auto-generated method stub
 		ArrayList<Tile> input = new ArrayList<Tile>();
-		
+		functions = new Support();
 		if(p.getIsFirstMeldComplete()) {
+			ArrayList<ArrayList<Tile>> output = new ArrayList<ArrayList<Tile>>();
+			//output = merge(p.getHand().getTiles(),p.getTable());
+			// if number of tiles in output = (hand + table) tiles
+			// play and set win
+			//else
+			//output = getAllSetAndSequence(p.getHand().getTiles());
+			// remove every tile of output from player hand.
+			// then merge it with table tiles
+			//  set = find all sets and sequences without reminder tiles
+			// if set.size() >0, return true
+			//else return false
+		
 			
+			
+			return true;
 		}
 		else {
-			if(p.getTable().getNumberOfTile() != 0) {
-			ArrayList<Tile> hand = new ArrayList<Tile>();
+			if(p.getTable().getNumberOfTile() > 0) {
 			
-			for(int i =0; i < p.getHand().sizeOfHand();i++) {
-				hand.add(p.getHand().getTile(i));
-			}
-			
-			Collections.sort(hand, new SortByColor());
-			Collections.sort(hand, new SortToFindSequence());
-			
-			ArrayList<ArrayList<Tile>> sequences = getSequences(hand);
-			hand = renew(hand,sequences);
-			Collections.sort(hand, new SortbyValue());
-			Collections.sort(hand, new SortToFindSet());
-			
-			ArrayList<ArrayList<Tile>> sets = getSets(hand);
-			hand = renew(hand,sets);
-			ArrayList<ArrayList<Tile>> output = new ArrayList<ArrayList<Tile>>();
-
-			
-			Collections.sort(output, new SortByArrayList());
-			if(sets != null)
-				output.addAll(sets);
-			if(sequences != null)
-				output.addAll(sequences);
-		
-			for(int i =0; i < output.size();i++) {
-				for(int u =0; u < output.get(i).size();u++)
-					System.out.println(output.get(i).get(u).getColor() + "  " + output.get(i).get(u).getNumber());
-			}
-			
-			int point = 0;
-			ArrayList<ArrayList<Tile>> tiles = new ArrayList<ArrayList<Tile>>();
-			for(int i = output.size()-1; i > -1 ;i--) {
-				for(int u = 0; u < output.get(i).size();u++) {
-					point += output.get(i).get(u).getNumber();
+				ArrayList<Tile> first_hand = new ArrayList<Tile>();
+				ArrayList<Tile> second_hand = new ArrayList<Tile>();
+				
+				//copy player hand to sample hand
+				for(int i =0; i < p.getHand().sizeOfHand();i++) {
+					first_hand.add(p.getHand().getTile(i));
+					second_hand.add(p.getHand().getTile(i));
 				}
-				tiles.add(output.get(i));
-				if (point >= 30) {
-					for(int j = 0; j < tiles.size();j++) {
-						p.getTable().addTiles(tiles.get(j));
-						for(int n = 0; n < tiles.get(j).size();n++) {
-							p.getHand().getTiles().remove(tiles.get(j).get(n));
-						}
-						p.getHand().HandReader();
-						p.setIsfirstMeldComplete(true);
-						return true;
+				// create output 
+				ArrayList<ArrayList<Tile>> output;
+				ArrayList<ArrayList<Tile>> firstMelds = functions.getFirstOutput(first_hand);
+				ArrayList<ArrayList<Tile>> secondMelds = functions.getSecondOutput(second_hand);
+				//sort by array list
+				Collections.sort(firstMelds, new SortByArrayList());
+				Collections.sort(secondMelds, new SortByArrayList());
+				
+				int check_1 = 0;
+				boolean has_1_30 = false;
+			
+				int check_2 = 0;
+				boolean has_2_30 = false;
+				
+				int point = 0;
+				//Pick one list has initial turn higher than 30 and using less melds than other.
+				//check for the number of tiles the first array list need to have 30 points
+				myloop: for(int i =firstMelds.size()-1; i >-1 ;i--) {
+					for(int u =0; u < firstMelds.get(i).size();u++) {
+						check_1++;
+						point += firstMelds.get(i).get(u).getNumber();
 					}
+					if (point >= 30) {
+						has_1_30 = true;
+						break myloop;}
 				}
-			}
-			return false;
-			}
-		}	
-		return false;
+				point = 0;
+				//check for the number of tiles the second array list need to have 30 points
+				myloop: for(int i =secondMelds.size()-1; i > -1;i--) {
+					for(int u =0; u < secondMelds.get(i).size();u++) {
+						check_2++;
+						point += secondMelds.get(i).get(u).getNumber();
+					}
+					if(point >= 30) { 
+						has_2_30 = true;
+						break myloop;}
+				}
+				
+				int removeNumber = 0;
+				
+				//use to decide which set of meld will be chosen
+				if(has_1_30 && has_2_30) {
+					if(check_1 >= check_2) {
+						output = secondMelds;
+						removeNumber = check_2;
+					}
+					else {output = firstMelds; removeNumber = check_1;}
+				}
+				else if (has_1_30) {output = firstMelds;removeNumber = check_1;}
+				else if (has_2_30) {output = secondMelds;removeNumber = check_2;}
+				else return false;
+				
+				if(output.size() == 0) return false;
+				
+				// update table and remove tiles from player hand
+				myloop: for(int i =output.size()-1; i >-1 ;i--) {
+					p.getTable().addTiles(output.get(i));
+					for(int u =0; u < output.get(i).size();u++) {
+						removeNumber--;
+						p.getHand().getTiles().remove(output.get(i).get(u));
+					}
+					if(removeNumber == 0) break myloop;
+				}
+				p.setIsfirstMeldComplete(true);
+				return true;
+				}
+			return false;	
+		}
 	}
-	
 	//sort by tile' value
 	class SortByArrayList implements Comparator<ArrayList<Tile>> 
 	{ 	
@@ -81,177 +118,8 @@ public class PlayerStrategy2 implements PlayerStrategy {
 			for(int i =0; i < b.size();i++)
 				y += b.get(i).getNumber();
 
-			
-			return x - y;
-		
-	        
+			return x - y;    
 	    } 
-	}
-	
-	private ArrayList<Tile>  renew(ArrayList<Tile> t, ArrayList<ArrayList<Tile>> sequences) {
-		// TODO Auto-generated method stub
-		ArrayList<Tile> output;
-		if(sequences != null) {
-		for(int i =0; i < sequences.size();i++) {
-			for(int u = 0; u < sequences.get(i).size();u++) {
-			t.remove(sequences.get(i).get(u));
-				}
-			}
-		}
-		output = t;
-		return output;
-		
-	}
-
-	//sort by tile' value
-	class SortbyValue implements Comparator<Tile> 
-	{ 
-	    public int compare(Tile a, Tile b) 
-	    { 
-	        return a.getNumber() - b.getNumber(); 
-	    } 
-	}
-	
-	//List is stored by value, now it will be sorted by color
-	class SortToFindSet implements Comparator<Tile> 
-	{ 
-	    public int compare(Tile a, Tile b) 
-	    { 
-	    	if(a.getNumber() == b.getNumber()) {
-	    		return a.getColor().compareTo(b.getColor());
-	    	}
-	    	else
-	    		return 0; 
-	    } 
-	}
-	
-	//sort by tile' color
-	class SortByColor implements Comparator<Tile> 
-	{ 
-	    public int compare(Tile a, Tile b) 
-	    { 
-	        return a.getColor().compareTo(b.getColor()); 
-	    } 
-	}
-	//list sorted by color, not it will be sorted by value (find sequence)
-	class SortToFindSequence implements Comparator<Tile> 
-	{ 
-	    public int compare(Tile a, Tile b) 
-	    { 
-	    	if(a.getColor().equals(b.getColor())) {
-	    		return a.getNumber() - b.getNumber();
-	    	}
-	    	else
-	    		return 0; 
-	    } 
-	}
-	//Function get all the sequences in the List sorted by color, then sorted by value (this list is sorted 2 times)
-	public ArrayList<ArrayList<Tile>> getSequences(ArrayList<Tile> hand){
-		ArrayList<ArrayList<Tile>> sequences = new ArrayList<ArrayList<Tile>>();
-		ArrayList<Tile> check = new ArrayList<Tile>();
-		
-		String color = hand.get(0).getColor();
-		for(int i =0; i < hand.size();i++) {
-			if(color.equals(hand.get(i).getColor())) {
-				if(check.size() == 0) {
-					check.add(hand.get(i));
-				}
-				else {
-					if(Integer.compare(hand.get(i).getNumber()-1, check.get(check.size()-1).getNumber()) == 0)
-						check.add(hand.get(i));
-					else {
-						if(check.size() > 2) sequences.add(check);
-						check = new ArrayList<Tile>();
-						check.add(hand.get(i));
-					}
-				}
-			}
-			else {
-				color = hand.get(i).getColor();
-				if(check.size() > 2) sequences.add(check);
-				check = new ArrayList<Tile>();
-				check.add(hand.get(i));
-			}
-		}
-		if(check.size()>2)sequences.add(check);
-		return sequences;
-	}
-	//Function get all the sets in the List sorted by value, then sorted by color (this list is sorted 2 times)
-	public ArrayList<ArrayList<Tile>> getSets(ArrayList<Tile> hand){
-		if(hand.size() == 0) return null;
-		ArrayList<ArrayList<Tile>> sets = new ArrayList<ArrayList<Tile>>();
-		ArrayList<Tile> check = new ArrayList<Tile>();
-		int value = hand.get(0).getNumber();
-		HashSet<String> string = new HashSet<String>();
-		for(int i =0; i < hand.size();i++) {
-			if(value  == hand.get(i).getNumber()) {
-				if(check.size() == 0) {
-					check.add(hand.get(i));
-					string.add(hand.get(i).getColor());
-				}
-				else {
-					if(string.add(hand.get(i).getColor())) {
-						check.add(hand.get(i));
-						string.add(hand.get(i).getColor());
-					}
-					else {
-					}
-				}
-			}
-			else {
-				if(check.size() > 2) sets.add(check);
-				check = new ArrayList<Tile>();
-				string = new HashSet<String>();
-				value = hand.get(i).getNumber();
-				check.add(hand.get(i));
-				string.add(hand.get(i).getColor());
-			}
-		}
-		if(check.size()>2)
-			sets.add(check);
-		return sets;
-	}
-	
-	public static void main(String[] args) {
-		Player player = new Player("bill",123, new PlayerStrategy2());
-		Deck deck = new Deck();
-		deck.Shuffle();
-		Tile tile = new Tile(1,12);
-		Tile tile1 = new Tile(1,11);
-		Tile tile2 = new Tile(1,10);
-		Tile tile3 = new Tile(2,3);
-		Tile tile4 = new Tile(3,5);
-		Tile tile5 = new Tile(2,7);
-		Tile tile6 = new Tile(1,7);
-		Tile tile10 = new Tile(3,7);
-		
-		Tile t7 = new Tile(1,1);
-		Tile t8 = new Tile(2,1);
-		Tile t9 = new Tile(3,1);
-		
-		Tile t11 = new Tile(4,1);
-		Tile t12 = new Tile(4,2);
-		Tile t13 = new Tile(4,3);
-		Tile t14 = new Tile(4,4);
-		player.getPlayerHand().addTileToHand(t11);
-		player.getPlayerHand().addTileToHand(t12);
-		player.getPlayerHand().addTileToHand(t13);
-		player.getPlayerHand().addTileToHand(t14);
-		
-		player.getPlayerHand().addTileToHand(tile);
-		player.getPlayerHand().addTileToHand(tile1);
-		player.getPlayerHand().addTileToHand(tile2);
-		player.getPlayerHand().addTileToHand(tile3);
-		player.getPlayerHand().addTileToHand(tile4);
-		player.getPlayerHand().addTileToHand(tile5);
-		player.getPlayerHand().addTileToHand(tile6);
-		player.getPlayerHand().addTileToHand(tile10);
-		
-		player.getPlayerHand().addTileToHand(t7);
-		player.getPlayerHand().addTileToHand(t8);
-		player.getPlayerHand().addTileToHand(t9);
-		player.play();
-		
 	}
 	
 }

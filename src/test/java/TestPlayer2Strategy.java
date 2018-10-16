@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 import junit.framework.TestCase;
 
 public class TestPlayer2Strategy extends TestCase{
@@ -14,6 +16,8 @@ public class TestPlayer2Strategy extends TestCase{
 	Tile t7 = new Tile(1,1);
 	Tile t8 = new Tile(2,1);
 	Tile t9 = new Tile(3,1);
+	Tile t10 = new Tile(4,1);
+	
 	
 	
 	public void testFirstMove() {
@@ -30,18 +34,20 @@ public class TestPlayer2Strategy extends TestCase{
 		player.getHand().addTileToHand(tile);
 		player.getHand().addTileToHand(tile1);
 		player.getHand().addTileToHand(tile2);
-		player.getHand().HandReader();
+		ArrayList<Tile> a = new ArrayList<Tile>();
+		a.add(tile);
+		a.add(tile1);
+		a.add(tile2);
+		player.getTable().addTiles(a);
 		player.play();
 		assertTrue(player.getIsFirstMeldComplete() == true);
-		assertTrue(player.getTable().getNumberOfTile() == 3);
-		assertTrue(player.isWinner() == false);
+		assertTrue(player.getTable().getNumberOfTile() == 6);
 		
 		
 		player = new Player("Player",999,new PlayerStrategy2());
 		player.getHand().addTileToHand(tile);
 		player.getHand().addTileToHand(tile1);
 		player.getHand().addTileToHand(tile2);
-		player.getHand().HandReader();
 		player.play();
 		assertTrue(player.getTable().getNumberOfTile() == 0);
 		assertTrue(player.isWinner() == false);
@@ -53,47 +59,45 @@ public class TestPlayer2Strategy extends TestCase{
 		player.getHand().addTileToHand(t7);
 		player.getHand().addTileToHand(t8);
 		player.getHand().addTileToHand(t9);
-		player.getHand().HandReader();
-		System.out.println("hello");
 		
 		player.play();
-		assertTrue(player.getTable().getNumberOfTile() == 3);		
+		assertTrue(player.getTable().getNumberOfTile() == 0);		
 	}
+	
 	public void testAfterFirstMove() {
 		player = new Player("Player",999,new PlayerStrategy2());
-		//1 set 111
-		player.getHand().addTileToHand(t7);
-		player.getHand().addTileToHand(t8);
-		player.getHand().addTileToHand(t9);
-		
-		player.getHand().addTileToHand(tile3);
-		player.getHand().addTileToHand(tile4);
-		player.getHand().addTileToHand(tile5);
-		
+		ArrayList<Tile> test = new ArrayList<Tile>();
+		// set 111
 		player.setIsfirstMeldComplete(true);
-		player.play();
-		assertTrue(player.getTable().getNumberOfTile() == 3);
-		assertTrue(player.getHand().sizeOfHand() == 3);
-		
-		//1 set 111
-		player.getHand().addTileToHand(t7);
-		player.getHand().addTileToHand(t8);
-		player.getHand().addTileToHand(t9);
-		// 1 sequences
+		test.add(t7);test.add(t8);test.add(t9);
+		player.getTable().addTiles(test);
+			
+		player.getHand().addTileToHand(t10);
 		player.getHand().addTileToHand(tile);
 		player.getHand().addTileToHand(tile1);
 		player.getHand().addTileToHand(tile2);
 		
-		
-		
-		player.getHand().addTileToHand(tile3);
-		player.getHand().addTileToHand(tile4);
-		player.getHand().addTileToHand(tile5);
-		player.setIsfirstMeldComplete(true);
 		player.play();
-		assertTrue(player.getTable().getNumberOfTile() == 6);
-		assertTrue(player.getHand().sizeOfHand() == 3);
-
+		assertTrue(player.getTable().getNumberOfTile() == 7);
+		assertTrue(player.getHand().sizeOfHand() == 0);
+		assertTrue(player.isWinner() == true);
+		
+		player = new Player("Player",999,new PlayerStrategy2());
+		test = new ArrayList<Tile>();
+		// set 111
+		player.setIsfirstMeldComplete(true);
+		test.add(t7);test.add(t8);test.add(t9);
+		player.getTable().addTiles(test);
+			
+		player.getHand().addTileToHand(tile6);
+		player.getHand().addTileToHand(t10);
+		player.getHand().addTileToHand(tile);
+		player.getHand().addTileToHand(tile1);
+		player.getHand().addTileToHand(tile2);
+		
+		player.play();
+		assertTrue(player.getTable().getNumberOfTile() == 4);
+		assertTrue(player.getHand().sizeOfHand() == 4);
 	}
 	
 }

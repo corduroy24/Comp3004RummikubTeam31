@@ -22,8 +22,8 @@ public class GameMaster extends Observable{
 		//create human, AI1, AI2, AI3, deck table GUI
 		human = new Player("Human",1, new HumanPlayerStrategy());
 		AI1 = new Player("AI1",2, new PlayerStrategy1());
-		AI2 = new Player("AI2",3, new PlayerStrategy1());
-		AI3 = new Player("AI3",4, new PlayerStrategy1());
+		AI2 = new Player("AI2",3, new PlayerStrategy2());
+		AI3 = new Player("AI3",4, new PlayerStrategy3());
 		deck = new Deck();
 		deck.Shuffle();
 		table = new Table();
@@ -119,6 +119,5 @@ public class GameMaster extends Observable{
 		GameMaster game = new GameMaster();
 		game.dealInitialHand();
 		
-		//Application.launch(Ui.class, args);
 	}
 }
