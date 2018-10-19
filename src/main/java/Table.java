@@ -131,6 +131,24 @@ public class Table{
 		}
 		return true;
 	}
+	public String toString() {
+		String output = "";
+		for(int i =0; i < table.size();i++) {
+			for(int u =0; u < table.get(i).size();u++) {
+				output += "Colour " + table.get(i).get(u).getColor() + " Number " + table.get(i).get(u).getNumber() + "\n"; 
+			}
+		}
+		
+		
+		
+		return output;
+	}
 	
+	public void clean() {
+		table.clear();
+	}
+	public void setTable(ArrayList<ArrayList<Tile>> t) {
+		table = t;
+	}
 
 }

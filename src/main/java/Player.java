@@ -48,12 +48,6 @@ public class Player implements Observer{
         firstPlayerPoint = enemies.get(0).getHand().sizeOfHand();
         secondPlayerPoint = enemies.get(1).getHand().sizeOfHand();
         thirdPlayerPoint = enemies.get(2).getHand().sizeOfHand();
-        System.out.println("Hello from :" + name);
-        System.out.println("Print out hand player 1: " + firstPlayerPoint +
-        					" Print out hand player 2: " + secondPlayerPoint +
-        					" Print out hand player 3: " + thirdPlayerPoint);
-
-        
       }
     
 	public boolean getIsTurn () { //gets the current status of the players turn  

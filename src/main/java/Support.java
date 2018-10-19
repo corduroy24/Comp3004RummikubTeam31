@@ -9,6 +9,7 @@ public class Support {
 	// Find all sequences of hand then find all sets
 	public ArrayList<ArrayList<Tile>> getFirstOutput(ArrayList<Tile> hand){
 		//sort hand to find all sequences
+		if(hand == null || hand.size() == 0) return null;
 		Collections.sort(hand, new SortByColor());
 		Collections.sort(hand, new SortToFindSequence());
 		//create list to hold sequences
@@ -36,7 +37,7 @@ public class Support {
 	
 	// do the same as getFirstOutput, however, find all the sets first.
 	public ArrayList<ArrayList<Tile>> getSecondOutput(ArrayList<Tile> hand){
-		
+		if(hand == null || hand.size() == 0) return null;
 		//sort hand to find all sets
 		Collections.sort(hand, new SortbyValue());
 		Collections.sort(hand, new SortToFindSet());
@@ -66,7 +67,7 @@ public class Support {
 	
 	
 	//re-arrange number of tiles on t list
-	public ArrayList<Tile>  renew (ArrayList<Tile> t, ArrayList<ArrayList<Tile>> sequences) {
+	private ArrayList<Tile>  renew (ArrayList<Tile> t, ArrayList<ArrayList<Tile>> sequences) {
 		// TODO Auto-generated method stub
 		ArrayList<Tile> output;
 		if(sequences != null) {
@@ -124,9 +125,11 @@ public class Support {
 	    } 
 	}
 	//Function get all the sequences in the List sorted by color, then sorted by value (this list is sorted 2 times)
-	public ArrayList<ArrayList<Tile>> getSequences(ArrayList<Tile> hand){
+	private ArrayList<ArrayList<Tile>> getSequences(ArrayList<Tile> hand){
 		ArrayList<ArrayList<Tile>> sequences = new ArrayList<ArrayList<Tile>>();
 		ArrayList<Tile> check = new ArrayList<Tile>();
+		
+		if(hand == null || hand.size() == 0) return null;
 		
 		String color = hand.get(0).getColor();
 		for(int i =0; i < hand.size();i++) {
@@ -155,8 +158,8 @@ public class Support {
 		return sequences;
 	}
 	//Function get all the sets in the List sorted by value, then sorted by color (this list is sorted 2 times)
-	public ArrayList<ArrayList<Tile>> getSets(ArrayList<Tile> hand){
-		if(hand.size() == 0) return null;
+	private ArrayList<ArrayList<Tile>> getSets(ArrayList<Tile> hand){
+		if(hand == null || hand.size() == 0) return null;
 		ArrayList<ArrayList<Tile>> sets = new ArrayList<ArrayList<Tile>>();
 		ArrayList<Tile> check = new ArrayList<Tile>();
 		int value = hand.get(0).getNumber();
@@ -188,5 +191,15 @@ public class Support {
 		if(check.size()>2)
 			sets.add(check);
 		return sets;
+	}
+
+	public int getSizeOf(ArrayList<ArrayList<Tile>> sample) {
+		// TODO Auto-generated method stub
+		int x = 0;
+		if(sample == null || sample.size() == 0 ) 
+			return 0;
+		
+		for(int i = 0; i < sample.size();i++) {	x += sample.get(i).size();}
+		return x;
 	}
 }

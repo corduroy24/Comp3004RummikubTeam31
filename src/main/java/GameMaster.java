@@ -61,28 +61,17 @@ public class GameMaster extends Observable{
 		AI1.getHand().drawFirst14(deck);
 		AI2.getHand().drawFirst14(deck);
 		AI3.getHand().drawFirst14(deck);
-		Announcement(human);
+		Announcement();
 	}
 	
 	public void gamestart() {
-		while(human.isWinner() && AI1.isWinner() 
-			&& AI2.isWinner() && AI3.isWinner()) {
-		
-			if(human.play()) {
-				table = human.getTable();
-				Announcement();
-			}
-			else {
-				deck = human.getDeck();
-				Announcement();
-			}
-			
+		while(!AI1.getIsFirstMeldComplete() || !AI2.getIsFirstMeldComplete()) {
 			if(AI1.play()) {
 				table = AI1.getTable();
 				Announcement();
 			}
 			else {
-				deck = AI1.getDeck();
+				AI1.getHand().addTileToHand(deck.Draw());
 				Announcement();
 			}
 			
@@ -91,18 +80,8 @@ public class GameMaster extends Observable{
 				Announcement();
 			}
 			else {
-				deck = AI2.getDeck();
-				Announcement();
+				AI2.getHand().addTileToHand(deck.Draw());
 			}
-			
-			if(AI3.play()) {
-				table = AI3.getTable();
-				Announcement();
-			}
-			else {
-				deck = AI3.getDeck();
-				Announcement();
-		}
 	}	
 }
 	// send notification to observers
@@ -118,6 +97,7 @@ public class GameMaster extends Observable{
 	public static void main(String[] args) {
 		GameMaster game = new GameMaster();
 		game.dealInitialHand();
+		game.gamestart();
 		
 	}
 }
