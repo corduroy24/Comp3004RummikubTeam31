@@ -51,12 +51,18 @@ public class Player implements Observer{
       }
     
     public boolean isEligibleforP3() {
-    	if (((thirdPlayerPoint+2)>(secondPlayerPoint))&&((thirdPlayerPoint+2)>(firstPlayerPoint))) {
+    	if (((getPlayerHand().sizeOfHand())>=(firstPlayerPoint+2)&&(getPlayerHand().sizeOfHand()+2>=(secondPlayerPoint))&&(getPlayerHand().sizeOfHand()+2)>=(thirdPlayerPoint))) {
     		return true;
     	}
     	else {
     	return false;
     	}
+    }
+    
+    public void setEnimies(Player p1, Player p2, Player p3) { //for strategy 3 test purposes 
+    	 firstPlayerPoint = p1.getHand().sizeOfHand();
+         secondPlayerPoint = p2.getHand().sizeOfHand();
+         thirdPlayerPoint = p3.getHand().sizeOfHand();
     }
     
 	public boolean getIsTurn () { //gets the current status of the players turn  

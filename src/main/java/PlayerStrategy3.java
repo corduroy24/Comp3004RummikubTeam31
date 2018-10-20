@@ -20,7 +20,7 @@ public class PlayerStrategy3 implements PlayerStrategy {
 			
 			if(functions.getSizeOf(output) == p.getHand().sizeOfHand() + p.getTable().getNumberOfTile())
 			{
-				p.getTable().clean();
+				p.getTable().clean(); //System.out.println("TEST");
 				for(int i =0; i < output.size();i++) {
 					p.getTable().addTiles(output.get(i));
 				}
@@ -28,7 +28,7 @@ public class PlayerStrategy3 implements PlayerStrategy {
 				p.setWinner();
 				return true;
 			}
-			else if (p.isEligibleforP3()==true){
+			else if (p.isEligibleforP3()==true){   //MAKES IT RUN WITH P2 FUNCTIONALITY
 				ArrayList<Tile> first_hand = new ArrayList<Tile>(p.getHand().getTiles());
 				ArrayList<Tile> second_hand = new ArrayList<Tile>(p.getHand().getTiles());
 				ArrayList<Tile> targets;
