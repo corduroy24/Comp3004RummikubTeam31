@@ -50,6 +50,15 @@ public class Player implements Observer{
         thirdPlayerPoint = enemies.get(2).getHand().sizeOfHand();
       }
     
+    public boolean isEligibleforP3() {
+    	if (((thirdPlayerPoint+2)>(secondPlayerPoint))&&((thirdPlayerPoint+2)>(firstPlayerPoint))) {
+    		return true;
+    	}
+    	else {
+    	return false;
+    	}
+    }
+    
 	public boolean getIsTurn () { //gets the current status of the players turn  
 		return this.isTurn; 
 	}

@@ -248,7 +248,7 @@ public class PlayerHand {
 
 	//////////////////////////////////////////////////////////////////////////////////////////////
 
-	public boolean foundSet(PlayerHand x) { // returns true if hand has possibility for any groups
+	public boolean foundSet(PlayerHand x) { // returns true if hand has possibility for any sets
 		ArrayList<PlayerHand> colourSep = x.seperateByColour();
 		
 		for (int i = 0; i < 4; i++) {
