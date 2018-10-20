@@ -30,7 +30,6 @@ public class Ui extends Application implements Observer
 	Stage window;
 	
 	Scene mainMenuScene;
-	
 	Scene rummiScene;
 	
 	Button startButton;
@@ -43,13 +42,14 @@ public class Ui extends Application implements Observer
 	
 	HBox playerHand;
 	
-	GameMaster game = new GameMaster();
+	static GameMaster game = new GameMaster();
 	
 	Boolean tracing = true;
 	
 	
 	public static void main(String [] args) 
 	{
+		game.dealInitialHand();
 		Application.launch(args);
 	}
 	
@@ -185,9 +185,6 @@ public class Ui extends Application implements Observer
 			});
 		}
 		
-		//Remove once the main class sends in the hand
-		//PlayerHand test1 = new PlayerHand("test1");
-		//setPlayerHand(test1);
 		setPlayerHand(game.getHuman().getHand());
 
 		for(int x=0;x<playerHandButtons.length;x++)
@@ -197,7 +194,7 @@ public class Ui extends Application implements Observer
 		
 		//Creates the text console where it will ouput any necessary info\
 		console = new TextArea();
-		console.setText("This is where it displays current players turn as well as what the AI did on their turn.\nCan also display score");
+		console.setText("Player's turn.");
 		console.setEditable(false); //Makes it not editable
 		console.setMinSize(1095, 100); //sets the size of the box
 		console.setMaxSize(1095, 100); //sets the size of the box
@@ -212,7 +209,9 @@ public class Ui extends Application implements Observer
 		    public void handle(ActionEvent e) 
 		    {
 		    	//Change to send a message that players turn has ended
-		    	window.setScene(mainMenuScene);
+		    	//window.setScene(mainMenuScene);
+		    	testTable();
+		    	updateTable();
 		    }
 		});
 		
@@ -247,6 +246,7 @@ public class Ui extends Application implements Observer
 		    public void handle(ActionEvent e) 
 		    {
 		    	window.setScene(rummiScene);
+		    	
 		    }
 		});
 		
@@ -318,6 +318,65 @@ public class Ui extends Application implements Observer
 			{
 				System.out.println("Something went wrong in setPlayerHand()");
 				System.out.println("Color for tile "+x+" is set to "+test.getTile(x).getColor());
+			}
+		}
+	}
+	
+	public void testTable()
+	{
+		Table table = game.getTable();
+		
+		Tile test1 = new Tile(2, 3);
+		table.setTile(1, 4, test1);
+		
+		Tile test2 = new Tile(1, 4);
+		table.setTile(15, 2, test2);
+		
+		Tile test3 = new Tile(4, 11);
+		table.setTile(8, 6, test3);
+		
+		game.setTable(table);
+	}
+	
+	public void updateTable()
+	{
+		Table table = game.getTable();
+		
+		for(int x=0;x<tableButtons.length;x++)
+		{
+			//System.out.println(table.get(x));
+			for(int y=0;y<tableButtons[0].length;y++)
+			{
+				if(table.getTile(x, y).getNumber() != 14)
+				{
+					tableButtons[x][y].setText(String.valueOf(table.getTile(x, y).getNumber()));
+				}
+
+				if(table.getTile(x, y).getColor().equals("New"))
+				{
+					
+				}
+				else if(table.getTile(x, y).getColor().equals("R"))
+				{
+					tableButtons[x][y].setStyle("-fx-background-color: #db4c4c");
+				}
+				else if(table.getTile(x, y).getColor().equals("B"))
+				{
+					tableButtons[x][y].setStyle("-fx-background-color: #3888d8");
+				}
+				else if(table.getTile(x, y).getColor().equals("G"))
+				{
+					tableButtons[x][y].setStyle("-fx-background-color: #1a9922");
+				}
+				else if(table.getTile(x, y).getColor().equals("O"))
+				{
+					tableButtons[x][y].setStyle("-fx-background-color: #c69033");
+				}
+				else
+				{
+					System.out.println("Something went wrong in updateTable()");
+					System.out.println("Color for tile x:"+x+", y:"+y+" is set to "+table.getTile(x, y).getColor());
+				}
 			}
 		}
 	}

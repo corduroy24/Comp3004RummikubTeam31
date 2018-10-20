@@ -22,8 +22,9 @@ public class Tile {
 		return Number;
 	}
 
-	public Tile() { // used to add a wild tile to the deck
-		this.Color = "Wild";
+	public Tile() 
+	{
+		this.Color = "New";
 		this.Number = 14;
 
 	}

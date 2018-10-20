@@ -20,7 +20,7 @@ public class PlayerStrategy3Test extends TestCase{
 	
 	Player opponent = new Player("Player",999,new PlayerStrategy3());
 	
-	opponent.getHand().addTileToHand(tile3);
+	//opponent.getHand().addTileToHand(tile3);
 	
 	public void testFirstMove() {
 		player = new Player("Player",999,new PlayerStrategy1());
