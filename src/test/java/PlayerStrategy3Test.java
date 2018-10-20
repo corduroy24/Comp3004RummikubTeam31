@@ -19,6 +19,12 @@ public class PlayerStrategy3Test extends TestCase{
 	Tile t10 = new Tile(4,1);
 	
 	
+<<<<<<< HEAD
+=======
+	Player opponent = new Player("Player",999,new PlayerStrategy3());
+	
+	//opponent.getHand().addTileToHand(tile3);
+>>>>>>> e2da6d69a92a1f97bd1a3cf863902c25fd89cb69
 	
 	public void testFirstMove() {
 		player.getHand().addTileToHand(tile3);

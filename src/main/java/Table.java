@@ -11,6 +11,20 @@ public class Table{
 	public Table() {
 		table = new ArrayList<ArrayList<Tile>>();
 	}
+	
+	public void initTable()
+	{
+		for(int x=0;x<20;x++)
+		{
+			table.add(new ArrayList<Tile>());
+			for(int y=0;y<7;y++)
+			{
+				table.get(x).add(new Tile());
+			}
+		}
+		
+	}
+	
 	public int getNumberOfTile() {
 		// TODO Auto-generated method stub
 		int u = 0;
@@ -29,7 +43,6 @@ public class Table{
 		return false;
 	}
 	
-
 	// a is the number of row holding tile.
 	// b is the index of Tile in a
 	// c is the number of row we want to push tile in
@@ -46,6 +59,16 @@ public class Table{
 	
 	public ArrayList<ArrayList<Tile>> getTable(){
 		return table;
+	}
+	
+	public Tile getTile(int x, int y)
+	{
+		return table.get(x).get(y);		
+	}
+	
+	public void setTile(int x, int y, Tile tile)
+	{
+		table.get(x).set(y, tile);
 	}
 	
 	//check the array is set or not

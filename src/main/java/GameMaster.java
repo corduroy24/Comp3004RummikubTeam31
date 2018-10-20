@@ -32,6 +32,8 @@ public class GameMaster extends Observable{
 		this.addObserver(AI1);
 		this.addObserver(AI2);
 		this.addObserver(AI3);
+		
+		table.initTable();
 	}
 	
 	// main deck
@@ -47,8 +49,14 @@ public class GameMaster extends Observable{
 		return players;
 	}
 	
-	public Table getTable() {
+	public Table getTable() 
+	{
 		return table;
+	}
+	
+	public void setTable(Table newTable) 
+	{
+		table = newTable;
 	}
 	
 	public Player getHuman() {
@@ -64,7 +72,7 @@ public class GameMaster extends Observable{
 		Announcement();
 	}
 	
-	public void gamestart() {
+	public void gameStart() {
 		while(!AI1.getIsFirstMeldComplete() || !AI2.getIsFirstMeldComplete()) {
 			if(AI1.play()) {
 				table = AI1.getTable();
@@ -92,12 +100,5 @@ public class GameMaster extends Observable{
 	public void Announcement(Player human){
 		setChanged();
 		notifyObservers(human);
-	}
-
-	public static void main(String[] args) {
-		GameMaster game = new GameMaster();
-		game.dealInitialHand();
-		game.gamestart();
-		
 	}
 }
