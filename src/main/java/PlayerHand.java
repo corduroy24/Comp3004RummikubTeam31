@@ -342,9 +342,15 @@ public class PlayerHand {
 		return false;
 	}
 
-	public void removeTile(Tile tile) {
-		// TODO Auto-generated method stub
-		
+	public void removeTile(Tile tile) 
+	{
+		for(int x=0; x<hand.size();x++)
+		{
+			if(tile.getColor().equals(hand.get(x).getColor()) && tile.getNumber() == hand.get(x).getNumber())
+			{
+				hand.remove(x);
+			}
+		}
 	}
 
 }

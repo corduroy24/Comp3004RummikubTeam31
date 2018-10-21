@@ -103,6 +103,11 @@ public class Ui extends Application implements Observer
 				        boolean successText = false;
 				        boolean successColor = false;
 				        
+				        Tile temp = new Tile(Integer.parseInt(db.getRtf().substring(0, 1)), Integer.parseInt(db.getRtf().substring(2, 3)));
+				    	
+				    	game.getHuman().getHand().removeTile(temp);
+				    	updateHand();
+				        
 				        //Add the text to the button
 				        if (db.hasString()) 
 				        {
@@ -174,10 +179,31 @@ public class Ui extends Application implements Observer
 			    public void handle(MouseEvent event) 
 			    {
 			        Dragboard db = playerHandButtons[number].startDragAndDrop(TransferMode.ANY);
+			        String temp = "";
+			        
+			        if(playerHandButtons[number].getStyle().equals("-fx-background-color: #db4c4c"))
+					{
+			        	temp = "1";
+					}
+					else if(playerHandButtons[number].getStyle().equals("-fx-background-color: #3888d8"))
+					{
+						temp = "2";
+					}
+					else if(playerHandButtons[number].getStyle().equals("-fx-background-color: #1a9922"))
+					{
+						temp = "3";
+					}
+					else if(playerHandButtons[number].getStyle().equals("-fx-background-color: #c69033"))
+					{
+						temp = "4";
+					}
+			        
+			        temp = ""+temp+"|"+playerHandButtons[number].getText();
 			        
 			        ClipboardContent content = new ClipboardContent();
 			        content.putString(playerHandButtons[number].getText());
 			        content.putUrl(playerHandButtons[number].getStyle());
+			        content.putRtf(temp);
 			        db.setContent(content);
 			        
 			        event.consume();
@@ -185,7 +211,7 @@ public class Ui extends Application implements Observer
 			});
 		}
 		
-		setPlayerHand(game.getHuman().getHand());
+		setPlayerHand();
 
 		for(int x=0;x<playerHandButtons.length;x++)
 		{
@@ -286,13 +312,9 @@ public class Ui extends Application implements Observer
 		playerHand.getChildren().add(newTile);		
 	}
 	
-	public void setPlayerHand(PlayerHand hand)
+	public void setPlayerHand()
 	{
-		Deck deck = new Deck();
-		deck.Shuffle();
-		
-		PlayerHand test = new PlayerHand("test");
-		test.drawFirst14(deck);
+		PlayerHand test = game.getHuman().getHand();
 		
 		for(int x=0;x<14;x++)
 		{
@@ -378,6 +400,43 @@ public class Ui extends Application implements Observer
 					System.out.println("Color for tile x:"+x+", y:"+y+" is set to "+table.getTile(x, y).getColor());
 				}
 			}
+		}
+	}
+	
+	public void updateHand()
+	{
+		PlayerHand test = game.getHuman().getHand();
+		playerHand.getChildren().clear();
+		
+		for(int x=0;x<game.getHuman().getHand().sizeOfHand();x++)
+		{
+			playerHandButtons[x].setText(""+test.getTile(x).getNumber());
+			
+			if(test.getTile(x).getColor().equals("R"))
+			{
+				playerHandButtons[x].setStyle("-fx-background-color: #db4c4c");
+			}
+			else if(test.getTile(x).getColor().equals("B"))
+			{
+				playerHandButtons[x].setStyle("-fx-background-color: #3888d8");
+			}
+			else if(test.getTile(x).getColor().equals("G"))
+			{
+				playerHandButtons[x].setStyle("-fx-background-color: #1a9922");
+			}
+			else if(test.getTile(x).getColor().equals("O"))
+			{
+				playerHandButtons[x].setStyle("-fx-background-color: #c69033");
+			}
+			else
+			{
+				System.out.println("Something went wrong in setPlayerHand()");
+				System.out.println("Color for tile "+x+" is set to "+test.getTile(x).getColor());
+			}
+		}
+		for(int x=0;x<game.getHuman().getHand().sizeOfHand();x++)
+		{
+			playerHand.getChildren().add(playerHandButtons[x]);
 		}
 	}
 
