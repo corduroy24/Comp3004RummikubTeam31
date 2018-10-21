@@ -63,10 +63,15 @@ public class GameMaster extends Observable{
 		return human;
 	}
 	
+	public Player getAI() {
+		return AI1;
+	}
+	
 	//draw card to human and AI
 	public void dealInitialHand() {
 		human.getHand().drawFirst14(deck);
-		AI1.getHand().drawFirst14(deck);
+		//AI1.getHand().drawFirst14(deck);
+		AI1.setHandTest();
 		AI2.getHand().drawFirst14(deck);
 		AI3.getHand().drawFirst14(deck);
 		Announcement();

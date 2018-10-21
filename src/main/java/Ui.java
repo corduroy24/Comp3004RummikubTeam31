@@ -42,10 +42,7 @@ public class Ui extends Application implements Observer
 	
 	HBox playerHand;
 	
-	static GameMaster game = new GameMaster();
-	
-	Boolean tracing = true;
-	
+	static GameMaster game = new GameMaster();	
 	
 	public static void main(String [] args) 
 	{
@@ -235,9 +232,10 @@ public class Ui extends Application implements Observer
 		    public void handle(ActionEvent e) 
 		    {
 		    	//Change to send a message that players turn has ended
-		    	//window.setScene(mainMenuScene);
-		    	testTable();
+		    	//testTable();
+		    	aiTurn();
 		    	updateTable();
+		    	
 		    }
 		});
 		
@@ -366,7 +364,6 @@ public class Ui extends Application implements Observer
 		
 		for(int x=0;x<tableButtons.length;x++)
 		{
-			//System.out.println(table.get(x));
 			for(int y=0;y<tableButtons[0].length;y++)
 			{
 				if(table.getTile(x, y).getNumber() != 14)
@@ -437,6 +434,19 @@ public class Ui extends Application implements Observer
 		for(int x=0;x<game.getHuman().getHand().sizeOfHand();x++)
 		{
 			playerHand.getChildren().add(playerHandButtons[x]);
+		}
+	}
+	
+	public void aiTurn()
+	{
+		Boolean temp = game.getAI().play();
+		if(temp)
+		{
+			System.out.println("Updated Table");
+		}
+		else
+		{
+			System.out.println("Drew a card");
 		}
 	}
 
