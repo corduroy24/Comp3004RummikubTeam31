@@ -39,7 +39,29 @@ public class Table{
 	public boolean addTiles(ArrayList<Tile> tiles2) {
 		// TODO Auto-generated method stub
 		if(isSet(tiles2) || isSequence(tiles2))
-			return table.add(tiles2);
+		{
+			int counter =0;
+			for(int y=0;y<7;y++)
+			{
+				for(int x=0;x<20;x++)
+				{
+					if(getTile(y, x).getColor().equals("New"))
+					{
+						counter++;
+					}
+					
+					if(counter==tiles2.size())
+					{
+						for(int z=0;z<tiles2.size();z++)
+						{
+							setTile(x-z,y,tiles2.get(z));
+						}
+						return true;
+					}
+				}
+				counter=0;
+			}
+		}
 		return false;
 	}
 	

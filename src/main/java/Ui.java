@@ -100,9 +100,17 @@ public class Ui extends Application implements Observer
 				        boolean successText = false;
 				        boolean successColor = false;
 				        
-				        Tile temp = new Tile(Integer.parseInt(db.getRtf().substring(0, 1)), Integer.parseInt(db.getRtf().substring(2, 3)));
+				        if(db.getRtf().length()==3)
+				        {
+				        	Tile temp = new Tile(Integer.parseInt(db.getRtf().substring(0, 1)), Integer.parseInt(db.getRtf().substring(2, 3)));
+				        	game.getHuman().getHand().removeTile(temp);
+				        }
+				        else
+				        {
+				        	Tile temp = new Tile(Integer.parseInt(db.getRtf().substring(0, 1)), Integer.parseInt(db.getRtf().substring(2, 4)));
+				        	game.getHuman().getHand().removeTile(temp);
+				        }
 				    	
-				    	game.getHuman().getHand().removeTile(temp);
 				    	updateHand();
 				        
 				        //Add the text to the button
