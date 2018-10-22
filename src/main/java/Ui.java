@@ -1,5 +1,7 @@
+import java.io.File;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 import javafx.application.Application;
@@ -129,6 +131,15 @@ public class Ui extends Application implements Observer
 				        	successColor = true;
 				        }
 				        
+				        //Clears the tile it came from if it was moved from the table
+				        if(db.hasHtml())
+				        {
+				        	String coordinates = db.getHtml();
+				        	String[] temp = coordinates.split(",");
+				        	
+				        	clearTile(Integer.parseInt(temp[0]), Integer.parseInt(temp[1]));
+				        }
+				        
 				        event.setDropCompleted(successText && successColor);
 				        event.consume();
 				     }
@@ -139,7 +150,7 @@ public class Ui extends Application implements Observer
 				{
 				    public void handle(DragEvent event) 
 				    {
-				    	System.out.println(tableButtons[numberY][numberX].getStyle().length());
+				    	//System.out.println(tableButtons[numberY][numberX].getStyle().length());
 				    	
 						if (event.getGestureSource() != tableButtons[numberY][numberX] && tableButtons[numberY][numberX].getStyle().length() < 1) 
 						{
@@ -171,6 +182,7 @@ public class Ui extends Application implements Observer
 				    }
 				});
 				
+				//Makes the table button draggable when the player drops a tile onto it
 				tableButtons[y][x].setOnDragDetected(new EventHandler<MouseEvent>()
 				{
 					public void handle(MouseEvent event) 
@@ -204,10 +216,11 @@ public class Ui extends Application implements Observer
 					        content.putString(tableButtons[numberY][numberX].getText());
 					        content.putUrl(tableButtons[numberY][numberX].getStyle());
 					        content.putRtf(temp);
-					        db.setContent(content);
 					        
-					        tableButtons[numberY][numberX].setStyle("");
-					        tableButtons[numberY][numberX].setText("");
+					        String coordinates = ""+numberX+","+numberY;
+					        content.putHtml(coordinates);
+					        
+					        db.setContent(content);
 						}
 				        
 				        event.consume();
@@ -425,11 +438,15 @@ public class Ui extends Application implements Observer
 		int x = 0;
 		int y = 0;
 		
-		for(int i =0; i < t.size();i++) {
-			if(t.get(i).size() + y < 20) {
-				for(int u =0; u < t.get(i).size(); u++) {
+		for(int i =0; i < t.size();i++) 
+		{
+			if(t.get(i).size() + y < 20) 
+			{
+				for(int u =0; u < t.get(i).size(); u++) 
+				{
 					String color = t.get(i).get(u).getColor();
 					tableButtons[y][x].setText(""+t.get(i).get(u).getNumber());
+					
 					if(color.equals("R"))
 						tableButtons[y][x].setStyle("-fx-background-color: #db4c4c");
 					else if(color.equals("B"))
@@ -442,12 +459,15 @@ public class Ui extends Application implements Observer
 				}
 				y++;
 			}
-			else {
+			else 
+			{
 				y = 0;
 				x ++;
-				for(int u =0; u < t.get(i).size(); u++) {
+				for(int u =0; u < t.get(i).size(); u++) 
+				{
 					String color = t.get(i).get(u).getColor();
 					tableButtons[y][x].setText(""+t.get(i).get(u).getNumber());
+					
 					if(color.equals("R"))
 						tableButtons[y][x].setStyle("-fx-background-color: #db4c4c");
 					else if(color.equals("B"))
@@ -513,6 +533,12 @@ public class Ui extends Application implements Observer
 		{
 			System.out.println("Drew a card");
 		}		
+	}
+	
+	public void clearTile(int x, int y)
+	{		
+		tableButtons[y][x].setStyle("");
+		tableButtons[y][x].setText("");
 	}
 
 	public void update(Observable o, Object arg) 
