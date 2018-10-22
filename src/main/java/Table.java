@@ -179,4 +179,11 @@ public class Table{
 		table = t;
 	}
 
+	public void addTile(Tile temp) {
+		// TODO Auto-generated method stub
+		ArrayList<Tile> t  = new ArrayList<Tile>();
+		t.add(temp);
+		table.add(t);
+	}
+
 }

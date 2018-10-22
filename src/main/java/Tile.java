@@ -35,7 +35,19 @@ public class Tile {
 	
 	public String toString() {
 		String out = "";
-		out += ("C" + Color + " N " + Number + " ");
+		String color = " ";
+		if(Color.equals("R"))
+			color = "Red";
+		else if(Color.equals("G"))
+			color = "Green";
+		else if(Color.equals("B"))
+			color = "Blue";
+		else 
+			color = "Orange";
+		
+			
+			
+		out += ("{" + color + Number + "} ");
 		return out;
 	}
 
