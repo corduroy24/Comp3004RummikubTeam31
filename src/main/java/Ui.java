@@ -108,11 +108,13 @@ public class Ui extends Application implements Observer
 				        {
 				        	Tile temp = new Tile(Integer.parseInt(db.getRtf().substring(0, 1)), Integer.parseInt(db.getRtf().substring(2, 3)));
 				        	game.getHuman().getHand().removeTile(temp);
+				        	game.getHuman().getTable().addTile(temp);
 				        }
 				        else
 				        {
 				        	Tile temp = new Tile(Integer.parseInt(db.getRtf().substring(0, 1)), Integer.parseInt(db.getRtf().substring(2, 4)));
 				        	game.getHuman().getHand().removeTile(temp);
+				        	game.getHuman().getTable().addTile(temp);
 				        }
 				    	
 				    	updateHand();
@@ -434,7 +436,15 @@ public class Ui extends Application implements Observer
 	{
 		Table table = game.getTable();
 		ArrayList<ArrayList<Tile>> t = table.getTable();
-		
+		for(int x=0;x<tableButtons[0].length;x++)
+		{
+			for(int y=0;y<tableButtons.length;y++)
+			{
+				tableButtons[y][x].setText(" ");
+				tableButtons[y][x].setStyle(null);
+				
+			}
+		}
 		int x = 0;
 		int y = 0;
 		
