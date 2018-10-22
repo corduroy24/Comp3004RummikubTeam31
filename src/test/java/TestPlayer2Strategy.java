@@ -123,7 +123,7 @@ public class TestPlayer2Strategy extends TestCase{
 		player.getHand().addTileToHand(t6);
 		//player hand 5,6 8,9
 		player.play();
-		
+		//player.getHand().HandReader();
 		assertTrue(player.getHand().sizeOfHand() == 4);
 		assertTrue(player.getTable().getNumberOfTile() == 3);
 	}
@@ -167,7 +167,7 @@ public class TestPlayer2Strategy extends TestCase{
 		
 		//player hand 5,6 8,9
 		player.play();
-		
+		player.getHand().HandReader();
 		assertTrue(player.getHand().sizeOfHand() == 4);
 		assertTrue(player.getTable().getNumberOfTile() == 9);
 		assertTrue(player.isWinner() == false);

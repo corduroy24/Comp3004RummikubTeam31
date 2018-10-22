@@ -12,6 +12,7 @@ public class Table{
 		table = new ArrayList<ArrayList<Tile>>();
 	}
 	
+	private int checking_index = 0;
 	public void initTable()
 	{
 		for(int x=0;x<20;x++)
@@ -40,27 +41,7 @@ public class Table{
 		// TODO Auto-generated method stub
 		if(isSet(tiles2) || isSequence(tiles2))
 		{
-			int counter =0;
-			for(int y=0;y<7;y++)
-			{
-				for(int x=0;x<20;x++)
-				{
-					if(getTile(y, x).getColor().equals("New"))
-					{
-						counter++;
-					}
-					
-					if(counter==tiles2.size())
-					{
-						for(int z=0;z<tiles2.size();z++)
-						{
-							setTile(x-z,y,tiles2.get(z));
-						}
-						return true;
-					}
-				}
-				counter=0;
-			}
+			return table.add(tiles2);
 		}
 		return false;
 	}
@@ -85,6 +66,8 @@ public class Table{
 	
 	public Tile getTile(int x, int y)
 	{
+		if(table.size() == 0) return null;
+		
 		return table.get(x).get(y);		
 	}
 	

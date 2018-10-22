@@ -1,4 +1,5 @@
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 import javafx.application.Application;
@@ -70,7 +71,7 @@ public class Ui extends Application implements Observer
 			for(int y=0;y<tableButtons.length;y++)
 			{
 				tableButtons[y][x] = new Button();
-				tableButtons[y][x].setText("x: "+x+"\ny: "+y);
+				tableButtons[y][x].setText(" ");
 				tableButtons[y][x].setMinSize(50, 80);
 				list.addAll(tableButtons[y][x]);
 				
@@ -369,43 +370,49 @@ public class Ui extends Application implements Observer
 	public void updateTable()
 	{
 		Table table = game.getTable();
+		ArrayList<ArrayList<Tile>> t = table.getTable();
 		
-		for(int x=0;x<tableButtons.length;x++)
-		{
-			for(int y=0;y<tableButtons[0].length;y++)
-			{
-				if(table.getTile(x, y).getNumber() != 14)
-				{
-					tableButtons[x][y].setText(String.valueOf(table.getTile(x, y).getNumber()));
+		int x = 0;
+		int y = 0;
+		
+		for(int i =0; i < t.size();i++) {
+			if(t.get(i).size() + y < 20) {
+				for(int u =0; u < t.get(i).size(); u++) {
+					String color = t.get(i).get(u).getColor();
+					tableButtons[y][x].setText(""+t.get(i).get(u).getNumber());
+					if(color.equals("R"))
+						tableButtons[y][x].setStyle("-fx-background-color: #db4c4c");
+					else if(color.equals("B"))
+						tableButtons[y][x].setStyle("-fx-background-color: #3888d8");
+					else if(color.equals("G"))
+						tableButtons[y][x].setStyle("-fx-background-color: #1a9922");
+					else if(color.equals("O"))
+						tableButtons[y][x].setStyle("-fx-background-color: #c69033");
+					y++;
 				}
-
-				if(table.getTile(x, y).getColor().equals("New"))
-				{
-					
+				y++;
+			}
+			else {
+				y = 0;
+				x ++;
+				for(int u =0; u < t.get(i).size(); u++) {
+					String color = t.get(i).get(u).getColor();
+					tableButtons[y][x].setText(""+t.get(i).get(u).getNumber());
+					if(color.equals("R"))
+						tableButtons[y][x].setStyle("-fx-background-color: #db4c4c");
+					else if(color.equals("B"))
+						tableButtons[y][x].setStyle("-fx-background-color: #3888d8");
+					else if(color.equals("G"))
+						tableButtons[y][x].setStyle("-fx-background-color: #1a9922");
+					else if(color.equals("O"))
+						tableButtons[y][x].setStyle("-fx-background-color: #c69033");
+					y++;
 				}
-				else if(table.getTile(x, y).getColor().equals("R"))
-				{
-					tableButtons[x][y].setStyle("-fx-background-color: #db4c4c");
-				}
-				else if(table.getTile(x, y).getColor().equals("B"))
-				{
-					tableButtons[x][y].setStyle("-fx-background-color: #3888d8");
-				}
-				else if(table.getTile(x, y).getColor().equals("G"))
-				{
-					tableButtons[x][y].setStyle("-fx-background-color: #1a9922");
-				}
-				else if(table.getTile(x, y).getColor().equals("O"))
-				{
-					tableButtons[x][y].setStyle("-fx-background-color: #c69033");
-				}
-				else
-				{
-					System.out.println("Something went wrong in updateTable()");
-					System.out.println("Color for tile x:"+x+", y:"+y+" is set to "+table.getTile(x, y).getColor());
-				}
+				y++;
+				
 			}
 		}
+			
 	}
 	
 	public void updateHand()
@@ -456,6 +463,8 @@ public class Ui extends Application implements Observer
 		{
 			System.out.println("Drew a card");
 		}
+		game.getAI2().play();
+		
 	}
 
 	public void update(Observable o, Object arg) 

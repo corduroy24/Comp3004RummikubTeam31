@@ -56,6 +56,7 @@ public class TestPlayer1Strategy extends TestCase{
 		player.play();
 		assertTrue(player.getTable().getNumberOfTile() == 6);		
 	}
+	
 	public void testAfterFirstMove() {
 		player = new Player("Player",999,new PlayerStrategy1());
 		//1 set 111
@@ -91,7 +92,6 @@ public class TestPlayer1Strategy extends TestCase{
 		player.play();
 		assertTrue(player.getTable().getNumberOfTile() == 6);
 		assertTrue(player.getHand().sizeOfHand() == 3);
-
 	}
 	
 }

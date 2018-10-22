@@ -22,7 +22,7 @@ public class GameMaster extends Observable{
 		//create human, AI1, AI2, AI3, deck table GUI
 		human = new Player("Human",1, new HumanPlayerStrategy());
 		AI1 = new Player("AI1",2, new PlayerStrategy1());
-		AI2 = new Player("AI2",3, new PlayerStrategy2());
+		AI2 = new Player("AI2",3, new PlayerStrategy1());
 		AI3 = new Player("AI3",4, new PlayerStrategy3());
 		deck = new Deck();
 		deck.Shuffle();
@@ -32,8 +32,6 @@ public class GameMaster extends Observable{
 		this.addObserver(AI1);
 		this.addObserver(AI2);
 		this.addObserver(AI3);
-		
-		table.initTable();
 	}
 	
 	// main deck
@@ -72,7 +70,8 @@ public class GameMaster extends Observable{
 		human.getHand().drawFirst14(deck);
 		//AI1.getHand().drawFirst14(deck);
 		AI1.setHandTest();
-		AI2.getHand().drawFirst14(deck);
+		AI2.setHandTest();
+		//AI2.getHand().drawFirst14(deck);
 		AI3.getHand().drawFirst14(deck);
 		Announcement();
 	}
@@ -105,5 +104,10 @@ public class GameMaster extends Observable{
 	public void Announcement(Player human){
 		setChanged();
 		notifyObservers(human);
+	}
+
+	public Player getAI2() {
+		// TODO Auto-generated method stub
+		return AI2;
 	}
 }

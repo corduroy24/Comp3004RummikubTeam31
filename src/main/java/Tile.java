@@ -35,7 +35,7 @@ public class Tile {
 	
 	public String toString() {
 		String out = "";
-		out += ("Color is :" + Color + " Number is " + Number);
+		out += ("C" + Color + " N " + Number + " ");
 		return out;
 	}
 

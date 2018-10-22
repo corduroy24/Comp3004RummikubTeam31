@@ -44,13 +44,16 @@ public class Player implements Observer{
 		Tile tile2 = new Tile(2, 11);
 		Tile tile3 = new Tile(3, 11);
 		Tile tile4 = new Tile(4, 11);
+		
 		Tile tile5 = new Tile(1, 1);
 		Tile tile6 = new Tile(1, 2);
+		
 		Tile tile7 = new Tile(1, 4);
 		Tile tile8 = new Tile(1, 5);
 		Tile tile9 = new Tile(1, 6);
 		Tile tile10 = new Tile(1, 7);
 		Tile tile11 = new Tile(1, 8);
+		
 		Tile tile12 = new Tile(2, 1);
 		Tile tile13 = new Tile(2, 4);
 		Tile tile14 = new Tile(2, 5);
@@ -59,13 +62,16 @@ public class Player implements Observer{
 		temp.addTileToHand(tile2);
 		temp.addTileToHand(tile3);
 		temp.addTileToHand(tile4);
+	
 		temp.addTileToHand(tile5);
 		temp.addTileToHand(tile6);
+		
 		temp.addTileToHand(tile7);
 		temp.addTileToHand(tile8);
 		temp.addTileToHand(tile9);
 		temp.addTileToHand(tile10);
 		temp.addTileToHand(tile11);
+		
 		temp.addTileToHand(tile12);
 		temp.addTileToHand(tile13);
 		temp.addTileToHand(tile14);
