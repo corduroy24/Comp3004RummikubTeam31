@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import javafx.stage.Stage;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ClipboardContent;
@@ -82,7 +83,7 @@ public class Ui extends Application implements Observer
 				{
 				    public void handle(DragEvent event) 
 				    {
-				        if (event.getGestureSource() != tableButtons[numberY][numberX]) 
+				        if (event.getGestureSource() != tableButtons[numberY][numberX] && tableButtons[numberY][numberX].getStyle().length() < 1) 
 				        {
 				            //Sets up the copy of color and number
 				            event.acceptTransferModes(TransferMode.ANY);
@@ -138,15 +139,21 @@ public class Ui extends Application implements Observer
 				{
 				    public void handle(DragEvent event) 
 				    {
-				    	//Add a check here to see if its possible for the tile to be dropped here
+				    	System.out.println(tableButtons[numberY][numberX].getStyle().length());
 				    	
-						if (event.getGestureSource() != tableButtons[numberY][numberX]) 
+						if (event.getGestureSource() != tableButtons[numberY][numberX] && tableButtons[numberY][numberX].getStyle().length() < 1) 
 						{
-							tableButtons[numberY][numberX].setTextFill(Color.GREEN);
+							DropShadow dropShadow = new DropShadow();
+							dropShadow.setRadius(10.0);
+							dropShadow.setColor(Color.GREEN);
+							tableButtons[numberY][numberX].setEffect(dropShadow);
 						}
 						else
 						{
-							tableButtons[numberY][numberX].setTextFill(Color.RED);
+							DropShadow dropShadow = new DropShadow();
+							dropShadow.setRadius(10.0);
+							dropShadow.setColor(Color.RED);
+							tableButtons[numberY][numberX].setEffect(dropShadow);
 						}
 						
 						event.consume();
@@ -158,10 +165,53 @@ public class Ui extends Application implements Observer
 				{
 				    public void handle(DragEvent event) 
 				    {
-				    	tableButtons[numberY][numberX].setTextFill(Color.BLACK);
+				    	tableButtons[numberY][numberX].setEffect(null);
 
 				        event.consume();
 				    }
+				});
+				
+				tableButtons[y][x].setOnDragDetected(new EventHandler<MouseEvent>()
+				{
+					public void handle(MouseEvent event) 
+					{
+						if(tableButtons[numberY][numberX].getStyle().length() > 1) 
+						{
+							Dragboard db = tableButtons[numberY][numberX].startDragAndDrop(TransferMode.ANY);
+							
+							String temp = "";
+					        
+					        if(tableButtons[numberY][numberX].getStyle().equals("-fx-background-color: #db4c4c"))
+							{
+					        	temp = "1";
+							}
+							else if(tableButtons[numberY][numberX].getStyle().equals("-fx-background-color: #3888d8"))
+							{
+								temp = "2";
+							}
+							else if(tableButtons[numberY][numberX].getStyle().equals("-fx-background-color: #1a9922"))
+							{
+								temp = "3";
+							}
+							else if(tableButtons[numberY][numberX].getStyle().equals("-fx-background-color: #c69033"))
+							{
+								temp = "4";
+							}
+					        
+					        temp = ""+temp+"|"+tableButtons[numberY][numberX].getText();
+					        
+					        ClipboardContent content = new ClipboardContent();
+					        content.putString(tableButtons[numberY][numberX].getText());
+					        content.putUrl(tableButtons[numberY][numberX].getStyle());
+					        content.putRtf(temp);
+					        db.setContent(content);
+					        
+					        tableButtons[numberY][numberX].setStyle("");
+					        tableButtons[numberY][numberX].setText("");
+						}
+				        
+				        event.consume();
+					}
 				});
 			}
 		}
@@ -462,9 +512,7 @@ public class Ui extends Application implements Observer
 		else
 		{
 			System.out.println("Drew a card");
-		}
-		game.getAI2().play();
-		
+		}		
 	}
 
 	public void update(Observable o, Object arg) 
