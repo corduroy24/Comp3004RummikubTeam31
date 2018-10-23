@@ -74,8 +74,14 @@ public class PlayerStrategy2 implements PlayerStrategy {
 				output = merge(TilesWillBeStore,p.getTable());
 				p.getTable().setTable(output);
 				
+				if(TilesWillBeStore.size() > 0) {
+					System.out.println("Tiles will be played by AI 2: ");
+				}
+				
+				
 				for(int i =0; i < TilesWillBeStore.size();i++) {
 					p.getHand().playTileFromHand(TilesWillBeStore.get(i));
+					System.out.println(TilesWillBeStore.get(i).toString());
 				}
 				//else
 				//output = getAllSetAndSequence(p.getHand().getTiles());

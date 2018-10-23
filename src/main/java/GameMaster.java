@@ -65,37 +65,45 @@ public class GameMaster extends Observable{
 		return AI1;
 	}
 	
+	public Player getAI2() {
+		// TODO Auto-generated method stub
+		return AI2;
+	}
+	
+	public void AI_play() {
+		if(AI1.play()) System.out.println("AI 1 decide to play");
+		else {
+			if(deck.getDeck().size() > 0)
+				AI1.getHand().addTileToHand(deck.Draw());
+			System.out.println("AI 1 decide not to play");
+		}
+		Announcement();
+		
+		if(AI2.play()) System.out.println("AI 2 decide to play");
+		else {
+			if(deck.getDeck().size() > 0) AI2.getHand().addTileToHand(deck.Draw());
+			System.out.println("AI 2 decide not to play");}
+		Announcement();
+		
+		if(AI3.play()) System.out.println("AI 3 decide to play");
+		else {
+			if(deck.getDeck().size() > 0) AI3.getHand().addTileToHand(deck.Draw());
+			System.out.println("AI 3 decide not to play");}
+		Announcement();
+	}
+	
+	
+	
+	
 	//draw card to human and AI
 	public void dealInitialHand() {
 		human.getHand().drawFirst14(deck);
-		//AI1.getHand().drawFirst14(deck);
-		AI1.setHandTest();
-		AI2.setHandTest();
-		//AI2.getHand().drawFirst14(deck);
+		AI1.getHand().drawFirst14(deck);
+		AI2.getHand().drawFirst14(deck);
 		AI3.getHand().drawFirst14(deck);
 		Announcement();
 	}
 	
-	public void gameStart() {
-		while(!AI1.getIsFirstMeldComplete() || !AI2.getIsFirstMeldComplete()) {
-			if(AI1.play()) {
-				table = AI1.getTable();
-				Announcement();
-			}
-			else {
-				AI1.getHand().addTileToHand(deck.Draw());
-				Announcement();
-			}
-			
-			if(AI2.play()) {
-				table = AI2.getTable();
-				Announcement();
-			}
-			else {
-				AI2.getHand().addTileToHand(deck.Draw());
-			}
-	}	
-}
 	// send notification to observers
 	public void Announcement(){
 		setChanged();
@@ -106,8 +114,4 @@ public class GameMaster extends Observable{
 		notifyObservers(human);
 	}
 
-	public Player getAI2() {
-		// TODO Auto-generated method stub
-		return AI2;
-	}
 }

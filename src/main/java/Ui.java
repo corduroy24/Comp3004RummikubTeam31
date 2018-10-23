@@ -309,7 +309,8 @@ public class Ui extends Application
 		    	//Change to send a message that players turn has ended
 		    	//testTable();
 		    	game.getHuman().getTable().setTable(current_table());
-		    	aiTurn();
+		    	game.Announcement();
+		    	game.AI_play();
 		    	updateTable();
 		    	
 		    }
@@ -534,19 +535,6 @@ public class Ui extends Application
 		}
 	}
 	
-	public void aiTurn()
-	{
-		Boolean temp = game.getAI().play();
-		if(temp)
-		{
-			System.out.println("Updated Table");
-		}
-		else
-		{
-			System.out.println("Drew a card");
-		}		
-	}
-	
 	public void clearTile(int x, int y)
 	{		
 		tableButtons[y][x].setStyle("");
@@ -554,7 +542,6 @@ public class Ui extends Application
 	}
 
 	private ArrayList<ArrayList<Tile>> current_table(){
-		System.out.println("hello");
 		ArrayList<ArrayList<Tile>> t = new ArrayList<ArrayList<Tile>>();
 		int current_number = 0;
 		int current_color = 0;
