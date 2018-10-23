@@ -29,7 +29,7 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 
-public class Ui extends Application implements Observer
+public class Ui extends Application
 {
 	Stage window;
 	
@@ -111,13 +111,11 @@ public class Ui extends Application implements Observer
 				        {
 				        	Tile temp = new Tile(Integer.parseInt(db.getRtf().substring(0, 1)), Integer.parseInt(db.getRtf().substring(2, 3)));
 				        	game.getHuman().getHand().removeTile(temp);
-				        	game.getHuman().getTable().addTile(temp);
 				        }
 				        else
 				        {
 				        	Tile temp = new Tile(Integer.parseInt(db.getRtf().substring(0, 1)), Integer.parseInt(db.getRtf().substring(2, 4)));
 				        	game.getHuman().getHand().removeTile(temp);
-				        	game.getHuman().getTable().addTile(temp);
 				        }
 				    	
 				    	updateHand();
@@ -310,13 +308,10 @@ public class Ui extends Application implements Observer
 		    {
 		    	//Change to send a message that players turn has ended
 		    	//testTable();
+		    	game.getHuman().getTable().setTable(current_table());
 		    	aiTurn();
 		    	updateTable();
 		    	
-		    	if(!played)
-		    	{
-		    		
-		    	}
 		    }
 		});
 		
@@ -558,8 +553,52 @@ public class Ui extends Application implements Observer
 		tableButtons[y][x].setText("");
 	}
 
-	public void update(Observable o, Object arg) 
-	{
+	private ArrayList<ArrayList<Tile>> current_table(){
+		System.out.println("hello");
+		ArrayList<ArrayList<Tile>> t = new ArrayList<ArrayList<Tile>>();
+		int current_number = 0;
+		int current_color = 0;
+		ArrayList<Tile> meld = new ArrayList<Tile>();
+		for(int x=0;x<7;x++){
+			for(int y=0;y < 20;y++){
+				if(!tableButtons[y][x].getText().equals("") && !tableButtons[y][x].getText().equals(" ")) {
+					current_number = Integer.valueOf(tableButtons[y][x].getText());
+					current_color =  getColorFromStyle(tableButtons[y][x].getStyle());
+				}
+				
+				if(y <= 19 && can_add(tableButtons[y][x].getText()) && can_add(tableButtons[y+1][x].getText())) { 
+					meld.add(new Tile(current_color,current_number));
+				}
+				else if (can_add(tableButtons[y][x].getText()) && meld.size() > 0 ) {
+					meld.add(new Tile(current_color,current_number));
+					t.add(meld);
+					meld = new ArrayList<Tile>();
+				}
+				else if(can_add(tableButtons[y][x].getText())) {
+					meld.add(new Tile(current_color,current_number));
+					t.add(meld);
+					meld = new ArrayList<Tile>();
+				}
 		
+			}
+	}
+		return t;
+	}
+	
+	public boolean can_add(String t) {
+		if(t.equals(" ") || t.equals(""))
+			return false;
+		return true;
+	}
+	
+	public int getColorFromStyle(String text) {
+		if(text.contains("db4c4c"))
+			return 1;
+		else if(text.contains("3888d8"))
+			return 2;
+		else if(text.contains("1a9922"))
+			return 3;
+		else
+			return 4;			
 	}
 }
