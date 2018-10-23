@@ -40,11 +40,14 @@ public class Ui extends Application implements Observer
 	Button endTurnButton;
 	
 	Button[][] tableButtons = new Button[20][7];
+	ArrayList<Button> buttons = new ArrayList<>();
 	Button[] playerHandButtons = new Button[14];
 	
 	TextArea console;
 	
 	HBox playerHand;
+	
+	Boolean played = false;
 	
 	static GameMaster game = new GameMaster();	
 	
@@ -310,6 +313,10 @@ public class Ui extends Application implements Observer
 		    	aiTurn();
 		    	updateTable();
 		    	
+		    	if(!played)
+		    	{
+		    		
+		    	}
 		    }
 		});
 		
