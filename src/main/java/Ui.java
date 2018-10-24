@@ -40,8 +40,8 @@ public class Ui extends Application
 	Button endTurnButton;
 	
 	Button[][] tableButtons = new Button[20][7];
-	ArrayList<Button> buttons = new ArrayList<>();
-	Button[] playerHandButtons = new Button[14];
+	ArrayList<Button> playerHandButtons = new ArrayList<>();
+	//Button[] playerHandButtons = new Button[14];
 	
 	TextArea console;
 	
@@ -103,6 +103,7 @@ public class Ui extends Application
 				{
 				    public void handle(DragEvent event) 
 				    {
+				    	played = true;
 				        Dragboard db = event.getDragboard();
 				        boolean successText = false;
 				        boolean successColor = false;
@@ -238,43 +239,43 @@ public class Ui extends Application
 		playerHand.setAlignment(Pos.BASELINE_CENTER); //Centers the card in the bottom middle
 		
 		//Adds the starting cards to the players hand
-		for(int x=0;x<playerHandButtons.length;x++)
+		for(int x=0;x<14;x++)
 		{
-			playerHandButtons[x] = new Button();
+			playerHandButtons.add(new Button());
 			//playerHandButtons[x].setText("x: "+x);
-			playerHandButtons[x].setMinSize(50, 80);
+			playerHandButtons.get(x).setMinSize(50, 80);
 			
 			final int number = x;
 			//Copies the color and text to a clipboard to be carried over and allows you to start dragging it
-			playerHandButtons[x].setOnDragDetected(new EventHandler<MouseEvent>() 
+			playerHandButtons.get(x).setOnDragDetected(new EventHandler<MouseEvent>() 
 			{
 			    public void handle(MouseEvent event) 
 			    {
-			        Dragboard db = playerHandButtons[number].startDragAndDrop(TransferMode.ANY);
+			        Dragboard db = playerHandButtons.get(number).startDragAndDrop(TransferMode.ANY);
 			        String temp = "";
 			        
-			        if(playerHandButtons[number].getStyle().equals("-fx-background-color: #db4c4c"))
+			        if(playerHandButtons.get(number).getStyle().equals("-fx-background-color: #db4c4c"))
 					{
 			        	temp = "1";
 					}
-					else if(playerHandButtons[number].getStyle().equals("-fx-background-color: #3888d8"))
+					else if(playerHandButtons.get(number).getStyle().equals("-fx-background-color: #3888d8"))
 					{
 						temp = "2";
 					}
-					else if(playerHandButtons[number].getStyle().equals("-fx-background-color: #1a9922"))
+					else if(playerHandButtons.get(number).getStyle().equals("-fx-background-color: #1a9922"))
 					{
 						temp = "3";
 					}
-					else if(playerHandButtons[number].getStyle().equals("-fx-background-color: #c69033"))
+					else if(playerHandButtons.get(number).getStyle().equals("-fx-background-color: #c69033"))
 					{
 						temp = "4";
 					}
 			        
-			        temp = ""+temp+"|"+playerHandButtons[number].getText();
+			        temp = ""+temp+"|"+playerHandButtons.get(number).getText();
 			        
 			        ClipboardContent content = new ClipboardContent();
-			        content.putString(playerHandButtons[number].getText());
-			        content.putUrl(playerHandButtons[number].getStyle());
+			        content.putString(playerHandButtons.get(number).getText());
+			        content.putUrl(playerHandButtons.get(number).getStyle());
 			        content.putRtf(temp);
 			        db.setContent(content);
 			        
@@ -285,9 +286,9 @@ public class Ui extends Application
 		
 		setPlayerHand();
 
-		for(int x=0;x<playerHandButtons.length;x++)
+		for(int x=0;x<playerHandButtons.size();x++)
 		{
-			playerHand.getChildren().add(playerHandButtons[x]);
+			playerHand.getChildren().add(playerHandButtons.get(x));
 		}
 		
 		//Creates the text console where it will ouput any necessary info\
@@ -313,6 +314,10 @@ public class Ui extends Application
 		    	game.AI_play();
 		    	updateTable();
 		    	
+		    	if(!played)
+		    	{
+		    		drawTile();
+		    	}
 		    }
 		});
 		
@@ -382,8 +387,26 @@ public class Ui extends Application
 		int number = tile.getNumber();
 		
 		Button newTile = new Button();
-		newTile.setText(color+""+number);
-		newTile.setMinSize(50, 100);
+		newTile.setText(""+number);
+		newTile.setMinSize(50, 80);
+
+		if(getColorFromStyle(color)==1)
+		{
+			newTile.setStyle("-fx-background-color: #db4c4c");
+		}
+		else if(getColorFromStyle(color)==2)
+		{
+			newTile.setStyle("-fx-background-color: #3888d8");
+		}
+		else if(getColorFromStyle(color)==3)
+		{
+			newTile.setStyle("-fx-background-color: #1a9922");
+		}
+		else
+		{
+			newTile.setStyle("-fx-background-color: #c69033");
+		}
+		
 		playerHand.getChildren().add(newTile);		
 	}
 	
@@ -393,23 +416,23 @@ public class Ui extends Application
 		
 		for(int x=0;x<14;x++)
 		{
-			playerHandButtons[x].setText(""+test.getTile(x).getNumber());
+			playerHandButtons.get(x).setText(""+test.getTile(x).getNumber());
 			
 			if(test.getTile(x).getColor().equals("R"))
 			{
-				playerHandButtons[x].setStyle("-fx-background-color: #db4c4c");
+				playerHandButtons.get(x).setStyle("-fx-background-color: #db4c4c");
 			}
 			else if(test.getTile(x).getColor().equals("B"))
 			{
-				playerHandButtons[x].setStyle("-fx-background-color: #3888d8");
+				playerHandButtons.get(x).setStyle("-fx-background-color: #3888d8");
 			}
 			else if(test.getTile(x).getColor().equals("G"))
 			{
-				playerHandButtons[x].setStyle("-fx-background-color: #1a9922");
+				playerHandButtons.get(x).setStyle("-fx-background-color: #1a9922");
 			}
 			else if(test.getTile(x).getColor().equals("O"))
 			{
-				playerHandButtons[x].setStyle("-fx-background-color: #c69033");
+				playerHandButtons.get(x).setStyle("-fx-background-color: #c69033");
 			}
 			else
 			{
@@ -505,23 +528,23 @@ public class Ui extends Application
 		
 		for(int x=0;x<game.getHuman().getHand().sizeOfHand();x++)
 		{
-			playerHandButtons[x].setText(""+test.getTile(x).getNumber());
+			playerHandButtons.get(x).setText(""+test.getTile(x).getNumber());
 			
 			if(test.getTile(x).getColor().equals("R"))
 			{
-				playerHandButtons[x].setStyle("-fx-background-color: #db4c4c");
+				playerHandButtons.get(x).setStyle("-fx-background-color: #db4c4c");
 			}
 			else if(test.getTile(x).getColor().equals("B"))
 			{
-				playerHandButtons[x].setStyle("-fx-background-color: #3888d8");
+				playerHandButtons.get(x).setStyle("-fx-background-color: #3888d8");
 			}
 			else if(test.getTile(x).getColor().equals("G"))
 			{
-				playerHandButtons[x].setStyle("-fx-background-color: #1a9922");
+				playerHandButtons.get(x).setStyle("-fx-background-color: #1a9922");
 			}
 			else if(test.getTile(x).getColor().equals("O"))
 			{
-				playerHandButtons[x].setStyle("-fx-background-color: #c69033");
+				playerHandButtons.get(x).setStyle("-fx-background-color: #c69033");
 			}
 			else
 			{
@@ -531,7 +554,7 @@ public class Ui extends Application
 		}
 		for(int x=0;x<game.getHuman().getHand().sizeOfHand();x++)
 		{
-			playerHand.getChildren().add(playerHandButtons[x]);
+			playerHand.getChildren().add(playerHandButtons.get(x));
 		}
 	}
 	
@@ -587,5 +610,16 @@ public class Ui extends Application
 			return 3;
 		else
 			return 4;			
+	}
+	
+	public void drawTile()
+	{
+		System.out.println("Player drew card");
+		
+		PlayerHand hand = game.getHuman().getHand();
+		Tile tile = game.getDeck().Draw();
+		
+		hand.addTileToHand(tile);
+		addPlayerTile(tile);
 	}
 }
