@@ -318,6 +318,9 @@ public class Ui extends Application
 		    	{
 		    		drawTile();
 		    	}
+		    	else {
+		    		played=false;
+		    	}
 		    }
 		});
 		
