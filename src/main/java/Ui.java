@@ -317,6 +317,7 @@ public class Ui extends Application
 		    	if(!played)
 		    	{
 		    		drawTile();
+		    		updateHand();
 		    	}
 		    }
 		});
@@ -385,29 +386,48 @@ public class Ui extends Application
 	{
 		String color = tile.getColor();
 		int number = tile.getNumber();
-		
-		Button newTile = new Button();
-		newTile.setText(""+number);
-		newTile.setMinSize(50, 80);
 
-		if(getColorFromStyle(color)==1)
-		{
-			newTile.setStyle("-fx-background-color: #db4c4c");
-		}
-		else if(getColorFromStyle(color)==2)
-		{
-			newTile.setStyle("-fx-background-color: #3888d8");
-		}
-		else if(getColorFromStyle(color)==3)
-		{
-			newTile.setStyle("-fx-background-color: #1a9922");
-		}
-		else
-		{
-			newTile.setStyle("-fx-background-color: #c69033");
-		}
+		final int counter = playerHandButtons.size();
 		
-		playerHand.getChildren().add(newTile);		
+		playerHandButtons.add(new Button());
+		playerHandButtons.get(counter).setMinSize(50, 80);
+
+		//Copies the color and text to a clipboard to be carried over and allows you to start dragging it
+		playerHandButtons.get(counter).setOnDragDetected(new EventHandler<MouseEvent>() 
+		{
+		    public void handle(MouseEvent event) 
+		    {
+		        Dragboard db = playerHandButtons.get(counter).startDragAndDrop(TransferMode.ANY);
+		        String temp = "";
+		        
+		        if(playerHandButtons.get(counter).getStyle().equals("-fx-background-color: #db4c4c"))
+				{
+		        	temp = "1";
+				}
+				else if(playerHandButtons.get(counter).getStyle().equals("-fx-background-color: #3888d8"))
+				{
+					temp = "2";
+				}
+				else if(playerHandButtons.get(counter).getStyle().equals("-fx-background-color: #1a9922"))
+				{
+					temp = "3";
+				}
+				else if(playerHandButtons.get(counter).getStyle().equals("-fx-background-color: #c69033"))
+				{
+					temp = "4";
+				}
+		        
+		        temp = ""+temp+"|"+playerHandButtons.get(counter).getText();
+		        
+		        ClipboardContent content = new ClipboardContent();
+		        content.putString(playerHandButtons.get(counter).getText());
+		        content.putUrl(playerHandButtons.get(counter).getStyle());
+		        content.putRtf(temp);
+		        db.setContent(content);
+		        
+		        event.consume();
+		    }
+		});
 	}
 	
 	public void setPlayerHand()
