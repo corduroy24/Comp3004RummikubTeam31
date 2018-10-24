@@ -319,6 +319,9 @@ public class Ui extends Application
 		    		drawTile();
 		    		updateHand();
 		    	}
+		    	else {
+		    		played=false;
+		    	}
 		    }
 		});
 		
