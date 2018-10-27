@@ -70,6 +70,12 @@ public class GameMaster extends Observable{
 		return AI2;
 	}
 	
+	public Player getAI3() {
+		// TODO Auto-generated method stub
+		return AI3;
+	}
+	
+	
 	public void AI_play() {
 		if(AI1.play()) System.out.println("AI 1 decide to play");
 		else {

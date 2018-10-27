@@ -308,21 +308,98 @@ public class Ui extends Application
 		    public void handle(ActionEvent e) 
 		    {
 		    	//Change to send a message that players turn has ended
-		    	//testTable();
+		    	boolean hasWinner = false;
 		    	game.getHuman().getTable().setTable(current_table());
 		    	game.Announcement();
+		    	checkPlayerIsWinner();
 		    	game.AI_play();
 		    	updateTable();
 		    	
 		    	if(!played)
 		    	{
-		    		drawTile();
+		    		if(game.getDeck().getDeck().size() > 0)
+		    			drawTile();
+		    		else
+		    			System.out.println("Out of tiles");
+		    		
 		    		updateHand();
 		    	}
 		    	else {
 		    		played=false;
 		    	}
+		    	checkAIIsWinner();
+		    	
 		    }
+
+			private boolean checkAIIsWinner() {
+				// TODO Auto-generated method stub
+				Button OK_Button = new Button();
+		    	OK_Button.setText("OK");
+		    	OK_Button.setMinSize(100, 50);
+		    	OK_Button.setLayoutX(480);
+		    	OK_Button.setLayoutY(650);
+		    	OK_Button.setOnAction(new EventHandler<ActionEvent>() 
+				{
+				    public void handle(ActionEvent e) 
+				    {
+				    	window.close();
+				    	
+				    }
+				});
+		    	
+				if(game.getAI().getHand().sizeOfHand() == 0 || game.getAI2().getHand().sizeOfHand() == 0
+					|| game.getAI3().getHand().sizeOfHand() == 0)  {
+					InputStream mainImagePath = getClass().getResourceAsStream("Looser.jpg");
+					Image mainImage = new Image(mainImagePath);
+					ImageView mainImageNode = new ImageView(mainImage);
+					mainImageNode.setX(200);
+					mainImageNode.setY(200);
+					AnchorPane mainScreen = new AnchorPane(mainImageNode,OK_Button);
+					mainScreen.setMinSize(1095,	790);
+					
+					mainMenuScene = new Scene(mainScreen);
+					window.setScene(mainMenuScene);
+					window.show();
+					System.out.println("YOU ARE THE LOOSER");
+					return true;
+					}
+				return false;
+			}
+
+			private boolean checkPlayerIsWinner() {
+				// TODO Auto-generated method stub
+				Button OK_Button = new Button();
+		    	OK_Button.setText("OK");
+		    	OK_Button.setMinSize(100, 50);
+		    	OK_Button.setLayoutX(480);
+		    	OK_Button.setLayoutY(650);
+		    	OK_Button.setOnAction(new EventHandler<ActionEvent>() 
+				{
+				    public void handle(ActionEvent e) 
+				    {
+				    	window.close();
+				    	
+				    }
+				});
+				if(game.getHuman().getHand().sizeOfHand() == 0) {
+					InputStream mainImagePath = getClass().getResourceAsStream("Winner.jpg");
+					Image mainImage = new Image(mainImagePath);
+					ImageView mainImageNode = new ImageView(mainImage);
+					mainImageNode.setX(200);
+					mainImageNode.setY(200);
+					AnchorPane mainScreen = new AnchorPane(mainImageNode,OK_Button);
+					mainScreen.setMinSize(1095,	790);
+					
+					mainMenuScene = new Scene(mainScreen);
+					window.setScene(mainMenuScene);
+					window.show();
+					System.out.println("YOU ARE THE WINNER");
+				return true;	
+				}
+				return false;
+			}
+			
+			
 		});
 		
 		//The layoutPane that seperated the Player's hand and the end turn button
