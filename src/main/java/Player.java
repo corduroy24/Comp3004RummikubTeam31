@@ -94,7 +94,8 @@ public class Player implements Observer{
       }
     
     public boolean isEligibleforP3() {
-    	if (((getPlayerHand().sizeOfHand())>=(firstPlayerPoint+2)&&(getPlayerHand().sizeOfHand()+2>=(secondPlayerPoint))&&(getPlayerHand().sizeOfHand()+2)>=(thirdPlayerPoint))) {
+    	if (((getPlayerHand().sizeOfHand())>=(firstPlayerPoint+2)&&(getPlayerHand().sizeOfHand()+2>=(secondPlayerPoint))
+    			&&(getPlayerHand().sizeOfHand()+2)>=(thirdPlayerPoint))) {
     		return true;
     	}
     	else {

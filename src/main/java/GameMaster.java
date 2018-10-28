@@ -77,6 +77,10 @@ public class GameMaster extends Observable{
 	
 	
 	public void AI_play() {
+		
+		System.out.println("AI1 REPORT:  ");
+		//AI1.getHand().HandReader();
+		System.out.println("Number of tiles are: " + AI1.getHand().sizeOfHand());
 		if(AI1.play()) System.out.println("AI 1 decide to play");
 		else {
 			if(deck.getDeck().size() > 0)
@@ -84,18 +88,33 @@ public class GameMaster extends Observable{
 			System.out.println("AI 1 decide not to play");
 		}
 		Announcement();
+		System.out.println("Number of tiles are: " + AI1.getHand().sizeOfHand());
 		
+		System.out.println("------------------------------");
+		
+		System.out.println("AI2 REPORT:  ");
+		//AI2.getHand().HandReader();
+		System.out.println("Number of tiles are: " + AI2.getHand().sizeOfHand());
 		if(AI2.play()) System.out.println("AI 2 decide to play");
 		else {
 			if(deck.getDeck().size() > 0) AI2.getHand().addTileToHand(deck.Draw());
 			System.out.println("AI 2 decide not to play");}
 		Announcement();
+		System.out.println("Number of tiles are: " + AI2.getHand().sizeOfHand());
 		
+		System.out.println("------------------------------");
+		
+		
+		System.out.println("AI3 REPORT:  ");
+		//AI3.getHand().HandReader();
+		System.out.println("Number of tiles are: " + AI3.getHand().sizeOfHand());
 		if(AI3.play()) System.out.println("AI 3 decide to play");
 		else {
 			if(deck.getDeck().size() > 0) AI3.getHand().addTileToHand(deck.Draw());
 			System.out.println("AI 3 decide not to play");}
 		Announcement();
+		System.out.println("Number of tiles are: " + AI3.getHand().sizeOfHand() + "\n");
+		
 	}
 	
 	

@@ -32,12 +32,17 @@ public class PlayerStrategy1 implements PlayerStrategy {
 			
 			if (output.size() == 0) return false;
 			//add tiles in the table and remove tiles from player hand.
+			System.out.println("Tiles played from AI1 are: ");
+			String out = "";
 			for(int i = output.size()-1; i > -1 ;i--) {
 				p.getTable().addTiles(output.get(i));
 				for(int u = 0; u < output.get(i).size();u++) {
 					p.getHand().playTileFromHand(output.get(i).get(u));
+					out += output.get(i).get(u).toString();
 				}
 			}
+			out += "";
+			System.out.println(out);
 			//if size ==0, this player is the winner
 			if(p.getHand().getTiles().size() == 0) p.setWinner();
 			return true;
@@ -71,12 +76,17 @@ public class PlayerStrategy1 implements PlayerStrategy {
 			}
 			// if point >= 30, add tiles to the table and remove them from hand
 			if(point >= 30) {
+				System.out.println("Tiles played from AI1 are: ");
+				String out = "";
 				for(int i = output.size()-1; i > -1 ;i--) {
 					p.getTable().addTiles(output.get(i));
 					for(int u = 0; u < output.get(i).size();u++) {
 						p.getHand().playTileFromHand(output.get(i).get(u));
+						out += output.get(i).get(u).toString();
 					}
 				}
+				out += "";
+				System.out.println(out);
 				//set the fist meld complete
 				p.setIsfirstMeldComplete(true);
 				//set winner, no tiles left

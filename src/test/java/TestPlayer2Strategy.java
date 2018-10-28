@@ -5,14 +5,19 @@ import junit.framework.TestCase;
 public class TestPlayer2Strategy extends TestCase{
 	
 	Player player = new Player("Player",999,new PlayerStrategy2());
+	
+	// a meld of 33 points
 	Tile tile = new Tile(1,12);
 	Tile tile1 = new Tile(1,11);
 	Tile tile2 = new Tile(1,10);
+	
+	
 	Tile tile3 = new Tile(2,3);
 	Tile tile4 = new Tile(3,5);
 	Tile tile5 = new Tile(2,7);
 	Tile tile6 = new Tile(2,9);
 	
+	// a meld of 4 points
 	Tile t7 = new Tile(1,1);
 	Tile t8 = new Tile(2,1);
 	Tile t9 = new Tile(3,1);
@@ -21,6 +26,7 @@ public class TestPlayer2Strategy extends TestCase{
 	
 	
 	public void testFirstMove() {
+		// test the invalid first move
 		player.getHand().addTileToHand(tile3);
 		player.getHand().addTileToHand(tile4);
 		player.getHand().addTileToHand(tile5);
@@ -30,7 +36,7 @@ public class TestPlayer2Strategy extends TestCase{
 		assertTrue(player.getHand().getTiles().size() == 4);
 		assertTrue(player.getTable().getNumberOfTile() == 0);
 		assertTrue(player.isWinner() == false);	
-		
+		// at a 
 		player.getHand().addTileToHand(tile);
 		player.getHand().addTileToHand(tile1);
 		player.getHand().addTileToHand(tile2);
