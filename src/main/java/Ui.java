@@ -317,10 +317,7 @@ public class Ui extends Application
 		    	game.getHuman().getTable().setTable(current_table());
 		    	game.Announcement();
 		    	
-		    	if(checkPlayerIsWinner()) {}
-		    	else
-		    		game.AI_play();
-		    	
+		    	checkPlayerIsWinner();
 		    	console.clear();
 		    	
 		    	
