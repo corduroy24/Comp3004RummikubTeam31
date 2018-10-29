@@ -192,43 +192,46 @@ public class Ui extends Application
 				{
 					public void handle(MouseEvent event) 
 					{
-						if(tableButtons[numberY][numberX].getStyle().length() > 1) 
+						if(game.getHuman().getIsFirstMeldComplete())
 						{
-							Dragboard db = tableButtons[numberY][numberX].startDragAndDrop(TransferMode.ANY);
-							
-							String temp = "";
-					        
-					        if(tableButtons[numberY][numberX].getStyle().equals("-fx-background-color: #db4c4c"))
+							if(tableButtons[numberY][numberX].getStyle().length() > 1) 
 							{
-					        	temp = "1";
-							}
-							else if(tableButtons[numberY][numberX].getStyle().equals("-fx-background-color: #3888d8"))
-							{
-								temp = "2";
-							}
-							else if(tableButtons[numberY][numberX].getStyle().equals("-fx-background-color: #1a9922"))
-							{
-								temp = "3";
-							}
-							else if(tableButtons[numberY][numberX].getStyle().equals("-fx-background-color: #c69033"))
-							{
-								temp = "4";
+								Dragboard db = tableButtons[numberY][numberX].startDragAndDrop(TransferMode.ANY);
+								
+								String temp = "";
+						        
+						        if(tableButtons[numberY][numberX].getStyle().equals("-fx-background-color: #db4c4c"))
+								{
+						        	temp = "1";
+								}
+								else if(tableButtons[numberY][numberX].getStyle().equals("-fx-background-color: #3888d8"))
+								{
+									temp = "2";
+								}
+								else if(tableButtons[numberY][numberX].getStyle().equals("-fx-background-color: #1a9922"))
+								{
+									temp = "3";
+								}
+								else if(tableButtons[numberY][numberX].getStyle().equals("-fx-background-color: #c69033"))
+								{
+									temp = "4";
+								}
+						        
+						        temp = ""+temp+"|"+tableButtons[numberY][numberX].getText();
+						        
+						        ClipboardContent content = new ClipboardContent();
+						        content.putString(tableButtons[numberY][numberX].getText());
+						        content.putUrl(tableButtons[numberY][numberX].getStyle());
+						        content.putRtf(temp);
+						        
+						        String coordinates = ""+numberX+","+numberY;
+						        content.putHtml(coordinates);
+						        
+						        db.setContent(content);
 							}
 					        
-					        temp = ""+temp+"|"+tableButtons[numberY][numberX].getText();
-					        
-					        ClipboardContent content = new ClipboardContent();
-					        content.putString(tableButtons[numberY][numberX].getText());
-					        content.putUrl(tableButtons[numberY][numberX].getStyle());
-					        content.putRtf(temp);
-					        
-					        String coordinates = ""+numberX+","+numberY;
-					        content.putHtml(coordinates);
-					        
-					        db.setContent(content);
+					        event.consume();
 						}
-				        
-				        event.consume();
 					}
 				});
 			}
@@ -372,6 +375,10 @@ public class Ui extends Application
 		    	}
 		    	checkAIIsWinner();
 		    	
+		    	if(playerCount>=30) 
+		    	{
+		    		game.getHuman().setIsfirstMeldComplete(true);
+		    	}
 		    }
 
 			private boolean checkAIIsWinner() {
