@@ -49,6 +49,8 @@ public class Ui extends Application
 	
 	Boolean played = false;
 	
+	String prevString = "";
+	
 	static GameMaster game = new GameMaster();	
 	
 	public static void main(String [] args) 
@@ -377,7 +379,9 @@ public class Ui extends Application
 	
 	public void updateConsole(String output)
 	{
-		console.setText(output);
+		prevString = prevString+output;
+		console.setText(prevString);
+		
 	}
 	
 	public String getConsoleText()
