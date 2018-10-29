@@ -37,7 +37,6 @@ public class Ui extends Application
 	
 	Button[][] tableButtons = new Button[20][7];
 	ArrayList<Button> playerHandButtons = new ArrayList<>();
-	//Button[] playerHandButtons = new Button[14];
 	
 	TextArea console;
 	
@@ -46,6 +45,8 @@ public class Ui extends Application
 	Boolean played = false;
 	
 	String prevString = "";
+	
+	int playerCount = 0;
 	
 	static GameMaster game = new GameMaster();	
 	
@@ -81,7 +82,7 @@ public class Ui extends Application
 				
 				final int numberX = x;
 				final int numberY = y;
-				//Shows the button as droppable if it isnt from itself
+				//Shows the button as droppable if it isn't from itself
 				tableButtons[y][x].setOnDragOver(new EventHandler<DragEvent>() 
 				{
 				    public void handle(DragEvent event) 
@@ -97,7 +98,7 @@ public class Ui extends Application
 				});
 				
 				//Turns the button into the button that was dropped on it
-				tableButtons[y][x].setOnDragDropped(new EventHandler<DragEvent>() 
+				tableButtons[y][x].setOnDragDropped(new EventHandler<DragEvent>()
 				{
 				    public void handle(DragEvent event) 
 				    {
@@ -107,17 +108,19 @@ public class Ui extends Application
 				        boolean successColor = false;
 				        
 				        if(db.getRtf().length()==3)
-				        {
-				        	Tile temp = new Tile(Integer.parseInt(db.getRtf().substring(0, 1)), Integer.parseInt(db.getRtf().substring(2, 3)));
-				        	game.getHuman().getHand().removeTile(temp);
-				        }
-				        else
-				        {
-				        	Tile temp = new Tile(Integer.parseInt(db.getRtf().substring(0, 1)), Integer.parseInt(db.getRtf().substring(2, 4)));
-				        	game.getHuman().getHand().removeTile(temp);
-				        }
-				    	
-				    	updateHand();
+                        {
+                            Tile temp = new Tile(Integer.parseInt(db.getRtf().substring(0, 1)), Integer.parseInt(db.getRtf().substring(2, 3)));
+                            game.getHuman().getHand().removeTile(temp);
+                            playerCount+=temp.getNumber();
+                        }
+                        else
+                        {
+                            Tile temp = new Tile(Integer.parseInt(db.getRtf().substring(0, 1)), Integer.parseInt(db.getRtf().substring(2, 4)));
+                            game.getHuman().getHand().removeTile(temp);
+                            playerCount+=temp.getNumber();
+                        }
+                        
+                        updateHand();
 				        
 				        //Add the text to the button
 				        if (db.hasString()) 
