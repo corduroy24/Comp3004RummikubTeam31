@@ -24,6 +24,7 @@ public class PlayerStrategy3 implements PlayerStrategy {
 				for(int i =0; i < output.size();i++) {
 					p.getTable().addTiles(output.get(i));
 				}
+				p.getHand().HandReader();
 				p.getHand().getTiles().clear();
 				p.setWinner();
 				return true;

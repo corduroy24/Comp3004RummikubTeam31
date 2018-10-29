@@ -22,6 +22,8 @@ public class PlayerStrategy2 implements PlayerStrategy {
 				for(int i =0; i < output.size();i++) {
 					p.getTable().addTiles(output.get(i));
 				}
+				System.out.println("Tiles played by AI2:");
+				p.getHand().HandReader();
 				p.getHand().getTiles().clear();
 				p.setWinner();
 				return true;
@@ -155,14 +157,18 @@ public class PlayerStrategy2 implements PlayerStrategy {
 				if(output.size() == 0) return false;
 				
 				// update table and remove tiles from player hand
+				System.out.println("Tiles played by AI2: ");
+				String out = "";
 				myloop: for(int i =output.size()-1; i >-1 ;i--) {
 					p.getTable().addTiles(output.get(i));
 					for(int u =0; u < output.get(i).size();u++) {
 						removeNumber--;
 						p.getHand().getTiles().remove(output.get(i).get(u));
+						out += output.get(i).get(u).toString();
 					}
 					if(removeNumber == 0) break myloop;
 				}
+				System.out.println(out);
 				p.setIsfirstMeldComplete(true);
 				return true;
 				}
