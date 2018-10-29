@@ -1,9 +1,5 @@
-import java.io.File;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Observable;
-import java.util.Observer;
 import javafx.application.Application;
 import javafx.collections.ObservableList;
 import javafx.stage.Stage;
