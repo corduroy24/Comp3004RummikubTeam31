@@ -321,13 +321,40 @@ public class Ui extends Application
 		    	console.clear();
 		    	
 		    	
-		    	prevString += "AI1 play: \n";
-		    	prevString += game.getAI().return_report();
-		    	prevString += "AI2 play: \n";
-		    	prevString += game.getAI2().return_report();
-		    	prevString += "AI3 play: \n";
-		    	prevString += game.getAI3().return_report();
-		    	console.setText(prevString); 
+
+		    	if(game.getAI().play()) {
+		    		prevString += "AI1 play: \n";
+			    	prevString += game.getAI().return_report();
+		    	}
+		    	else {
+		    		Tile t= game.getDeck().Draw();
+		    		prevString += "AI1 draw: \n";
+		    		game.getAI().getHand().addTileToHand(t);
+		    		prevString += t.toString() + "\n";
+		    	}
+		    	
+		    	if(game.getAI2().play()) {
+		    		prevString += "AI2 play: \n";
+			    	prevString += game.getAI2().return_report();
+		    	}
+		    	else {
+		    		Tile t= game.getDeck().Draw();
+		    		prevString += "AI2 draw: \n";
+		    		game.getAI2().getHand().addTileToHand(t);
+		    		prevString += t.toString() + "\n";
+		    	}
+		    	
+		    	if(game.getAI3().play()) {
+		    		prevString += "AI3 play: \n";
+			    	prevString += game.getAI3().return_report();
+		    	}
+		    	else {
+		    		Tile t= game.getDeck().Draw();
+		    		prevString += "AI3 draw: \n";
+		    		game.getAI3().getHand().addTileToHand(t);
+		    		prevString += t.toString() + "\n";
+		    	}
+		    	console.setText(prevString);  
 		    	prevString = "";
 		    	updateTable();
 		    	
