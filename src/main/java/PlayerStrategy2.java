@@ -8,6 +8,7 @@ public class PlayerStrategy2 implements PlayerStrategy {
 
 	public boolean playTheGame(Player p) {
 		// TODO Auto-generated method stub
+		p.set_report("");
 		ArrayList<Tile> input = new ArrayList<Tile>();
 		functions = new Support();
 		if(p.getIsFirstMeldComplete()) {
@@ -76,15 +77,20 @@ public class PlayerStrategy2 implements PlayerStrategy {
 				output = merge(TilesWillBeStore,p.getTable());
 				p.getTable().setTable(output);
 				
+				String out = "";
 				if(TilesWillBeStore.size() > 0) {
 					System.out.println("Tiles will be played by AI 2: ");
+					out += "Tiles will be played by AI 2: \n";
 				}
 				
 				
 				for(int i =0; i < TilesWillBeStore.size();i++) {
 					p.getHand().playTileFromHand(TilesWillBeStore.get(i));
 					System.out.println(TilesWillBeStore.get(i).toString());
+					out += TilesWillBeStore.get(i).toString();
 				}
+				out += "\n";
+				p.set_report(out);
 				//else
 				//output = getAllSetAndSequence(p.getHand().getTiles());
 				// remove every tile of output from player hand.
@@ -158,6 +164,8 @@ public class PlayerStrategy2 implements PlayerStrategy {
 				
 				// update table and remove tiles from player hand
 				System.out.println("Tiles played by AI2: ");
+				String set_out = "";
+				set_out += "Tiles played by AI2: \n";
 				String out = "";
 				myloop: for(int i =output.size()-1; i >-1 ;i--) {
 					p.getTable().addTiles(output.get(i));
@@ -169,6 +177,10 @@ public class PlayerStrategy2 implements PlayerStrategy {
 					if(removeNumber == 0) break myloop;
 				}
 				System.out.println(out);
+				set_out += out;
+				set_out += "\n";
+				p.set_report(set_out);
+				
 				p.setIsfirstMeldComplete(true);
 				return true;
 				}

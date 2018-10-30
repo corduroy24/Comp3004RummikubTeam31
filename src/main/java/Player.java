@@ -20,6 +20,16 @@ public class Player implements Observer{
 	private int secondPlayerPoint;// Number of tiles on hand of second player
 	private int thirdPlayerPoint;// Number of tiles on hand of third player
 	private boolean win; // define winner
+	private String report = "";
+	
+	
+	public String return_report() {
+		return report;
+	}
+	
+	public void set_report(String a) {
+		report = a;
+	}
 
 	
 	

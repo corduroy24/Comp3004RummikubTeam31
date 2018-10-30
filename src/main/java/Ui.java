@@ -305,6 +305,7 @@ public class Ui extends Application
 		endTurnButton.setText("End Turn");
 		endTurnButton.setMinSize(100, 100);
 		endTurnButton.setDisable(false);
+		
 		endTurnButton.setOnAction(new EventHandler<ActionEvent>() 
 		{
 		    public void handle(ActionEvent e) 
@@ -313,8 +314,22 @@ public class Ui extends Application
 		    	boolean hasWinner = false;
 		    	game.getHuman().getTable().setTable(current_table());
 		    	game.Announcement();
-		    	checkPlayerIsWinner();
-		    	game.AI_play();
+		    	
+		    	if(checkPlayerIsWinner()) {}
+		    	else
+		    		game.AI_play();
+		    	
+		    	console.clear();
+		    	
+		    	
+		    	prevString += "AI1 play: \n";
+		    	prevString += game.getAI().return_report();
+		    	prevString += "AI2 play: \n";
+		    	prevString += game.getAI2().return_report();
+		    	prevString += "AI3 play: \n";
+		    	prevString += game.getAI3().return_report();
+		    	console.setText(prevString); 
+		    	prevString = "";
 		    	updateTable();
 		    	
 		    	if(!played)

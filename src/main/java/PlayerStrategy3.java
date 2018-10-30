@@ -9,6 +9,7 @@ public class PlayerStrategy3 implements PlayerStrategy {
 	public boolean playTheGame(Player p) {
 		// TODO Auto-generated method stub
 		ArrayList<Tile> input = new ArrayList<Tile>();
+		p.set_report("");
 		functions = new Support();
 		if(p.getIsFirstMeldComplete()) {
 			ArrayList<ArrayList<Tile>> output = new ArrayList<ArrayList<Tile>>();
@@ -76,10 +77,12 @@ public class PlayerStrategy3 implements PlayerStrategy {
 				//Update the table and remove TilesWillBeStore' tile from hands
 				output = merge(TilesWillBeStore,p.getTable());
 				p.getTable().setTable(output);
-				
+				String out = "";
 				for(int i =0; i < TilesWillBeStore.size();i++) {
 					p.getHand().playTileFromHand(TilesWillBeStore.get(i));
+					out += TilesWillBeStore.get(i).toString();
 				}
+				p.set_report(out);
 				//else
 				//output = getAllSetAndSequence(p.getHand().getTiles());
 				// remove every tile of output from player hand.
@@ -111,12 +114,15 @@ public class PlayerStrategy3 implements PlayerStrategy {
 				
 				if (output.size() == 0) return false;
 				//add tiles in the table and remove tiles from player hand.
+				String out = "";
 				for(int i = output.size()-1; i > -1 ;i--) {
 					p.getTable().addTiles(output.get(i));
 					for(int u = 0; u < output.get(i).size();u++) {
 						p.getHand().playTileFromHand(output.get(i).get(u));
+						out += output.get(i).get(u).toString();
 					}
 				}
+				p.set_report(out);
 				//if size ==0, this player is the winner
 				if(p.getHand().getTiles().size() == 0) p.setWinner();
 				return true;
@@ -184,14 +190,17 @@ public class PlayerStrategy3 implements PlayerStrategy {
 				if(output.size() == 0) return false;
 				
 				// update table and remove tiles from player hand
+				String out = "";
 				myloop: for(int i =output.size()-1; i >-1 ;i--) {
 					p.getTable().addTiles(output.get(i));
 					for(int u =0; u < output.get(i).size();u++) {
 						removeNumber--;
 						p.getHand().getTiles().remove(output.get(i).get(u));
+						out += output.get(i).get(u).toString();
 					}
 					if(removeNumber == 0) break myloop;
 				}
+				p.set_report(out);
 				p.setIsfirstMeldComplete(true);
 				return true;
 				}
