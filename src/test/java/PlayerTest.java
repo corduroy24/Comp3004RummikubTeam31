@@ -61,6 +61,15 @@ public class PlayerTest extends TestCase{
 		assertTrue(player.getPlayerHand().getTiles().isEmpty()); 
 	}
 	
+	public void testIsFirstMeld() {
+		Player x = new Player("X", 1, new HumanPlayerStrategy());
+		int count=0;
+		assertEquals(x.getIsFirstMeldComplete(),false);
+		count+=30;
+		x.setIsfirstMeldComplete(true);
+		assertEquals(x.getIsFirstMeldComplete(),true);
+	}
+	
 	/*public void testFirstMeldComplete {
 		
 	}*/
