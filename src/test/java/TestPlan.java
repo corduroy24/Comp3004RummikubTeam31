@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 import junit.framework.TestCase;
 
 public class TestPlan extends TestCase{
@@ -8,10 +10,29 @@ public class TestPlan extends TestCase{
 		//Req. 1
 		game.dealInitialHand();
 		
-		assertEquals(14, game.getHuman().getHand().sizeOfHand()); 
-		assertEquals(14, game.getAI().getHand().sizeOfHand()); 
-		assertEquals(14, game.getAI2().getHand().sizeOfHand()); 
-		assertEquals(14, game.getAI3().getHand().sizeOfHand()); 
+		ArrayList<Player> players = game.getPlayers(); 
+		for(int i = 0; i < players.size(); i++ )
+			assertEquals(14, players.get(i).getHand().sizeOfHand()); 
+				
+		for(int i = 0; i < players.size(); i++) {
+			for(int j = 0; j < game.getHuman().getHand().sizeOfHand() - 1 ; j++) {
+				if(players.get(i).getHand().getTile(j).getColor().equals(players.get(i).getHand().getTile(j+1).getColor())){
+					if(players.get(i).getHand().getTile(j).getColor().equals("R")){
+						assertTrue(players.get(i).getHand().getTile(j).getNumber() <= players.get(i).getHand().getTile(j+1).getNumber());
+					}
+					else if(players.get(i).getHand().getTile(j).getColor().equals("B")){
+						assertTrue(players.get(i).getHand().getTile(j).getNumber() <= players.get(i).getHand().getTile(j+1).getNumber());
+					}
+					else if(players.get(i).getHand().getTile(j).getColor().equals("G")){
+						assertTrue(players.get(i).getHand().getTile(j).getNumber() <= players.get(i).getHand().getTile(j+1).getNumber());
+					}
+					else if(players.get(i).getHand().getTile(j).getColor().equals("O")){
+						assertTrue(players.get(i).getHand().getTile(j).getNumber() <= players.get(i).getHand().getTile(j+1).getNumber());
+					}
+				}
+				//	System.out.println("/////////////"+i);
+			}
+		}
 		
 		//Req. 2 (players turn is mainly tracked by behavior)
 		//game.getHuman().play(); 
