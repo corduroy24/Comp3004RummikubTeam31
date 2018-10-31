@@ -13,8 +13,8 @@ public class TestPlan extends TestCase{
 		assertEquals(14, game.getAI2().getHand().sizeOfHand()); 
 		assertEquals(14, game.getAI3().getHand().sizeOfHand()); 
 		
-		//Req. 2
-		game.getHuman().play(); 
+		//Req. 2 (players turn is mainly tracked by behavior)
+		//game.getHuman().play(); 
 		assertTrue(game.getHuman().getIsTurn()); 
 		assertFalse(game.getAI().getIsTurn()); 
 		assertFalse(game.getAI2().getIsTurn()); 

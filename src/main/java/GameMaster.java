@@ -77,7 +77,8 @@ public class GameMaster extends Observable{
 	
 	
 	public void AI_play() {
-		
+		human.setIsTurn(false);
+		AI1.setIsTurn(true);
 		System.out.println("AI1 REPORT:  ");
 		//AI1.getHand().HandReader();
 		System.out.println("Number of tiles are: " + AI1.getHand().sizeOfHand());
@@ -92,6 +93,9 @@ public class GameMaster extends Observable{
 		
 		System.out.println("------------------------------");
 		
+		AI1.setIsTurn(false);
+		AI2.setIsTurn(true);
+
 		System.out.println("AI2 REPORT:  ");
 		//AI2.getHand().HandReader();
 		System.out.println("Number of tiles are: " + AI2.getHand().sizeOfHand());
@@ -104,7 +108,9 @@ public class GameMaster extends Observable{
 		
 		System.out.println("------------------------------");
 		
-		
+		AI2.setIsTurn(false);
+		AI3.setIsTurn(true);
+
 		System.out.println("AI3 REPORT:  ");
 		//AI3.getHand().HandReader();
 		System.out.println("Number of tiles are: " + AI3.getHand().sizeOfHand());
@@ -115,6 +121,8 @@ public class GameMaster extends Observable{
 		Announcement();
 		System.out.println("Number of tiles are: " + AI3.getHand().sizeOfHand() + "\n");
 		
+		AI3.setIsTurn(false);
+		human.setIsTurn(true);
 	}
 	
 	
@@ -124,6 +132,7 @@ public class GameMaster extends Observable{
 	public void dealInitialHand() {
 		human.getHand().drawFirst14(deck);
 		human.getHand().sortTilesByColour();
+		human.setIsTurn(true);
 		AI1.getHand().drawFirst14(deck);
 		AI2.getHand().drawFirst14(deck);
 		AI3.getHand().drawFirst14(deck);
