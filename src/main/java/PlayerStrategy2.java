@@ -14,21 +14,11 @@ public class PlayerStrategy2 implements PlayerStrategy {
 		if(p.getIsFirstMeldComplete()) {
 			ArrayList<ArrayList<Tile>> output = new ArrayList<ArrayList<Tile>>();
 			// all set and all sequence could be generate from hands and tables
-			output = merge(p.getHand().getTiles(),p.getTable());
+			output = functions.merge(p.getHand().getTiles(),p.getTable());
 			// if number of tiles in output = (hand + table) tiles
 			// play and set win
-			if(functions.getSizeOf(output) == p.getHand().sizeOfHand() + p.getTable().getNumberOfTile())
-			{
-				p.getTable().clean();
-				for(int i =0; i < output.size();i++) {
-					p.getTable().addTiles(output.get(i));
-				}
-				System.out.println("Tiles played by AI2:");
-				p.getHand().HandReader();
-				p.getHand().getTiles().clear();
-				p.setWinner();
+			if(functions.one_short(p))
 				return true;
-			}
 			else {
 				ArrayList<Tile> first_hand = new ArrayList<Tile>(p.getHand().getTiles());
 				ArrayList<Tile> second_hand = new ArrayList<Tile>(p.getHand().getTiles());
@@ -60,7 +50,7 @@ public class PlayerStrategy2 implements PlayerStrategy {
 		                	subset.add(targets.get(j));
 
 					// merge subset and table hand
-					output = merge(subset,p.getTable());
+					output = functions.merge(subset,p.getTable());
 					// check if the output array list from merge is perfect
 					if(functions.getSizeOf(output) == p.getTable().getNumberOfTile() + subset.size()) {
 						if(subset.size() > max_tiles) {
@@ -74,7 +64,7 @@ public class PlayerStrategy2 implements PlayerStrategy {
 					return false;
 		                    
 				//Update the table and remove TilesWillBeStore' tile from hands
-				output = merge(TilesWillBeStore,p.getTable());
+				output = functions.merge(TilesWillBeStore,p.getTable());
 				p.getTable().setTable(output);
 				
 				String out = "";
@@ -102,8 +92,10 @@ public class PlayerStrategy2 implements PlayerStrategy {
 			}
 		}
 		else {
-			if(p.getTable().getNumberOfTile() > 0) {
+			if(functions.one_short(p))
+				return true;
 			
+			if(p.getTable().getNumberOfTile() > 0) {	
 				//copy player hand to sample hand
 				ArrayList<Tile> first_hand = new ArrayList<Tile>(p.getHand().getTiles());
 				ArrayList<Tile> second_hand = new ArrayList<Tile>(p.getHand().getTiles());
@@ -187,41 +179,6 @@ public class PlayerStrategy2 implements PlayerStrategy {
 			return false;	
 		}
 	}
-	// merge an list with tiles on the table, then return a 2d array list
-	// which contains sets and sequences.
-	private ArrayList<ArrayList<Tile>> merge(ArrayList<Tile> TileOnHand, Table table) {
-		// TODO Auto-generated method stub
-		ArrayList<ArrayList<Tile>> output = new ArrayList<ArrayList<Tile>>();
-		ArrayList<ArrayList<Tile>> first_sample = new ArrayList<ArrayList<Tile>>();
-		ArrayList<ArrayList<Tile>>  second_sample = new ArrayList<ArrayList<Tile>>();
-		
-		
-		ArrayList<Tile> merge_list = new ArrayList<Tile>(TileOnHand);
-		ArrayList<Tile> merge_list1 = new ArrayList<Tile>(TileOnHand);
-
-
-		for(int i =0; i < table.getTable().size();i++) {
-			for(int u =0; u<table.get(i).size();u++) {
-				merge_list.add(table.get(i).get(u));
-				merge_list1.add(table.get(i).get(u));
-				
-			}
-		}
-		
-		first_sample = functions.getFirstOutput(merge_list);
-		second_sample = functions.getSecondOutput(merge_list1);
-		int x = 0,y = 0;
-		//check the size of 2 possible output, and get the one whose size is bigger than other.
-		x = functions.getSizeOf(first_sample);
-		y = functions.getSizeOf(second_sample);
-		
-		if(x >= y) output = first_sample;
-		else output = second_sample;
-		
-		return output;
-	}
-	
-
 
 
 	//sort by tile' value

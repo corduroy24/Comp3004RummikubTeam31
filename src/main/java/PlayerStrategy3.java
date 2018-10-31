@@ -17,19 +17,8 @@ public class PlayerStrategy3 implements PlayerStrategy {
 			output = merge(p.getHand().getTiles(),p.getTable());
 			// if number of tiles in output = (hand + table) tiles
 			// play and set win
-			
-			
-			if(functions.getSizeOf(output) == p.getHand().sizeOfHand() + p.getTable().getNumberOfTile())
-			{
-				p.getTable().clean(); //System.out.println("TEST");
-				for(int i =0; i < output.size();i++) {
-					p.getTable().addTiles(output.get(i));
-				}
-				p.getHand().HandReader();
-				p.getHand().getTiles().clear();
-				p.setWinner();
+			if(functions.one_short(p))
 				return true;
-			}
 			else if (p.isEligibleforP3()==true){   //MAKES IT RUN WITH P2 FUNCTIONALITY
 				ArrayList<Tile> first_hand = new ArrayList<Tile>(p.getHand().getTiles());
 				ArrayList<Tile> second_hand = new ArrayList<Tile>(p.getHand().getTiles());
@@ -129,8 +118,9 @@ public class PlayerStrategy3 implements PlayerStrategy {
 			}
 		}
 		else {
+			if(functions.one_short(p))
+				return true;
 			if(p.getTable().getNumberOfTile() > 0) {
-			
 				//copy player hand to sample hand
 				ArrayList<Tile> first_hand = new ArrayList<Tile>(p.getHand().getTiles());
 				ArrayList<Tile> second_hand = new ArrayList<Tile>(p.getHand().getTiles());

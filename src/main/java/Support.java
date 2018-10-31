@@ -6,6 +6,69 @@ import java.util.HashSet;
 //support functions
 public class Support {
 
+	public boolean one_short(Player p) {
+		ArrayList<ArrayList<Tile>> output = new ArrayList<ArrayList<Tile>>();
+		// all set and all sequence could be generate from hands and tables
+		output = merge(p.getHand().getTiles(),p.getTable());
+		// if number of tiles in output = (hand + table) tiles
+		// play and set win
+		int point  = 0;
+		for(int i= 0 ; i < output.size();i++) {
+			for(int u =0; u < output.get(i).size();u++) {
+				point += output.get(i).get(u).getNumber();
+			}
+		}
+		
+		
+		if(getSizeOf(output) == p.getHand().sizeOfHand() + p.getTable().getNumberOfTile() && point >= 30)
+		{
+			p.getTable().clean();
+			for(int i =0; i < output.size();i++) {
+				p.getTable().addTiles(output.get(i));
+			}
+			System.out.println("Tiles played by AI2:");
+			p.getHand().HandReader();
+			p.getHand().getTiles().clear();
+			p.setWinner();
+			return true;
+		}
+		return false;
+	}
+	
+	// merge an list with tiles on the table, then return a 2d array list
+	// which contains sets and sequences.
+		public ArrayList<ArrayList<Tile>> merge(ArrayList<Tile> TileOnHand, Table table) {
+			// TODO Auto-generated method stub
+			ArrayList<ArrayList<Tile>> output = new ArrayList<ArrayList<Tile>>();
+			ArrayList<ArrayList<Tile>> first_sample = new ArrayList<ArrayList<Tile>>();
+			ArrayList<ArrayList<Tile>>  second_sample = new ArrayList<ArrayList<Tile>>();
+			
+			
+			ArrayList<Tile> merge_list = new ArrayList<Tile>(TileOnHand);
+			ArrayList<Tile> merge_list1 = new ArrayList<Tile>(TileOnHand);
+
+
+			for(int i =0; i < table.getTable().size();i++) {
+				for(int u =0; u<table.get(i).size();u++) {
+					merge_list.add(table.get(i).get(u));
+					merge_list1.add(table.get(i).get(u));
+					
+				}
+			}
+			
+			first_sample = getFirstOutput(merge_list);
+			second_sample = getSecondOutput(merge_list1);
+			int x = 0,y = 0;
+			//check the size of 2 possible output, and get the one whose size is bigger than other.
+			x = getSizeOf(first_sample);
+			y = getSizeOf(second_sample);
+			
+			if(x >= y) output = first_sample;
+			else output = second_sample;
+			
+			return output;
+		}
+	
 	// Find all sequences of hand then find all sets
 	public ArrayList<ArrayList<Tile>> getFirstOutput(ArrayList<Tile> hand){
 		//sort hand to find all sequences
