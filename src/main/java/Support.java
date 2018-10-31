@@ -20,13 +20,13 @@ public class Support {
 		}
 		
 		
-		if(getSizeOf(output) == p.getHand().sizeOfHand() + p.getTable().getNumberOfTile() && point >= 30)
+		if(getSizeOf(output) == p.getHand().sizeOfHand() + p.getTable().getNumberOfTile())
 		{
 			p.getTable().clean();
 			for(int i =0; i < output.size();i++) {
 				p.getTable().addTiles(output.get(i));
 			}
-			System.out.println("Tiles played by AI2:");
+			System.out.println("Tiles played by " + p.getName());
 			p.getHand().HandReader();
 			p.getHand().getTiles().clear();
 			p.setWinner();

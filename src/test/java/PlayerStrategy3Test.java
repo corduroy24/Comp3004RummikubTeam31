@@ -56,8 +56,8 @@ public class PlayerStrategy3Test extends TestCase{
 		player.getHand().addTileToHand(tile1);
 		player.getHand().addTileToHand(tile2);
 		player.play();
-		assertTrue(player.getTable().getNumberOfTile() == 0);
-		assertTrue(player.isWinner() == false);
+		assertTrue(player.getTable().getNumberOfTile() == 3);
+		assertTrue(player.isWinner() == true);
 		
 		player = new Player("Player",999,new PlayerStrategy3());
 		player.getHand().addTileToHand(tile);
@@ -68,7 +68,7 @@ public class PlayerStrategy3Test extends TestCase{
 		player.getHand().addTileToHand(t9);
 		
 		player.play();
-		assertTrue(player.getTable().getNumberOfTile() == 0);		
+		assertTrue(player.getTable().getNumberOfTile() == 6);		
 	}
 	
 	////////////////FUNCTIONS BELOW ARE RESPONSIBLE OVER WHAT IS AFTER INITIAL 30 POINT MOVE

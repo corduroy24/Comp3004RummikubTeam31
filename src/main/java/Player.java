@@ -30,6 +30,7 @@ public class Player implements Observer{
 	public void set_report(String a) {
 		report = a;
 	}
+	public String getName() {return name;}
 
 	
 	
