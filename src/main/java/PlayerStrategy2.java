@@ -8,6 +8,7 @@ public class PlayerStrategy2 implements PlayerStrategy {
 
 	public boolean playTheGame(Player p) {
 		// TODO Auto-generated method stub
+		p.renewPlayedList();
 		p.set_report("");
 		ArrayList<Tile> input = new ArrayList<Tile>();
 		functions = new Support();
@@ -76,6 +77,7 @@ public class PlayerStrategy2 implements PlayerStrategy {
 				
 				for(int i =0; i < TilesWillBeStore.size();i++) {
 					p.getHand().playTileFromHand(TilesWillBeStore.get(i));
+					p.getPlayedList().add(TilesWillBeStore.get(i));
 					System.out.println(TilesWillBeStore.get(i).toString());
 					out += TilesWillBeStore.get(i).toString();
 				}
@@ -164,6 +166,7 @@ public class PlayerStrategy2 implements PlayerStrategy {
 					for(int u =0; u < output.get(i).size();u++) {
 						removeNumber--;
 						p.getHand().getTiles().remove(output.get(i).get(u));
+						p.getPlayedList().add(output.get(i).get(u));
 						out += output.get(i).get(u).toString();
 					}
 					if(removeNumber == 0) break myloop;
