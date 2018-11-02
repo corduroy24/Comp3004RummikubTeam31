@@ -192,8 +192,8 @@ public class Ui extends Application
 				{
 					public void handle(MouseEvent event) 
 					{
-						if(game.getHuman().getIsFirstMeldComplete())
-						{
+						//if(game.getHuman().getIsFirstMeldComplete())
+						//{
 							if(tableButtons[numberY][numberX].getStyle().length() > 1) 
 							{
 								Dragboard db = tableButtons[numberY][numberX].startDragAndDrop(TransferMode.ANY);
@@ -228,7 +228,7 @@ public class Ui extends Application
 						        content.putHtml(coordinates);
 						        
 						        db.setContent(content);
-							}
+							//}
 					        
 					        event.consume();
 						}
@@ -562,6 +562,7 @@ public class Ui extends Application
 	public void setPlayerHand()
 	{
 		PlayerHand test = game.getHuman().getHand();
+		test.sortTilesByColour();
 		
 		for(int x=0;x<14;x++)
 		{
@@ -769,6 +770,7 @@ public class Ui extends Application
 		Tile tile = game.getDeck().Draw();
 		
 		hand.addTileToHand(tile);
+		hand.sortTilesByColour();
 		addPlayerTile(tile);
 	}
 }

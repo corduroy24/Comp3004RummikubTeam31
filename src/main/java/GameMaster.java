@@ -138,7 +138,6 @@ public class GameMaster extends Observable{
 	//draw card to human and AI
 	public void dealInitialHand() {
 		human.getHand().drawFirst14(deck);
-		human.getHand().sortTilesByColour();
 		human.setIsTurn(true);
 		
 		AI1.getHand().drawFirst14(deck);
