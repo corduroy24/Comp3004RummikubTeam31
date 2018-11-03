@@ -52,10 +52,6 @@ public class PlayerStrategy2 implements PlayerStrategy {
 
 					// merge subset and table hand
 					output = functions.merge(subset,p.getTable());
-					output2 = functions.merge(subset,p.getTable());
-					if(functions.getSizeOf(output) <= functions.getSizeOf(output2))
-						output = output2;
-					
 					// check if the output array list from merge is perfect
 					if(functions.getSizeOf(output) == p.getTable().getNumberOfTile() + subset.size()) {
 						if(subset.size() > max_tiles) {

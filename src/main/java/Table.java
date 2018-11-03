@@ -46,10 +46,9 @@ public class Table{
 	// if it is not a set or sequence, it will return false
 	public boolean addTiles(ArrayList<Tile> tiles2) 
 	{
-		System.out.println("Array size: "+tiles2.size());
 		if(timesAdded != -1)
 		{
-			System.out.println("Table size: "+table.get(timesAdded).size());
+			//System.out.println("Table size: "+table.get(timesAdded).size());
 		}
 		
 		if(isSet(tiles2) || isSequence(tiles2))

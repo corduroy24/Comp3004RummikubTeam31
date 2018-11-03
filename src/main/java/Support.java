@@ -8,18 +8,7 @@ public class Support {
 
 	public boolean one_short(Player p) {
 		ArrayList<ArrayList<Tile>> output = new ArrayList<ArrayList<Tile>>();
-		// all set and all sequence could be generate from hands and tables
 		output = merge(p.getHand().getTiles(),p.getTable());
-		// if number of tiles in output = (hand + table) tiles
-		// play and set win
-		int point  = 0;
-		for(int i= 0 ; i < output.size();i++) {
-			for(int u =0; u < output.get(i).size();u++) {
-				point += output.get(i).get(u).getNumber();
-			}
-		}
-		
-		
 		if(getSizeOf(output) == p.getHand().sizeOfHand() + p.getTable().getNumberOfTile())
 		{
 			p.getTable().clean();

@@ -50,6 +50,5 @@ public class Tile {
 		out += ("{" + color + Number + "} ");
 		return out;
 	}
-
 	
 }

@@ -149,10 +149,11 @@ public class PlayerStrategy3 implements PlayerStrategy {
 					for(int u =0; u < firstMelds.get(i).size();u++) {
 						check_1++;
 						point += firstMelds.get(i).get(u).getNumber();
+						if (point >= 30) {
+							has_1_30 = true;
+							break myloop;}
 					}
-					if (point >= 30) {
-						has_1_30 = true;
-						break myloop;}
+					
 				}
 				point = 0;
 				//check for the number of tiles the second array list need to get so that this player have 30 points
@@ -160,16 +161,18 @@ public class PlayerStrategy3 implements PlayerStrategy {
 					for(int u =0; u < secondMelds.get(i).size();u++) {
 						check_2++;
 						point += secondMelds.get(i).get(u).getNumber();
+						if(point >= 30) { 
+							has_2_30 = true;
+							break myloop;}
 					}
-					if(point >= 30) { 
-						has_2_30 = true;
-						break myloop;}
 				}
 				
 				int removeNumber = 0;
 				
 				//use to decide which set of meld will be chosen
 				if(has_1_30 && has_2_30) {
+					System.out.println(check_1);
+					System.out.println(check_2);
 					if(check_1 >= check_2) {
 						output = secondMelds;
 						removeNumber = check_2;
@@ -195,7 +198,9 @@ public class PlayerStrategy3 implements PlayerStrategy {
 					if(removeNumber == 0) break myloop;
 				}
 				p.set_report(out);
+				System.out.println(out);
 				p.setIsfirstMeldComplete(true);
+				if(p.getHand().sizeOfHand() == 0) p.setWinner();
 				return true;
 				}
 			return false;	

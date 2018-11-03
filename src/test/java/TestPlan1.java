@@ -54,17 +54,20 @@ public class TestPlan1 extends TestCase{
 
 		//b)
 		game.getAI().play();
+		game.Announcement();
 		assertTrue(game.getAI().getIsFirstMeldComplete()); 
 		assertFalse(game.getAI().isWinner()); 
 		
 		game.getAI2().play();
+		game.Announcement();
 		assertTrue(game.getAI2().getIsFirstMeldComplete()); 
 		assertFalse(game.getAI2().isWinner()); 
 
-		game.getAI3().play();
-
 		game.getAI3().getHand().HandReader();
+		game.getAI3().play();
+		game.Announcement();
 		assertTrue(game.getAI3().getIsFirstMeldComplete()); 
+		game.getAI3().getHand().HandReader();
 		assertTrue(game.getAI3().isWinner()); 
 	}
 	
