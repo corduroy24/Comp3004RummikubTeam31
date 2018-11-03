@@ -4,7 +4,7 @@ import junit.framework.TestCase;
 
 public class TestPlan extends TestCase{
 	
-	public void testGameStart() {
+	/*public void testGameStart() {
 		GameMaster game = new GameMaster(); 
 		
 		//Req. 1
@@ -32,7 +32,7 @@ public class TestPlan extends TestCase{
 				}
 			}
 		}
-	}
+	}*/
 	
 	public void testP1PlayFirstInitialTurn() {
 		GameMaster game = new GameMaster();
@@ -194,6 +194,27 @@ public class TestPlan extends TestCase{
 			p1.getHand().addTileToHand(l6[i]);
 		}
 		assertTrue(p1.play() == true);
+		System.out.println("Pass\n");
+
+		System.out.println("--------------------------");	
+		
+		game = new GameMaster();
+		p1 = game.getAI();
+
+		Tile l9[] = {new Tile(1,3), new Tile(1,4), new Tile(1,5), new Tile(1,6), new Tile(1,7),
+				new Tile(1,8), new Tile(1,9), new Tile(1,10), new Tile(1,11), new Tile(1,12)};
+		Tile l10[] = {new Tile(1,6), new Tile(2,6), new Tile(3,6), new Tile(4,6)};
+		System.out.println("Test player wins on first turn");
+		
+		for(int i =0; i < l9.length; i++) 
+			p1.getHand().addTileToHand(l9[i]);
+		
+		for(int i =0; i < l10.length; i++) 
+			p1.getHand().addTileToHand(l10[i]);
+		
+		assertTrue(p1.play() == true);
+		assertTrue(p1.getIsFirstMeldComplete()); 
+		assertTrue(p1.isWinner()); 
 		System.out.println("Pass\n");
 
 		System.out.println("--------------------------");	
