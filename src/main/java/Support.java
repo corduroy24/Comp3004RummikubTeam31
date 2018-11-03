@@ -102,7 +102,6 @@ public class Support {
 		//create list to hold sequences
 		ArrayList<ArrayList<Tile>> sequences = getSequences(hand);
 		hand = renew(hand,sequences); // find all sequences
-		
 		// create output 
 		ArrayList<ArrayList<Tile>> output = new ArrayList<ArrayList<Tile>>();
 

@@ -35,6 +35,10 @@ public class TestPlan1 extends TestCase{
 
 		for(int i = 0; i < inHand_4.size(); i++)
 			game.getAI3().getHand().addTileToHand(inHand_4.get(i));
+		game.getAI().getHand().HandReader();
+		game.getHuman().getHand().HandReader();
+		game.getAI2().getHand().HandReader();
+		game.getAI3().getHand().HandReader();
 		
 		//a)
 		game.getHuman().getHand().playTileFromHand(inHand_1.get(3));
@@ -67,7 +71,6 @@ public class TestPlan1 extends TestCase{
 		game.getAI3().play();
 		game.Announcement();
 		assertTrue(game.getAI3().getIsFirstMeldComplete()); 
-		game.getAI3().getHand().HandReader();
 		assertTrue(game.getAI3().isWinner()); 
 	}
 	
