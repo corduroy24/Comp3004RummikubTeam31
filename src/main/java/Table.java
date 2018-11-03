@@ -7,9 +7,16 @@ import java.util.Observer;
 
 public class Table{
 	private ArrayList<ArrayList<Tile>> table;
+	private Boolean[][] isTableSet;
+	private int timesAdded = -1;
+	private int totalAdded = 0;
+	private int nextLine = 0;
 	
 	public Table() {
 		table = new ArrayList<ArrayList<Tile>>();
+		isTableSet = new Boolean[20][7];
+		
+		clearBool();
 	}
 	
 	private int checking_index = 0;
@@ -37,12 +44,37 @@ public class Table{
 
 	// Add set or sequence on table, return true if success
 	// if it is not a set or sequence, it will return false
-	public boolean addTiles(ArrayList<Tile> tiles2) {
-		// TODO Auto-generated method stub
+	public boolean addTiles(ArrayList<Tile> tiles2) 
+	{
+		System.out.println("Array size: "+tiles2.size());
+		if(timesAdded != -1)
+		{
+			System.out.println("Table size: "+table.get(timesAdded).size());
+		}
+		
 		if(isSet(tiles2) || isSequence(tiles2))
 		{
+			if(totalAdded+tiles2.size()>20)
+			{
+				totalAdded=0;
+				nextLine++;
+			}
+			
+			for(int x=0;x<tiles2.size()+1;x++)
+			{
+				isTableSet[totalAdded+x][nextLine] = true;
+			}
+			timesAdded++;
+			
+			totalAdded+=tiles2.size()+1;
+			if(totalAdded>20)
+			{
+				totalAdded=0;
+				nextLine++;
+			}
 			return table.add(tiles2);
 		}
+		
 		return false;
 	}
 	
@@ -66,13 +98,24 @@ public class Table{
 	
 	public Tile getTile(int x, int y)
 	{
+		System.out.println("x: "+x+", y: "+y+"\nx.length: "+table.size()+", y.length: "+table.get(x).size());
 		if(table.size() == 0) return null;
+		
+		if(table.size()<x)
+		{
+			return null;
+		}
+		if(table.get(x).size()<y)
+		{
+			return null;
+		}
 		
 		return table.get(x).get(y);		
 	}
 	
 	public void setTile(int x, int y, Tile tile)
 	{
+		isTableSet[table.size()][y] = true;
 		table.get(x).set(y, tile);
 	}
 	
@@ -179,11 +222,41 @@ public class Table{
 		table = t;
 	}
 
+	/*
 	public void addTile(Tile temp) {
 		// TODO Auto-generated method stub
 		ArrayList<Tile> t  = new ArrayList<Tile>();
 		t.add(temp);
 		table.add(t);
 	}
+	*/
 
+	public void clearBool()
+	{
+		for(int x=0;x<20;x++)
+		{
+			for(int y=0;y<7;y++)
+			{
+				isTableSet[x][y] = false;
+			}
+		}
+	}
+	
+	public Boolean[][] getBool()
+	{
+		return isTableSet;
+	}
+	
+	public void addTableCounter()
+	{
+		
+		isTableSet[totalAdded][nextLine] = true;
+		
+		totalAdded++;
+		if(totalAdded>20)
+		{
+			totalAdded=0;
+			nextLine++;
+		}
+	}
 }

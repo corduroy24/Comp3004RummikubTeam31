@@ -36,7 +36,9 @@ public class Ui extends Application
 	Button endTurnButton;
 	
 	Button[][] tableButtons = new Button[20][7];
-	ArrayList<Button> playerHandButtons = new ArrayList<>();
+	//Boolean[][] isTableSet = new Boolean[20][7];
+	
+	ArrayList<Button> playerHandButtons = new ArrayList<Button>();
 	
 	TextArea console;
 	
@@ -144,6 +146,8 @@ public class Ui extends Application
 				        	
 				        	clearTile(Integer.parseInt(temp[0]), Integer.parseInt(temp[1]));
 				        }
+				        
+				        game.getTable().addTableCounter();
 				        
 				        event.setDropCompleted(successText && successColor);
 				        event.consume();
@@ -313,7 +317,7 @@ public class Ui extends Application
 		    public void handle(ActionEvent e) 
 		    {
 		    	//Change to send a message that players turn has ended
-		    	boolean hasWinner = false;
+		    	//boolean hasWinner = false;
 		    	game.getHuman().getTable().setTable(current_table());
 		    	game.Announcement();
 		    	
@@ -368,6 +372,7 @@ public class Ui extends Application
 		    		updateHand();
 		    	}
 		    	else {
+		    		game.getTable().addTableCounter();
 		    		played=false;
 		    	}
 		    	checkAIIsWinner();
@@ -376,7 +381,11 @@ public class Ui extends Application
 		    	{
 		    		game.getHuman().setIsfirstMeldComplete(true);
 		    	}
+		    	
+		    	lightRecentlyPlayed();
+		    	game.getTable().clearBool();
 		    }
+		    
 
 			private boolean checkAIIsWinner() {
 				// TODO Auto-generated method stub
@@ -446,7 +455,28 @@ public class Ui extends Application
 				return false;
 			}
 			
-			
+			private void lightRecentlyPlayed()
+			{
+				for(int x=0;x<20;x++)
+				{
+					for(int y=0;y<7;y++)
+					{
+						Boolean[][] isTableSet = game.getTable().getBool();
+						
+						if(isTableSet[x][y])
+						{
+							DropShadow dropShadow = new DropShadow();
+							dropShadow.setRadius(10.0);
+							dropShadow.setColor(Color.BLUE);
+							tableButtons[x][y].setEffect(dropShadow);
+						}
+						else
+						{
+							tableButtons[x][y].setEffect(null);
+						}
+					}
+				}
+			}
 		});
 		
 		//The layoutPane that seperated the Player's hand and the end turn button
@@ -513,8 +543,8 @@ public class Ui extends Application
 	
 	public void addPlayerTile(Tile tile)
 	{
-		String color = tile.getColor();
-		int number = tile.getNumber();
+		//String color = tile.getColor();
+		//int number = tile.getNumber();
 
 		final int counter = playerHandButtons.size();
 		
@@ -772,4 +802,6 @@ public class Ui extends Application
 		hand.sortTilesByColour();
 		addPlayerTile(tile);
 	}
+	
+	
 }
