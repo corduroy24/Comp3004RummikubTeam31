@@ -46,13 +46,11 @@ public class Support {
 			
 			ArrayList<Tile> merge_list = new ArrayList<Tile>(TileOnHand);
 			ArrayList<Tile> merge_list1 = new ArrayList<Tile>(TileOnHand);
-
-
+			
 			for(int i =0; i < table.getTable().size();i++) {
 				for(int u =0; u<table.get(i).size();u++) {
 					merge_list.add(table.get(i).get(u));
 					merge_list1.add(table.get(i).get(u));
-					
 				}
 			}
 			
@@ -68,6 +66,7 @@ public class Support {
 			
 			return output;
 		}
+		
 	
 	// Find all sequences of hand then find all sets
 	public ArrayList<ArrayList<Tile>> getFirstOutput(ArrayList<Tile> hand){
@@ -191,6 +190,7 @@ public class Support {
 	private ArrayList<ArrayList<Tile>> getSequences(ArrayList<Tile> hand){
 		ArrayList<ArrayList<Tile>> sequences = new ArrayList<ArrayList<Tile>>();
 		ArrayList<Tile> check = new ArrayList<Tile>();
+		ArrayList<Tile> check1 = new ArrayList<Tile>();
 		
 		if(hand == null || hand.size() == 0) return null;
 		
@@ -201,10 +201,19 @@ public class Support {
 					check.add(hand.get(i));
 				}
 				else {
-					if(Integer.compare(hand.get(i).getNumber()-1, check.get(check.size()-1).getNumber()) == 0)
+					if(check.size() >= 3 && check1.size() >= 2) {
+						if (Integer.compare(hand.get(i).getNumber()-1, check1.get(check1.size()-1).getNumber()) == 0)
+							check1.add(hand.get(i));
+					}
+					else if(Integer.compare(hand.get(i).getNumber()-1, check.get(check.size()-1).getNumber()) == 0)
 						check.add(hand.get(i));
+					else if (Integer.compare(hand.get(i).getNumber(), check.get(check.size()-1).getNumber()) == 0)
+						check1.add(hand.get(i));
 					else {
 						if(check.size() > 2) sequences.add(check);
+						if(check1.size() > 2) sequences.add(check1);
+						
+						check1 = new ArrayList<Tile>();
 						check = new ArrayList<Tile>();
 						check.add(hand.get(i));
 					}
@@ -215,9 +224,13 @@ public class Support {
 				if(check.size() > 2) sequences.add(check);
 				check = new ArrayList<Tile>();
 				check.add(hand.get(i));
+				if(check1.size() > 2) sequences.add(check1);
+				check1 = new ArrayList<Tile>();
 			}
 		}
 		if(check.size()>2)sequences.add(check);
+		if(check1.size()>2)sequences.add(check1);
+		
 		return sequences;
 	}
 	//Function get all the sets in the List sorted by value, then sorted by color (this list is sorted 2 times)
@@ -283,4 +296,11 @@ public class Support {
 		for(int i = 0; i < sample.size();i++) {	x += sample.get(i).size();}
 		return x;
 	}
+	
+
+	
+	
+	
+	
+	
 }

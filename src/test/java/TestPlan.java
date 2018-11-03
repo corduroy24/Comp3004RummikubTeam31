@@ -42,7 +42,7 @@ public class TestPlan extends TestCase{
 		assertFalse(game.getAI3().getIsTurn()); 
 	}
 	
-	public void testP1Strategy() {
+	public void testP1PlayFirstInitialTurn() {
 		GameMaster game = new GameMaster();
 		Player p1 = game.getAI();
 		
@@ -50,19 +50,7 @@ public class TestPlan extends TestCase{
 		
 		Tile l[] = {new Tile(1,9), new Tile(2,9), new Tile(3,9)};
 		Tile l1[] = {new Tile(1,9), new Tile(1,10), new Tile(1,11)};
-		
-		System.out.println("Test with a set 27 points\n");
-		for(int i =0; i < l.length; i++) {
-			p1.getHand().addTileToHand(l[i]);
-		}
-		assertTrue(p1.play() == false);
-		System.out.println("Pass\n");
-		
-		System.out.println("--------------------------");
-		
-		game = new GameMaster();
-		p1 = game.getAI();
-
+	
 		System.out.println("Test with a run 30 points");
 		for(int i =0; i < l1.length; i++) {
 			p1.getHand().addTileToHand(l1[i]);
@@ -76,8 +64,24 @@ public class TestPlan extends TestCase{
 		p1 = game.getAI();
 
 		
-		Tile a1[] = {new Tile(1,6), new Tile(1,7), new Tile(1,8)};
-		Tile a2[] = {new Tile(1,2), new Tile(1,3), new Tile(1,4)};
+		Tile ll1[] = {new Tile(1,11), new Tile(1,12), new Tile(1,13)};
+		
+		System.out.println("Test with a run to get more than 30 points");
+		for(int i =0; i < l1.length; i++) {
+			p1.getHand().addTileToHand(ll1[i]);
+		}
+		assertTrue(p1.play() == true);
+		System.out.println("Pass\n");
+
+		System.out.println("--------------------------");
+		
+		
+		game = new GameMaster();
+		p1 = game.getAI();
+
+		
+		Tile a1[] = {new Tile(1,5), new Tile(1,6), new Tile(1,7)};
+		Tile a2[] = {new Tile(1,6), new Tile(1,7), new Tile(1,8)};
 		
 		System.out.println("Test with several runs to get 30 points");
 		for(int i =0; i < l1.length; i++) {
@@ -122,6 +126,21 @@ public class TestPlan extends TestCase{
 		
 		game = new GameMaster();
 		p1 = game.getAI();
+		Tile ll4[] = {new Tile(1,12), new Tile(2,12), new Tile(3,12)};
+		System.out.println("Test with a set 36 points");
+		for(int i =0; i < l4.length; i++) {
+			p1.getHand().addTileToHand(ll4[i]);
+		}
+		assertTrue(p1.play() == true);
+		System.out.println("Pass\n");
+
+		System.out.println("--------------------------");
+				
+		
+		
+		
+		game = new GameMaster();
+		p1 = game.getAI();
 		Tile k3[] = {new Tile(1,5), new Tile(2,5), new Tile(3,5)};
 		Tile k4[] = {new Tile(4,5), new Tile(3,5), new Tile(2,5)};
 		
@@ -153,23 +172,7 @@ public class TestPlan extends TestCase{
 		assertTrue(p1.play() == true);
 		System.out.println("Pass\n");
 
-		System.out.println("--------------------------");
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+		System.out.println("--------------------------");		
 		
 		game = new GameMaster();
 		p1 = game.getAI();
@@ -201,11 +204,95 @@ public class TestPlan extends TestCase{
 		assertTrue(p1.play() == true);
 		System.out.println("Pass\n");
 
+		System.out.println("--------------------------");	
+	}
+	
+	public void testP1AfterGetInitialTurn() {
+		GameMaster game = new GameMaster();
+		Player p1 = game.getAI();
+		p1.setIsfirstMeldComplete(true);
+		
+		System.out.println("Test p1 play AFTER its initial turn!");
+		
+		Tile l[] = {new Tile(1,9), new Tile(2,9), new Tile(3,9)};
+		Tile l1[] = {new Tile(1,9), new Tile(1,10), new Tile(1,11)};
+	
+		System.out.println("Test with a run");
+		for(int i =0; i < l1.length; i++) {
+			p1.getHand().addTileToHand(l1[i]);
+		}
+		assertTrue(p1.play() == true);
+		System.out.println("Pass\n");
+
 		System.out.println("--------------------------");
 		
-
+		game = new GameMaster();
+		p1 = game.getAI();
+		p1.setIsfirstMeldComplete(true);
 		
+		Tile a1[] = {new Tile(1,6), new Tile(1,7), new Tile(1,8)};
+		Tile a2[] = {new Tile(1,2), new Tile(1,3), new Tile(1,4)};
+		
+		System.out.println("Test with several runs");
+		for(int i =0; i < l1.length; i++) {
+			p1.getHand().addTileToHand(a1[i]);
+			p1.getHand().addTileToHand(a2[i]);	
+		}
+		assertTrue(p1.play() == true);
+		System.out.println("Pass\n");
+
+		System.out.println("--------------------------");
+		
+		game = new GameMaster();
+		p1 = game.getAI();
+		p1.setIsfirstMeldComplete(true);
+		Tile l4[] = {new Tile(1,10), new Tile(2,10), new Tile(3,10)};
+		System.out.println("Test with a set");
+		for(int i =0; i < l4.length; i++) {
+			p1.getHand().addTileToHand(l4[i]);
+		}
+		assertTrue(p1.play() == true);
+		System.out.println("Pass\n");
+
+		System.out.println("--------------------------");
+		
+		
+		game = new GameMaster();
+		p1 = game.getAI();
+		p1.setIsfirstMeldComplete(true);
+		Tile k3[] = {new Tile(1,5), new Tile(2,5), new Tile(3,5)};
+		Tile k4[] = {new Tile(4,5), new Tile(3,5), new Tile(2,5)};
+		
+		System.out.println("Test with several sets");
+		for(int i =0; i < k4.length; i++) {
+			p1.getHand().addTileToHand(k3[i]);
+			p1.getHand().addTileToHand(k4[i]);
+		}
+		assertTrue(p1.play() == true);
+		System.out.println("Pass\n");
+
+		System.out.println("--------------------------");
+
+		game = new GameMaster();
+		p1 = game.getAI();
+		p1.setIsfirstMeldComplete(true);
+		
+		Tile l5[] = {new Tile(1,4), new Tile(1,5), new Tile(1,6)};
+		Tile l6[] = {new Tile(1,5), new Tile(2,5), new Tile(3,5)};
+		System.out.println("Test with mixed runs and sets");
+		
+		for(int i =0; i < l5.length; i++) {
+			p1.getHand().addTileToHand(l5[i]);
+			p1.getHand().addTileToHand(l6[i]);
+		}
+		assertTrue(p1.play() == true);
+		System.out.println("Pass\n");
+
+		System.out.println("--------------------------");
 		
 	}
+	
+	
+	
 	
 }

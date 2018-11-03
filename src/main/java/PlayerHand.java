@@ -49,27 +49,31 @@ public class PlayerHand {
 	}
 
 	public void HandReader() {
+		ArrayList<Tile> sample = hand;
+		Collections.sort(sample, new SortByX());
+		String output = "";
 		if (isEmpty()) {
 			System.out.println("Player: " + name + " has no tiles");
 		} else {
 			System.out.println("Displaying Player: " + name + "'s tiles");
-			for (int i = 0; i < sizeOfHand(); i++) {
+			for (int i = 0; i < sample.size(); i++) {
 				String Color = "";
-				if (hand.get(i).getColor().equals("O")) {
+				if (sample.get(i).getColor().equals("O")) {
 					Color = "Orange";
 				}
-				if (hand.get(i).getColor().equals("B")) {
+				if (sample.get(i).getColor().equals("B")) {
 					Color = "Blue";
 				}
-				if (hand.get(i).getColor().equals("G")) {
+				if (sample.get(i).getColor().equals("G")) {
 					Color = "Green";
 				}
-				if (hand.get(i).getColor().equals("R")) {
+				if (sample.get(i).getColor().equals("R")) {
 					Color = "Red";
 				}
-				System.out.println(i + 1 + ". " + Color + " " + hand.get(i).getNumber());
+				output += Color + " " + sample.get(i).getNumber() + "; ";
 			}
 		}
+		System.out.println(output);
 	}
 
 	public void sortTilesByNumber() {// sorts tiles from least to greatest
