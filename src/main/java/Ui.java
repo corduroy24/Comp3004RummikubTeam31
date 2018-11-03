@@ -36,7 +36,9 @@ public class Ui extends Application
 	Button endTurnButton;
 	
 	Button[][] tableButtons = new Button[20][7];
-	ArrayList<Button> playerHandButtons = new ArrayList<>();
+	//Boolean[][] isTableSet = new Boolean[20][7];
+	
+	ArrayList<Button> playerHandButtons = new ArrayList<Button>();
 	
 	TextArea console;
 	
@@ -144,6 +146,11 @@ public class Ui extends Application
 				        	
 				        	clearTile(Integer.parseInt(temp[0]), Integer.parseInt(temp[1]));
 				        }
+				        
+				        DropShadow dropShadow = new DropShadow();
+						dropShadow.setRadius(10.0);
+						dropShadow.setColor(Color.BLUE);
+						tableButtons[numberY][numberX].setEffect(dropShadow);
 				        
 				        event.setDropCompleted(successText && successColor);
 				        event.consume();
@@ -376,7 +383,10 @@ public class Ui extends Application
 		    	{
 		    		game.getHuman().setIsfirstMeldComplete(true);
 		    	}
+		    	
+		    	lightRecentlyPlayed();
 		    }
+		    
 
 			private boolean checkAIIsWinner() {
 				// TODO Auto-generated method stub
@@ -446,7 +456,24 @@ public class Ui extends Application
 				return false;
 			}
 			
-			
+			private void lightRecentlyPlayed()
+			{
+				for(int x=0;x<20;x++)
+				{
+					for(int y=0;y<7;y++)
+					{
+						Boolean[][] isTableSet = game.getTable().getBool();
+						
+						if(isTableSet[x][y])
+						{
+							DropShadow dropShadow = new DropShadow();
+							dropShadow.setRadius(10.0);
+							dropShadow.setColor(Color.BLUE);
+							tableButtons[x][y].setEffect(dropShadow);
+						}
+					}
+				}
+			}
 		});
 		
 		//The layoutPane that seperated the Player's hand and the end turn button
@@ -773,4 +800,6 @@ public class Ui extends Application
 		hand.sortTilesByColour();
 		addPlayerTile(tile);
 	}
+	
+	
 }
