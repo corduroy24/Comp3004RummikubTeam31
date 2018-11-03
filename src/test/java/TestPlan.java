@@ -218,6 +218,21 @@ public class TestPlan extends TestCase{
 		System.out.println("Pass\n");
 
 		System.out.println("--------------------------");	
+		
+		game = new GameMaster();
+		p1 = game.getAI(); 
+		Tile x1[] = {new Tile(1,9), new Tile(4,9), new Tile(2,3)};
+		Tile x2[] = {new Tile(2,9), new Tile(3,10), new Tile(4,7)};
+	
+		System.out.println("Test p1 cannot play initial meld");
+		for(int i =0; i < x1.length; i++) {
+			p1.getHand().addTileToHand(x1[i]);
+			p1.getHand().addTileToHand(x2[i]);
+		}
+		assertTrue(p1.play() == false);
+		System.out.println("Pass\n");
+
+		System.out.println("--------------------------");
 	}
 	
 	public void testP1AfterGetInitialTurn() {
@@ -304,8 +319,4 @@ public class TestPlan extends TestCase{
 		System.out.println("--------------------------");
 		
 	}
-	
-	
-	
-	
 }
