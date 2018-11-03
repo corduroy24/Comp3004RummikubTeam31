@@ -192,8 +192,8 @@ public class Ui extends Application
 				{
 					public void handle(MouseEvent event) 
 					{
-						if(game.getHuman().getIsFirstMeldComplete())
-						{
+						//if(game.getHuman().getIsFirstMeldComplete())
+						//{
 							if(tableButtons[numberY][numberX].getStyle().length() > 1) 
 							{
 								Dragboard db = tableButtons[numberY][numberX].startDragAndDrop(TransferMode.ANY);
@@ -228,7 +228,7 @@ public class Ui extends Application
 						        content.putHtml(coordinates);
 						        
 						        db.setContent(content);
-							}
+							//}
 					        
 					        event.consume();
 						}
@@ -319,14 +319,12 @@ public class Ui extends Application
 		    	
 		    	checkPlayerIsWinner();
 		    	console.clear();
-		    	
-		    	
-
+	
 		    	if(game.getAI().play()) {
 		    		prevString += "AI1 play: \n";
 			    	prevString += game.getAI().return_report();
 		    	}
-		    	else {
+		    	else if (game.getDeck().getDeck().size() > 0) {
 		    		Tile t= game.getDeck().Draw();
 		    		prevString += "AI1 draw: \n";
 		    		game.getAI().getHand().addTileToHand(t);
@@ -337,7 +335,7 @@ public class Ui extends Application
 		    		prevString += "AI2 play: \n";
 			    	prevString += game.getAI2().return_report();
 		    	}
-		    	else {
+		    	else if (game.getDeck().getDeck().size() > 0){
 		    		Tile t= game.getDeck().Draw();
 		    		prevString += "AI2 draw: \n";
 		    		game.getAI2().getHand().addTileToHand(t);
@@ -348,12 +346,14 @@ public class Ui extends Application
 		    		prevString += "AI3 play: \n";
 			    	prevString += game.getAI3().return_report();
 		    	}
-		    	else {
+		    	else if (game.getDeck().getDeck().size() > 0){
 		    		Tile t= game.getDeck().Draw();
 		    		prevString += "AI3 draw: \n";
 		    		game.getAI3().getHand().addTileToHand(t);
 		    		prevString += t.toString() + "\n";
 		    	}
+		    	
+		    	game.getAI2().getHand().HandReader();
 		    	console.setText(prevString);  
 		    	prevString = "";
 		    	updateTable();
@@ -562,6 +562,7 @@ public class Ui extends Application
 	public void setPlayerHand()
 	{
 		PlayerHand test = game.getHuman().getHand();
+		test.sortTilesByColour();
 		
 		for(int x=0;x<14;x++)
 		{
@@ -763,12 +764,12 @@ public class Ui extends Application
 	
 	public void drawTile()
 	{
-		System.out.println("Player drew card");
-		
+		game.getHuman().getPlayedList();
 		PlayerHand hand = game.getHuman().getHand();
 		Tile tile = game.getDeck().Draw();
 		
 		hand.addTileToHand(tile);
+		hand.sortTilesByColour();
 		addPlayerTile(tile);
 	}
 }

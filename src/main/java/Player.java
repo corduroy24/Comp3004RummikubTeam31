@@ -21,7 +21,12 @@ public class Player implements Observer{
 	private int thirdPlayerPoint;// Number of tiles on hand of third player
 	private boolean win; // define winner
 	private String report = "";
+	private ArrayList<Tile> PlayedTileList;
 	
+	
+	
+	public ArrayList<Tile> getPlayedList(){return PlayedTileList; };
+	public void renewPlayedList() {PlayedTileList = new ArrayList<Tile>();}
 	
 	public String return_report() {
 		return report;
@@ -36,6 +41,7 @@ public class Player implements Observer{
 	
 	public Player (String s, int id, PlayerStrategy strategy) {
 		name=s;
+		PlayedTileList = new ArrayList<Tile>();
 		hand = new PlayerHand(name+"'s Hand"); 
 		playerID = id; 
     	this.playerStrategy = strategy; 
@@ -105,8 +111,8 @@ public class Player implements Observer{
       }
     
     public boolean isEligibleforP3() {
-    	if (((getPlayerHand().sizeOfHand())>=(firstPlayerPoint+2)&&(getPlayerHand().sizeOfHand()+2>=(secondPlayerPoint))
-    			&&(getPlayerHand().sizeOfHand()+2)>=(thirdPlayerPoint))) {
+    	if (((getPlayerHand().sizeOfHand())>(firstPlayerPoint+2)&&(getPlayerHand().sizeOfHand()+2>(secondPlayerPoint))
+    			&&(getPlayerHand().sizeOfHand()+2)>(thirdPlayerPoint))) {
     		return true;
     	}
     	else {

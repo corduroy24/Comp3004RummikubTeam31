@@ -10,6 +10,7 @@ public class PlayerStrategy3 implements PlayerStrategy {
 		// TODO Auto-generated method stub
 		ArrayList<Tile> input = new ArrayList<Tile>();
 		p.set_report("");
+		p.renewPlayedList();
 		functions = new Support();
 		if(p.getIsFirstMeldComplete()) {
 			ArrayList<ArrayList<Tile>> output = new ArrayList<ArrayList<Tile>>();
@@ -69,6 +70,7 @@ public class PlayerStrategy3 implements PlayerStrategy {
 				String out = "";
 				for(int i =0; i < TilesWillBeStore.size();i++) {
 					p.getHand().playTileFromHand(TilesWillBeStore.get(i));
+					p.getPlayedList().add(TilesWillBeStore.get(i));
 					out += TilesWillBeStore.get(i).toString();
 				}
 				p.set_report(out);
@@ -108,6 +110,7 @@ public class PlayerStrategy3 implements PlayerStrategy {
 					p.getTable().addTiles(output.get(i));
 					for(int u = 0; u < output.get(i).size();u++) {
 						p.getHand().playTileFromHand(output.get(i).get(u));
+						p.getPlayedList().add(output.get(i).get(u));
 						out += output.get(i).get(u).toString();
 					}
 				}
@@ -186,6 +189,7 @@ public class PlayerStrategy3 implements PlayerStrategy {
 					for(int u =0; u < output.get(i).size();u++) {
 						removeNumber--;
 						p.getHand().getTiles().remove(output.get(i).get(u));
+						p.getPlayedList().add(output.get(i).get(u));
 						out += output.get(i).get(u).toString();
 					}
 					if(removeNumber == 0) break myloop;

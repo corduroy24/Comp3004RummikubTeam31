@@ -8,6 +8,7 @@ public class PlayerStrategy2 implements PlayerStrategy {
 
 	public boolean playTheGame(Player p) {
 		// TODO Auto-generated method stub
+		p.renewPlayedList();
 		p.set_report("");
 		ArrayList<Tile> input = new ArrayList<Tile>();
 		functions = new Support();
@@ -26,6 +27,9 @@ public class PlayerStrategy2 implements PlayerStrategy {
 				ArrayList<ArrayList<Tile>> first_sample = functions.getFirstOutput(first_hand);
 				ArrayList<ArrayList<Tile>> second_sample = functions.getSecondOutput(second_hand);
 				
+				
+				ArrayList<ArrayList<Tile>> output2 = new ArrayList<ArrayList<Tile>>();
+				
 				//targets is the list contain tiles on hand which is not used to generate any meld.
 				// the algorithm is find the most melds as much as possible in its hand. Then mark them in targets list.
 				if (functions.getSizeOf(first_sample) >=  functions.getSizeOf(second_sample)) 
@@ -36,12 +40,9 @@ public class PlayerStrategy2 implements PlayerStrategy {
 				output = new ArrayList<ArrayList<Tile>>();
 				int max_tiles = 0;
 				//find all subset of targets, then merge it with tiles on the table
-
-				
 				int length = targets.size();
 				// this array list will hold the best result (as most tiles) and will be use to update play on the table legally
 				ArrayList<Tile> TilesWillBeStore = new ArrayList<Tile>();
-
 				// idea to find subsets is from https://www.geeksforgeeks.org/finding-all-subsets-of-a-given-set-in-java/
 				for (int i = 0; i < (1<<length); i++) {
 					ArrayList<Tile> subset = new ArrayList<Tile>();
@@ -51,6 +52,10 @@ public class PlayerStrategy2 implements PlayerStrategy {
 
 					// merge subset and table hand
 					output = functions.merge(subset,p.getTable());
+					output2 = functions.merge(subset,p.getTable());
+					if(functions.getSizeOf(output) <= functions.getSizeOf(output2))
+						output = output2;
+					
 					// check if the output array list from merge is perfect
 					if(functions.getSizeOf(output) == p.getTable().getNumberOfTile() + subset.size()) {
 						if(subset.size() > max_tiles) {
@@ -58,6 +63,7 @@ public class PlayerStrategy2 implements PlayerStrategy {
 							TilesWillBeStore = subset;		
 						}
 					}
+					
 				}
 				
 				if(TilesWillBeStore == null || TilesWillBeStore.size() == 0)
@@ -76,10 +82,11 @@ public class PlayerStrategy2 implements PlayerStrategy {
 				
 				for(int i =0; i < TilesWillBeStore.size();i++) {
 					p.getHand().playTileFromHand(TilesWillBeStore.get(i));
-					System.out.println(TilesWillBeStore.get(i).toString());
+					p.getPlayedList().add(TilesWillBeStore.get(i));
 					out += TilesWillBeStore.get(i).toString();
 				}
 				out += "\n";
+				System.out.println(out);
 				p.set_report(out);
 				//else
 				//output = getAllSetAndSequence(p.getHand().getTiles());
@@ -164,6 +171,7 @@ public class PlayerStrategy2 implements PlayerStrategy {
 					for(int u =0; u < output.get(i).size();u++) {
 						removeNumber--;
 						p.getHand().getTiles().remove(output.get(i).get(u));
+						p.getPlayedList().add(output.get(i).get(u));
 						out += output.get(i).get(u).toString();
 					}
 					if(removeNumber == 0) break myloop;
