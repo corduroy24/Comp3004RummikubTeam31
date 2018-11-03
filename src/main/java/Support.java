@@ -225,8 +225,13 @@ public class Support {
 		if(hand == null || hand.size() == 0) return null;
 		ArrayList<ArrayList<Tile>> sets = new ArrayList<ArrayList<Tile>>();
 		ArrayList<Tile> check = new ArrayList<Tile>();
-		int value = hand.get(0).getNumber();
 		HashSet<String> string = new HashSet<String>();
+		int value = hand.get(0).getNumber();
+		
+		
+		ArrayList<Tile> check1 = new ArrayList<Tile>();
+		HashSet<String> string1 = new HashSet<String>();
+		
 		for(int i =0; i < hand.size();i++) {
 			if(value  == hand.get(i).getNumber()) {
 				if(check.size() == 0) {
@@ -234,11 +239,19 @@ public class Support {
 					string.add(hand.get(i).getColor());
 				}
 				else {
-					if(string.add(hand.get(i).getColor())) {
+					if(string.size() >= 3 && string1.size() >= 2) {
+						if (string1.add(hand.get(i).getColor())) {
+							check1.add(hand.get(i));
+							string1.add(hand.get(i).getColor());
+						}
+					}
+					else if(string.add(hand.get(i).getColor())) {
 						check.add(hand.get(i));
 						string.add(hand.get(i).getColor());
 					}
-					else {
+					else if (string1.add(hand.get(i).getColor())) {
+						check1.add(hand.get(i));
+						string1.add(hand.get(i).getColor());
 					}
 				}
 			}
@@ -249,10 +262,15 @@ public class Support {
 				value = hand.get(i).getNumber();
 				check.add(hand.get(i));
 				string.add(hand.get(i).getColor());
+				
+				check1 = new ArrayList<Tile>();
+				string1 = new HashSet<String>();
+				
+				
 			}
 		}
-		if(check.size()>2)
-			sets.add(check);
+		if(check.size()>2) sets.add(check);
+		if(check1.size() > 2) sets.add(check1);
 		return sets;
 	}
 

@@ -321,8 +321,8 @@ public class Ui extends Application
 		    	console.clear();
 		    	
 		    	
-
-		    	if(game.getAI().play()) {
+	
+		    	if(game.getAI().play() && game.getDeck().getDeck().size() > 0) {
 		    		prevString += "AI1 play: \n";
 			    	prevString += game.getAI().return_report();
 		    	}
@@ -333,7 +333,7 @@ public class Ui extends Application
 		    		prevString += t.toString() + "\n";
 		    	}
 		    	
-		    	if(game.getAI2().play()) {
+		    	if(game.getAI2().play() && game.getDeck().getDeck().size() > 0) {
 		    		prevString += "AI2 play: \n";
 			    	prevString += game.getAI2().return_report();
 		    	}
@@ -344,7 +344,7 @@ public class Ui extends Application
 		    		prevString += t.toString() + "\n";
 		    	}
 		    	
-		    	if(game.getAI3().play()) {
+		    	if(game.getAI3().play() && game.getDeck().getDeck().size() > 0) {
 		    		prevString += "AI3 play: \n";
 			    	prevString += game.getAI3().return_report();
 		    	}
@@ -354,6 +354,7 @@ public class Ui extends Application
 		    		game.getAI3().getHand().addTileToHand(t);
 		    		prevString += t.toString() + "\n";
 		    	}
+		    	
 		    	console.setText(prevString);  
 		    	prevString = "";
 		    	updateTable();
@@ -765,7 +766,7 @@ public class Ui extends Application
 	public void drawTile()
 	{
 		System.out.println("Player drew card");
-		
+		game.getHuman().getPlayedList();
 		PlayerHand hand = game.getHuman().getHand();
 		Tile tile = game.getDeck().Draw();
 		
