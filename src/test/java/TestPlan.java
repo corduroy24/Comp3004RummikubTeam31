@@ -30,16 +30,8 @@ public class TestPlan extends TestCase{
 						assertTrue(players.get(i).getHand().getTile(j).getNumber() <= players.get(i).getHand().getTile(j+1).getNumber());
 					}
 				}
-				//	System.out.println("/////////////"+i);
 			}
 		}
-		
-		//Req. 2 (players turn is mainly tracked by behavior)
-		//game.getHuman().play(); 
-		assertTrue(game.getHuman().getIsTurn()); 
-		assertFalse(game.getAI().getIsTurn()); 
-		assertFalse(game.getAI2().getIsTurn()); 
-		assertFalse(game.getAI3().getIsTurn()); 
 	}
 	
 	public void testP1PlayFirstInitialTurn() {
