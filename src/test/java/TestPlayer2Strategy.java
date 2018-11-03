@@ -229,5 +229,4 @@ public class TestPlayer2Strategy extends TestCase{
 	
 	
 	
-	
 }
