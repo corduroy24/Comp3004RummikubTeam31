@@ -147,10 +147,7 @@ public class Ui extends Application
 				        	clearTile(Integer.parseInt(temp[0]), Integer.parseInt(temp[1]));
 				        }
 				        
-				        DropShadow dropShadow = new DropShadow();
-						dropShadow.setRadius(10.0);
-						dropShadow.setColor(Color.BLUE);
-						tableButtons[numberY][numberX].setEffect(dropShadow);
+				        game.getTable().addTableCounter();
 				        
 				        event.setDropCompleted(successText && successColor);
 				        event.consume();
@@ -320,7 +317,7 @@ public class Ui extends Application
 		    public void handle(ActionEvent e) 
 		    {
 		    	//Change to send a message that players turn has ended
-		    	boolean hasWinner = false;
+		    	//boolean hasWinner = false;
 		    	game.getHuman().getTable().setTable(current_table());
 		    	game.Announcement();
 		    	
@@ -375,6 +372,7 @@ public class Ui extends Application
 		    		updateHand();
 		    	}
 		    	else {
+		    		game.getTable().addTableCounter();
 		    		played=false;
 		    	}
 		    	checkAIIsWinner();
@@ -385,6 +383,7 @@ public class Ui extends Application
 		    	}
 		    	
 		    	lightRecentlyPlayed();
+		    	game.getTable().clearBool();
 		    }
 		    
 
@@ -471,6 +470,10 @@ public class Ui extends Application
 							dropShadow.setColor(Color.BLUE);
 							tableButtons[x][y].setEffect(dropShadow);
 						}
+						else
+						{
+							tableButtons[x][y].setEffect(null);
+						}
 					}
 				}
 			}
@@ -540,8 +543,8 @@ public class Ui extends Application
 	
 	public void addPlayerTile(Tile tile)
 	{
-		String color = tile.getColor();
-		int number = tile.getNumber();
+		//String color = tile.getColor();
+		//int number = tile.getNumber();
 
 		final int counter = playerHandButtons.size();
 		

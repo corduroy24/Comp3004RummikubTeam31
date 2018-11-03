@@ -8,6 +8,9 @@ import java.util.Observer;
 public class Table{
 	private ArrayList<ArrayList<Tile>> table;
 	private Boolean[][] isTableSet;
+	private int timesAdded = -1;
+	private int totalAdded = 0;
+	private int nextLine = 0;
 	
 	public Table() {
 		table = new ArrayList<ArrayList<Tile>>();
@@ -44,17 +47,34 @@ public class Table{
 	public boolean addTiles(ArrayList<Tile> tiles2) 
 	{
 		System.out.println("Array size: "+tiles2.size());
-		System.out.println("Table size: "+table.size());
-		// TODO Auto-generated method stub
+		if(timesAdded != -1)
+		{
+			System.out.println("Table size: "+table.get(timesAdded).size());
+		}
+		
 		if(isSet(tiles2) || isSequence(tiles2))
 		{
-			for(int x=0;x<tiles2.size()+1;x++)
+			if(totalAdded+tiles2.size()>20)
 			{
-				isTableSet[table.size()+x][0] = true;
+				totalAdded=0;
+				nextLine++;
 			}
 			
+			for(int x=0;x<tiles2.size()+1;x++)
+			{
+				isTableSet[totalAdded+x][nextLine] = true;
+			}
+			timesAdded++;
+			
+			totalAdded+=tiles2.size()+1;
+			if(totalAdded>20)
+			{
+				totalAdded=0;
+				nextLine++;
+			}
 			return table.add(tiles2);
 		}
+		
 		return false;
 	}
 	
@@ -225,5 +245,18 @@ public class Table{
 	public Boolean[][] getBool()
 	{
 		return isTableSet;
+	}
+	
+	public void addTableCounter()
+	{
+		
+		isTableSet[totalAdded][nextLine] = true;
+		
+		totalAdded++;
+		if(totalAdded>20)
+		{
+			totalAdded=0;
+			nextLine++;
+		}
 	}
 }
