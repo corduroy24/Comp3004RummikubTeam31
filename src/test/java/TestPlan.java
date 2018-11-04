@@ -418,7 +418,7 @@ public class TestPlan extends TestCase{
 		Player p1 = game.getAI();
 		Player p3 = game.getAI3(); 
 		
-		System.out.println("Test p3 play its initial turn!");
+		System.out.println("Test p3 and p1 play its initial turn!");
 		
 		Tile x1[] = {new Tile(1,9), new Tile(1,10), new Tile(1,11)};
 		Tile x2[] = {new Tile(3,11), new Tile(3,9), new Tile(3,10)};
