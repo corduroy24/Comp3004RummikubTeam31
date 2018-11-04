@@ -149,7 +149,7 @@ public class PlayerStrategy3 implements PlayerStrategy {
 				}
 				// if point >= 30, add tiles to the table and remove them from hand
 				if(point >= 30) {
-					System.out.println("Tiles played from AI1 are: ");
+					System.out.println("Tiles played from AI3 are: ");
 					String out = "";
 					for(int i = output.size()-1; i > -1 ;i--) {
 						p.getTable().addTiles(output.get(i));

@@ -21,6 +21,15 @@ public class PlayerStrategy3Test extends TestCase{
 	Tile t8 = new Tile(2,1);
 	Tile t9 = new Tile(3,1);
 	Tile t10 = new Tile(4,1);
+	
+	Tile tile11 = new Tile(1,2);
+	Tile tile12 = new Tile(1,3);
+	Tile tile13 = new Tile(1,4);
+	Tile tile14 = new Tile(1,5);
+	Tile tile15 = new Tile(1,6);
+	Tile tile16 = new Tile(1,7);
+	Tile tile17 = new Tile(1,8);
+	
 
 	Player opponent = new Player("Player",999,new PlayerStrategy3());
 	
@@ -69,6 +78,19 @@ public class PlayerStrategy3Test extends TestCase{
 		
 		player.play();
 		assertTrue(player.getTable().getNumberOfTile() == 6);		
+	}
+	
+	public void testWinFirstMove() {
+		player.getHand().addTileToHand(tile11);
+		player.getHand().addTileToHand(tile12);
+		player.getHand().addTileToHand(tile13);
+		player.getHand().addTileToHand(tile14);
+		player.getHand().addTileToHand(tile15);
+		player.getHand().addTileToHand(tile16);
+		player.getHand().addTileToHand(tile17);
+		player.play();
+		assertTrue(player.isWinner() == true);
+	
 	}
 	
 	////////////////FUNCTIONS BELOW ARE RESPONSIBLE OVER WHAT IS AFTER INITIAL 30 POINT MOVE
