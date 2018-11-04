@@ -14,6 +14,9 @@ public class Player implements Observer{
 	private boolean isFirstMeldComplete = false;
 	private int playerID = 0; 
 	
+	private boolean p1FirstMeldComplete;
+	private boolean p2FirstMeldComplete;
+	private boolean p3FirstMeldComplete; 
 	private Table table; // player can see table itself
 	private Deck deck; // player can see deck itself
 	private int firstPlayerPoint; // Number of tiles on hand of first player
@@ -108,6 +111,7 @@ public class Player implements Observer{
         firstPlayerPoint = enemies.get(0).getHand().sizeOfHand();
         secondPlayerPoint = enemies.get(1).getHand().sizeOfHand();
         thirdPlayerPoint = enemies.get(2).getHand().sizeOfHand();
+
       }
     
     public boolean isEligibleforP3() {
@@ -119,6 +123,13 @@ public class Player implements Observer{
     	return false;
     	}
     }
+    
+  /*  public boolean isEligibleForP2() {
+    	if (p1FirstMeldComplete || p2FirstMeldComplete || p3FirstMeldComplete) 
+    		return true;
+
+    	return false;
+    }*/
     
     public void setEnimies(Player p1, Player p2, Player p3) { //for strategy 3 test purposes 
     	 firstPlayerPoint = p1.getHand().sizeOfHand();

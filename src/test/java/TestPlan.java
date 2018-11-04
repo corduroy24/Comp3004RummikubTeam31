@@ -225,10 +225,10 @@ public class TestPlan extends TestCase{
 		Tile x2[] = {new Tile(2,9), new Tile(3,10), new Tile(4,7)};
 	
 		System.out.println("Test p1 cannot play initial meld");
-		for(int i =0; i < x1.length; i++) {
-			p1.getHand().addTileToHand(x1[i]);
-			p1.getHand().addTileToHand(x2[i]);
-		}
+
+		p1.getHand().addTilesToHand(x1);
+		p1.getHand().addTilesToHand(x2);
+
 		assertTrue(p1.play() == false);
 		System.out.println("Pass\n");
 
@@ -340,6 +340,75 @@ public class TestPlan extends TestCase{
 		System.out.println("Pass\n");
 
 		System.out.println("--------------------------");
+		
+	}
+	
+	public void testP2PlayFirstInitialTurn() {
+		GameMaster game = new GameMaster();
+		Player p1 = game.getAI();
+		Player p2 = game.getAI2(); 
+		
+		System.out.println("Test p2 play its initial turn!");
+		
+		Tile x1[] = {new Tile(1,9), new Tile(4,5), new Tile(2,3)};
+		Tile x2[] = {new Tile(2,9), new Tile(3,10), new Tile(4,7)};
+		
+		p1.getHand().addTilesToHand(x1);
+		p1.getHand().addTilesToHand(x2);
+
+		Tile l5[] = {new Tile(1,4), new Tile(1,8), new Tile(1,6)};
+		Tile l6[] = {new Tile(1,5), new Tile(2,5), new Tile(3,5)};
+		
+		p2.getHand().addTilesToHand(l5);
+		p2.getHand().addTilesToHand(l6);
+		assertTrue(p1.play() == false);
+
+		assertTrue(p2.play() == false); 
+		assertFalse(p2.getIsFirstMeldComplete());
+		
+		/*Tile k3[] = {new Tile(1,5), new Tile(2,5), new Tile(3,5)};
+		Tile k4[] = {new Tile(4,5), new Tile(3,5), new Tile(2,5)};		
+		
+		game = new GameMaster();
+		p1 = game.getAI();
+		p2 = game.getAI2(); 
+		p1.getHand().addTilesToHand(k3);
+		p1.getHand().addTilesToHand(k4);
+		p2.getHand().addTilesToHand(l5);
+		p2.getHand().addTilesToHand(l6);
+		
+		assertTrue(p1.play()); 
+		game.Announcement();
+		//assertTrue(p2.play()==true);
+
+		System.out.println(p1.getTable().getNumberOfTile());
+		assertTrue(p2.getIsFirstMeldComplete());*/
+		
+		System.out.println("Pass\n");
+
+		System.out.println("--------------------------");
+	}
+
+	public void testP2AfterGetInitialTurn() {
+		GameMaster game = new GameMaster();
+		Player p1 = game.getAI();
+		Player p2 = game.getAI2(); 
+		p1.setIsfirstMeldComplete(true);
+		
+		System.out.println("Test p1 play AFTER its initial turn!");
+		
+		Tile l[] = {new Tile(1,9), new Tile(2,9), new Tile(3,9)};
+		Tile l1[] = {new Tile(1,9), new Tile(1,10), new Tile(1,11)};
+	
+		System.out.println("Test with a run");
+		for(int i =0; i < l1.length; i++) {
+			p1.getHand().addTileToHand(l1[i]);
+		}
+		assertTrue(p1.play() == true);
+		System.out.println("Pass\n");
+
+		System.out.println("--------------------------");
+		
 		
 	}
 }
