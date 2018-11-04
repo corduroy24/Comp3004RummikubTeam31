@@ -121,6 +121,9 @@ public class PlayerStrategy3 implements PlayerStrategy {
 			}
 		}
 		else {
+			
+			if(functions.one_short(p))
+				return true;
 				//copy player hand to sample hand
 				ArrayList<Tile> first_hand = new ArrayList<Tile>(p.getHand().getTiles());
 				ArrayList<Tile> second_hand = new ArrayList<Tile>(p.getHand().getTiles());
