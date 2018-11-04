@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
@@ -32,7 +33,14 @@ public class PlayerHand {
 	public void addTileToHand(Tile newTile) {
 		hand.add(newTile);
 	}
-
+	
+	public void addTilesToHand(Tile[] newTiles) {
+		hand.addAll(Arrays.asList(newTiles));
+	}
+	
+	public void addTilesToHand(ArrayList<Tile> newTiles) {
+		hand.addAll(newTiles);
+	}
 	public int sizeOfHand() {
 		return hand.size();
 	}
