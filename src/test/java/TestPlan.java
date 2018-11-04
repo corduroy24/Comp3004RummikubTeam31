@@ -389,13 +389,13 @@ public class TestPlan extends TestCase{
 		System.out.println("--------------------------");
 	}
 
-	public void testP2AfterGetInitialTurn() {
+	/*public void testP2AfterGetInitialTurn() {
 		GameMaster game = new GameMaster();
 		Player p1 = game.getAI();
 		Player p2 = game.getAI2(); 
 		p1.setIsfirstMeldComplete(true);
 		
-		System.out.println("Test p1 play AFTER its initial turn!");
+		System.out.println("Test p2 play AFTER its initial turn!");
 		
 		Tile l[] = {new Tile(1,9), new Tile(2,9), new Tile(3,9)};
 		Tile l1[] = {new Tile(1,9), new Tile(1,10), new Tile(1,11)};
@@ -410,5 +410,5 @@ public class TestPlan extends TestCase{
 		System.out.println("--------------------------");
 		
 		
-	}
+	}*/
 }
