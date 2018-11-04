@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
+import java.util.Map;
 
 //support functions
 public class Support {
@@ -176,6 +177,13 @@ public class Support {
 	}
 	//Function get all the sequences in the List sorted by color, then sorted by value (this list is sorted 2 times)
 	private ArrayList<ArrayList<Tile>> getSequences(ArrayList<Tile> hand){
+		
+		ArrayList<Tile> t = new ArrayList<Tile>(hand);
+		Collections.sort(t, new SortbyValue());
+		Collections.sort(t, new SortToFindSet());
+		//create list hold sets
+		ArrayList<ArrayList<Tile>> sets = getSets(t);
+		
 		ArrayList<ArrayList<Tile>> sequences = new ArrayList<ArrayList<Tile>>();
 		ArrayList<Tile> check = new ArrayList<Tile>();
 		ArrayList<Tile> check1 = new ArrayList<Tile>();
@@ -218,6 +226,51 @@ public class Support {
 		}
 		if(check.size()>2)sequences.add(check);
 		if(check1.size()>2)sequences.add(check1);
+		
+		for(int i =0; i < sequences.size();i++) {
+			if(sequences.get(i).size() == 4) {
+				myloop: for(int u =0; u < sets.size();u++) {
+					if(sets.get(u).contains(sequences.get(i).get(0))) {
+						sequences.get(i).remove(0);
+						break myloop;
+					}
+					else if(sets.get(u).contains(sequences.get(i).get(3))) {
+						sequences.get(i).remove(3);
+						break myloop;
+					}
+				}
+			}
+			else if (sequences.get(i).size() == 5) {
+				myloop: for(int u =0; u < sets.size();u++) {
+						
+					if(sets.get(u).contains(sequences.get(i).get(1))) {
+						sequences.get(i).remove(1);
+						sequences.get(i).remove(0);
+						break myloop;
+					}
+					else if(sets.get(u).contains(sequences.get(i).get(3))) {
+						sequences.get(i).remove(4);
+						sequences.get(i).remove(3);
+						break myloop;
+					}
+					
+					else if(sets.get(u).contains(sequences.get(i).get(0))) {
+						if(sets.get(u).contains(sequences.get(i).get(4)))
+							sequences.get(i).remove(4);
+						sequences.get(i).remove(0);
+						break myloop;
+					}
+					else if(sets.get(u).contains(sequences.get(i).get(4))) {
+						sequences.get(i).remove(4);
+						break myloop;
+						}
+				}
+			}
+			
+		}
+		
+		
+		
 		
 		return sequences;
 	}
@@ -284,11 +337,5 @@ public class Support {
 		for(int i = 0; i < sample.size();i++) {	x += sample.get(i).size();}
 		return x;
 	}
-	
-
-	
-	
-	
-	
 	
 }

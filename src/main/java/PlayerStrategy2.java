@@ -36,9 +36,12 @@ public class PlayerStrategy2 implements PlayerStrategy {
 					targets = first_hand;
 				else targets = second_hand;
 				
+				
 				// merge table with tiles on target to find the most possible melds can be generated
 				output = new ArrayList<ArrayList<Tile>>();
 				int max_tiles = 0;
+				System.out.println("Playable tiles: ");
+				System.out.println(targets);
 				//find all subset of targets, then merge it with tiles on the table
 				int length = targets.size();
 				// this array list will hold the best result (as most tiles) and will be use to update play on the table legally
@@ -53,6 +56,7 @@ public class PlayerStrategy2 implements PlayerStrategy {
 					// merge subset and table hand
 					output = functions.merge(subset,p.getTable());
 					// check if the output array list from merge is perfect
+					
 					if(functions.getSizeOf(output) == p.getTable().getNumberOfTile() + subset.size()) {
 						if(subset.size() > max_tiles) {
 							max_tiles = subset.size();
@@ -139,7 +143,7 @@ public class PlayerStrategy2 implements PlayerStrategy {
 					for(int u =0; u < secondMelds.get(i).size();u++) {
 						check_2++;
 						point += secondMelds.get(i).get(u).getNumber();
-						if(point >= 30 && u >= 3 && firstMelds.get(i).size() - u >= 3) {
+						if(point >= 30 && u >= 3 && secondMelds.get(i).size() - u >= 3) {
 							has_2_30 = true;
 							break myloop;
 						}

@@ -320,7 +320,7 @@ public class Ui extends Application
 		    	//boolean hasWinner = false;
 		    	game.getHuman().getTable().setTable(current_table());
 		    	game.Announcement();
-		    	
+		    	System.out.println(game.getHuman().getTable().toString());
 		    	checkPlayerIsWinner();
 		    	console.clear();
 	
@@ -357,11 +357,7 @@ public class Ui extends Application
 		    		prevString += t.toString() + "\n";
 		    	}
 		    	
-		    	game.getAI().getHand().HandReader();
-		    	System.out.println();
 		    	game.getAI2().getHand().HandReader();
-		    	System.out.println();
-		    	game.getAI3().getHand().HandReader();
 		    	System.out.println();
 		    	console.setText(prevString);  
 		    	prevString = "";

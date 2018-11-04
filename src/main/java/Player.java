@@ -28,6 +28,7 @@ public class Player implements Observer{
 	
 	
 	
+	
 	public ArrayList<Tile> getPlayedList(){return PlayedTileList; };
 	public void renewPlayedList() {PlayedTileList = new ArrayList<Tile>();}
 	
@@ -52,6 +53,9 @@ public class Player implements Observer{
     	table = new Table();
 
 	}
+	
+
+	
 	
 	
 	public PlayerHand getHand(){return hand;}
