@@ -82,7 +82,6 @@ public class TestPlayer2Strategy extends TestCase{
 		player2.play();
 		
 		ArrayList<Tile> test = new ArrayList<Tile>();
-		//assertTrue(player.isWinner() == true);
 		player = new Player("Player",999,new PlayerStrategy2());
 		test = new ArrayList<Tile>();
 		
