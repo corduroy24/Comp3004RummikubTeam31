@@ -85,7 +85,7 @@ public class PlayerStrategy3Test extends TestCase{
 		player.setIsfirstMeldComplete(false);
 		ArrayList<Tile> test = new ArrayList<Tile>();
 		//assertTrue(player.isWinner() == true);
-		player = new Player("Player",999,new PlayerStrategy2());
+		player = new Player("Player",999,new PlayerStrategy3());
 		test = new ArrayList<Tile>();
 		//player.setIsfirstMeldComplete(true);
 		// set 111
@@ -93,15 +93,15 @@ public class PlayerStrategy3Test extends TestCase{
 		test.add(t7);test.add(t8);test.add(t9); //1,1,1
 		player.getTable().addTiles(test);
 			
-		player.getHand().addTileToHand(tile6); //2,9
+		
 		player.getHand().addTileToHand(t10); // 1 
 		player.getHand().addTileToHand(tile);  //1,12
 		player.getHand().addTileToHand(tile1); //1,11
 		player.getHand().addTileToHand(tile2); //1,10
 		
 		player.play();
-		assertTrue(player.getTable().getNumberOfTile() == 4);
-		assertTrue(player.getHand().sizeOfHand() == 4);
+		assertTrue(player.getTable().getNumberOfTile() == 7);
+		assertTrue(player.getHand().sizeOfHand() == 0);
 	}
 	
 	
