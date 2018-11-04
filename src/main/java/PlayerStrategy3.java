@@ -121,9 +121,6 @@ public class PlayerStrategy3 implements PlayerStrategy {
 			}
 		}
 		else {
-			if(functions.one_short(p))
-				return true;
-			if(p.getTable().getNumberOfTile() > 0) {
 				//copy player hand to sample hand
 				ArrayList<Tile> first_hand = new ArrayList<Tile>(p.getHand().getTiles());
 				ArrayList<Tile> second_hand = new ArrayList<Tile>(p.getHand().getTiles());
@@ -132,86 +129,48 @@ public class PlayerStrategy3 implements PlayerStrategy {
 				ArrayList<ArrayList<Tile>> output;
 				ArrayList<ArrayList<Tile>> firstMelds = functions.getFirstOutput(first_hand);
 				ArrayList<ArrayList<Tile>> secondMelds = functions.getSecondOutput(second_hand);
-				//sort by array list
-				Collections.sort(firstMelds, new SortByArrayList());
-				Collections.sort(secondMelds, new SortByArrayList());
+				int x = 0,y = 0;
+				//check the size of 2 possible output, and get the one whose size is bigger than other.
+				x = functions.getSizeOf(firstMelds);
+				y = functions.getSizeOf(secondMelds);
 				
-				int check_1 = 0;
-				boolean has_1_30 = false;
-			
-				int check_2 = 0;
-				boolean has_2_30 = false;
 				
+				if(x >= y) output = firstMelds;
+				else output = secondMelds;
+				
+				if (output.size() == 0) return false;
 				int point = 0;
-				//Pick one list has initial turn higher than 30 and using less melds than other.
-				//check for the number of tiles the first array list need to get so that this player have 30 points
-				myloop: for(int i =firstMelds.size()-1; i >-1 ;i--) {
-					for(int u =0; u < firstMelds.get(i).size();u++) {
-						check_1++;
-						point += firstMelds.get(i).get(u).getNumber();
-						if(point >= 30 && u >= 3 && firstMelds.get(i).size() - u >= 3) {
-							has_1_30 = true;
-							break myloop;
+				//add tiles in the table and remove tiles from player hand.
+				// use point to sum up tiles' value
+				for(int i = output.size()-1; i > -1 ;i--) {
+					for(int u = 0; u < output.get(i).size();u++) {
+						point += output.get(i).get(u).getNumber();
+					}
+				}
+				// if point >= 30, add tiles to the table and remove them from hand
+				if(point >= 30) {
+					System.out.println("Tiles played from AI1 are: ");
+					String out = "";
+					for(int i = output.size()-1; i > -1 ;i--) {
+						p.getTable().addTiles(output.get(i));
+						for(int u = 0; u < output.get(i).size();u++) {
+							p.getHand().playTileFromHand(output.get(i).get(u));
+							out += output.get(i).get(u).toString();
+							p.getPlayedList().add(output.get(i).get(u));
 						}
 					}
-					if (point >= 30) {
-						has_1_30 = true;
-						break myloop;}
-					
+					out += "\n";
+					System.out.println(out);
+					p.set_report(out);
+					//set the fist meld complete
+					p.setIsfirstMeldComplete(true);
+					//set winner, no tiles left
+					if(p.getHand().getTiles().size() == 0) p.setWinner();
+					return true;
 				}
-				point = 0;
-				//check for the number of tiles the second array list need to get so that this player have 30 points
-				myloop: for(int i =secondMelds.size()-1; i > -1;i--) {
-					for(int u =0; u < secondMelds.get(i).size();u++) {
-						check_2++;
-						point += secondMelds.get(i).get(u).getNumber();
-						if(point >= 30 && u >= 3 && firstMelds.get(i).size() - u >= 3) {
-							has_2_30 = true;
-							break myloop;
-						}
-					}
-					if(point >= 30) { 
-						has_2_30 = true;
-						break myloop;}
-				}
-				
-				int removeNumber = 0;
-				System.out.println(check_2) ;
-				//use to decide which set of meld will be chosen
-				if(has_1_30 && has_2_30) {
-					if(check_1 >= check_2) {
-						output = secondMelds;
-						removeNumber = check_2;
-					}
-					else {output = firstMelds; removeNumber = check_1;}
-				}
-				else if (has_1_30) {output = firstMelds;removeNumber = check_1;}
-				else if (has_2_30) {output = secondMelds;removeNumber = check_2;}
-				else return false;
-				
-				if(output.size() == 0) return false;
-				
-				// update table and remove tiles from player hand
-				String out = "";
-				myloop: for(int i =output.size()-1; i >-1 ;i--) {
-					p.getTable().addTiles(output.get(i));
-					for(int u =0; u < output.get(i).size();u++) {
-						removeNumber--;
-						p.getHand().getTiles().remove(output.get(i).get(u));
-						p.getPlayedList().add(output.get(i).get(u));
-						out += output.get(i).get(u).toString();
-						if(removeNumber == 0) break myloop;
-					}
-				}
-				p.set_report(out);
-				System.out.println(out);
-				p.setIsfirstMeldComplete(true);
-				if(p.getHand().sizeOfHand() == 0) p.setWinner();
-				return true;
-				}
-			return false;	
+				return false;
+			}
 		}
-	}
 	// merge an list with tiles on the table, then return a 2d array list
 	// which contains sets and sequences.
 	private ArrayList<ArrayList<Tile>> merge(ArrayList<Tile> TileOnHand, Table table) {
