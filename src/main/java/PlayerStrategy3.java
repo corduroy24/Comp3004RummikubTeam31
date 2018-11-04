@@ -145,7 +145,7 @@ public class PlayerStrategy3 implements PlayerStrategy {
 				int point = 0;
 				//add tiles in the table and remove tiles from player hand.
 				// use point to sum up tiles' value
-				for(int i = output.size()-1; i > -1 ;i--) {
+				myloop: for(int i = output.size()-1; i > -1 ;i--) {
 					for(int u = 0; u < output.get(i).size();u++) {
 						point += output.get(i).get(u).getNumber();
 					}

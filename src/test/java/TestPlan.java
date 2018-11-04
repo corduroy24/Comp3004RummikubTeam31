@@ -420,16 +420,14 @@ public class TestPlan extends TestCase{
 		
 		System.out.println("Test p3 and p1 play its initial turn!");
 		
-		Tile x1[] = {new Tile(1,9), new Tile(1,10), new Tile(1,11)};
-		Tile x2[] = {new Tile(3,11), new Tile(3,9), new Tile(3,10)};
+		Tile x1[] = {new Tile(1,3), new Tile(1,9), new Tile(1,10), new Tile(1,11)};
+		Tile x2[] = {new Tile(1,4), new Tile(3,11), new Tile(3,9), new Tile(3,10)};
 		
 		p1.getHand().addTilesToHand(x1);
 		p3.getHand().addTilesToHand(x2);
-
 		assertTrue(p1.play() == true);
-
-		assertTrue(p3.play() == true); 
 		
+		assertTrue(p3.play() == true); 
 	}
 	
 	

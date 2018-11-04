@@ -128,10 +128,6 @@ public class PlayerStrategy2 implements PlayerStrategy {
 					for(int u =0; u < firstMelds.get(i).size();u++) {
 						check_1++;
 						point += firstMelds.get(i).get(u).getNumber();
-						if(point >= 30 && u >= 3 && firstMelds.get(i).size() - u >= 3) {
-							has_2_30 = true;
-							break myloop;
-						}
 					}
 					if (point >= 30) {
 						has_1_30 = true;
@@ -143,10 +139,6 @@ public class PlayerStrategy2 implements PlayerStrategy {
 					for(int u =0; u < secondMelds.get(i).size();u++) {
 						check_2++;
 						point += secondMelds.get(i).get(u).getNumber();
-						if(point >= 30 && u >= 3 && secondMelds.get(i).size() - u >= 3) {
-							has_2_30 = true;
-							break myloop;
-						}
 					}
 					if(point >= 30) { 
 						has_2_30 = true;
