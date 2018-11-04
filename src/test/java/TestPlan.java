@@ -430,5 +430,29 @@ public class TestPlan extends TestCase{
 		assertTrue(p3.play() == true); 
 	}
 	
+	public void testFirstP() {
+		GameMaster game = new GameMaster();
+		Player p1 = game.getAI();
+		Player p3 = game.getAI3(); 
+		
+		System.out.println("Test p3 and p1 play its initial turn!");
+		
+		Tile x1[] = {new Tile(1,3), new Tile(2,3), new Tile(3,3), 
+				new Tile(1,9), new Tile(1,10), new Tile(1,11),
+				new Tile(4,9)};
+		
+		Tile x2[] = {new Tile(1,4), new Tile(3,11), new Tile(3,9), new Tile(3,10),
+				new Tile(1,13), new Tile(2,13), new Tile(3,13)};
+		
+		p1.getHand().addTilesToHand(x1);
+		p3.getHand().addTilesToHand(x2);
+		assertTrue(p1.play() == true);
+		game.Announcement();
+		assertTrue(p3.play() == true); 
+		game.Announcement();
+		System.out.println("AAAAAAAAAAAAAA");
+		p3.getHand().HandReader();
+		assertTrue(p3.play() == true);
+	}
 	
 }

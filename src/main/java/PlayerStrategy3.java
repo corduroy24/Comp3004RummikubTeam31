@@ -99,7 +99,7 @@ public class PlayerStrategy3 implements PlayerStrategy {
 				x = functions.getSizeOf(firstMelds);
 				y = functions.getSizeOf(secondMelds);
 				
-				if(x >= y) output = firstMelds;
+				if(x >= y) output = firstMelds ;
 				else output = secondMelds;
 			
 				
@@ -136,7 +136,7 @@ public class PlayerStrategy3 implements PlayerStrategy {
 				//check the size of 2 possible output, and get the one whose size is bigger than other.
 				x = functions.getSizeOf(firstMelds);
 				y = functions.getSizeOf(secondMelds);
-				
+				//System.out.println(secondMelds.get(1).get(2).getNumber());
 				
 				if(x >= y) output = firstMelds;
 				else output = secondMelds;
@@ -147,19 +147,30 @@ public class PlayerStrategy3 implements PlayerStrategy {
 				// use point to sum up tiles' value
 				myloop: for(int i = output.size()-1; i > -1 ;i--) {
 					for(int u = 0; u < output.get(i).size();u++) {
-						point += output.get(i).get(u).getNumber();
+						point += output.get(i).get(u).getNumber(); 
 					}
+					
 				}
 				// if point >= 30, add tiles to the table and remove them from hand
-				if(point >= 30) {
+				if(point >= 30) {point=0;
 					System.out.println("Tiles played from AI3 are: ");
 					String out = "";
 					for(int i = output.size()-1; i > -1 ;i--) {
+				
 						p.getTable().addTiles(output.get(i));
+						
 						for(int u = 0; u < output.get(i).size();u++) {
 							p.getHand().playTileFromHand(output.get(i).get(u));
 							out += output.get(i).get(u).toString();
 							p.getPlayedList().add(output.get(i).get(u));
+							
+								point +=  output.get(i).get(u).getNumber(); System.out.println(point);
+								if (point>29) { 
+									u = output.get(i).size()+1;
+									i = 0;
+											
+								}
+								
 						}
 					}
 					out += "\n";
