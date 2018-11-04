@@ -318,5 +318,28 @@ public class TestPlan extends TestCase{
 
 		System.out.println("--------------------------");
 		
+		game = new GameMaster();
+		p1 = game.getAI();
+		p1.setIsfirstMeldComplete(true);
+		
+		Tile t6[] = {new Tile(1,4), new Tile(1,5), new Tile(1,8)}; 
+		ArrayList<Tile> al6 = new ArrayList<Tile>();
+		
+		Tile x1[] = {new Tile(1,9), new Tile(4,5), new Tile(2,3)};
+		Tile x2[] = {new Tile(2,9), new Tile(3,10), new Tile(4,7)};
+	
+		System.out.println("Test cannot play");
+		for(int i =0; i < x1.length; i++) {
+			p1.getHand().addTileToHand(x1[i]);
+			p1.getHand().addTileToHand(x2[i]);
+			al6.add(t6[i]);
+		}
+		game.getTable().addTiles(al6); 
+		
+		assertTrue(p1.play() == false);
+		System.out.println("Pass\n");
+
+		System.out.println("--------------------------");
+		
 	}
 }
