@@ -357,7 +357,12 @@ public class Ui extends Application
 		    		prevString += t.toString() + "\n";
 		    	}
 		    	
+		    	game.getAI().getHand().HandReader();
+		    	System.out.println();
 		    	game.getAI2().getHand().HandReader();
+		    	System.out.println();
+		    	game.getAI3().getHand().HandReader();
+		    	System.out.println();
 		    	console.setText(prevString);  
 		    	prevString = "";
 		    	updateTable();
