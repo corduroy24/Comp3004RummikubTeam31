@@ -53,7 +53,7 @@ public class Table{
 		
 		if(isSet(tiles2) || isSequence(tiles2))
 		{
-			if(totalAdded+tiles2.size()>20)
+			if(totalAdded+tiles2.size()>19)
 			{
 				totalAdded=0;
 				nextLine++;
