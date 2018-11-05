@@ -320,7 +320,6 @@ public class Ui extends Application
 		    	//boolean hasWinner = false;
 		    	game.getHuman().getTable().setTable(current_table());
 		    	game.Announcement();
-		    	System.out.println(game.getHuman().getTable().toString());
 		    	checkPlayerIsWinner();
 		    	console.clear();
 	
@@ -334,7 +333,8 @@ public class Ui extends Application
 		    		game.getAI().getHand().addTileToHand(t);
 		    		prevString += t.toString() + "\n";
 		    	}
-		    	
+		    	game.getTable().setTable(game.getAI().getTable().getTable());
+		    	game.Announcement();
 		    	if(game.getAI2().play()) {
 		    		prevString += "AI2 play: \n";
 			    	prevString += game.getAI2().return_report();
@@ -345,7 +345,8 @@ public class Ui extends Application
 		    		game.getAI2().getHand().addTileToHand(t);
 		    		prevString += t.toString() + "\n";
 		    	}
-		    	
+		    	game.getTable().setTable(game.getAI2().getTable().getTable());
+		    	game.Announcement();
 		    	if(game.getAI3().play()) {
 		    		prevString += "AI3 play: \n";
 			    	prevString += game.getAI3().return_report();
@@ -356,9 +357,10 @@ public class Ui extends Application
 		    		game.getAI3().getHand().addTileToHand(t);
 		    		prevString += t.toString() + "\n";
 		    	}
+		    	game.getTable().setTable(game.getAI3().getTable().getTable());
+		    	game.Announcement();
 		    	
 		    	game.getAI2().getHand().HandReader();
-		    	System.out.println();
 		    	console.setText(prevString);  
 		    	prevString = "";
 		    	updateTable();

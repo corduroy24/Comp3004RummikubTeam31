@@ -46,14 +46,15 @@ public class Table{
 	// if it is not a set or sequence, it will return false
 	public boolean addTiles(ArrayList<Tile> tiles2) 
 	{
+		/*
 		if(timesAdded != -1)
 		{
 			//System.out.println("Table size: "+table.get(timesAdded).size());
-		}
+		}*/
 		
 		if(isSet(tiles2) || isSequence(tiles2))
 		{
-			if(totalAdded+tiles2.size()>19)
+			/*if(totalAdded+tiles2.size()>19)
 			{
 				totalAdded=0;
 				nextLine++;
@@ -71,6 +72,7 @@ public class Table{
 				totalAdded=0;
 				nextLine++;
 			}
+			*/
 			return table.add(tiles2);
 		}
 		
@@ -249,7 +251,7 @@ public class Table{
 	public void addTableCounter()
 	{
 		
-		isTableSet[totalAdded][nextLine] = true;
+		//isTableSet[totalAdded][nextLine] = true;
 		
 		totalAdded++;
 		if(totalAdded>20)

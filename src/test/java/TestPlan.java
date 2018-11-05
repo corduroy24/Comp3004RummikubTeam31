@@ -471,7 +471,7 @@ public class TestPlan extends TestCase{
 		game.Announcement();
 		System.out.println("AAAAAAAAAAAAAA");
 		p3.getHand().HandReader();
-		assertTrue(p3.play() == true);
+		assertTrue(p3.getHand().sizeOfHand()==4);
 	}
 	
 }
