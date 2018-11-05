@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 import junit.framework.TestCase;
 
-public class PlayerStrategy3Test extends TestCase{
+public class TestPlayer3Strategy extends TestCase{
 
 	Player player = new Player("Player",999,new PlayerStrategy3());
 	Player player2 = new Player("Player2",998,new PlayerStrategy2());
