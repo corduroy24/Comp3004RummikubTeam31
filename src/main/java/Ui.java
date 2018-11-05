@@ -57,8 +57,11 @@ public class Ui extends Application
 		game.dealInitialHand();
 		
 		game.getHuman().getHand().HandReader();
+		System.out.println();
 		game.getAI().getHand().HandReader();
+		System.out.println();
 		game.getAI2().getHand().HandReader();
+		System.out.println();
 		game.getAI3().getHand().HandReader();
 		
 		Application.launch(args);
