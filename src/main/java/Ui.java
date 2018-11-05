@@ -55,6 +55,12 @@ public class Ui extends Application
 	public static void main(String [] args) 
 	{
 		game.dealInitialHand();
+		
+		game.getAI().getHand().HandReader();
+		game.getAI().getHand().HandReader();
+		game.getAI2().getHand().HandReader();
+		game.getAI3().getHand().HandReader();
+		
 		Application.launch(args);
 	}
 	
