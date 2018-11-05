@@ -369,7 +369,12 @@ public class Ui extends Application
 		    	game.getTable().setTable(game.getAI3().getTable().getTable());
 		    	game.Announcement();
 		    	
+		    	game.getAI().getHand().HandReader();
+		    	System.out.println();
 		    	game.getAI2().getHand().HandReader();
+		    	System.out.println();
+		    	game.getAI3().getHand().HandReader();
+		    	System.out.println();
 		    	console.setText(prevString);  
 		    	prevString = "";
 		    	updateTable();
