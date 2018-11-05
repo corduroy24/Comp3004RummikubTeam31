@@ -323,6 +323,10 @@ public class Ui extends Application
 		    	game.Announcement();
 		    	checkPlayerIsWinner();
 		    	console.clear();
+		    	
+		    	game.getAI().getHand().sortTilesByColour();
+		    	game.getAI2().getHand().sortTilesByColour();
+		    	game.getAI3().getHand().sortTilesByColour();
 	
 		    	if(game.getAI().play()) {
 		    		prevString += "AI1 play: \n";

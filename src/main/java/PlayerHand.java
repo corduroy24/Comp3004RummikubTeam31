@@ -57,9 +57,13 @@ public class PlayerHand {
 	}
 
 	public void HandReader() {
+		sortTilesByColour();
 		ArrayList<Tile> sample = hand;
-		Collections.sort(sample, new SortByX());
+		//Collections.sort(sample, new SortByX());
 		String output = "";
+		
+		
+		
 		if (isEmpty()) {
 			System.out.println("Player: " + name + " has no tiles");
 		} else {
