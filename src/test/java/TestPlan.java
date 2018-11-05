@@ -348,11 +348,10 @@ public class TestPlan extends TestCase{
 		GameMaster game = new GameMaster();
 		Player p1 = game.getAI();
 		Player p2 = game.getAI2(); 
-		
-		System.out.println("Test p2 play its initial turn!");
-		
-		System.out.println("Test someone has played its 30+ points and p2 can play 30+ poits and thus does");
+				
+		System.out.println("TEST P2 PLAY ITS INITAL TURN");
 
+		System.out.println("15b: Test someone has played its 30+ points and p2 can play 30+ poits and thus does");
 		
 		Tile x1[] = {new Tile(1,9), new Tile(4,5), new Tile(2,3)};
 		Tile x2[] = {new Tile(2,9), new Tile(3,10), new Tile(4,7)};
@@ -371,15 +370,12 @@ public class TestPlan extends TestCase{
 		assertFalse(p2.getIsFirstMeldComplete());
 		
 		System.out.println("Pass\n");
-
 		System.out.println("--------------------------");
 		
-		
-		System.out.println("Test someone has played its 30+ points but p2 canrt play 30+ points and draws");
+		System.out.println("15a: Test someone has played its 30+ points but p2 canrt play 30+ points and draws");
 
 		Tile k3[] = {new Tile(1,5), new Tile(2,5), new Tile(3,5)};
 		Tile k4[] = {new Tile(4,5), new Tile(3,5), new Tile(2,5)};		
-		
 		Tile l7[] = {new Tile(1,7), new Tile(1,8), new Tile(1,9)};
 		Tile l8[] = {new Tile(1,5), new Tile(2,5), new Tile(3,5)};
 		
@@ -391,45 +387,81 @@ public class TestPlan extends TestCase{
 		game.Announcement();
 		p1 = game.getAI();
 		p2 = game.getAI2(); 
+		
 		p1.getHand().addTilesToHand(k3);
 		p1.getHand().addTilesToHand(k4);
 		p2.getHand().addTilesToHand(l7);
 		p2.getHand().addTilesToHand(l8);
 		
-		
 		assertTrue(p1.play()); 
-
 		assertTrue(p2.play()==true);
-
 		assertTrue(p2.getIsFirstMeldComplete());
+		assertFalse(p2.isWinner()); 
 		
 		System.out.println("Pass\n");
-
 		System.out.println("--------------------------");
 	}
 
-	/*public void testP2AfterGetInitialTurn() {
+	public void testP2AfterGetInitialTurn() {
+		
+		System.out.println("TEST P2 PLAY AFTER ITS INITIAL TURN");
+
 		GameMaster game = new GameMaster();
 		Player p1 = game.getAI();
 		Player p2 = game.getAI2(); 
-		p1.setIsfirstMeldComplete(true);
-		
-		System.out.println("Test p2 play AFTER its initial turn!");
-		
-		Tile l[] = {new Tile(1,9), new Tile(2,9), new Tile(3,9)};
-		Tile l1[] = {new Tile(1,9), new Tile(1,10), new Tile(1,11)};
+		Table table = game.getTable(); 
+		ArrayList<ArrayList<Tile>> t = new ArrayList<ArrayList<Tile>>();
+		table.setTable(t);
 	
-		System.out.println("Test with a run");
-		for(int i =0; i < l1.length; i++) {
-			p1.getHand().addTileToHand(l1[i]);
-		}
-		assertTrue(p1.play() == true);
-		System.out.println("Pass\n");
+		Tile k3[] = {new Tile(1,5), new Tile(2,5), new Tile(3,5)};
+		Tile k4[] = {new Tile(4,5), new Tile(3,5), new Tile(2,5)};		
+		Tile l7[] = {new Tile(1,7), new Tile(1,8), new Tile(1,9)};
+	
+		System.out.println("16a: Test p2 wins not using the tiles of the table on its last turn");
+		game.Announcement();
 
+		p1.setIsfirstMeldComplete(true);
+		p2.setIsfirstMeldComplete(true);
+		
+		p1.getHand().addTilesToHand(k3);
+		p1.getHand().addTilesToHand(k4);
+		p2.getHand().addTilesToHand(l7);
+		
+		assertTrue(p1.play() == true);
+		assertTrue(p2.play() == true);
+		assertTrue(p2.isWinner()); 
+		
+		System.out.println("Pass\n");
 		System.out.println("--------------------------");
 		
+		System.out.println("16b: Test p2 wins not using some tiles of the table on its last turn");
+		game = new GameMaster();
+		p1 = game.getAI();
+		p2 = game.getAI2(); 
+		table = game.getTable(); 
+		t = new ArrayList<ArrayList<Tile>>();
+		table.setTable(t);
 		
-	}*/
+		Tile k5[] = {new Tile(1,5), new Tile(2,5), new Tile(3,5)};
+		Tile k6[] = {new Tile(1,7), new Tile(1,8), new Tile(1,9)};		
+		Tile l22[] = {new Tile(1,10), new Tile(4,5), new Tile(1,6)};
+	
+		game.Announcement();
+
+		p1.setIsfirstMeldComplete(true);
+		p2.setIsfirstMeldComplete(true);
+		
+		p1.getHand().addTilesToHand(k5);
+		p1.getHand().addTilesToHand(k6);
+		p2.getHand().addTilesToHand(l22);
+		
+		assertTrue(p1.play() == true);
+		assertTrue(p2.play() == true);
+		assertTrue(p2.isWinner()); 
+		
+		System.out.println("Pass\n");
+		System.out.println("--------------------------");
+	}
 	
 	
 	public void testP1andP3PlayFirstInitialTurn() {
