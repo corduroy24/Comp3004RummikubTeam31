@@ -35,28 +35,6 @@ public class TestPlan extends TestCase{
 		}
 	}*/
 	
-	
-	public void test4a1() {
-		Player p1 =  new Player("AI1",1,new PlayerStrategy1());
-		Player p2 =  new Player("AI1",1,new PlayerStrategy2());
-		Player p3 =  new Player("AI1",1,new PlayerStrategy3());
-		Tile l[] = {new Tile(1,9), new Tile(2,9), new Tile(3,9),
-					new Tile(1,1),new Tile(1,2), new Tile(1,3),
-					new Tile(2,4),new Tile(2,5), new Tile(2,6),
-			};
-		p1.getHand().addTilesToHand(l);
-		p2.getHand().addTilesToHand(l);
-		p3.getHand().addTilesToHand(l);
-		assertTrue (p1.play() == true);
-		assertTrue (p2.play() == true);
-		assertTrue (p3.play() == true);
-		assertTrue(p1.getHand().sizeOfHand() == 0);
-		assertTrue(p2.getHand().sizeOfHand() == 0);
-		assertTrue(p3.getHand().sizeOfHand() == 0);
-		
-		
-	}
-	
 	public void testP1PlayFirstInitialTurn() {
 		GameMaster game = new GameMaster();
 		Player p1 = game.getAI();
@@ -456,7 +434,7 @@ public class TestPlan extends TestCase{
 		System.out.println("Pass\n");
 		System.out.println("--------------------------");
 		
-		System.out.println("16b: Test p2 wins not using some tiles of the table on its last turn");
+		System.out.println("16b: Test p2 wins using some tiles of the table on its last turn");
 		game = new GameMaster();
 		p1 = game.getAI();
 		p2 = game.getAI2(); 
@@ -480,6 +458,76 @@ public class TestPlan extends TestCase{
 		assertTrue(p1.play() == true);
 		assertTrue(p2.play() == true);
 		assertTrue(p2.isWinner()); 
+		
+		System.out.println("Pass\n");
+		System.out.println("--------------------------");
+		
+		System.out.println("17a: it can play one or more tiles that require use of the tiles of the table");
+		game = new GameMaster();
+		p1 = game.getAI();
+		p2 = game.getAI2(); 
+		table = game.getTable(); 
+		t = new ArrayList<ArrayList<Tile>>();
+		table.setTable(t);
+		
+		Tile k9[] = {new Tile(1,5), new Tile(2,5), new Tile(3,5)};
+		Tile k10[] = {new Tile(1,7), new Tile(1,8), new Tile(1,9)};		
+		Tile l44[] = {new Tile(1,10), new Tile(4,9), new Tile(1,6)};
+		Tile l55[] = {new Tile(3,2), new Tile(4,5), new Tile(4,11)};
+
+		game.Announcement();
+
+		p1.setIsfirstMeldComplete(true);
+		p2.setIsfirstMeldComplete(true);
+		
+		p1.getHand().addTilesToHand(k9);
+		p1.getHand().addTilesToHand(k10);
+		p2.getHand().addTilesToHand(l44);		
+		p2.getHand().addTilesToHand(l55);
+
+		
+		assertTrue(p1.play() == true);
+		assertTrue(p2.play() == true);
+		assertFalse(p2.isWinner()); 
+		
+		System.out.println("Pass\n");
+		System.out.println("--------------------------");
+		
+		System.out.println("17b: it cannot play at least one tile that requires use of the table and thus draws");
+		game = new GameMaster();
+		p1 = game.getAI();
+		p2 = game.getAI2(); 
+		table = game.getTable(); 
+		t = new ArrayList<ArrayList<Tile>>();
+		table.setTable(t);
+		
+		Tile k11[] = {new Tile(1,5), new Tile(2,5), new Tile(3,5)};
+		Tile k12[] = {new Tile(1,7), new Tile(1,8), new Tile(1,9)};		
+		Tile l66[] = {new Tile(1,4), new Tile(4,9), new Tile(1,13)};
+		Tile l77[] = {new Tile(3,2), new Tile(4,8), new Tile(4,11)};
+
+		game.Announcement();
+
+		p1.setIsfirstMeldComplete(true);
+		p2.setIsfirstMeldComplete(true);
+		
+		p1.getHand().addTilesToHand(k11);
+		p1.getHand().addTilesToHand(k12);
+		p2.getHand().addTilesToHand(l66);		
+		p2.getHand().addTilesToHand(l77);
+
+		assertTrue(p1.play() == true);
+		boolean play = p2.play();
+		assertTrue(play == false); 
+		assertFalse(p2.isWinner()); 
+
+		int prevSize = p2.getHand().sizeOfHand(); 
+		if(play == false) {
+    		Tile x = game.getDeck().Draw();
+    		p2.getHand().addTileToHand(x);
+		}
+			
+		assertTrue(prevSize != p2.getHand().sizeOfHand()); 
 		
 		System.out.println("Pass\n");
 		System.out.println("--------------------------");
