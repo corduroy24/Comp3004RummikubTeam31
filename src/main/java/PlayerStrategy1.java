@@ -82,8 +82,9 @@ public class PlayerStrategy1 implements PlayerStrategy {
 			if(point >= 30) {
 				System.out.println("Tiles played from AI1 are: ");
 				String out = "";
+				Table t = new Table();
 				for(int i = output.size()-1; i > -1 ;i--) {
-					p.getTable().addTiles(output.get(i));
+					t.addTiles(output.get(i));
 					for(int u = 0; u < output.get(i).size();u++) {
 						p.getHand().playTileFromHand(output.get(i).get(u));
 						out += output.get(i).get(u).toString();
@@ -97,6 +98,7 @@ public class PlayerStrategy1 implements PlayerStrategy {
 				p.setIsfirstMeldComplete(true);
 				//set winner, no tiles left
 				if(p.getHand().getTiles().size() == 0) p.setWinner();
+				p.setTable(t);
 				return true;
 			}
 			return false;

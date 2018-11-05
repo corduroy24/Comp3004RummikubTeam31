@@ -41,7 +41,6 @@ public class PlayerStrategy2 implements PlayerStrategy {
 				output = new ArrayList<ArrayList<Tile>>();
 				int max_tiles = 0;
 				System.out.println("Playable tiles: ");
-				System.out.println(targets);
 				//find all subset of targets, then merge it with tiles on the table
 				int length = targets.size();
 				// this array list will hold the best result (as most tiles) and will be use to update play on the table legally

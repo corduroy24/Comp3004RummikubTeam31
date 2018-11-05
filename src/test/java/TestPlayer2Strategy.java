@@ -1,4 +1,6 @@
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import junit.framework.TestCase;
 
@@ -258,7 +260,185 @@ public class TestPlayer2Strategy extends TestCase{
 		assertTrue(player.isWinner() == false);
 	}
 	
+	public void testRun() {
+		GameMaster game = new GameMaster();
+		Player p2 = game.getAI2();
+		
+		Tile[] x1 = {new Tile(1,9), new Tile(1,10), new Tile(1,11)};
+		Tile x2[] = {new Tile(1,4), new Tile(3,11), new Tile(3,9), new Tile(3,10),
+					new Tile(1,8)
+		};
+		ArrayList<Tile> test = new ArrayList<Tile>();
+		test.addAll(Arrays.asList(x1));
+		p2.getTable().addTiles(test);
+		p2.getHand().addTilesToHand(x2);
+		p2.setIsfirstMeldComplete(true);
+		assertTrue(p2.play()== true);
+		assertTrue(p2.getTable().getNumberOfTile() == 4);
+	}
+	
+	public void testSet() {
+		GameMaster game = new GameMaster();
+		Player p2 = game.getAI2();
+		
+		Tile[] x1 = {new Tile(1,9), new Tile(2,9), new Tile(3,9)};
+		Tile x2[] = {new Tile(1,4), new Tile(3,11), new Tile(3,9), new Tile(3,10),
+					new Tile(4,9)
+		};
+		ArrayList<Tile> test = new ArrayList<Tile>();
+		test.addAll(Arrays.asList(x1));
+		p2.getTable().addTiles(test);
+		p2.getHand().addTilesToHand(x2);
+		p2.setIsfirstMeldComplete(true);
+		assertTrue(p2.play()== true);
+		assertTrue(p2.getTable().getNumberOfTile() == 4);
+	}
+	
+	public void testPlayMeldFromRun() {
+		GameMaster game = new GameMaster();
+		Player p2 = game.getAI2();
+		
+		Tile[] x1 = {new Tile(1,9), new Tile(1,10), new Tile(1,11), new Tile(1,12)};
+		Tile x2[] = {new Tile(1,4), new Tile(3,11), new Tile(3,9), new Tile(3,10),
+					new Tile(2,9), new Tile(4,9)
+		};
+		ArrayList<Tile> test = new ArrayList<Tile>();
+		test.addAll(Arrays.asList(x1));
+		p2.getTable().addTiles(test);
+		p2.getHand().addTilesToHand(x2);
+		p2.setIsfirstMeldComplete(true);
+		assertTrue(p2.play()== true);
+		assertTrue(p2.getTable().getNumberOfTile() == 6);
+		
+	}
+	
+	public void testPlayMeldFromSet() {
+		GameMaster game = new GameMaster();
+		Player p2 = game.getAI2();
+		
+		Tile[] x1 = {new Tile(1,9), new Tile(2,9), new Tile(3,9), new Tile(4,9)};
+		Tile x2[] = {new Tile(1,4), new Tile(3,11), new Tile(3,9), new Tile(3,10),
+					new Tile(1,8), new Tile(1,10)
+		};
+		ArrayList<Tile> test = new ArrayList<Tile>();
+		test.addAll(Arrays.asList(x1));
+		p2.getTable().addTiles(test);
+		p2.getHand().addTilesToHand(x2);
+		p2.setIsfirstMeldComplete(true);
+		assertTrue(p2.play()== true);
+		assertTrue(p2.getTable().getNumberOfTile() == 6);
+	}
+	
+	public void test9g() {
+		GameMaster game = new GameMaster();
+		Player p2 = game.getAI2();
+		
+		Tile[] x1 = {new Tile(1,9), new Tile(2,9), new Tile(3,9), new Tile(4,9)};
+		Tile[] x3 = {new Tile(1,10), new Tile(1,11), new Tile(1,12), new Tile(1,13)};
+		
+		Tile x2[] = {new Tile(1,4),new Tile(1,8),
+				 new Tile(3,11), new Tile(3,9), new Tile(3,10)
+		};
+		ArrayList<Tile> test = new ArrayList<Tile>();
+		ArrayList<Tile> test1 = new ArrayList<Tile>();
+		test.addAll(Arrays.asList(x1));
+		p2.getTable().addTiles(test);
+		test1.addAll(Arrays.asList(x3));
+		p2.getTable().addTiles(test1);
+		p2.getHand().addTilesToHand(x2);
+		p2.setIsfirstMeldComplete(true);
+		assertTrue(p2.play()== true);
+		assertTrue(p2.getTable().getNumberOfTile() == 9);
+	}
+	
+	public void test15a() {
+		GameMaster game = new GameMaster();
+		
+		
+		Tile[] x1 = {new Tile(3,5),new Tile(1,9), new Tile(2,9), new Tile(3,9), new Tile(4,9)};
+		Tile[] x3 = {new Tile(1,1), new Tile(1,11), new Tile(1,12), new Tile(1,13)};
+		
+		Tile x2[] = {new Tile(1,3),new Tile(2,4), new Tile(3,4),
+				 new Tile(3,11), new Tile(3,9), new Tile(3,10)
+		};
+		game.getAI2().getHand().addTilesToHand(x2);
+		game.getAI().getHand().addTilesToHand(x1);
+		
+		assertTrue(game.getAI().play());
+		game.getTable().setTable(game.getAI().getTable().getTable());
+		game.Announcement();
+		
+		assertTrue(game.getAI2().play());
+		
+	}
+	
+	public void test15b() {
+		
+	}
 	
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	public void test16a() {
+		GameMaster game = new GameMaster();
+		Player p2 = game.getAI2();
+		
+		Tile[] x1 = {new Tile(1,9), new Tile(2,9), new Tile(3,9), new Tile(4,9)};
+		Tile[] x3 = {new Tile(1,10), new Tile(1,11), new Tile(1,12), new Tile(1,13)};
+		
+		Tile x2[] = {new Tile(1,4),new Tile(2,4), new Tile(3,4),
+				 new Tile(3,11), new Tile(3,9), new Tile(3,10)
+		};
+		ArrayList<Tile> test = new ArrayList<Tile>();
+		ArrayList<Tile> test1 = new ArrayList<Tile>();
+		test.addAll(Arrays.asList(x1));
+		p2.getTable().addTiles(test);
+		test1.addAll(Arrays.asList(x3));
+		p2.getTable().addTiles(test1);
+		
+		
+		p2.getHand().addTilesToHand(x2);
+		p2.setIsfirstMeldComplete(true);
+		assertTrue(p2.play()== true);
+		assertTrue(p2.isWinner() == true);
+	}
+	
+	public void test16b() {
+		GameMaster game = new GameMaster();
+		Player p2 = game.getAI2();
+		
+		Tile[] x1 = {new Tile(2,9), new Tile(3,9), new Tile(4,9)};
+		Tile[] x3 = {new Tile(1,11), new Tile(1,12), new Tile(1,13)};
+		
+		Tile x2[] = {new Tile(1,4),new Tile(2,4), new Tile(3,4),
+				 new Tile(1,9), new Tile(1,10)
+		};
+		ArrayList<Tile> test = new ArrayList<Tile>();
+		ArrayList<Tile> test1 = new ArrayList<Tile>();
+		test.addAll(Arrays.asList(x1));
+		p2.getTable().addTiles(test);
+		test1.addAll(Arrays.asList(x3));
+		p2.getTable().addTiles(test1);
+		
+		
+		p2.getHand().addTilesToHand(x2);
+		p2.setIsfirstMeldComplete(true);
+		assertTrue(p2.play()== true);
+		assertTrue(p2.isWinner() == true);
+	}
 }

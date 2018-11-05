@@ -164,7 +164,7 @@ public class PlayerStrategy3 implements PlayerStrategy {
 							out += output.get(i).get(u).toString();
 							p.getPlayedList().add(output.get(i).get(u));
 							
-								point +=  output.get(i).get(u).getNumber(); System.out.println(point);
+								point +=  output.get(i).get(u).getNumber();
 								if (point>29) { 
 									u = output.get(i).size()+1;
 									i = 0;

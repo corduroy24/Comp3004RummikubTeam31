@@ -190,6 +190,7 @@ public class Player implements Observer{
     	return win;
     }
     public Table getTable() {return table;}
+    public void setTable(Table t) {table = t;}
     public Deck getDeck() {return deck;}
     
 	public int getFirstPlayerHand() {
@@ -209,6 +210,6 @@ public class Player implements Observer{
 		win = true;
 	}
     
-    
+	
     
 }
