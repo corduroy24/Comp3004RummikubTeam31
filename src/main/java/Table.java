@@ -250,9 +250,10 @@ public class Table{
 	
 	public void addTableCounter()
 	{
-		
+		try {
 		isTableSet[totalAdded][nextLine] = true;
-		
+		}
+		catch (Exception e) {}
 		totalAdded++;
 		if(totalAdded>20)
 		{
