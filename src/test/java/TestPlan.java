@@ -35,6 +35,27 @@ public class TestPlan extends TestCase{
 		}
 	}*/
 	
+	public void test4a1() {
+		Player p1 =  new Player("AI1",1,new PlayerStrategy1());
+		Player p2 =  new Player("AI1",1,new PlayerStrategy2());
+		Player p3 =  new Player("AI1",1,new PlayerStrategy3());
+		Tile l[] = {new Tile(1,9), new Tile(2,9), new Tile(3,9),
+					new Tile(1,1),new Tile(1,2), new Tile(1,3),
+					new Tile(2,4),new Tile(2,5), new Tile(2,6),
+			};
+		p1.getHand().addTilesToHand(l);
+		p2.getHand().addTilesToHand(l);
+		p3.getHand().addTilesToHand(l);
+		assertTrue (p1.play() == true);
+		assertTrue (p2.play() == true);
+		assertTrue (p3.play() == true);
+		assertTrue(p1.getHand().sizeOfHand() == 0);
+		assertTrue(p2.getHand().sizeOfHand() == 0);
+		assertTrue(p3.getHand().sizeOfHand() == 0);
+		
+		
+	}
+	
 	public void testP1PlayFirstInitialTurn() {
 		GameMaster game = new GameMaster();
 		Player p1 = game.getAI();
