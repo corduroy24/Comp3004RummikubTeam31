@@ -43,6 +43,7 @@ public class PlayerStrategy2 implements PlayerStrategy {
 				System.out.println("Playable tiles: ");
 				//find all subset of targets, then merge it with tiles on the table
 				int length = targets.size();
+				System.out.println(targets);
 				// this array list will hold the best result (as most tiles) and will be use to update play on the table legally
 				ArrayList<Tile> TilesWillBeStore = new ArrayList<Tile>();
 				// idea to find subsets is from https://www.geeksforgeeks.org/finding-all-subsets-of-a-given-set-in-java/
@@ -75,7 +76,6 @@ public class PlayerStrategy2 implements PlayerStrategy {
 				String out = "";
 				if(TilesWillBeStore.size() > 0) {
 					System.out.println("Tiles will be played by AI 2: ");
-					out += "Tiles will be played by AI 2: \n";
 				}
 				
 				

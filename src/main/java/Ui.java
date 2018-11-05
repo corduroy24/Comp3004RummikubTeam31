@@ -319,6 +319,7 @@ public class Ui extends Application
 		    	//Change to send a message that players turn has ended
 		    	//boolean hasWinner = false;
 		    	game.getHuman().getTable().setTable(current_table());
+		    	game.getTable().setTable(game.getHuman().getTable().getTable());
 		    	game.Announcement();
 		    	checkPlayerIsWinner();
 		    	console.clear();
@@ -335,6 +336,8 @@ public class Ui extends Application
 		    	}
 		    	game.getTable().setTable(game.getAI().getTable().getTable());
 		    	game.Announcement();
+		    	
+		    	
 		    	if(game.getAI2().play()) {
 		    		prevString += "AI2 play: \n";
 			    	prevString += game.getAI2().return_report();
@@ -347,6 +350,8 @@ public class Ui extends Application
 		    	}
 		    	game.getTable().setTable(game.getAI2().getTable().getTable());
 		    	game.Announcement();
+		    	
+		    	
 		    	if(game.getAI3().play()) {
 		    		prevString += "AI3 play: \n";
 			    	prevString += game.getAI3().return_report();
