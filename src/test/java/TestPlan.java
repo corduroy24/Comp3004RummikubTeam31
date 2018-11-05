@@ -587,7 +587,7 @@ public class TestPlan extends TestCase{
 		
 	}
 	
-		public void testFirstP3Sub() {
+	public void testFirstP3Sub() {
 		GameMaster game = new GameMaster();
 		Player p1 = game.getAI();
 		Player p3 = game.getAI3(); 
@@ -615,17 +615,47 @@ public class TestPlan extends TestCase{
 		game.Announcement();
 		p3.getHand().HandReader();
 		assertTrue(p3.getHand().sizeOfHand()==0);
-		assertTrue(p3.isWinner()==true);
 	}
 	
-		public void testwinP3() {
+	public void testPlayAllTilesP3() {
 		GameMaster game = new GameMaster();
 		Player p1 = game.getAI();
 		Player p3 = game.getAI3(); 
 		
-		System.out.println("Test p3 and p1 play its initial turn!");
+		System.out.println("Testing if all tiles get played on first turn!");
 		
 		Tile x1[] = {new Tile(1,3), new Tile(1,1), new Tile(1,2) 
+				};
+		
+		Tile x2[] = {new Tile(1,4), new Tile(1,5), new Tile(1,6), new Tile(1,7)
+				};
+		
+		ArrayList<Tile> test = new ArrayList<Tile>();
+		
+		test.add(new Tile(1,3));test.add(new Tile(1,2));test.add(new Tile(1,1));
+		
+		p1.getHand().addTilesToHand(x1);
+		p3.getHand().addTilesToHand(x2);
+		p3.getTable().addTiles(test);
+		
+		p1.play();
+		assertTrue(p1.play() == false);
+		game.Announcement();
+		assertTrue(p3.play() == true); 
+		game.Announcement();
+		p3.getHand().HandReader();
+		assertTrue(p3.getHand().sizeOfHand()==0);
+		assertTrue(p3.isWinner()==true);
+	}
+	
+	public void testwinP3() {
+		GameMaster game = new GameMaster();
+		Player p1 = game.getAI();
+		Player p3 = game.getAI3(); 
+		
+		System.out.println("Test p3 winning");
+		
+		Tile x1[] = {new Tile(1,3), new Tile(1,1), new Tile(1,2), new Tile(4,4),new Tile(2,5) 
 				};
 		
 		Tile x2[] = {new Tile(3,4), new Tile(3,5), new Tile(3,6), new Tile(3,7)
@@ -647,6 +677,60 @@ public class TestPlan extends TestCase{
 		p3.getHand().HandReader();
 		assertTrue(p3.getHand().sizeOfHand()==0);
 		assertTrue(p3.isWinner()==true);
+	}
+	
+	public void testP3Draw() {  
+		
+		GameMaster game = new GameMaster();
+		Player p1 = game.getAI();
+		Player p3 = game.getAI3(); 
+		
+			ArrayList<Tile> test = new ArrayList<Tile>();
+			
+			Tile x1[] = {new Tile(1,3), new Tile(1,1), new Tile(1,2) 
+			};
+
+			Tile x2[] = {new Tile(3,7),new Tile(2,3), new Tile(4,4)
+			};
+			p1.getHand().addTilesToHand(x1);
+			p3.getHand().addTilesToHand(x2);
+			p1.play();
+			p3.play();
+			if (p3.play()==false) {
+				p3.getHand().addTileToHand(game.getDeck().Draw());
+			}
+			System.out.println("WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW");
+			assertEquals(p3.getHand().sizeOfHand(),4);
+
+			
+			
+		}
+	
+public void testP3Draw2() {  //FOR WHEN strategy pattern 2 DOES NOT have to be done
+	
+	GameMaster game = new GameMaster();
+	Player p1 = game.getAI();
+	Player p3 = game.getAI3(); 
+	
+		ArrayList<Tile> test = new ArrayList<Tile>();
+		
+		Tile x1[] = {new Tile(1,3), new Tile(1,1), new Tile(1,2) 
+		};
+
+		Tile x2[] = {new Tile(3,4), new Tile(3,5), new Tile(3,6), new Tile(3,7),new Tile(2,3)
+		};
+		p1.getHand().addTilesToHand(x1);
+		p3.getHand().addTilesToHand(x2);
+		p1.play();
+		p3.play();
+		if (p3.play()==false) {
+			p3.getHand().addTileToHand(game.getDeck().Draw());
+		}
+		System.out.println("WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW");
+		assertEquals(p3.getHand().sizeOfHand(),6);
+
+		
+		
 	}
 	
 }
