@@ -582,7 +582,7 @@ public class TestPlan extends TestCase{
 		p3.getTable().addTiles(test);
 		
 		assertTrue(p3.play() == true);
-		
+		assertTrue(p3.isWinner()==true);
 		
 		
 	}
