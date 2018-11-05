@@ -56,7 +56,7 @@ public class Ui extends Application
 	{
 		game.dealInitialHand();
 		
-		game.getAI().getHand().HandReader();
+		game.getHuman().getHand().HandReader();
 		game.getAI().getHand().HandReader();
 		game.getAI2().getHand().HandReader();
 		game.getAI3().getHand().HandReader();
