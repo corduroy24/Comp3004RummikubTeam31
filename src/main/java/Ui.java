@@ -196,8 +196,8 @@ public class Ui extends Application
 				{
 					public void handle(MouseEvent event) 
 					{
-						//if(game.getHuman().getIsFirstMeldComplete())
-						//{
+						if(game.getHuman().getIsFirstMeldComplete())
+						{
 							if(tableButtons[numberY][numberX].getStyle().length() > 1) 
 							{
 								Dragboard db = tableButtons[numberY][numberX].startDragAndDrop(TransferMode.ANY);
@@ -232,7 +232,7 @@ public class Ui extends Application
 						        content.putHtml(coordinates);
 						        
 						        db.setContent(content);
-							//}
+							}
 					        
 					        event.consume();
 						}

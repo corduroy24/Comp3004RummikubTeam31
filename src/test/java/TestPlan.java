@@ -565,6 +565,10 @@ public class TestPlan extends TestCase{
 		Tile x2[] = {new Tile(1,4), new Tile(3,11), new Tile(3,9), new Tile(3,10),
 				new Tile(1,13), new Tile(2,13), new Tile(3,13)};
 		
+		ArrayList<Tile> test = new ArrayList<Tile>();
+		
+		test.add(new Tile(1,7));test.add(new Tile(1,5));test.add(new Tile(1,6));
+		
 		p1.getHand().addTilesToHand(x1);
 		p3.getHand().addTilesToHand(x2);
 		assertTrue(p1.play() == true);
@@ -574,6 +578,13 @@ public class TestPlan extends TestCase{
 		System.out.println("AAAAAAAAAAAAAA");
 		p3.getHand().HandReader();
 		assertTrue(p3.getHand().sizeOfHand()==4);
+		
+		p3.getTable().addTiles(test);
+		
+		assertTrue(p3.play() == true);
+		
+		
+		
 	}
 	
 }
