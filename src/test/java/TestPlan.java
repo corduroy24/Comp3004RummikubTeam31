@@ -615,6 +615,7 @@ public class TestPlan extends TestCase{
 		game.Announcement();
 		p3.getHand().HandReader();
 		assertTrue(p3.getHand().sizeOfHand()==0);
+		assertTrue(p3.isWinner()==true);
 	}
 	
 }
