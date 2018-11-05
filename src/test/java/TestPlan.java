@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import junit.framework.TestCase;
 
@@ -350,6 +351,9 @@ public class TestPlan extends TestCase{
 		
 		System.out.println("Test p2 play its initial turn!");
 		
+		System.out.println("Test someone has played its 30+ points and p2 can play 30+ poits and thus does");
+
+		
 		Tile x1[] = {new Tile(1,9), new Tile(4,5), new Tile(2,3)};
 		Tile x2[] = {new Tile(2,9), new Tile(3,10), new Tile(4,7)};
 		
@@ -366,23 +370,38 @@ public class TestPlan extends TestCase{
 		assertTrue(p2.play() == false); 
 		assertFalse(p2.getIsFirstMeldComplete());
 		
-		/*Tile k3[] = {new Tile(1,5), new Tile(2,5), new Tile(3,5)};
+		System.out.println("Pass\n");
+
+		System.out.println("--------------------------");
+		
+		
+		System.out.println("Test someone has played its 30+ points but p2 canrt play 30+ points and draws");
+
+		Tile k3[] = {new Tile(1,5), new Tile(2,5), new Tile(3,5)};
 		Tile k4[] = {new Tile(4,5), new Tile(3,5), new Tile(2,5)};		
 		
+		Tile l7[] = {new Tile(1,7), new Tile(1,8), new Tile(1,9)};
+		Tile l8[] = {new Tile(1,5), new Tile(2,5), new Tile(3,5)};
+		
 		game = new GameMaster();
+		Table table = game.getTable(); 
+		ArrayList<ArrayList<Tile>> t = new ArrayList<ArrayList<Tile>>();
+		table.setTable(t);
+
+		game.Announcement();
 		p1 = game.getAI();
 		p2 = game.getAI2(); 
 		p1.getHand().addTilesToHand(k3);
 		p1.getHand().addTilesToHand(k4);
-		p2.getHand().addTilesToHand(l5);
-		p2.getHand().addTilesToHand(l6);
+		p2.getHand().addTilesToHand(l7);
+		p2.getHand().addTilesToHand(l8);
+		
 		
 		assertTrue(p1.play()); 
-		game.Announcement();
-		//assertTrue(p2.play()==true);
 
-		System.out.println(p1.getTable().getNumberOfTile());
-		assertTrue(p2.getIsFirstMeldComplete());*/
+		assertTrue(p2.play()==true);
+
+		assertTrue(p2.getIsFirstMeldComplete());
 		
 		System.out.println("Pass\n");
 
