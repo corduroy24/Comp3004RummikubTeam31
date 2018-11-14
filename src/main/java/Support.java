@@ -175,8 +175,23 @@ public class Support {
 	    		return 0; 
 	    } 
 	}
+	
+	
+	public boolean containsJoker(ArrayList<Tile> T) {
+		for (int i=0;i<T.size();i++) {
+			if (T.get(i).isJoker()==true){
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	//Function get all the sequences in the List sorted by color, then sorted by value (this list is sorted 2 times)
 	private ArrayList<ArrayList<Tile>> getSequences(ArrayList<Tile> hand){
+		
+		if (containsJoker(hand)==true) {
+			//add functionality for joker
+		}
 		
 		ArrayList<Tile> t = new ArrayList<Tile>(hand);
 		Collections.sort(t, new SortbyValue());
@@ -276,6 +291,11 @@ public class Support {
 	}
 	//Function get all the sets in the List sorted by value, then sorted by color (this list is sorted 2 times)
 	private ArrayList<ArrayList<Tile>> getSets(ArrayList<Tile> hand){
+		
+		if (containsJoker(hand)==true) {
+			//add functionality for joker
+		}
+		
 		if(hand == null || hand.size() == 0) return null;
 		ArrayList<ArrayList<Tile>> sets = new ArrayList<ArrayList<Tile>>();
 		ArrayList<Tile> check = new ArrayList<Tile>();

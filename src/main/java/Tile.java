@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Tile {
 	protected  String Color;
 	protected  int Number;
@@ -26,7 +28,7 @@ public class Tile {
 
 	public Tile() 
 	{
-		this.Color = "New";
+		this.Color = "J";
 		this.Number = 14;
 		this.isJoker = true;
 
