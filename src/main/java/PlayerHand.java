@@ -22,6 +22,15 @@ public class PlayerHand {
 		}
 	}
 
+	public boolean hasJoker() {
+		for (int i=0;i<sizeOfHand();i++) {
+			if (getTile(i).isJoker()==true){
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	public ArrayList<Tile> getTiles() {
 		return this.hand;
 	}

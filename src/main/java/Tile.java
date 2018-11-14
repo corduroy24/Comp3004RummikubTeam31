@@ -4,7 +4,7 @@ public class Tile {
 	//1,2,3,4 respectively Red Blue Green Orange
 	  String[] Colors = { "R", "B", "G", "O" };
 	  int[] Numbers = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 };
-
+	  private boolean isJoker = false;
 
 	Tile (int x, int y) { // create a tile with the specific color and number
 		this.Color = Colors[x - 1];
@@ -12,7 +12,9 @@ public class Tile {
 	
 	}
 
-
+	public boolean isJoker() {
+		return isJoker;
+	}
 	
 	public String getColor() {
 		return Color;
@@ -26,6 +28,7 @@ public class Tile {
 	{
 		this.Color = "New";
 		this.Number = 14;
+		this.isJoker = true;
 
 	}
 	
