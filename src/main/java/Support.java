@@ -186,6 +186,37 @@ public class Support {
 		return false;
 	}
 	
+	public ArrayList<Tile> getJInBetween(ArrayList<Tile> x) {
+		ArrayList<Tile> newList = new ArrayList<Tile>();
+		ArrayList<Tile> temp = new ArrayList<>();
+		Tile T = new Tile();
+		int sum = 0 ;
+		int tempsum;
+		for (int i=0; i<x.size()-2;i++) {
+			temp.clear();
+			tempsum=0;
+			if ((x.get(i+1).getNumber()-x.get(i).getNumber()==1)&&(x.get(i+2).getNumber()-x.get(i+1).getNumber()==2) ||
+					(x.get(i+1).getNumber()-x.get(i).getNumber()==2)&&(x.get(i+2).getNumber()-x.get(i+1).getNumber()==1)) {
+
+				temp.add(x.get(i));			
+				temp.add(x.get(i+1));
+				T.setNumber(x.get(i+2).getNumber()-1);
+				T.setColor(x.get(i).getColor());
+				temp.add(T);
+				temp.add(x.get(i+2));
+				tempsum=temp.get(0).getNumber()+temp.get(1).getNumber()+temp.get(3).getNumber()+temp.get(2).getNumber();
+				if (tempsum>sum) {
+					sum=tempsum; 
+					newList=temp;
+				}
+				
+				
+			}
+			
+		}
+		
+		return newList;
+	}
 	
 	public ArrayList<Tile> getJokerSequences(ArrayList<Tile> x){  //arrange and place jokers with sequences
 		ArrayList<Tile> newList = new ArrayList<Tile>();

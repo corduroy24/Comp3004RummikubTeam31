@@ -57,4 +57,29 @@ import junit.framework.TestCase;
 				
 		}
 		
+		public void testInBetween() {
+			functions = new Support();
+			ArrayList<Tile> tList = new ArrayList<Tile>();
+			Tile t1 =new Tile(1,1);
+			Tile t2=new Tile(1,2);
+			Tile t3=new Tile(1,4);
+			
+			Tile t4 =new Tile(1,7);
+			Tile t5=new Tile(1,8);
+			Tile t6=new Tile(1,10);
+			
+			tList.add(t1);
+			tList.add(t2);
+			tList.add(t3);
+			
+			tList.add(t4);
+			tList.add(t5);
+			tList.add(t6);
+			
+			
+			tList = functions.getJInBetween(tList);
+			assertEquals(9,tList.get(2).getNumber());
+		}
+		
+		
 	}
