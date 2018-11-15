@@ -14,6 +14,14 @@ public class Tile {
 	
 	}
 
+	public void setColor(String x) {
+	Color = x;	
+	}
+	
+	public void setNumber(int x) {
+		Number=x;
+	}
+	
 	public boolean isJoker() {
 		return isJoker;
 	}

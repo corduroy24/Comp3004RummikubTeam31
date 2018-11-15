@@ -186,11 +186,100 @@ public class Support {
 		return false;
 	}
 	
+	
+	public ArrayList<Tile> getJokerSequences(ArrayList<Tile> x){
+		ArrayList<Tile> newList = new ArrayList<Tile>();
+		newList=x;
+		Tile T = new Tile();
+		T.setColor(x.get(0).getColor());
+		if (x.get(x.size()-1).getNumber()!=13) {  
+			int y =(x.get(x.size()-1).getNumber()+1);
+			T.setNumber(y);
+			x.add(T);
+		}
+		else if ((x.get(x.size()-1).getNumber()==13)&&(x.get(0).getNumber()!=1)){
+			int y =(x.get(0).getNumber()-1);
+			T.setNumber(y);
+			x.add(0, T);
+		}
+		return newList;
+	}
+	
+	public ArrayList<Tile> getJokerSets(ArrayList<Tile> x){
+		ArrayList<Tile> newList = new ArrayList<Tile>();
+		newList=x;
+		Tile T = new Tile();
+		
+		Tile T1 = new Tile();
+		Tile T2 = new Tile();
+		Tile T3 = new Tile();
+		
+		T.setNumber(x.get(0).getNumber());
+		
+		T1.setColor(x.get(0).getColor());
+		T2.setColor(x.get(1).getColor());
+		
+		if (newList.size()>2) {
+		T3.setColor(x.get(2).getColor());	
+		}
+		
+		if (newList.size()==4) {
+			return x;
+		}
+		
+		if (newList.size()==3) {
+		if (T1.getColor() != "R" && T2.getColor() !="R" && T3.getColor()!="R") {
+			T.setColor("R");
+			newList.add(T);
+		}
+			else if (T1.getColor() != "B" && T2.getColor() !="B" && T3.getColor()!="B") {
+				T.setColor("B");
+				newList.add(T);
+		}
+			else if (T1.getColor() != "G" && T2.getColor() !="G" && T3.getColor()!="G") {
+				T.setColor("G");
+				newList.add(T);
+		}
+			else if (T1.getColor() != "O" && T2.getColor() !="O" && T3.getColor()!="O") {
+				T.setColor("O");
+				newList.add(T);
+		}
+		
+		}
+		
+		if (newList.size()==2) {
+		if (T1.getColor() != "R" && T2.getColor() !="R" ) {
+			T.setColor("R");
+			newList.add(T);
+		}
+			else if (T1.getColor() != "B" && T2.getColor() !="B") {
+				T.setColor("B");
+				newList.add(T);
+		}
+			else if (T1.getColor() != "G" && T2.getColor() !="G" ) {
+				T.setColor("G");
+				newList.add(T);
+		}
+			else if (T1.getColor() != "O" && T2.getColor() !="O" ) {
+				T.setColor("O");
+				newList.add(T);
+		}
+		
+		
+		}
+		
+		return newList;
+	}
+	
+	
 	//Function get all the sequences in the List sorted by color, then sorted by value (this list is sorted 2 times)
 	private ArrayList<ArrayList<Tile>> getSequences(ArrayList<Tile> hand){
 		
+		boolean hasJ=false;
+		
 		if (containsJoker(hand)==true) {
 			//add functionality for joker
+			hasJ=true;
 		}
 		
 		ArrayList<Tile> t = new ArrayList<Tile>(hand);
