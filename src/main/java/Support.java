@@ -187,7 +187,7 @@ public class Support {
 	}
 	
 	
-	public ArrayList<Tile> getJokerSequences(ArrayList<Tile> x){
+	public ArrayList<Tile> getJokerSequences(ArrayList<Tile> x){  //arrange and place jokers with sequences
 		ArrayList<Tile> newList = new ArrayList<Tile>();
 		newList=x;
 		Tile T = new Tile();
@@ -205,7 +205,7 @@ public class Support {
 		return newList;
 	}
 	
-	public ArrayList<Tile> getJokerSets(ArrayList<Tile> x){
+	public ArrayList<Tile> getJokerSets(ArrayList<Tile> x){  //arrange and place jokers with sets
 		ArrayList<Tile> newList = new ArrayList<Tile>();
 		newList=x;
 		Tile T = new Tile();
