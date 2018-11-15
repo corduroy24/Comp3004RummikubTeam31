@@ -195,16 +195,14 @@ public class Support {
 		for (int i=0; i<x.size()-2;i++) {
 			temp.clear();
 			tempsum=0;
-			if ((x.get(i+1).getNumber()-x.get(i).getNumber()==1)&&(x.get(i+2).getNumber()-x.get(i+1).getNumber()==2) ||
-					(x.get(i+1).getNumber()-x.get(i).getNumber()==2)&&(x.get(i+2).getNumber()-x.get(i+1).getNumber()==1)) {
+			if ((x.get(i).getColor()==x.get(i+2).getColor())&&(x.get(i+2).getNumber()-x.get(i+1).getNumber()==2)) {
 
 				temp.add(x.get(i));			
-				temp.add(x.get(i+1));
 				T.setNumber(x.get(i+2).getNumber()-1);
 				T.setColor(x.get(i).getColor());
 				temp.add(T);
 				temp.add(x.get(i+2));
-				tempsum=temp.get(0).getNumber()+temp.get(1).getNumber()+temp.get(3).getNumber()+temp.get(2).getNumber();
+				tempsum=temp.get(0).getNumber()+temp.get(1).getNumber()+temp.get(2).getNumber();
 				if (tempsum>sum) {
 					sum=tempsum; 
 					newList=temp;
@@ -223,6 +221,7 @@ public class Support {
 		newList=x;
 		Tile T = new Tile();
 		T.setColor(x.get(0).getColor());
+		
 		if (x.get(x.size()-1).getNumber()!=13) {  
 			int y =(x.get(x.size()-1).getNumber()+1);
 			T.setNumber(y);
@@ -242,8 +241,11 @@ public class Support {
 		Tile T = new Tile();
 		
 		Tile T1 = new Tile();
+		T1.setJoker(false);
 		Tile T2 = new Tile();
+		T2.setJoker(false);
 		Tile T3 = new Tile();
+		T3.setJoker(false);
 		
 		T.setNumber(x.get(0).getNumber());
 		

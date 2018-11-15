@@ -62,11 +62,11 @@ import junit.framework.TestCase;
 			ArrayList<Tile> tList = new ArrayList<Tile>();
 			Tile t1 =new Tile(1,1);
 			Tile t2=new Tile(1,2);
-			Tile t3=new Tile(1,4);
+			Tile t3=new Tile(1,3);
 			
-			Tile t4 =new Tile(1,7);
-			Tile t5=new Tile(1,8);
-			Tile t6=new Tile(1,10);
+			Tile t4 =new Tile(1,5);
+			Tile t5=new Tile(1,6);
+			Tile t6=new Tile(1,8);
 			
 			tList.add(t1);
 			tList.add(t2);
@@ -78,7 +78,7 @@ import junit.framework.TestCase;
 			
 			
 			tList = functions.getJInBetween(tList);
-			assertEquals(9,tList.get(2).getNumber());
+			assertEquals(7,tList.get(1).getNumber());
 		}
 		
 		
