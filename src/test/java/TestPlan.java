@@ -35,6 +35,8 @@ public class TestPlan extends TestCase{
 		}
 	}*/
 	
+
+	
 	public void test4a1() {
 		Player p1 =  new Player("AI1",1,new PlayerStrategy1());
 		Player p2 =  new Player("AI1",1,new PlayerStrategy2());

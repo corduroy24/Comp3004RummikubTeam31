@@ -6,7 +6,21 @@ import junit.framework.TestCase;
 	public class TestJoker extends TestCase{
 		private Support functions;
 		
+		public void gameWithJokers() {
+			Player p1 =  new Player("AI1",1,new PlayerStrategy1());
+			
+			Tile l[] = {new Tile(1,10),new Tile(1,11),new Tile()};
+			p1.getHand().addTilesToHand(l);
+			
+			assertTrue (p1.play() == true);
+			
+			assertTrue(p1.getHand().sizeOfHand() == 0);
+			
+		}
+		
+		
 		public void testJSequences() {
+			
 			functions = new Support();
 			Tile t1 =new Tile(1,1);
 			Tile t2=new Tile(1,2);
@@ -94,9 +108,9 @@ import junit.framework.TestCase;
 
 			tList = functions.getJInBetween(tList);
 			assertEquals(10,tList.get(1).getNumber());
+			
 		}
-		
-		
+	
 		
 		
 	}

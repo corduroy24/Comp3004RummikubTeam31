@@ -292,7 +292,7 @@ public class Support {
 		}
 		
 		if (newList.size()==3) {
-		if (T1.getColor() != "R" && T2.getColor() !="R" && T3.getColor()!="R") {
+		if (T1.getColor() != "R" && T2.getColor() !="R" && T3.getColor()!="R"){
 			T.setColor("R");
 			newList.add(T);
 		}
@@ -357,6 +357,10 @@ public class Support {
 		ArrayList<Tile> check1 = new ArrayList<Tile>();
 		
 		if(hand == null || hand.size() == 0) return null;
+		
+		if (hasJ==true) {
+			hand=getJokerSequences(hand);
+		}
 		
 		String color = hand.get(0).getColor();
 		for(int i =0; i < hand.size();i++) {
