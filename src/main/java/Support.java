@@ -276,6 +276,7 @@ public class Support {
 	}
 	
 	public ArrayList<Tile> getJokerSets(ArrayList<Tile> x){  //arrange and place jokers with sets
+		
 		ArrayList<Tile> newList = new ArrayList<Tile>();
 		newList=x;
 		Tile T = new Tile();

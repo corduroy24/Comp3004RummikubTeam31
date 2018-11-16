@@ -9,7 +9,7 @@ import junit.framework.TestCase;
 		public void testgameWithJokers() {
 			Player p1 =  new Player("AI1",1,new PlayerStrategy1());
 			
-			Tile l[] = {new Tile(1,10),new Tile(1,11),new Tile()};
+			Tile l[] = {new Tile(1,10),new Tile(1,11),new Tile(), new Tile(2,4), new Tile(3,4),new Tile(4,4)};
 			p1.getHand().addTilesToHand(l);
 			
 			System.out.println("Hand has joker and plays it as 12");
