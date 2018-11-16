@@ -16,21 +16,30 @@ import junit.framework.TestCase;
 			Tile t5 = new Tile(1,12);
 			Tile t6 = new Tile(1,13);
 			
+			Tile t7=new Tile(1,5);
+
 			ArrayList<Tile> tList = new ArrayList<Tile>();
 			ArrayList<Tile> tList2 = new ArrayList<Tile>();
+			ArrayList<Tile> tList3 = new ArrayList<Tile>();
 			
-			tList.add(t1);
+			
 			tList.add(t2);
 			tList.add(t3);
 			
-			functions.getJokerSequences(tList);
-				assertEquals(4,tList.get(tList.size()-1).getNumber());
+			tList=functions.getJokerSequences(tList); 
+				assertEquals(4,tList.get(2).getNumber());
 				
-				tList2.add(t4);
+				
 				tList2.add(t5);
 				tList2.add(t6);
-				functions.getJokerSequences(tList2);
-				assertEquals(10,tList2.get(0).getNumber());
+				tList2=functions.getJokerSequences(tList2);
+				assertEquals(11,tList2.get(0).getNumber());
+				
+				tList3.add(t3);
+				tList3.add(t7);
+				tList3=functions.getJokerSequences(tList3);
+				assertEquals(4,tList3.get(1).getNumber());
+				
 		}
 		
 		public void testJSets() {
@@ -66,7 +75,10 @@ import junit.framework.TestCase;
 			
 			Tile t4 =new Tile(1,5);
 			Tile t5=new Tile(1,6);
-			Tile t6=new Tile(1,8);
+			Tile t6=new Tile(1,7);
+			Tile t7=new Tile(1,8);
+			Tile t8=new Tile(1,9);
+			Tile t9=new Tile(1,11);
 			
 			tList.add(t1);
 			tList.add(t2);
@@ -76,10 +88,15 @@ import junit.framework.TestCase;
 			tList.add(t5);
 			tList.add(t6);
 			
-			
+			tList.add(t7);
+			tList.add(t8);
+			tList.add(t9);
+
 			tList = functions.getJInBetween(tList);
-			assertEquals(7,tList.get(1).getNumber());
+			assertEquals(10,tList.get(1).getNumber());
 		}
+		
+		
 		
 		
 	}

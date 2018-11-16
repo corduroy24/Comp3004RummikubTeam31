@@ -192,16 +192,16 @@ public class Support {
 		Tile T = new Tile();
 		int sum = 0 ;
 		int tempsum;
-		for (int i=0; i<x.size()-2;i++) {
+		for (int i=0; i<x.size()-1;i++) {
 			temp.clear();
 			tempsum=0;
-			if ((x.get(i).getColor()==x.get(i+2).getColor())&&(x.get(i+2).getNumber()-x.get(i+1).getNumber()==2)) {
+			if ((x.get(i).getColor()==x.get(i+1).getColor())&&(x.get(i+1).getNumber()-x.get(i).getNumber()==2)) {
 
 				temp.add(x.get(i));			
-				T.setNumber(x.get(i+2).getNumber()-1);
+				T.setNumber(x.get(i+1).getNumber()-1);
 				T.setColor(x.get(i).getColor());
 				temp.add(T);
-				temp.add(x.get(i+2));
+				temp.add(x.get(i+1));
 				tempsum=temp.get(0).getNumber()+temp.get(1).getNumber()+temp.get(2).getNumber();
 				if (tempsum>sum) {
 					sum=tempsum; 
@@ -217,21 +217,52 @@ public class Support {
 	}
 	
 	public ArrayList<Tile> getJokerSequences(ArrayList<Tile> x){  //arrange and place jokers with sequences
+		ArrayList<Tile> inBet = new ArrayList<Tile>();
 		ArrayList<Tile> newList = new ArrayList<Tile>();
-		newList=x;
-		Tile T = new Tile();
-		T.setColor(x.get(0).getColor());
+		ArrayList<Tile> temp = new ArrayList<>();
+		int sumB=0;
+		inBet=getJInBetween(x); 
+		for (int i=0;i<inBet.size();i++) {
+			sumB+=inBet.get(i).getNumber();
+		}
 		
-		if (x.get(x.size()-1).getNumber()!=13) {  
-			int y =(x.get(x.size()-1).getNumber()+1);
-			T.setNumber(y);
-			x.add(T);
+		Tile T = new Tile();
+		int sum = 0 ;
+		int tempsum;
+		for (int i=0; i<x.size()-1;i++) {
+			temp.clear();
+			tempsum=0;
+			if ((x.get(i).getColor()==x.get(i+1).getColor())&&(x.get(i+1).getNumber()-x.get(i).getNumber()==1) 
+					) {
+				if (x.get(i+1).getNumber()==13) {
+					T.setNumber(x.get(i).getNumber()-1); 
+					T.setColor(x.get(i).getColor());
+					temp.add(T);
+					temp.add(x.get(i));			
+					temp.add(x.get(i+1));
+					
+				}
+				
+				else {
+				temp.add(x.get(i));			
+				temp.add(x.get(i+1));
+				T.setNumber(x.get(i+1).getNumber()+1); 
+				T.setColor(x.get(i).getColor());
+				temp.add(T);
+				}
+				
+				tempsum=temp.get(0).getNumber()+temp.get(1).getNumber()+temp.get(2).getNumber();
+				if (tempsum>sum) {
+					sum=tempsum; 
+					newList=temp;
+				}	
+			}	
 		}
-		else if ((x.get(x.size()-1).getNumber()==13)&&(x.get(0).getNumber()!=1)){
-			int y =(x.get(0).getNumber()-1);
-			T.setNumber(y);
-			x.add(0, T);
+
+		if (sumB>sum) {
+			newList=inBet;
 		}
+		
 		return newList;
 	}
 	
