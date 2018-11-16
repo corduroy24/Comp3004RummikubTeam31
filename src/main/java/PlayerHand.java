@@ -91,6 +91,9 @@ public class PlayerHand {
 				if (sample.get(i).getColor().equals("R")) {
 					Color = "Red";
 				}
+				if (sample.get(i).getColor().equals("J")) {
+					Color = "Joker";
+				}
 				output += Color + " " + sample.get(i).getNumber() + "; ";
 			}
 		}

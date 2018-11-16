@@ -186,6 +186,15 @@ public class Support {
 		return false;
 	}
 	
+	public Tile getJoker(ArrayList<Tile> T) {
+		for (int i=0;i<T.size();i++) {
+			if (T.get(i).isJoker()==true){
+				return T.get(i);
+			}
+		}
+		return null;
+	}
+	
 	public ArrayList<Tile> getJInBetween(ArrayList<Tile> x) {
 		ArrayList<Tile> newList = new ArrayList<Tile>();
 		ArrayList<Tile> temp = new ArrayList<>();

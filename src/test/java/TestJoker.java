@@ -6,14 +6,16 @@ import junit.framework.TestCase;
 	public class TestJoker extends TestCase{
 		private Support functions;
 		
-		public void gameWithJokers() {
+		public void testgameWithJokers() {
 			Player p1 =  new Player("AI1",1,new PlayerStrategy1());
 			
 			Tile l[] = {new Tile(1,10),new Tile(1,11),new Tile()};
 			p1.getHand().addTilesToHand(l);
 			
-			assertTrue (p1.play() == true);
+			System.out.println("Hand has joker and plays it as 12");
 			
+			assertTrue (p1.play() == true);
+			p1.getHand().HandReader();
 			assertTrue(p1.getHand().sizeOfHand() == 0);
 			
 		}
