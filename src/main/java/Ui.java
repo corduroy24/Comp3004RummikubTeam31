@@ -592,6 +592,9 @@ public class Ui extends Application
 		bigSkeleton.setCenter(tablePane); 
 		
 		rummiScene = new Scene(bigSkeleton);
+		
+		window.setScene(rummiScene);
+		window.show();
 	}
 	
 	public void clearMainScreen()
@@ -624,6 +627,7 @@ public class Ui extends Application
 		    	if(numPlayers==maxPlayers-1)
 		    	{
 		    		game.dealInitialHand(aiType);
+		    		mainGame();
 		    	}
 		    }
 		});
@@ -646,6 +650,7 @@ public class Ui extends Application
 		    	if(numPlayers==maxPlayers-1)
 		    	{
 		    		game.dealInitialHand(aiType);
+		    		mainGame();
 		    	}
 		    }
 		});
@@ -668,6 +673,7 @@ public class Ui extends Application
 		    	if(numPlayers==maxPlayers-1)
 		    	{
 		    		game.dealInitialHand(aiType);
+		    		mainGame();
 		    	}
 		    }
 		});
@@ -690,6 +696,7 @@ public class Ui extends Application
 		    	if(numPlayers==maxPlayers-1)
 		    	{
 		    		game.dealInitialHand(aiType);
+		    		mainGame();
 		    	}
 		    }
 		});
