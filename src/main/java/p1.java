@@ -45,7 +45,7 @@ public class p1 implements PlayerStrategy{
 					max_point = sample;
 				}
 				
-				if(i == 1) {
+				else if(i == 1) {
 					sample = new ArrayList<ArrayList<Tile>>();
 					current.addAll(green); current.add(j);
 					sample.addAll(getSequences(blue));
@@ -60,8 +60,8 @@ public class p1 implements PlayerStrategy{
 						max_point = sample;
 					}	
 				}
-				
-				if(i == 2) {
+
+				else if(i == 2) {
 					sample = new ArrayList<ArrayList<Tile>>();
 					current.addAll(red); current.add(j);
 					sample.addAll(getSequences(blue));
@@ -77,7 +77,7 @@ public class p1 implements PlayerStrategy{
 					}
 				}
 				
-				if(i == 3) {
+				else if(i == 3) {
 					sample = new ArrayList<ArrayList<Tile>>();
 					current.addAll(orange); current.add(j);
 					sample.addAll(getSequences(blue));
@@ -97,8 +97,10 @@ public class p1 implements PlayerStrategy{
 		else if(num == 2) {
 			
 		}
-		if(complete_first_turn) System.out.println(max_tile);
-		else System.out.println(max_point);
+		if(complete_first_turn) {
+			System.out.println("tile " +max_tile);}
+		else
+			System.out.println("point " + max_point);
 		return false;
 	}
 	
@@ -125,18 +127,8 @@ public class p1 implements PlayerStrategy{
                 	subset.add(current.get(j));
 			if(b) {
 				if(check.isSequence(subset)) {
-					int check_num = 0;
-					Collections.sort(subset,new SmallestToBiggest());
-					for(int k =0; k < subset.size()-1;k++) {
-						if(subset.get(k).getNumber() + 2 == subset.get(k+1).getNumber()) {
-							if(subset.get(subset.size()-check_num-1).isJoker()){
-							subset.get(subset.size() - check_num-1).setJokerColor(subset.get(0).getColor());
-							subset.get(subset.size() - check_num-1).setJokerPoint(subset.get(k).getNumber()+1);
-							check_num++;
-							}
-						}
-					}
 					if(size < subset.size()) {
+						setJoker(subset);
 						size = subset.size();
 						run = subset;
 					}
@@ -144,16 +136,8 @@ public class p1 implements PlayerStrategy{
 			}
 			else {
 				if(check.isSequence(subset)) {
-					int check_num = 0;
-					Collections.sort(subset,new SmallestToBiggest());
-					for(int k =0; k < subset.size()-1;k++) {
-						if(subset.get(k).getNumber() + 2 == subset.get(k+1).getNumber()) {
-							check_num++;
-							subset.get(subset.size() - check_num).setJokerColor(subset.get(0).getColor());
-							subset.get(subset.size() - check_num).setJokerPoint(subset.get(k).getNumber()+1);
-						}
-					}
 					if(point < getPointOfSeq(subset)) {
+						setJoker(subset);
 						point = getPointOfSeq(subset);
 						run = subset;
 					}
@@ -165,8 +149,39 @@ public class p1 implements PlayerStrategy{
 			if(current.contains(run))
 				current.remove(run);
 		}
-		output.addAll(getSequences(current));
 		return output;
+	}
+
+
+
+ 
+
+
+
+
+	private void setJoker(ArrayList<Tile> subset) {
+		int NumberOfJoker = NumberOfJoker(subset);
+		Collections.sort(subset,new SmallestToBiggest());
+			for(int i =0; i < subset.size()-NumberOfJoker-1;i++) {
+				if(subset.get(i).getNumber()+2 == subset.get(i+1).getNumber()) {
+						subset.get(subset.size()-NumberOfJoker).setJokerColor(subset.get(i).getColor());
+						subset.get(subset.size()-NumberOfJoker).setJokerPoint(subset.get(i).getNumber()+1);
+						NumberOfJoker--;
+				}
+			}
+			while(NumberOfJoker > 0) {
+				if(subset.get(subset.size()- NumberOfJoker(subset)).getNumber() == 13) {
+					subset.get(subset.size()-NumberOfJoker).setJokerColor(subset.get(0).getColor());
+					subset.get(subset.size()-NumberOfJoker).setJokerPoint(subset.get(0).getNumber()-1);
+					NumberOfJoker--;
+				}
+				else {
+					subset.get(subset.size()-NumberOfJoker).setJokerColor(subset.get(subset.size()-NumberOfJoker-1).getColor());
+					subset.get(subset.size()-NumberOfJoker).setJokerPoint(subset.get(subset.size()-NumberOfJoker-1).getNumber()+1);
+					NumberOfJoker--;
+				}
+				if (NumberOfJoker == 0) break;
+			}
 	}
 
 
@@ -175,9 +190,8 @@ public class p1 implements PlayerStrategy{
 
 
 
-
 	//get all sequences of a list with specific color
-	private static ArrayList<ArrayList<Tile>> getSequences(ArrayList<Tile> l) {
+	private  ArrayList<ArrayList<Tile>> getSequences(ArrayList<Tile> l) {
 		Collections.sort(l,new SmallestToBiggest());
 		ArrayList<ArrayList<Tile>> output = new ArrayList<ArrayList<Tile>>();
 		ArrayList<Tile> first_meld = new ArrayList<Tile>();
@@ -208,16 +222,6 @@ public class p1 implements PlayerStrategy{
 		return output;
 	}
 
-	public static void main(String[] args) {
-		Tile joker1 = new Tile(14,14);
-		Tile[] l1 = { joker1,new Tile(2,2),new Tile(2,3),new Tile(2,5),new Tile(2,6),
-					new Tile(3,3), new Tile(3,4), new Tile(3,5),
-				new Tile(2,9),new Tile(2,10)}; // J 2 3
-		Player p1 = new Player("123",1,new p1());
-		p1.setIsfirstMeldComplete(true);
-		p1.getHand().addTilesToHand(l1);
-		p1.play();
-	}
 	
 	
 
@@ -268,7 +272,7 @@ public class p1 implements PlayerStrategy{
 	}
 	
 	// sort from smallest to the biggest by point
-	static class SmallestToBiggest implements Comparator<Tile> 
+	 class SmallestToBiggest implements Comparator<Tile> 
 	{ public int compare(Tile a, Tile b) 
 	    {  return a.getNumber() - b.getNumber();} }
 	
