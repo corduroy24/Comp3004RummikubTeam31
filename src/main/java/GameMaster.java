@@ -66,12 +66,10 @@ public class GameMaster extends Observable{
 	}
 	
 	public Player getAI2() {
-		// TODO Auto-generated method stub
 		return AI2;
 	}
 	
 	public Player getAI3() {
-		// TODO Auto-generated method stub
 		return AI3;
 	}
 	
@@ -140,11 +138,17 @@ public class GameMaster extends Observable{
 	{
 		System.out.println("dealInitialHand() ran\n");
 		
+		Tile[] turnOrder = new Tile[ai.length];
+		Deck turnDeck = new Deck();
+		turnDeck.Shuffle();
+		
 		for(int x=0;x<ai.length;x++)
 		{
 			if(ai[x]==1)
 			{
 				System.out.println("You picked AI 1");
+				
+				turnOrder[x] = turnDeck.Draw();
 				
 				AI1.getHand().drawFirst14(deck);
 				AI1.getHand().sortTilesByColour();
@@ -154,6 +158,8 @@ public class GameMaster extends Observable{
 			{
 				System.out.println("You picked AI 2");
 				
+				turnOrder[x] = turnDeck.Draw();
+				
 				AI2.getHand().drawFirst14(deck);
 				AI2.getHand().sortTilesByColour();
 				AI2.getHand().HandReader();
@@ -162,6 +168,8 @@ public class GameMaster extends Observable{
 			{
 				System.out.println("You picked AI 3");
 				
+				turnOrder[x] = turnDeck.Draw();
+				
 				AI3.getHand().drawFirst14(deck);
 				AI3.getHand().sortTilesByColour();
 				AI3.getHand().HandReader();
@@ -169,9 +177,18 @@ public class GameMaster extends Observable{
 			else if(ai[x]==4)
 			{
 				System.out.println("You picked AI 4");
-				//Insert drawing for 4 when its made
+				
+				/*
+				turnOrder[x] = turnDeck.Draw();
+				
+				AI4.getHand().drawFirst14(deck);
+				AI4.getHand().sortTilesByColour();
+				AI4.getHand().HandReader();
+				*/
 			}
 		}
+		
+		turnOrder[ai.length-1] = turnDeck.Draw();
 		
 		human.getHand().drawFirst14(deck);
 		human.getHand().sortTilesByColour();
