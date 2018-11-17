@@ -4,14 +4,29 @@ public class Tile {
 	protected  String Color;
 	protected  int Number;
 	//1,2,3,4 respectively Red Blue Green Orange
-	  String[] Colors = { "R", "B", "G", "O" };
-	  int[] Numbers = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 };
-	  private boolean isJoker = false;
-
+	String[] Colors = { "R", "B", "G", "O" };
+	int[] Numbers = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 };
+	private boolean isJoker = false;
+	private int jokerPoint = 0;
+	private String jokerColor = "";
+	
+	public void setJokerPoint(int a) {jokerPoint = a;}
+	public int getJokerPoint() {return jokerPoint;}
+	public void setJokerColor(int a) {jokerColor = Colors[a - 1];}
+	public String getJokerColor() {return jokerColor;}
+	
+	
+	
+	
 	Tile (int x, int y) { // create a tile with the specific color and number
+		if(x == 14 && y == 14) { isJoker = true;
+			this.Color = "J";
+			this.Number = 14;
+		}
+		else {
 		this.Color = Colors[x - 1];
 		this.Number = Numbers[y - 1];
-	
+		}
 	}
 
 	public void setJoker(boolean x) {
@@ -59,6 +74,8 @@ public class Tile {
 			color = "Green";
 		else if(Color.equals("B"))
 			color = "Blue";
+		else if (Color.equals("J"))
+			color = "Joker";
 		else 
 			color = "Orange";
 		

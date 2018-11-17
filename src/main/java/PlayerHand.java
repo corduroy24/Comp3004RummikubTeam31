@@ -66,11 +66,10 @@ public class PlayerHand {
 	}
 
 	public void HandReader() {
-		sortTilesByColour();
+		//sortTilesByColour();
 		ArrayList<Tile> sample = hand;
 		//Collections.sort(sample, new SortByX());
 		String output = "";
-		
 		
 		
 		if (isEmpty()) {
