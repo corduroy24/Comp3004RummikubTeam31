@@ -7,9 +7,9 @@ import junit.framework.TestCase;
 		private Support functions;
 		
 		public void testgameWithJokers() {
-			Player p1 =  new Player("AI1",1,new PlayerStrategy1());
+			Player p1 =  new Player("AI1",1,new PlayerStrategy2());
 			
-			Tile l[] = {new Tile(1,10),new Tile(1,11),new Tile(), new Tile(2,4), new Tile(3,4),new Tile(4,4)};
+			Tile l[] = {new Tile(1,10),new Tile(1,11),new Tile(14,14), new Tile(2,4), new Tile(3,4),new Tile(4,4)};
 			p1.getHand().addTilesToHand(l);
 			
 			System.out.println("Hand has joker and plays it as 12");
@@ -56,6 +56,28 @@ import junit.framework.TestCase;
 				tList3=functions.getJokerSequences(tList3);
 				assertEquals(4,tList3.get(1).getNumber());
 				
+		}
+		
+		public void testJseqMax() {
+			ArrayList<Tile> tList = new ArrayList<Tile>();
+			functions = new Support();
+			Tile joker = new Tile();	
+			Tile t1 =new Tile(1,2);
+			Tile t2=new Tile(1,2);
+			Tile t3=new Tile(1,4);
+
+			Tile t5 = new Tile(1,12);
+			Tile t6 = new Tile(1,13);
+			tList.add(t1);
+			tList.add(joker);
+			tList.add(t2);
+			tList.add(t3);
+			tList.add(t5);
+			tList.add(t6);
+			tList=functions.getJokerSequences(tList); 
+			
+
+			assertTrue(tList.get(0).getNumber() == 11);
 		}
 		
 		public void testJSets() {
