@@ -136,19 +136,48 @@ public class GameMaster extends Observable{
 	
 	
 	//draw card to human and AI
-	public void dealInitialHand() {
+	public void dealInitialHand(int[] ai) 
+	{
+		System.out.println("dealInitialHand() ran\n");
+		
+		for(int x=0;x<ai.length;x++)
+		{
+			if(ai[x]==1)
+			{
+				System.out.println("You picked AI 1");
+				
+				AI1.getHand().drawFirst14(deck);
+				AI1.getHand().sortTilesByColour();
+				AI1.getHand().HandReader();
+			}
+			else if(ai[x]==2)
+			{
+				System.out.println("You picked AI 2");
+				
+				AI2.getHand().drawFirst14(deck);
+				AI2.getHand().sortTilesByColour();
+				AI2.getHand().HandReader();
+			}
+			else if(ai[x]==3)
+			{
+				System.out.println("You picked AI 3");
+				
+				AI3.getHand().drawFirst14(deck);
+				AI3.getHand().sortTilesByColour();
+				AI3.getHand().HandReader();
+			}
+			else if(ai[x]==4)
+			{
+				System.out.println("You picked AI 4");
+				//Insert drawing for 4 when its made
+			}
+		}
+		
 		human.getHand().drawFirst14(deck);
+		human.getHand().sortTilesByColour();
+		human.getHand().HandReader();
 		human.setIsTurn(true);
 		
-		AI1.getHand().drawFirst14(deck);
-		AI1.getHand().sortTilesByColour();
-		
-		AI2.getHand().drawFirst14(deck);
-		AI2.getHand().sortTilesByColour();
-
-		AI3.getHand().drawFirst14(deck);
-		AI3.getHand().sortTilesByColour();
-
 		Announcement();
 	}
 	

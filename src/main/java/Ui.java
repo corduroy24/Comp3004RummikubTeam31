@@ -61,21 +61,12 @@ public class Ui extends Application
 	
 	int playerScore = 0;
 	int numPlayers = 0;
+	int[] aiType;;
 	
 	static GameMaster game = new GameMaster();	
 	
 	public static void main(String [] args) 
-	{
-		game.dealInitialHand();
-		
-		game.getHuman().getHand().HandReader();
-		System.out.println();
-		game.getAI().getHand().HandReader();
-		System.out.println();
-		game.getAI2().getHand().HandReader();
-		System.out.println();
-		game.getAI3().getHand().HandReader();
-		
+	{		
 		Application.launch(args);
 	}
 	
@@ -84,6 +75,80 @@ public class Ui extends Application
 		window = primaryStage;
 		window.setTitle("Rummikub");
 		
+		InputStream mainImagePath = getClass().getResourceAsStream("TitleImage.png");
+		Image mainImage = new Image(mainImagePath);
+		mainImageNode = new ImageView(mainImage);
+		mainImageNode.setX(310);
+		mainImageNode.setY(100);
+		
+		//Sets up the 2 player Button
+		twoPlayer = new Button();
+		twoPlayer.setText("2 Players");
+		twoPlayer.setMinSize(100, 50);
+		twoPlayer.setDisable(false);
+		twoPlayer.setLayoutX(390);
+		twoPlayer.setLayoutY(500);
+		twoPlayer.setOnAction(new EventHandler<ActionEvent>() 
+		{
+		    public void handle(ActionEvent e) 
+		    {
+		    	System.out.println("Pressed 2 player button");
+		    	clearMainScreen();
+		    	whoGoesFirst(2);
+		    }
+		});
+		
+		//Sets up the 3 player Button
+		threePlayer = new Button();
+		threePlayer.setText("3 Players");
+		threePlayer.setMinSize(100, 50);
+		threePlayer.setDisable(false);
+		threePlayer.setLayoutX(500);
+		threePlayer.setLayoutY(500);
+		threePlayer.setOnAction(new EventHandler<ActionEvent>() 
+		{
+		    public void handle(ActionEvent e) 
+		    {
+		    	System.out.println("Pressed 3 player button");
+		    	clearMainScreen();
+		    	whoGoesFirst(3);
+		    }
+		});
+		
+		//Sets up the 4 player Button
+		fourPlayer = new Button();
+		fourPlayer.setText("4 Players");
+		fourPlayer.setMinSize(100, 50);
+		fourPlayer.setDisable(false);
+		fourPlayer.setLayoutX(610);
+		fourPlayer.setLayoutY(500);
+		fourPlayer.setOnAction(new EventHandler<ActionEvent>() 
+		{
+		    public void handle(ActionEvent e) 
+		    {
+		    	System.out.println("Pressed 4 player button");
+		    	clearMainScreen();
+		    	whoGoesFirst(4);
+		    }
+		});
+		
+		mainScreen = new AnchorPane(mainImageNode, twoPlayer, threePlayer, fourPlayer);
+		mainScreen.setMinSize(1095,	790);
+		
+		mainMenuScene = new Scene(mainScreen);
+		
+		InputStream iconImagePath = getClass().getResourceAsStream("iconImage.png");
+		Image iconImage = new Image(iconImagePath);
+		
+		window.getIcons().add(iconImage);
+		window.setScene(mainMenuScene);
+		window.show();
+		
+		
+	}
+	
+	public void mainGame()
+	{
 		//The layoutPane for the gridded table in the center
 		TilePane tablePane = new TilePane();
 		tablePane.setPrefRows(7); //Sets the row length to 7
@@ -527,77 +592,6 @@ public class Ui extends Application
 		bigSkeleton.setCenter(tablePane); 
 		
 		rummiScene = new Scene(bigSkeleton);
-		
-		InputStream mainImagePath = getClass().getResourceAsStream("TitleImage.png");
-		Image mainImage = new Image(mainImagePath);
-		mainImageNode = new ImageView(mainImage);
-		mainImageNode.setX(310);
-		mainImageNode.setY(100);
-		
-		//Sets up the 2 player Button
-		twoPlayer = new Button();
-		twoPlayer.setText("2 Players");
-		twoPlayer.setMinSize(100, 50);
-		twoPlayer.setDisable(false);
-		twoPlayer.setLayoutX(390);
-		twoPlayer.setLayoutY(500);
-		twoPlayer.setOnAction(new EventHandler<ActionEvent>() 
-		{
-		    public void handle(ActionEvent e) 
-		    {
-		    	System.out.println("Pressed 2 player button");
-		    	clearMainScreen();
-		    	whoGoesFirst(2);
-		    }
-		});
-		
-		//Sets up the 3 player Button
-		threePlayer = new Button();
-		threePlayer.setText("3 Players");
-		threePlayer.setMinSize(100, 50);
-		threePlayer.setDisable(false);
-		threePlayer.setLayoutX(500);
-		threePlayer.setLayoutY(500);
-		threePlayer.setOnAction(new EventHandler<ActionEvent>() 
-		{
-		    public void handle(ActionEvent e) 
-		    {
-		    	System.out.println("Pressed 3 player button");
-		    	clearMainScreen();
-		    	whoGoesFirst(3);
-		    }
-		});
-		
-		//Sets up the 4 player Button
-		fourPlayer = new Button();
-		fourPlayer.setText("4 Players");
-		fourPlayer.setMinSize(100, 50);
-		fourPlayer.setDisable(false);
-		fourPlayer.setLayoutX(610);
-		fourPlayer.setLayoutY(500);
-		fourPlayer.setOnAction(new EventHandler<ActionEvent>() 
-		{
-		    public void handle(ActionEvent e) 
-		    {
-		    	System.out.println("Pressed 4 player button");
-		    	clearMainScreen();
-		    	whoGoesFirst(4);
-		    }
-		});
-		
-		mainScreen = new AnchorPane(mainImageNode, twoPlayer, threePlayer, fourPlayer);
-		mainScreen.setMinSize(1095,	790);
-		
-		mainMenuScene = new Scene(mainScreen);
-		
-		InputStream iconImagePath = getClass().getResourceAsStream("iconImage.png");
-		Image iconImage = new Image(iconImagePath);
-		
-		window.getIcons().add(iconImage);
-		window.setScene(mainMenuScene);
-		window.show();
-		
-		
 	}
 	
 	public void clearMainScreen()
@@ -608,8 +602,10 @@ public class Ui extends Application
 		mainScreen.getChildren().remove(fourPlayer);
 	}
 	
-	public void whoGoesFirst(int maxPlayers)
+	public void whoGoesFirst(final int maxPlayers)
 	{
+		aiType = new int[maxPlayers-1];
+		
 		//Sets up the AI 1 Button
 		aiOne = new Button();
 		aiOne.setText("AI 1");
@@ -622,6 +618,13 @@ public class Ui extends Application
 		    public void handle(ActionEvent e) 
 		    {
 		    	System.out.println("Pressed ai 1 button");
+		    	aiOne.setDisable(true);
+		    	aiType[numPlayers] = 1;
+		    	numPlayers++;
+		    	if(numPlayers==maxPlayers-1)
+		    	{
+		    		game.dealInitialHand(aiType);
+		    	}
 		    }
 		});
 		
@@ -637,6 +640,13 @@ public class Ui extends Application
 		    public void handle(ActionEvent e) 
 		    {
 		    	System.out.println("Pressed ai 2 button");
+		    	aiTwo.setDisable(true);
+		    	aiType[numPlayers] = 2;
+		    	numPlayers++;
+		    	if(numPlayers==maxPlayers-1)
+		    	{
+		    		game.dealInitialHand(aiType);
+		    	}
 		    }
 		});
 		
@@ -652,6 +662,13 @@ public class Ui extends Application
 		    public void handle(ActionEvent e) 
 		    {
 		    	System.out.println("Pressed ai 3 button");
+		    	aiThree.setDisable(true);
+		    	aiType[numPlayers] = 3;
+		    	numPlayers++;
+		    	if(numPlayers==maxPlayers-1)
+		    	{
+		    		game.dealInitialHand(aiType);
+		    	}
 		    }
 		});
 		
@@ -667,6 +684,13 @@ public class Ui extends Application
 		    public void handle(ActionEvent e) 
 		    {
 		    	System.out.println("Pressed ai 4 button");
+		    	aiFour.setDisable(true);
+		    	aiType[numPlayers] = 4;
+		    	numPlayers++;
+		    	if(numPlayers==maxPlayers-1)
+		    	{
+		    		game.dealInitialHand(aiType);
+		    	}
 		    }
 		});
 		
@@ -696,7 +720,7 @@ public class Ui extends Application
 		}
 		else
 		{
-			System.out.print("Something went wrong in whoGoesFirst(), maxPlayers = "+maxPlayers);
+			System.out.print("Something went wrong in whoGoesFirst() in UI.java, maxPlayers = "+maxPlayers);
 		}
 		
 		mainScreen.getChildren().add(aiOne);

@@ -104,7 +104,7 @@ public class PlayerHand {
 				output += Color + " " + sample.get(i).getNumber() + "; ";
 			}
 		}
-		System.out.println(output);
+		System.out.println(output+"\n");
 	}
 
 	public void sortTilesByNumber() {// sorts tiles from least to greatest
