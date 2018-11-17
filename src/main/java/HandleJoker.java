@@ -6,7 +6,7 @@ import java.util.HashSet;
 
 public class HandleJoker {
 	// check the valid color and value of joker for the set
-	public boolean isSetWithJoker(ArrayList<Tile> l) {
+	public boolean isSet(ArrayList<Tile> l) {
 		if(l.size() < 3 || l.size() > 4) return false;
 		Collections.sort(l, new SortSmallestToBiggest());
 		int check_point = 0;
@@ -35,7 +35,7 @@ public class HandleJoker {
 		return true;
 	};
 	// check the valid color and value of joker for the sequences
-	public  boolean isRunWithJoker(ArrayList<Tile> l) {
+	public  boolean isRun(ArrayList<Tile> l) {
 		if(l.size() < 3) return false;
 		Collections.sort(l, new SortSmallestToBiggest());
 		String color = "";
