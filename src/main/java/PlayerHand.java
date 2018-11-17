@@ -36,7 +36,15 @@ public class PlayerHand {
 	}
 
 	public Tile getTile(int index) {
-		return this.hand.get(index);
+		if(index<=this.hand.size()-1)
+		{
+			return this.hand.get(index);
+		}
+		else
+		{
+			System.out.println("getTile returned null");
+			return null;
+		}
 	}
 
 	public void addTileToHand(Tile newTile) {

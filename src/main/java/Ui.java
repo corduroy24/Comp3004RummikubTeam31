@@ -32,7 +32,15 @@ public class Ui extends Application
 	Scene mainMenuScene;
 	Scene rummiScene;
 	
-	Button startButton;
+	AnchorPane mainScreen;
+	
+	Button twoPlayer;
+	Button threePlayer;
+	Button fourPlayer;
+	Button aiOne;
+	Button aiTwo;
+	Button aiThree;
+	Button aiFour;
 	Button endTurnButton;
 	
 	Button[][] tableButtons = new Button[20][7];
@@ -44,11 +52,15 @@ public class Ui extends Application
 	
 	HBox playerHand;
 	
+	ImageView mainImageNode;
+	ImageView secondImageNode;
+	
 	Boolean played = false;
 	
 	String prevString = "";
 	
-	int playerCount = 0;
+	int playerScore = 0;
+	int numPlayers = 0;
 	
 	static GameMaster game = new GameMaster();	
 	
@@ -122,13 +134,13 @@ public class Ui extends Application
                         {
                             Tile temp = new Tile(Integer.parseInt(db.getRtf().substring(0, 1)), Integer.parseInt(db.getRtf().substring(2, 3)));
                             game.getHuman().getHand().removeTile(temp);
-                            playerCount+=temp.getNumber();
+                            playerScore+=temp.getNumber();
                         }
                         else
                         {
                             Tile temp = new Tile(Integer.parseInt(db.getRtf().substring(0, 1)), Integer.parseInt(db.getRtf().substring(2, 4)));
                             game.getHuman().getHand().removeTile(temp);
-                            playerCount+=temp.getNumber();
+                            playerScore+=temp.getNumber();
                         }
                         
                         updateHand();
@@ -403,7 +415,7 @@ public class Ui extends Application
 		    	}
 		    	checkAIIsWinner();
 		    	
-		    	if(playerCount>=30) 
+		    	if(playerScore>=30) 
 		    	{
 		    		game.getHuman().setIsfirstMeldComplete(true);
 		    	}
@@ -414,7 +426,6 @@ public class Ui extends Application
 		    
 
 			private boolean checkAIIsWinner() {
-				// TODO Auto-generated method stub
 				Button OK_Button = new Button();
 		    	OK_Button.setText("OK");
 		    	OK_Button.setMinSize(100, 50);
@@ -433,7 +444,7 @@ public class Ui extends Application
 					|| game.getAI3().getHand().sizeOfHand() == 0)  {
 					InputStream mainImagePath = getClass().getResourceAsStream("Looser.jpg");
 					Image mainImage = new Image(mainImagePath);
-					ImageView mainImageNode = new ImageView(mainImage);
+					mainImageNode = new ImageView(mainImage);
 					mainImageNode.setX(200);
 					mainImageNode.setY(200);
 					AnchorPane mainScreen = new AnchorPane(mainImageNode,OK_Button);
@@ -449,7 +460,6 @@ public class Ui extends Application
 			}
 
 			private boolean checkPlayerIsWinner() {
-				// TODO Auto-generated method stub
 				Button OK_Button = new Button();
 		    	OK_Button.setText("OK");
 		    	OK_Button.setMinSize(100, 50);
@@ -466,7 +476,7 @@ public class Ui extends Application
 				if(game.getHuman().getHand().sizeOfHand() == 0) {
 					InputStream mainImagePath = getClass().getResourceAsStream("Winner.jpg");
 					Image mainImage = new Image(mainImagePath);
-					ImageView mainImageNode = new ImageView(mainImage);
+					mainImageNode = new ImageView(mainImage);
 					mainImageNode.setX(200);
 					mainImageNode.setY(200);
 					AnchorPane mainScreen = new AnchorPane(mainImageNode,OK_Button);
@@ -520,27 +530,62 @@ public class Ui extends Application
 		
 		InputStream mainImagePath = getClass().getResourceAsStream("TitleImage.png");
 		Image mainImage = new Image(mainImagePath);
-		ImageView mainImageNode = new ImageView(mainImage);
-		mainImageNode.setX(300);
+		mainImageNode = new ImageView(mainImage);
+		mainImageNode.setX(310);
 		mainImageNode.setY(100);
 		
-		//Sets up the End Turn Button
-		startButton = new Button();
-		startButton.setText("Start Turn");
-		startButton.setMinSize(100, 50);
-		startButton.setDisable(false);
-		startButton.setLayoutX(480);
-		startButton.setLayoutY(500);
-		startButton.setOnAction(new EventHandler<ActionEvent>() 
+		//Sets up the 2 player Button
+		twoPlayer = new Button();
+		twoPlayer.setText("2 Players");
+		twoPlayer.setMinSize(100, 50);
+		twoPlayer.setDisable(false);
+		twoPlayer.setLayoutX(390);
+		twoPlayer.setLayoutY(500);
+		twoPlayer.setOnAction(new EventHandler<ActionEvent>() 
 		{
 		    public void handle(ActionEvent e) 
 		    {
-		    	window.setScene(rummiScene);
-		    	
+		    	System.out.println("Pressed 2 player button");
+		    	clearMainScreen();
+		    	whoGoesFirst(2);
 		    }
 		});
 		
-		AnchorPane mainScreen = new AnchorPane(mainImageNode, startButton);
+		//Sets up the 3 player Button
+		threePlayer = new Button();
+		threePlayer.setText("3 Players");
+		threePlayer.setMinSize(100, 50);
+		threePlayer.setDisable(false);
+		threePlayer.setLayoutX(500);
+		threePlayer.setLayoutY(500);
+		threePlayer.setOnAction(new EventHandler<ActionEvent>() 
+		{
+		    public void handle(ActionEvent e) 
+		    {
+		    	System.out.println("Pressed 3 player button");
+		    	clearMainScreen();
+		    	whoGoesFirst(3);
+		    }
+		});
+		
+		//Sets up the 4 player Button
+		fourPlayer = new Button();
+		fourPlayer.setText("4 Players");
+		fourPlayer.setMinSize(100, 50);
+		fourPlayer.setDisable(false);
+		fourPlayer.setLayoutX(610);
+		fourPlayer.setLayoutY(500);
+		fourPlayer.setOnAction(new EventHandler<ActionEvent>() 
+		{
+		    public void handle(ActionEvent e) 
+		    {
+		    	System.out.println("Pressed 4 player button");
+		    	clearMainScreen();
+		    	whoGoesFirst(4);
+		    }
+		});
+		
+		mainScreen = new AnchorPane(mainImageNode, twoPlayer, threePlayer, fourPlayer);
 		mainScreen.setMinSize(1095,	790);
 		
 		mainMenuScene = new Scene(mainScreen);
@@ -553,6 +598,112 @@ public class Ui extends Application
 		window.show();
 		
 		
+	}
+	
+	public void clearMainScreen()
+	{
+		mainScreen.getChildren().remove(mainImageNode);
+		mainScreen.getChildren().remove(twoPlayer);
+		mainScreen.getChildren().remove(threePlayer);
+		mainScreen.getChildren().remove(fourPlayer);
+	}
+	
+	public void whoGoesFirst(int maxPlayers)
+	{
+		//Sets up the AI 1 Button
+		aiOne = new Button();
+		aiOne.setText("AI 1");
+		aiOne.setMinSize(100, 50);
+		aiOne.setDisable(false);
+		aiOne.setLayoutX(327);
+		aiOne.setLayoutY(500);
+		aiOne.setOnAction(new EventHandler<ActionEvent>() 
+		{
+		    public void handle(ActionEvent e) 
+		    {
+		    	System.out.println("Pressed ai 1 button");
+		    }
+		});
+		
+		//Sets up the AI 2 Button
+		aiTwo = new Button();
+		aiTwo.setText("AI 2");
+		aiTwo.setMinSize(100, 50);
+		aiTwo.setDisable(false);
+		aiTwo.setLayoutX(437);
+		aiTwo.setLayoutY(500);
+		aiTwo.setOnAction(new EventHandler<ActionEvent>() 
+		{
+		    public void handle(ActionEvent e) 
+		    {
+		    	System.out.println("Pressed ai 2 button");
+		    }
+		});
+		
+		//Sets up the AI 3 Button
+		aiThree = new Button();
+		aiThree.setText("AI 3");
+		aiThree.setMinSize(100, 50);
+		aiThree.setDisable(false);
+		aiThree.setLayoutX(547);
+		aiThree.setLayoutY(500);
+		aiThree.setOnAction(new EventHandler<ActionEvent>() 
+		{
+		    public void handle(ActionEvent e) 
+		    {
+		    	System.out.println("Pressed ai 3 button");
+		    }
+		});
+		
+		//Sets up the AI 4 Button
+		aiFour = new Button();
+		aiFour.setText("AI 4");
+		aiFour.setMinSize(100, 50);
+		aiFour.setDisable(false);
+		aiFour.setLayoutX(657);
+		aiFour.setLayoutY(500);
+		aiFour.setOnAction(new EventHandler<ActionEvent>() 
+		{
+		    public void handle(ActionEvent e) 
+		    {
+		    	System.out.println("Pressed ai 4 button");
+		    }
+		});
+		
+		if(maxPlayers==2)
+		{
+			InputStream mainImagePath = getClass().getResourceAsStream("pickOne.png");
+			Image mainImage = new Image(mainImagePath);
+			mainImageNode = new ImageView(mainImage);
+			mainImageNode.setX(442);
+			mainImageNode.setY(100);
+		}
+		else if(maxPlayers==3)
+		{
+			InputStream mainImagePath = getClass().getResourceAsStream("pickTwo.png");
+			Image mainImage = new Image(mainImagePath);
+			mainImageNode = new ImageView(mainImage);
+			mainImageNode.setX(442);
+			mainImageNode.setY(100);
+		}
+		else if(maxPlayers==4)
+		{
+			InputStream mainImagePath = getClass().getResourceAsStream("pickThree.png");
+			Image mainImage = new Image(mainImagePath);
+			mainImageNode = new ImageView(mainImage);
+			mainImageNode.setX(442);
+			mainImageNode.setY(100);
+		}
+		else
+		{
+			System.out.print("Something went wrong in whoGoesFirst(), maxPlayers = "+maxPlayers);
+		}
+		
+		mainScreen.getChildren().add(aiOne);
+		mainScreen.getChildren().add(aiTwo);
+		mainScreen.getChildren().add(aiThree);
+		mainScreen.getChildren().add(aiFour);
+		mainScreen.getChildren().add(mainImageNode);
 	}
 	
 	public void updateConsole(String output)
@@ -622,28 +773,31 @@ public class Ui extends Application
 		
 		for(int x=0;x<14;x++)
 		{
-			playerHandButtons.get(x).setText(""+test.getTile(x).getNumber());
-			
-			if(test.getTile(x).getColor().equals("R"))
+			if(test.getTile(x)!=null)
 			{
-				playerHandButtons.get(x).setStyle("-fx-background-color: #db4c4c");
-			}
-			else if(test.getTile(x).getColor().equals("B"))
-			{
-				playerHandButtons.get(x).setStyle("-fx-background-color: #3888d8");
-			}
-			else if(test.getTile(x).getColor().equals("G"))
-			{
-				playerHandButtons.get(x).setStyle("-fx-background-color: #1a9922");
-			}
-			else if(test.getTile(x).getColor().equals("O"))
-			{
-				playerHandButtons.get(x).setStyle("-fx-background-color: #c69033");
-			}
-			else
-			{
-				System.out.println("Something went wrong in setPlayerHand()");
-				System.out.println("Color for tile "+x+" is set to "+test.getTile(x).getColor());
+				playerHandButtons.get(x).setText(""+test.getTile(x).getNumber());
+				
+				if(test.getTile(x).getColor().equals("R"))
+				{
+					playerHandButtons.get(x).setStyle("-fx-background-color: #db4c4c");
+				}
+				else if(test.getTile(x).getColor().equals("B"))
+				{
+					playerHandButtons.get(x).setStyle("-fx-background-color: #3888d8");
+				}
+				else if(test.getTile(x).getColor().equals("G"))
+				{
+					playerHandButtons.get(x).setStyle("-fx-background-color: #1a9922");
+				}
+				else if(test.getTile(x).getColor().equals("O"))
+				{
+					playerHandButtons.get(x).setStyle("-fx-background-color: #c69033");
+				}
+				else
+				{
+					System.out.println("Something went wrong in setPlayerHand()");
+					System.out.println("Color for tile "+x+" is set to "+test.getTile(x).getColor());
+				}
 			}
 		}
 	}
