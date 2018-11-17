@@ -2,7 +2,7 @@ import junit.framework.TestCase;
 
 public class TestPlayer1Strategy extends TestCase{
 	
-	Player player = new Player("Player",999,new PlayerStrategy1());
+	Player player = new Player("Player",999,new p1());
 	//a run of 33.
 	Tile tile = new Tile(1,12);
 	Tile tile1 = new Tile(1,11);

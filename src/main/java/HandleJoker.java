@@ -5,6 +5,25 @@ import java.util.HashSet;
 
 
 public class HandleJoker {
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	// check the valid color and value of joker for the set
 	public boolean isSet(ArrayList<Tile> l) {
 		if(l.size() < 3 || l.size() > 4) return false;

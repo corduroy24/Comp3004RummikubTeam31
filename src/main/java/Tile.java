@@ -13,6 +13,7 @@ public class Tile {
 	public void setJokerPoint(int a) {jokerPoint = a;}
 	public int getJokerPoint() {return jokerPoint;}
 	public void setJokerColor(int a) {jokerColor = Colors[a - 1];}
+	public void setJokerColor(String a) {jokerColor = a;}
 	public String getJokerColor() {return jokerColor;}
 	
 	
