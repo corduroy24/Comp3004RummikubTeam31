@@ -4,7 +4,7 @@ public class ObservablePattern extends TestCase{
 	GameMaster game = new GameMaster();
 	
 	public void TestViewingHands() {
-		game.dealInitialHand();
+		//game.dealInitialHand();
 		assertTrue(game.getPlayers().get(0).getFirstPlayerHand() == game.getPlayers().get(1).getSecondPlayerHand());
 		assertTrue(game.getPlayers().get(2).getFirstPlayerHand() == game.getPlayers().get(3).getSecondPlayerHand());
 		assertTrue(game.getPlayers().get(0).getFirstPlayerHand() == game.getPlayers().get(2).getSecondPlayerHand());
