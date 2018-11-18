@@ -17,7 +17,7 @@ public class Deck{
 				}
 			}
 		}
-		Tile T = new Tile();     //  THESE ARE JOKERS AND WILL BE USED IN ITERATION 2
+		Tile T = new Tile(14, 14);     //  THESE ARE JOKERS AND WILL BE USED IN ITERATION 2
 		DeckofTiles.add(104,T);
 	    DeckofTiles.add(105,T);
 	

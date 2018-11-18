@@ -1,8 +1,7 @@
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Observable;
-import java.util.Observer;
-
-import javafx.application.Application;
 
 
 //enum GameState {Game_Start, P1_Turn, P2_Turn, P3_Turn, P4_Turn, End_Game};
@@ -16,7 +15,6 @@ public class GameMaster extends Observable{
 	private Player AI3;
 	private Deck deck;
 	private Table table;
-	private Ui GUI;
 	
 	public GameMaster(){
 		//create human, AI1, AI2, AI3, deck table GUI
@@ -129,16 +127,11 @@ public class GameMaster extends Observable{
 		
 
 	}
-	
-	
-	
-	
+
 	//draw card to human and AI
-	public void dealInitialHand(int[] ai) 
+	public int[] dealInitialHand(int[] ai) 
 	{
-		System.out.println("dealInitialHand() ran\n");
-		
-		Tile[] turnOrder = new Tile[ai.length];
+		int[][] turnOrder = new int[ai.length][2];
 		Deck turnDeck = new Deck();
 		turnDeck.Shuffle();
 		
@@ -146,9 +139,10 @@ public class GameMaster extends Observable{
 		{
 			if(ai[x]==1)
 			{
-				System.out.println("You picked AI 1");
+				//System.out.println("You picked AI 1");
 				
-				turnOrder[x] = turnDeck.Draw();
+				turnOrder[x][0] = turnDeck.Draw().getNumber();
+				turnOrder[x][1] = 1;
 				
 				AI1.getHand().drawFirst14(deck);
 				AI1.getHand().sortTilesByColour();
@@ -156,9 +150,10 @@ public class GameMaster extends Observable{
 			}
 			else if(ai[x]==2)
 			{
-				System.out.println("You picked AI 2");
+				//System.out.println("You picked AI 2");
 				
-				turnOrder[x] = turnDeck.Draw();
+				turnOrder[x][0] = turnDeck.Draw().getNumber();
+				turnOrder[x][1] = 2;
 				
 				AI2.getHand().drawFirst14(deck);
 				AI2.getHand().sortTilesByColour();
@@ -166,9 +161,10 @@ public class GameMaster extends Observable{
 			}
 			else if(ai[x]==3)
 			{
-				System.out.println("You picked AI 3");
+				//System.out.println("You picked AI 3");
 				
-				turnOrder[x] = turnDeck.Draw();
+				turnOrder[x][0] = turnDeck.Draw().getNumber();
+				turnOrder[x][1] = 3;
 				
 				AI3.getHand().drawFirst14(deck);
 				AI3.getHand().sortTilesByColour();
@@ -176,10 +172,11 @@ public class GameMaster extends Observable{
 			}
 			else if(ai[x]==4)
 			{
-				System.out.println("You picked AI 4");
+				//System.out.println("You picked AI 4");
 				
 				/*
-				turnOrder[x] = turnDeck.Draw();
+				turnOrder[x][0] = turnDeck.Draw().getNumber();
+				turnOrder[x][1] = 4;
 				
 				AI4.getHand().drawFirst14(deck);
 				AI4.getHand().sortTilesByColour();
@@ -188,14 +185,33 @@ public class GameMaster extends Observable{
 			}
 		}
 		
-		turnOrder[ai.length-1] = turnDeck.Draw();
 		
+		
+		turnOrder[ai.length-1][0] = turnDeck.Draw().getNumber();
+		turnOrder[ai.length-1][1] = 10;
+
 		human.getHand().drawFirst14(deck);
 		human.getHand().sortTilesByColour();
 		human.getHand().HandReader();
 		human.setIsTurn(true);
 		
+		Arrays.sort(turnOrder, new Comparator<int[]>() 
+		{
+		    public int compare(int[] a, int[] b) 
+		    {
+		        return Integer.compare(b[0], a[0]);
+		    }
+		});
+		
+		int[] returnOrder = new int[ai.length];
+		for(int x=0;x<turnOrder.length;x++)
+		{
+			returnOrder[x] = turnOrder[x][1];
+		}
+		
 		Announcement();
+		
+		return returnOrder;
 	}
 	
 	// send notification to observers

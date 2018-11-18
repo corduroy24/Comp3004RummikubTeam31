@@ -1,6 +1,4 @@
-import java.util.ArrayList;
-
-public class Tile {
+public class Tile{
 	protected  String Color;
 	protected  int Number;
 	//1,2,3,4 respectively Red Blue Green Orange
@@ -20,7 +18,8 @@ public class Tile {
 	
 	
 	Tile (int x, int y) { // create a tile with the specific color and number
-		if(x == 14 && y == 14) { isJoker = true;
+		if(x == 14 && y == 14) { 
+			isJoker = true;
 			this.Color = "J";
 			this.Number = 14;
 		}
@@ -84,6 +83,5 @@ public class Tile {
 			
 		out += ("{" + color + Number + "} ");
 		return out;
-	}
-	
+	}	
 }

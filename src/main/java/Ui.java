@@ -147,7 +147,7 @@ public class Ui extends Application
 		
 	}
 	
-	public void mainGame()
+	public void mainGame(int[] turnOrder)
 	{
 		//The layoutPane for the gridded table in the center
 		TilePane tablePane = new TilePane();
@@ -607,7 +607,7 @@ public class Ui extends Application
 	
 	public void whoGoesFirst(final int maxPlayers)
 	{
-		aiType = new int[maxPlayers-1];
+		aiType = new int[maxPlayers];
 		
 		//Sets up the AI 1 Button
 		aiOne = new Button();
@@ -626,8 +626,8 @@ public class Ui extends Application
 		    	numPlayers++;
 		    	if(numPlayers==maxPlayers-1)
 		    	{
-		    		game.dealInitialHand(aiType);
-		    		mainGame();
+		    		int[] temp = game.dealInitialHand(aiType);
+		    		mainGame(temp);
 		    	}
 		    }
 		});
@@ -649,8 +649,8 @@ public class Ui extends Application
 		    	numPlayers++;
 		    	if(numPlayers==maxPlayers-1)
 		    	{
-		    		game.dealInitialHand(aiType);
-		    		mainGame();
+		    		int[] temp = game.dealInitialHand(aiType);
+		    		mainGame(temp);
 		    	}
 		    }
 		});
@@ -672,8 +672,8 @@ public class Ui extends Application
 		    	numPlayers++;
 		    	if(numPlayers==maxPlayers-1)
 		    	{
-		    		game.dealInitialHand(aiType);
-		    		mainGame();
+		    		int[] temp = game.dealInitialHand(aiType);
+		    		mainGame(temp);
 		    	}
 		    }
 		});
@@ -695,8 +695,8 @@ public class Ui extends Application
 		    	numPlayers++;
 		    	if(numPlayers==maxPlayers-1)
 		    	{
-		    		game.dealInitialHand(aiType);
-		    		mainGame();
+		    		int[] temp = game.dealInitialHand(aiType);
+		    		mainGame(temp);
 		    	}
 		    }
 		});
