@@ -92,7 +92,7 @@ public class Ui extends Application
 		{
 		    public void handle(ActionEvent e) 
 		    {
-		    	System.out.println("Pressed 2 player button");
+		    	//System.out.println("Pressed 2 player button");
 		    	clearMainScreen();
 		    	whoGoesFirst(2);
 		    }
@@ -109,7 +109,7 @@ public class Ui extends Application
 		{
 		    public void handle(ActionEvent e) 
 		    {
-		    	System.out.println("Pressed 3 player button");
+		    	//System.out.println("Pressed 3 player button");
 		    	clearMainScreen();
 		    	whoGoesFirst(3);
 		    }
@@ -126,7 +126,7 @@ public class Ui extends Application
 		{
 		    public void handle(ActionEvent e) 
 		    {
-		    	System.out.println("Pressed 4 player button");
+		    	//System.out.println("Pressed 4 player button");
 		    	clearMainScreen();
 		    	whoGoesFirst(4);
 		    }
@@ -147,6 +147,7 @@ public class Ui extends Application
 		
 	}
 	
+	//turnOrder goes by ai numbers and the player is listed as 10
 	public void mainGame(int[] turnOrder)
 	{
 		//The layoutPane for the gridded table in the center
@@ -620,7 +621,7 @@ public class Ui extends Application
 		{
 		    public void handle(ActionEvent e) 
 		    {
-		    	System.out.println("Pressed ai 1 button");
+		    	//System.out.println("Pressed ai 1 button");
 		    	aiOne.setDisable(true);
 		    	aiType[numPlayers] = 1;
 		    	numPlayers++;
@@ -643,7 +644,7 @@ public class Ui extends Application
 		{
 		    public void handle(ActionEvent e) 
 		    {
-		    	System.out.println("Pressed ai 2 button");
+		    	//System.out.println("Pressed ai 2 button");
 		    	aiTwo.setDisable(true);
 		    	aiType[numPlayers] = 2;
 		    	numPlayers++;
@@ -666,7 +667,7 @@ public class Ui extends Application
 		{
 		    public void handle(ActionEvent e) 
 		    {
-		    	System.out.println("Pressed ai 3 button");
+		    	//System.out.println("Pressed ai 3 button");
 		    	aiThree.setDisable(true);
 		    	aiType[numPlayers] = 3;
 		    	numPlayers++;
@@ -689,7 +690,7 @@ public class Ui extends Application
 		{
 		    public void handle(ActionEvent e) 
 		    {
-		    	System.out.println("Pressed ai 4 button");
+		    	//System.out.println("Pressed ai 4 button");
 		    	aiFour.setDisable(true);
 		    	aiType[numPlayers] = 4;
 		    	numPlayers++;
