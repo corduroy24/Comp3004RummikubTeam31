@@ -74,7 +74,7 @@ public class HandleJoker {
 	};
 	
 	
-	//sort tiles by number
+	//sort tiles by number including joker
 	static class SortSmallestToBiggest implements Comparator<Tile> 
 	{  public int compare(Tile a, Tile b) 
 	  {	
@@ -89,7 +89,8 @@ public class HandleJoker {
 		} 
 	}
 
-
+	//get sequences has joker then get all the sets. It depends on the break point, if p1 doesn't have
+	// the first initial turn, p1 will get the sequences has joker which is has the highest point.
 	public ArrayList<ArrayList<Tile>> getFirst(boolean complete_first_turn, int num, ArrayList<Tile> sample) {
 		// TODO Auto-generated method stub
 		ArrayList<ArrayList<Tile>> output = new ArrayList<ArrayList<Tile>>();
@@ -109,6 +110,8 @@ public class HandleJoker {
 		if (set != null && set.size() != 0) output.addAll(set);	
 		return output;
 	}
+	// get set has joker then get all the sequences .It depends on the break point, if p1 doesn't have
+	// the first initial turn, p1 will find the set has joker which is has the highest point.
 	public ArrayList<ArrayList<Tile>> getSecond(boolean complete_first_turn, int num, ArrayList<Tile> sample) {
 		// TODO Auto-generated method stub
 		ArrayList<ArrayList<Tile>> output = new ArrayList<ArrayList<Tile>>();
@@ -129,7 +132,8 @@ public class HandleJoker {
 		return output;
 	}
 	
-	//GET SETS HAVE JOKER
+	
+		//Initial the value of the joker tile after getting the Joker set
 		private ArrayList<ArrayList<Tile>> getJokerSet(boolean b, int num, ArrayList<Tile> sample) {
 			ArrayList<ArrayList<Tile>> output = new ArrayList<ArrayList<Tile>>();
 			ArrayList<Tile> current = sample;
@@ -139,6 +143,7 @@ public class HandleJoker {
 			return output;
 		}
 		
+		// Find the Joker set has the most value.
 		private ArrayList<ArrayList<Tile>> getFirstSets(ArrayList<Tile> hand){
 			
 			int num = NumberOfJoker(hand);
@@ -232,7 +237,8 @@ public class HandleJoker {
 
 
 		//get the most efficient sequences depends on the first initial turn
-		// That the output could be most tiles or most point due to first initial turn complete or not 
+		// return the output could be most tiles or most point due to first initial turn complete or not
+		// The algorithm try using a single joker on each single list with a specific color, then return the highest point or the most number of tiles.
 		private ArrayList<ArrayList<Tile>> getJokerSequences(boolean complete_first_turn,int num, ArrayList<Tile> sample2) {
 			ArrayList<ArrayList<Tile>> max_tile = new ArrayList<ArrayList<Tile>>();
 			ArrayList<ArrayList<Tile>> max_point = new ArrayList<ArrayList<Tile>>();
@@ -327,7 +333,7 @@ public class HandleJoker {
 
 
 
-		//SET JOKER POINT IN PLAYER HAND
+		//function used to initial Joker' point and color in a Joker set or a Joker sequence, 
 		public void initialOutput(ArrayList<ArrayList<Tile>> s, ArrayList<Tile> hand) {
 			Collections.sort(hand, new SmallestToBiggest());
 			int num = NumberOfJoker(hand);
