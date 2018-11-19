@@ -13,6 +13,7 @@ public class GameMaster extends Observable{
 	private Player AI1;
 	private Player AI2;
 	private Player AI3;
+	private Player AI4;
 	private Deck deck;
 	private Table table;
 	
@@ -22,6 +23,8 @@ public class GameMaster extends Observable{
 		AI1 = new Player("AI1",2, new p1());
 		AI2 = new Player("AI2",3, new PlayerStrategy2());
 		AI3 = new Player("AI3",4, new PlayerStrategy3());
+		AI4 = new Player("AI4",5, new PlayerStrategy4());
+
 		deck = new Deck();
 		deck.Shuffle();
 		table = new Table();
@@ -30,6 +33,7 @@ public class GameMaster extends Observable{
 		this.addObserver(AI1);
 		this.addObserver(AI2);
 		this.addObserver(AI3);
+		this.addObserver(AI4);
 	}
 	
 	// main deck
@@ -42,6 +46,7 @@ public class GameMaster extends Observable{
 		players.add(AI1);
 		players.add(AI2);
 		players.add(AI3);
+		players.add(AI4);
 		return players;
 	}
 	
@@ -68,6 +73,9 @@ public class GameMaster extends Observable{
 	}
 	
 	public Player getAI3() {
+		return AI3;
+	}
+	public Player getAI4() {
 		return AI3;
 	}
 	
