@@ -74,8 +74,10 @@ public class Tile{
 			color = "Green";
 		else if(Color.equals("B"))
 			color = "Blue";
-		else if (Color.equals("J"))
+		else if (Color.equals("J")) {
 			color = "Joker";
+			out += ("{" + color + this.getJokerPoint() + "} ");
+		}
 		else 
 			color = "Orange";
 		

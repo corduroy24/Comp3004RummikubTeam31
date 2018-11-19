@@ -12,7 +12,10 @@ public class PlayerStrategy1 implements PlayerStrategy {
 		// TODO Auto-generated method stub
 		p.renewPlayedList();
 		p.set_report("");
-		if(p.getIsFirstMeldComplete()) {
+		if(functions.one_short(p)) {
+			return true;
+		}
+		else if(p.getIsFirstMeldComplete()) {
 			//copy player hand to sample hand
 			ArrayList<Tile> first_hand = new ArrayList<Tile>(p.getHand().getTiles());
 			ArrayList<Tile> second_hand = new ArrayList<Tile>(p.getHand().getTiles());

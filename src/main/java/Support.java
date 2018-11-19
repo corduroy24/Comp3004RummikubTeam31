@@ -118,16 +118,31 @@ public class Support {
 	
 	
 	//re-arrange number of tiles on t list
-	private ArrayList<Tile>  renew (ArrayList<Tile> t, ArrayList<ArrayList<Tile>> sequences) {
+	public ArrayList<Tile>  renew (ArrayList<Tile> t, ArrayList<ArrayList<Tile>> sequences) {
 		// TODO Auto-generated method stub
 		ArrayList<Tile> output;
 		if(sequences != null) {
 		for(int i =0; i < sequences.size();i++) {
 			for(int u = 0; u < sequences.get(i).size();u++) {
-			t.remove(sequences.get(i).get(u));
+				if(sequences.get(i).get(u).isJoker()) {
+					myloop: for(int k =0; k < t.size();k++) {
+						if(t.get(k).isJoker() && t.get(k).getJokerColor().equals(sequences.get(i).get(u).getJokerColor())
+								&& t.get(k).getJokerPoint() == sequences.get(i).get(u).getJokerPoint()) {
+							t.remove(k);
+							break myloop;
+						}
+					}
+						
+				}
+				else
+					t.remove(sequences.get(i).get(u));
 				}
 			}
 		}
+		
+	
+		
+		
 		output = t;
 		return output;
 		
@@ -347,7 +362,7 @@ public class Support {
 	
 	
 	//Function get all the sequences in the List sorted by color, then sorted by value (this list is sorted 2 times)
-	private ArrayList<ArrayList<Tile>> getSequences(ArrayList<Tile> hand){
+	public ArrayList<ArrayList<Tile>> getSequences(ArrayList<Tile> hand){
 		
 		boolean hasJ=false;
 		
@@ -368,10 +383,9 @@ public class Support {
 		
 		if(hand == null || hand.size() == 0) return null;
 		
-		if (hasJ==true) {
-			hand=getJokerSequences(hand);
-		}
-		
+		//if (hasJ==true) {
+	//		hand=getJokerSequences(hand);
+	//	}
 		String color = hand.get(0).getColor();
 		for(int i =0; i < hand.size();i++) {
 			if(color.equals(hand.get(i).getColor())) {
@@ -451,13 +465,10 @@ public class Support {
 			
 		}
 		
-		
-		
-		
 		return sequences;
 	}
 	//Function get all the sets in the List sorted by value, then sorted by color (this list is sorted 2 times)
-	private ArrayList<ArrayList<Tile>> getSets(ArrayList<Tile> hand){
+	public ArrayList<ArrayList<Tile>> getSets(ArrayList<Tile> hand){
 		
 		if (containsJoker(hand)==true) {
 			//add functionality for joker
