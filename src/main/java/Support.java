@@ -536,4 +536,17 @@ public class Support {
 		return x;
 	}
 	
+	public double getProbability(Tile t, ArrayList<Tile> tList) {
+		
+		double p = 0.0; 
+		/*
+		for(int i =0; i < tList.size();i++) {
+			if ((t.getColor()==tList.get(i).getColor())&&(t.getNumber()==tList.get(i).getNumber())) {
+				
+			}
+		}
+		*/
+		return p; 
+	}
+	
 }
