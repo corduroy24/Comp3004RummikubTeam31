@@ -6,8 +6,8 @@ import junit.framework.TestCase;
 
 public class TestPlayer2Strategy extends TestCase{
 	
-	Player player = new Player("Player",999,new PlayerStrategy2());
-	Player player2 = new Player("Player",999,new PlayerStrategy2());
+	Player player = new Player("Player",999,new p2());
+	Player player2 = new Player("Player",999,new p2());
 	// a meld of 33 points
 	Tile tile = new Tile(1,12);
 	Tile tile1 = new Tile(1,11);

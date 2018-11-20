@@ -246,13 +246,13 @@ public class HandleJoker {
 			int maxPoint = 0;
 			for(int i =0; i < 4; i++) {
 				ArrayList<ArrayList<Tile>> sample = new ArrayList<ArrayList<Tile>>();
-				Tile j = new Tile();
-				Tile j1 = new Tile();
+				Tile j = new Tile(14,14);
+				Tile j1 = new Tile(14,14);
 				//System.out.println(point);
 				ArrayList<Tile> current = new ArrayList<Tile>();
 				if(i == 0) {
 					if(num == 1) {current.add(j);}
-					else {current.add(j);current.add(j1);}
+					else if(num == 2){current.add(j);current.add(j1);}
 					current.addAll(blue);
 					sample.addAll(getSequencesHasJoker(current,complete_first_turn));
 					sample.addAll(getSequences(green));
@@ -267,7 +267,7 @@ public class HandleJoker {
 				else if(i == 1) {
 					sample = new ArrayList<ArrayList<Tile>>();
 					if(num == 1) {current.add(j);}
-					else {current.add(j);current.add(j1);}
+					else if(num == 2){current.add(j);current.add(j1);}
 					current.addAll(green);
 					sample.addAll(getSequences(blue));
 					sample.addAll(getSequencesHasJoker(current,complete_first_turn));
@@ -285,7 +285,7 @@ public class HandleJoker {
 				else if(i == 2) {
 					sample = new ArrayList<ArrayList<Tile>>();
 					if(num == 1) {current.add(j);}
-					else {current.add(j);current.add(j1);}
+					else if(num == 2) {current.add(j);current.add(j1);}
 					current.addAll(red);
 					sample.addAll(getSequences(blue));
 					sample.addAll(getSequences(green));
@@ -303,7 +303,7 @@ public class HandleJoker {
 				else if(i == 3) {
 					sample = new ArrayList<ArrayList<Tile>>();
 					if(num == 1) {current.add(j);}
-					else {current.add(j);current.add(j1);}
+					else if(num == 2) {current.add(j);current.add(j1);}
 					current.addAll(orange);
 					sample.addAll(getSequences(blue));
 					sample.addAll(getSequences(green));
@@ -328,7 +328,6 @@ public class HandleJoker {
 				initialOutput(max_point,sample2);
 				return max_point;
 			}
-			
 		}
 
 
@@ -365,7 +364,6 @@ public class HandleJoker {
 				int number_joker = NumberOfJoker(list);
 				ArrayList<ArrayList<Tile>> sample = new ArrayList<ArrayList<Tile>>();
 				ArrayList<ArrayList<Tile>> sample1 = new ArrayList<ArrayList<Tile>>();
-				
 				
 				ArrayList<Tile> current = new ArrayList<Tile>();
 				ArrayList<Tile> duplicate = new ArrayList<Tile>();
@@ -417,23 +415,22 @@ public class HandleJoker {
 						}
 					}
 					else {
+						
 						if (current.size() > 2) sample.add(current);
 						else if (current.size() == 2 && list.get(count).isJoker()) {
-							Tile l = new Tile();
+							Tile l = new Tile();			
 							l.setJokerColor(list.get(i).getColor());
 							l.setJokerPoint((current_point-1));
-							current.add(l); count ++;
-							setJoker(current);
+							current.add(l); 
+							count ++;
 							sample.add(current);
 						}
-						
 						if(duplicate.size() > 2) sample.add(duplicate);
 						else if (duplicate.size() == 2 && list.get(count).isJoker()) {
 							Tile l = new Tile();
 							l.setJokerColor(list.get(i).getColor());
 							l.setJokerPoint((current_point-1));
 							duplicate.add(l); count ++;
-							setJoker(duplicate);
 							sample.add(duplicate);
 						}
 						current = new ArrayList<Tile>();
@@ -478,7 +475,6 @@ public class HandleJoker {
 				
 				if(current.size() >2) sample.add(current);
 				if(duplicate.size() >2)sample.add(duplicate);
-				
 				
 				
 				
@@ -529,7 +525,6 @@ public class HandleJoker {
 							l.setJokerPoint(current_point+1);
 							current.add(l); count ++;
 							joker_index--;
-							setJoker(current);
 							sample1.add(current);
 						}
 						if(duplicate.size() > 2) sample.add(duplicate);
@@ -540,7 +535,6 @@ public class HandleJoker {
 							l.setJokerPoint(current_point+1);
 							duplicate.add(l); count ++;
 							joker_index--;
-							setJoker(current);
 							sample1.add(duplicate);
 						}
 						current = new ArrayList<Tile>();

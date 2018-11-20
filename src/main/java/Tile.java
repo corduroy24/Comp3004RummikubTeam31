@@ -58,7 +58,6 @@ public class Tile{
 		this.Color = "J";
 		this.Number = 14;
 		this.isJoker = true;
-
 	}
 	
 	public int calculate(Tile x,Tile y) {
@@ -77,6 +76,7 @@ public class Tile{
 		else if (Color.equals("J")) {
 			color = "Joker";
 			out += ("{" + color + this.getJokerPoint() + "} ");
+			return out;
 		}
 		else 
 			color = "Orange";
