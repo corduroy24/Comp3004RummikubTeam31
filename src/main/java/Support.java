@@ -548,7 +548,7 @@ public class Support {
 		if (count==2) {
 			return 0;
 		}
-		p= (count*100/(Deck.size()+p1+p2+p3));
+		p= (count*1000/(Deck.size()+p1+p2+p3));
 		return p; 
 	}
 	
