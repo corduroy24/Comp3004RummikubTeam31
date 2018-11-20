@@ -536,16 +536,19 @@ public class Support {
 		return x;
 	}
 	
-	public double getProbability(Tile t, ArrayList<Tile> tList) {
+	public double getProbability(Tile t, ArrayList<Tile> table, ArrayList<Tile> Deck, int p1,int p2, int p3) {
 		
 		double p = 0.0; 
-		/*
-		for(int i =0; i < tList.size();i++) {
-			if ((t.getColor()==tList.get(i).getColor())&&(t.getNumber()==tList.get(i).getNumber())) {
-				
+		int count=1;
+		for(int i =0; i < table.size();i++) {
+			if ((t.getColor()==table.get(i).getColor())&&(t.getNumber()==table.get(i).getNumber())) {
+				count++;
 			}
 		}
-		*/
+		if (count==2) {
+			return 0;
+		}
+		p= (count*100/(Deck.size()+p1+p2+p3));
 		return p; 
 	}
 	
