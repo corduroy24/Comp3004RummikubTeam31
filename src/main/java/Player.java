@@ -25,6 +25,8 @@ public class Player implements Observer{
 	private boolean win; // define winner
 	private String report = "";
 	private ArrayList<Tile> PlayedTileList;
+	private ArrayList<Tile> SuggPlayTileList; //needs to be reset everytime ???
+
 	
 	
 	public void setPoints(int x,int y, int z) {
@@ -34,6 +36,8 @@ public class Player implements Observer{
 	}
 	
 	public ArrayList<Tile> getPlayedList(){return PlayedTileList; };
+	public ArrayList<Tile> getSuggPlayList(){return SuggPlayTileList; };
+
 	public void renewPlayedList() {PlayedTileList = new ArrayList<Tile>();}
 	
 	public String return_report() {
@@ -50,6 +54,8 @@ public class Player implements Observer{
 	public Player (String s, int id, PlayerStrategy strategy) {
 		name=s;
 		PlayedTileList = new ArrayList<Tile>();
+		SuggPlayTileList = new ArrayList<Tile>();
+
 		hand = new PlayerHand(name+"'s Hand"); 
 		playerID = id; 
     	this.playerStrategy = strategy; 
