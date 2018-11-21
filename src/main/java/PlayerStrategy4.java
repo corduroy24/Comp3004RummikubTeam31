@@ -1,5 +1,3 @@
-
-
 	import java.util.ArrayList;
 	import java.util.Collections;
 	import java.util.Comparator;
@@ -12,18 +10,16 @@
 		public boolean playTheGame(Player p) {
 			functions = new Support();
 			// TODO Auto-generated method stub
-			p.renewPlayedList();
-			p.set_report("");
-			if(functions.one_short(p)) {
-				return true;
-			}
-			else if(p.getIsFirstMeldComplete()) {
+	 if(p.getIsFirstMeldComplete()) {
 				//copy player hand to sample hand
 				ArrayList<Tile> first_hand = new ArrayList<Tile>(p.getHand().getTiles());
 				ArrayList<Tile> second_hand = new ArrayList<Tile>(p.getHand().getTiles());
 				
+				double sum=1000000;
+				double sum2=1000000;
+				
 				// create output 
-				ArrayList<ArrayList<Tile>> output;
+				ArrayList<ArrayList<Tile>> output ;
 				//find all sequences first
 				ArrayList<ArrayList<Tile>> firstMelds = functions.getFirstOutput(first_hand);
 				//find all sets first
@@ -33,9 +29,79 @@
 				x = functions.getSizeOf(firstMelds);
 				y = functions.getSizeOf(secondMelds);
 				
-				if(x >= y) output = firstMelds;
-				else output = secondMelds;
+				ArrayList<Tile> result = new ArrayList<Tile>();
+				ArrayList<Tile> leastSeq = new ArrayList<Tile>();
+				ArrayList<Tile> leastSet = new ArrayList<Tile>();
+				
+				ArrayList<ArrayList<Tile>> AllLeastSeqs = new ArrayList<ArrayList<Tile>>();
+				ArrayList<ArrayList<Tile>> AllLeastSets = new ArrayList<ArrayList<Tile>>();
+				
+				ArrayList<ArrayList<Tile>> x1 = new ArrayList<ArrayList<Tile>>();
+				ArrayList<ArrayList<Tile>> x2 = new ArrayList<ArrayList<Tile>>();
+				x1=functions.getSequences(p.getHand().getTiles());
+				x2=functions.getSets(p.getHand().getTiles());
+				
+				
+				int p1=0;int p2=0; int p3=0;
+				p.setPoints(p1,p2,p3);
 			
+				 for (int i=0;i<x1.size();i++) {double tempsum=0;
+					for (int j = 0; j<x1.get(i).size();j++) {
+						                               //Tile         //Table   //Deck     //p1 p2 p3 hand size 
+					tempsum+=functions.getProbability(x1.get(i).get(j),p.getTable(),p.getDeck().DeckofTiles,p1,p2,p3);
+				}
+					if (tempsum==0) {
+						AllLeastSeqs.add(x1.get(i));
+					}
+					if (tempsum<sum) {
+						sum=tempsum;
+						leastSeq=x1.get(i);
+					}
+				}
+				 if (sum!=0) {
+					 AllLeastSeqs.add(leastSeq);
+				 }
+				 
+				 for (int i=0;i<x2.size();i++) {double tempsum=0;
+					for (int j = 0; j<x2.get(i).size();j++) {
+						
+					tempsum+=functions.getProbability(x2.get(i).get(j),p.getTable(),p.getDeck().DeckofTiles,p1,p2,p3); 
+				}
+					if (tempsum==0) {
+						AllLeastSets.add(x2.get(i));
+					}
+					if (tempsum<sum2) {
+						sum2=tempsum;
+						leastSeq=x2.get(i);
+					}
+				 }
+				 if (sum2!=0) {
+					 AllLeastSets.add(leastSet);
+				 }
+				 
+		//		 System.out.println(x1);System.out.println(x2);
+			//	 System.out.println(sum);System.out.println(sum2);
+				 
+				 if ((sum+sum2)==0) {
+						if(x >= y) { output = firstMelds; }
+						
+						else {output = secondMelds; }
+					}
+				 else if (sum<sum2) {
+					 output=AllLeastSeqs;
+				 }
+				 else if (sum>sum2){
+					 output=AllLeastSets;
+				 }
+				 else {
+					 if(x >= y) { output = firstMelds; }
+						
+						else {output = secondMelds; }
+					
+				 }
+			//	System.out.println(output);
+			
+				
 				
 				if (output.size() == 0) return false;
 				//add tiles in the table and remove tiles from player hand.

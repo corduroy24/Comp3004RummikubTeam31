@@ -2,8 +2,8 @@ import java.util.ArrayList;
 
 import junit.framework.TestCase;
 
-public class TestPlayer4Strategy extends TestCase {
-
+public class TestPlayer4Strategy extends TestCase {	
+	
 	public Support functions;
 	
 	public void testgetProbability() {
@@ -11,8 +11,9 @@ public class TestPlayer4Strategy extends TestCase {
 		Tile t1 =new Tile(1,7);
 		Tile t2=new Tile(1,8);
 		Tile t3=new Tile(1,9);
+		Tile t4 = new Tile(1,10);
 		Deck D = new Deck();
-		ArrayList<Tile> table = new ArrayList<Tile>();
+		Table table = new Table();
 		//System.out.println(D.length());
 		for (int i=0;i<D.length();i++) {
 			if ((D.getTile(i).getColor()==t1.getColor())&&((D.getTile(i).getNumber()==t1.getNumber())||(D.getTile(i).getNumber()==t2.getNumber())||(D.getTile(i).getNumber()==t3.getNumber()))){
@@ -25,23 +26,25 @@ public class TestPlayer4Strategy extends TestCase {
 			if ((D.getTile(i).getColor()=="B")&&(D.getTile(i).getNumber()==4)){
 				D.DeckofTiles.remove(i);
 			}
+			
 		}
-		D.DeckofTiles.add(t1);D.DeckofTiles.add(t2);
+		D.DeckofTiles.add(t1);D.DeckofTiles.add(t2); 
 		//System.out.println(D.length());
 		ArrayList<Tile> hand = new ArrayList<Tile>();
+		ArrayList<Tile> op = new ArrayList<Tile>();
 		
 		hand.add(t1); 
 		hand.add(t2); 
-		//hand.add(t3); 
-		table.addAll(hand);
-		
-		table.add(new Tile(2,3));
-		table.add(new Tile(2,4));
-		//table.add(t3);
+		hand.add(t3); 
+		table.addTiles(hand);
+		op.add(new Tile(2,3));
+		op.add(new Tile(2,4));
+		op.add(new Tile(2,5));
+		table.addTiles(op);
 		
 		double p= functions.getProbability(t1,  table, D.DeckofTiles,0,0,0);
-		double p2= functions.getProbability(t3,  table, D.DeckofTiles,0,0,0);
-		//System.out.println(p2);
+		double p2= functions.getProbability(t4,  table, D.DeckofTiles,0,0,0);
+		//System.out.println(p2);System.out.println(table.getTable().size());
 		//System.out.println(D.DeckofTiles.size());
 		assertTrue(p==0);
 		assertTrue(p2==10);
@@ -59,17 +62,18 @@ public class TestPlayer4Strategy extends TestCase {
 
 		
 		ArrayList<Tile> hand = new ArrayList<Tile>();
-		ArrayList<Tile> table = new ArrayList<Tile>();
-		//ArrayList<Double> sums = new ArrayList<Double>();
+		Table table = new Table();
+		ArrayList<Tile>t = new ArrayList<Tile>();
 		
 		hand.add(t1);hand.add(t2);hand.add(t3);hand.add(t4);hand.add(t5);hand.add(t6);hand.add(t7);
 		
 		ArrayList<ArrayList<Tile>> x1 = new ArrayList<ArrayList<Tile>>();
 		ArrayList<ArrayList<Tile>> x2 = new ArrayList<ArrayList<Tile>>();
 		
-		table.add(t1);
-		table.add(t2);
-		
+		t.add(t1);
+		t.add(t2);
+		t.add(t3);
+		table.addTiles(t);
 		Deck D = new Deck();
 		for (int i=0;i<D.length();i++) {
 			if ((D.getTile(i).getColor()==t1.getColor())&&((D.getTile(i).getNumber()==t1.getNumber())||(D.getTile(i).getNumber()==t2.getNumber())||(D.getTile(i).getNumber()==t3.getNumber())||(D.getTile(i).getNumber()==10))){
@@ -99,7 +103,7 @@ public class TestPlayer4Strategy extends TestCase {
 		
 		 for (int i=0;i<x1.size();i++) {double tempsum=0;
 			for (int j = 0; j<x1.get(i).size();j++) {
-				                               //Tile         //Table   //Deck     //p1 p2 p3 hand size 
+				                               //Tile         //Table   //Deck     p1 
 			tempsum+=functions.getProbability(x1.get(i).get(j),table,D.DeckofTiles,0,0,0);
 		}
 			if (tempsum<sum) {
@@ -132,5 +136,30 @@ public class TestPlayer4Strategy extends TestCase {
 		 
 		 assertEquals(result, leastSeq);
 		 
+	}
+	
+	
+	Player player = new Player("P4",999,new PlayerStrategy4());
+	Player player2 = new Player("Player2",9999,new p1());
+	Player player3 = new Player("Player3",99,new p1());
+	Player player4 = new Player("Player4",9,new p1());	
+	
+	public void testP4() {
+		Deck D = new Deck();
+		//player = new Player("P4",999,new PlayerStrategy4());
+		player.setIsfirstMeldComplete(true);
+		D=player.getDeck();
+		player.getHand().DrawThis(new Tile(1,2),D);player.getHand().DrawThis(new Tile(1,3),D);player.getHand().DrawThis(new Tile(1,4),D);
+		player.getHand().DrawThis(new Tile(2,6),D);player.getHand().DrawThis(new Tile(3,6),D);player.getHand().DrawThis(new Tile(4,6),D);
+		D=player.getDeck();
+		//player2.getHand().DrawThis(new Tile(1,2),D);player2.getHand().DrawThis(new Tile(1,3),D);player2.getHand().DrawThis(new Tile(1,4),D);
+		player2.getHand().DrawThis(new Tile(1,9),D);
+		player.getHand().HandReader();
+		 ArrayList<Tile> t = new ArrayList<Tile>();
+		 t.add(new Tile(1,2));t.add(new Tile(1,3));t.add(new Tile(1,4));
+		player.getTable().addTiles(t);
+		player.play();
+		
+		
 	}
 }

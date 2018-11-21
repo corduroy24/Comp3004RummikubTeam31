@@ -16,6 +16,19 @@ public class PlayerHand {
 
 	private ArrayList<Tile> hand = new ArrayList<Tile>();
 
+	public void DrawThis(Tile x, Deck y) {
+		for (int i=0;i<y.DeckofTiles.size();i++) {
+			if ((x.getColor()==y.DeckofTiles.get(i).getColor())&&(x.getNumber()==y.DeckofTiles.get(i).getNumber())) {
+				Tile T = y.DeckofTiles.get(i);
+				y.DeckofTiles.remove(i);
+				y.DeckofTiles.trimToSize();
+				hand.add(T);
+				break;
+			}
+		}
+		
+	}
+	
 	public void drawFirst14(Deck x) {
 		for (int i = 0; i < 14; i++) {
 			hand.add(x.Draw());

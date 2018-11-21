@@ -27,7 +27,11 @@ public class Player implements Observer{
 	private ArrayList<Tile> PlayedTileList;
 	
 	
-	
+	public void setPoints(int x,int y, int z) {
+		x = firstPlayerPoint;
+		y = secondPlayerPoint;
+		z = thirdPlayerPoint;		
+	}
 	
 	public ArrayList<Tile> getPlayedList(){return PlayedTileList; };
 	public void renewPlayedList() {PlayedTileList = new ArrayList<Tile>();}
