@@ -51,7 +51,7 @@
 					tempsum+=functions.getProbability(x1.get(i).get(j),p.getTable(),p.getDeck().DeckofTiles,p1,p2,p3);
 				}
 					if (tempsum==0) {
-						AllLeastSeqs.add(x1.get(i));
+						AllLeastSeqs.add(x1.get(i)); AllLeastSets.add(x1.get(i)); 
 					}
 					if (tempsum<sum) {
 						sum=tempsum;
@@ -59,7 +59,7 @@
 					}
 				}
 				 if (sum!=0) {
-					 AllLeastSeqs.add(leastSeq);
+					 AllLeastSeqs.add(leastSeq); 
 				 }
 				 
 				 for (int i=0;i<x2.size();i++) {double tempsum=0;
@@ -68,7 +68,7 @@
 					tempsum+=functions.getProbability(x2.get(i).get(j),p.getTable(),p.getDeck().DeckofTiles,p1,p2,p3); 
 				}
 					if (tempsum==0) {
-						AllLeastSets.add(x2.get(i));
+						AllLeastSets.add(x2.get(i)); AllLeastSeqs.add(x1.get(i));
 					}
 					if (tempsum<sum2) {
 						sum2=tempsum;
@@ -94,9 +94,7 @@
 					 output=AllLeastSets;
 				 }
 				 else {
-					 if(x >= y) { output = firstMelds; }
-						
-						else {output = secondMelds; }
+					 output=AllLeastSeqs;
 					
 				 }
 			//	System.out.println(output);
