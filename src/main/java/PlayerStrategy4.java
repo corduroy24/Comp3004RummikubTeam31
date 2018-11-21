@@ -7,8 +7,9 @@
 	public class PlayerStrategy4 implements PlayerStrategy {
 		private Support functions;
 		
-		public boolean playTheGame(Player p) {
+		public boolean playTheGame(Player p) {		
 			functions = new Support();
+		
 			// TODO Auto-generated method stub
 	 if(p.getIsFirstMeldComplete()) {
 				//copy player hand to sample hand
@@ -52,9 +53,9 @@
 						tempsum+=functions.getProbability(x1.get(i).get(j),p.getTable(),p.getDeck().DeckofTiles,p1,p2,p3);
 					}
 					
-					if (tempsum==0) 
+					if (tempsum==0) {
 						AllLeastSeqs.add(x1.get(i)); AllLeastSets.add(x1.get(i)); 
-					
+					}
 					if (tempsum<sum) {
 						sum=tempsum;
 						leastSeq=x1.get(i);
@@ -69,9 +70,9 @@
 					for (int j = 0; j<x2.get(i).size();j++) 
 						tempsum+=functions.getProbability(x2.get(i).get(j),p.getTable(),p.getDeck().DeckofTiles,p1,p2,p3); 
 					
-					if (tempsum==0) 
-						AllLeastSets.add(x2.get(i)); AllLeastSeqs.add(x1.get(i));
-					
+					if (tempsum==0) {
+						AllLeastSets.add(x2.get(i)); AllLeastSeqs.add(x2.get(i));
+					}
 					if (tempsum<sum2) {
 						sum2=tempsum;
 						leastSet=x2.get(i);

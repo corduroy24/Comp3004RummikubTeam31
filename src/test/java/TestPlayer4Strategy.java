@@ -50,7 +50,7 @@ public class TestPlayer4Strategy extends TestCase {
 		assertTrue(p2==10);
 	}
 	
-	public void testAmrsPlan() {
+	public void testAmrsPlan() {  System.out.println("TEST ");
 		functions = new Support();
 		Tile t1 =new Tile(1,7);
 		Tile t2=new Tile(1,8);
@@ -144,7 +144,7 @@ public class TestPlayer4Strategy extends TestCase {
 	Player player3 = new Player("Player3",99,new p1());
 	Player player4 = new Player("Player4",9,new p1());	
 	
-	public void testP4afterInitial() {
+	public void testP4afterInitial() {  System.out.println("AFTER INITIAL");
 		Deck D = new Deck();
 		//player = new Player("P4",999,new PlayerStrategy4());
 		player.setIsfirstMeldComplete(true);
@@ -163,9 +163,9 @@ public class TestPlayer4Strategy extends TestCase {
 		
 	}
 	
-	public void testP4Initial() {
+	public void testP4Initial() {  System.out.println(" INITIAL");
 		Deck D = new Deck();
-		//player = new Player("P4",999,new PlayerStrategy4());
+	
 		player.setIsfirstMeldComplete(false);
 		D=player.getDeck();
 		player.getHand().DrawThis(new Tile(1,2),D);player.getHand().DrawThis(new Tile(1,3),D);player.getHand().DrawThis(new Tile(1,4),D);
@@ -181,5 +181,23 @@ public class TestPlayer4Strategy extends TestCase {
 		player.play();
 		
 		
+	}
+	
+	public void testP4playAllHand() {  System.out.println(" INITIAL PLAY ALL HAND");
+		Deck D = new Deck();
+		
+		player.setIsfirstMeldComplete(false);
+		D=player.getDeck();
+		player.getHand().DrawThis(new Tile(1,2),D);player.getHand().DrawThis(new Tile(1,3),D);player.getHand().DrawThis(new Tile(1,4),D);
+		//player.getHand().DrawThis(new Tile(1,8),D);player.getHand().DrawThis(new Tile(1,5),D);
+		player.getHand().DrawThis(new Tile(2,10),D);player.getHand().DrawThis(new Tile(3,10),D);player.getHand().DrawThis(new Tile(4,10),D);
+		D=player.getDeck();
+		//player2.getHand().DrawThis(new Tile(1,2),D);player2.getHand().DrawThis(new Tile(1,3),D);player2.getHand().DrawThis(new Tile(1,4),D);
+		player2.getHand().DrawThis(new Tile(1,9),D);
+		player.getHand().HandReader();
+		 ArrayList<Tile> t = new ArrayList<Tile>();
+		// t.add(new Tile(1,2));t.add(new Tile(1,3));t.add(new Tile(1,4));
+		player.getTable().addTiles(t);
+		player.play();
 	}
 }
