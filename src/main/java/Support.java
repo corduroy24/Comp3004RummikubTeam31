@@ -540,17 +540,22 @@ public class Support {
 		
 		double p = 0.0; 
 		int count=1; 
+		String color = ""; 
+		int num=0; 
+		
 		for(int j =0; j < table.getTable().size();j++) {
 			for (int i=0;i<table.getTable().get(j).size();i++) {
-			if ((t.getColor()==table.getTable().get(j).get(i).getColor())&&(t.getNumber()==table.getTable().get(j).get(i).getNumber())) {
-				count++; 
+				color =  table.getTable().get(j).get(i).getColor(); 
+				num = table.getTable().get(j).get(i).getNumber(); 
+				
+				if ((t.getColor().equals(color))&&(t.getNumber()==num)) count++; 	
 			}
 		}
-		}
-		if (count==2) {
-			return 0;
-		}
+		if (count==2) return 0;
+		
+		//calculate probability
 		p= (count*1000/(Deck.size()+p1+p2+p3));
+		
 		return p; 
 	}
 	
