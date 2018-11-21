@@ -12,6 +12,8 @@
 		
 			// TODO Auto-generated method stub
 	 if(p.getIsFirstMeldComplete()) {
+		 if(functions.one_short(p)) {
+				return true;}
 				//copy player hand to sample hand
 				ArrayList<Tile> first_hand = new ArrayList<Tile>(p.getHand().getTiles());
 				ArrayList<Tile> second_hand = new ArrayList<Tile>(p.getHand().getTiles());
@@ -62,9 +64,9 @@
 					}
 				}
 				
-				 if (sum!=0) 
+				 if (sum!=0) {
 					 AllLeastSeqs.add(leastSeq); 
-				 
+				 }
 				 //prob for sequences 
 				 for (int i=0;i<x2.size();i++) {double tempsum=0;
 					for (int j = 0; j<x2.get(i).size();j++) 
@@ -79,9 +81,9 @@
 					}
 				 }
 				 
-				 if (sum2!=0) 
+				 if (sum2!=0) {
 					 AllLeastSets.add(leastSet);
-				 
+				 }
 				 
 		//		 System.out.println(x1);System.out.println(x2);
 			//	 System.out.println(sum);System.out.println(sum2);
@@ -126,7 +128,8 @@
 				return true;
 			}
 			else {
-				
+				if(functions.one_short(p)) {
+					return true;}
 				double sum=1000000;
 				double sum2=1000000;
 				//copy player hand to sample hand

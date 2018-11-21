@@ -548,10 +548,10 @@ public class Support {
 				color =  table.getTable().get(j).get(i).getColor(); 
 				num = table.getTable().get(j).get(i).getNumber(); 
 				
-				if ((t.getColor().equals(color))&&(t.getNumber()==num)) count++; 	
+				if ((t.getColor().equals(color))&&(t.getNumber()==num))  count++;  	
 			}
 		}
-		if (count==2) return 0;
+		if (count==2)  return 0; 
 		
 		//calculate probability
 		p= (count*1000/(Deck.size()+p1+p2+p3));

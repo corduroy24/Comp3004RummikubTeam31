@@ -151,6 +151,7 @@ public class TestPlayer4Strategy extends TestCase {
 		D=player.getDeck();
 		player.getHand().DrawThis(new Tile(1,2),D);player.getHand().DrawThis(new Tile(1,3),D);player.getHand().DrawThis(new Tile(1,4),D);
 		player.getHand().DrawThis(new Tile(2,6),D);player.getHand().DrawThis(new Tile(3,6),D);player.getHand().DrawThis(new Tile(4,6),D);
+		player.getHand().DrawThis(new Tile(2,9),D);
 		D=player.getDeck();
 		//player2.getHand().DrawThis(new Tile(1,2),D);player2.getHand().DrawThis(new Tile(1,3),D);player2.getHand().DrawThis(new Tile(1,4),D);
 		player2.getHand().DrawThis(new Tile(1,9),D);
@@ -199,5 +200,7 @@ public class TestPlayer4Strategy extends TestCase {
 		// t.add(new Tile(1,2));t.add(new Tile(1,3));t.add(new Tile(1,4));
 		player.getTable().addTiles(t);
 		player.play();
+		player.getHand().HandReader();
+		assertTrue(player.isWinner());
 	}
 }
