@@ -203,4 +203,7 @@ public class TestPlayer4Strategy extends TestCase {
 		player.getHand().HandReader();
 		assertTrue(player.isWinner());
 	}
+	
+
+	
 }

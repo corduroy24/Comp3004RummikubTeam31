@@ -76,7 +76,7 @@ public class GameMaster extends Observable{
 		return AI3;
 	}
 	public Player getAI4() {
-		return AI3;
+		return AI4;
 	}
 	
 	
@@ -132,6 +132,21 @@ public class GameMaster extends Observable{
 		human.setIsTurn(true);
 		Announcement();
 		System.out.println("Number of tiles are: " + AI3.getHand().sizeOfHand() + "\n");
+		
+		
+		
+		System.out.println("AI4 REPORT:  ");
+		//AI3.getHand().HandReader();
+		System.out.println("Number of tiles are: " + AI4.getHand().sizeOfHand());
+		if(AI4.play()) System.out.println("AI 4 decide to play");
+		else {
+			if(deck.getDeck().size() > 0) AI4.getHand().addTileToHand(deck.Draw());
+			System.out.println("AI 4 decide not to play");}
+		AI4.getHand().sortTilesByColour();
+		AI4.setIsTurn(false);
+		human.setIsTurn(true);
+		Announcement();
+		System.out.println("Number of tiles are: " + AI4.getHand().sizeOfHand() + "\n");
 		
 
 	}
@@ -236,7 +251,7 @@ public class GameMaster extends Observable{
 			{
 				//System.out.println("You picked AI 4");
 				
-				/*
+				
 				int temp = turnDeck.Draw().getNumber();
 				if(temp == 14)
 				{
@@ -261,7 +276,7 @@ public class GameMaster extends Observable{
 				AI4.getHand().drawFirst14(deck);
 				AI4.getHand().sortTilesByColour();
 				AI4.getHand().HandReader();
-				*/
+				
 			}
 		}
 		

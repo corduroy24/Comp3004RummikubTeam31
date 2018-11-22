@@ -204,8 +204,8 @@
 				 }
 				 
 				 
-				 System.out.println(x1);System.out.println(x2);
-				 System.out.println(sum);System.out.println(sum2);
+			//	 System.out.println(x1);System.out.println(x2);
+			//	 System.out.println(sum);System.out.println(sum2);
 				 
 				 if ((sum+sum2)==0) {
 						if(x >= y) { output = firstMelds; output2=secondMelds;}

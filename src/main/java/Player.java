@@ -17,6 +17,7 @@ public class Player implements Observer{
 	private boolean p1FirstMeldComplete;
 	private boolean p2FirstMeldComplete;
 	private boolean p3FirstMeldComplete; 
+	private boolean p4FirstMeldComplete;
 	private Table table; // player can see table itself
 	private Deck deck; // player can see deck itself
 	private int firstPlayerPoint; // Number of tiles on hand of first player
