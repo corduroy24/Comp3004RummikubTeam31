@@ -730,4 +730,39 @@ public class HandleJoker {
 		{ public int compare(Tile a, Tile b) 
 		    {  return b.getNumber() - a.getNumber();} }
 		
+		public boolean isJokerSequences(ArrayList<Tile> l) {
+			Collections.sort(l, new SmallestToBiggest());
+			int num = 0, num1 = 0;
+			if(l.get(0).isJoker()) num = l.get(0).getJokerPoint();
+			else num = l.get(0).getNumber();
+			
+			if(l.get(1).isJoker()) num1 = l.get(1).getJokerPoint();
+			else num1 = l.get(1).getNumber();
+			if(num1 -1 != num) return false;
+			
+			for(int i =0; i <l.size();i++) {
+				if(l.get(i).isJoker())
+					return true;
+			}
+			return false;
+		}
+		
+		public boolean isJokerSet(ArrayList<Tile> l) {
+			Collections.sort(l, new SmallestToBiggest());
+			int num = 0, num1 = 0;
+			if(l.get(0).isJoker()) num = l.get(0).getJokerPoint();
+			else num = l.get(0).getNumber();
+			
+			if(l.get(1).isJoker()) num1 = l.get(1).getJokerPoint();
+			else num1 = l.get(1).getNumber();
+			if(num1  != num) return false;
+			
+			for(int i =0; i <l.size();i++) {
+				if(l.get(i).isJoker())
+					return true;
+			}
+			return false;
+		}
+		
+		
 }

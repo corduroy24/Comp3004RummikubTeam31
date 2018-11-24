@@ -52,7 +52,7 @@ public class TestPlayer2Strategy extends TestCase{
 		assertTrue(player.getTable().getNumberOfTile() == 6);
 		
 		
-		player = new Player("Player",999,new PlayerStrategy2());
+		player = new Player("Player",999,new p2());
 		player.getHand().addTileToHand(tile);
 		player.getHand().addTileToHand(tile1);
 		player.getHand().addTileToHand(tile2);
@@ -60,7 +60,7 @@ public class TestPlayer2Strategy extends TestCase{
 		assertTrue(player.getTable().getNumberOfTile() == 3);
 		assertTrue(player.isWinner() == true);
 		
-		player = new Player("Player",999,new PlayerStrategy2());
+		player = new Player("Player",999,new p2());
 		player.getHand().addTileToHand(tile);
 		player.getHand().addTileToHand(tile1);
 		player.getHand().addTileToHand(tile2);
@@ -76,7 +76,7 @@ public class TestPlayer2Strategy extends TestCase{
 	public void testFirstMoveWithTable() {
 		// test the invalid first move
 		player.setIsfirstMeldComplete(false);
-		player2 = new Player("Player",999,new PlayerStrategy1());
+		player2 = new Player("Player",999,new p1());
 		player2.getHand().addTileToHand(tile1);
 		player2.getHand().addTileToHand(tile2);
 		player2.getHand().addTileToHand(tile3);
@@ -84,7 +84,7 @@ public class TestPlayer2Strategy extends TestCase{
 		player2.play();
 		
 		ArrayList<Tile> test = new ArrayList<Tile>();
-		player = new Player("Player",999,new PlayerStrategy2());
+		player = new Player("Player",999,new p2());
 		test = new ArrayList<Tile>();
 		
 		// set 111
@@ -105,7 +105,7 @@ public class TestPlayer2Strategy extends TestCase{
 	
 	
 	public void testAfterFirstMove() {
-		player = new Player("Player",999,new PlayerStrategy2());
+		player = new Player("Player",999,new p2());
 		ArrayList<Tile> test = new ArrayList<Tile>();
 		// set 111
 		player.setIsfirstMeldComplete(true);
@@ -122,7 +122,7 @@ public class TestPlayer2Strategy extends TestCase{
 		assertTrue(player.getHand().sizeOfHand() == 0);
 		assertTrue(player.isWinner() == true);
 		
-		player = new Player("Player",999,new PlayerStrategy2());
+		player = new Player("Player",999,new p2());
 		test = new ArrayList<Tile>();
 		player.setIsfirstMeldComplete(true);
 		// set 111
@@ -143,7 +143,7 @@ public class TestPlayer2Strategy extends TestCase{
 	
 	
 	public void testFirstCase() {
-		player = new Player("69",69,new PlayerStrategy2());
+		player = new Player("69",69,new p2());
 		ArrayList<Tile> test = new ArrayList<Tile>();
 		player.setIsfirstMeldComplete(true);
 		Tile t = new Tile(1,7);
@@ -169,7 +169,7 @@ public class TestPlayer2Strategy extends TestCase{
 	}
 	
 	public void testSecondCase() {
-		player = new Player("69",69,new PlayerStrategy2());
+		player = new Player("69",69,new p2());
 		ArrayList<Tile> test = new ArrayList<Tile>();
 		player.setIsfirstMeldComplete(true);
 		Tile t = new Tile(1,7);
@@ -215,7 +215,7 @@ public class TestPlayer2Strategy extends TestCase{
 	
 	
 	public void testThirdCase() {
-		player = new Player("69",69,new PlayerStrategy2());
+		player = new Player("69",69,new p2());
 		ArrayList<Tile> test = new ArrayList<Tile>();
 		player.setIsfirstMeldComplete(true);
 		Tile t = new Tile(1,7);

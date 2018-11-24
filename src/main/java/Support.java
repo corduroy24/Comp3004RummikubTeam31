@@ -364,13 +364,6 @@ public class Support {
 	//Function get all the sequences in the List sorted by color, then sorted by value (this list is sorted 2 times)
 	public ArrayList<ArrayList<Tile>> getSequences(ArrayList<Tile> hand){
 		
-		boolean hasJ=false;
-		
-		if (containsJoker(hand)==true) {
-			//add functionality for joker
-			hasJ=true;
-		}
-		
 		ArrayList<Tile> t = new ArrayList<Tile>(hand);
 		Collections.sort(t, new SortbyValue());
 		Collections.sort(t, new SortToFindSet());
@@ -383,9 +376,6 @@ public class Support {
 		
 		if(hand == null || hand.size() == 0) return null;
 		
-		//if (hasJ==true) {
-	//		hand=getJokerSequences(hand);
-	//	}
 		String color = hand.get(0).getColor();
 		for(int i =0; i < hand.size();i++) {
 			if(color.equals(hand.get(i).getColor())) {
@@ -469,10 +459,6 @@ public class Support {
 	}
 	//Function get all the sets in the List sorted by value, then sorted by color (this list is sorted 2 times)
 	public ArrayList<ArrayList<Tile>> getSets(ArrayList<Tile> hand){
-		
-		if (containsJoker(hand)==true) {
-			//add functionality for joker
-		}
 		
 		if(hand == null || hand.size() == 0) return null;
 		ArrayList<ArrayList<Tile>> sets = new ArrayList<ArrayList<Tile>>();

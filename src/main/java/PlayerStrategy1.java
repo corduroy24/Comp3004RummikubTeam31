@@ -68,11 +68,10 @@ public class PlayerStrategy1 implements PlayerStrategy {
 			x = functions.getSizeOf(firstMelds);
 			y = functions.getSizeOf(secondMelds);
 			
-			
 			if(x >= y) output = firstMelds;
 			else output = secondMelds;
 			
-			if (output.size() == 0) return false;
+			if ( output == null ||output.size() == 0) return false;
 			int point = 0;
 			//add tiles in the table and remove tiles from player hand.
 			// use point to sum up tiles' value

@@ -4,10 +4,10 @@ import junit.framework.TestCase;
 
 public class TestPlayer3Strategy extends TestCase{
 
-	Player player = new Player("Player",999,new PlayerStrategy3());
-	Player player2 = new Player("Player2",998,new PlayerStrategy2());
-	Player player3 = new Player("Player2",998,new PlayerStrategy2());
-	Player player4 = new Player("Player2",998,new PlayerStrategy2());
+	Player player = new Player("Player",999,new p3());
+	Player player2 = new Player("Player2",998,new p2());
+	Player player3 = new Player("Player2",998,new p2());
+	Player player4 = new Player("Player2",998,new p2());
 	
 	Tile tile = new Tile(1,12);
 	Tile tile1 = new Tile(1,11);
@@ -31,7 +31,7 @@ public class TestPlayer3Strategy extends TestCase{
 	Tile tile17 = new Tile(1,8);
 	
 
-	Player opponent = new Player("Player",999,new PlayerStrategy3());
+	Player opponent = new Player("Player",999,new p3());
 	
 	//opponent.getHand().addTileToHand(tile3);
 
@@ -60,7 +60,7 @@ public class TestPlayer3Strategy extends TestCase{
 		assertTrue(player.getTable().getNumberOfTile() == 6);
 		
 		
-		player = new Player("Player",999,new PlayerStrategy3());
+		player = new Player("Player",999,new p3());
 		player.getHand().addTileToHand(tile);
 		player.getHand().addTileToHand(tile1);
 		player.getHand().addTileToHand(tile2);
@@ -85,7 +85,7 @@ public class TestPlayer3Strategy extends TestCase{
 		player.setIsfirstMeldComplete(false);
 		ArrayList<Tile> test = new ArrayList<Tile>();
 		//assertTrue(player.isWinner() == true);
-		player = new Player("Player",999,new PlayerStrategy3());
+		player = new Player("Player",999,new p3());
 		test = new ArrayList<Tile>();
 		//player.setIsfirstMeldComplete(true);
 		// set 111
@@ -122,9 +122,9 @@ public class TestPlayer3Strategy extends TestCase{
 	
 	public void testFirstCase() {          //FOR WHEN strategy patern 2 has to be done
 		player = new Player("23",23,new PlayerStrategy3());
-		player2 = new Player("33",23,new PlayerStrategy2());
-		player3 = new Player("3",23,new PlayerStrategy2());
-		player4 = new Player("2",23,new PlayerStrategy2());
+		player2 = new Player("33",23,new p2());
+		player3 = new Player("3",23,new p2());
+		player4 = new Player("2",23,new p2());
 		
 		ArrayList<Tile> test = new ArrayList<Tile>();
 		
@@ -166,7 +166,7 @@ public class TestPlayer3Strategy extends TestCase{
 
 		player.setEnimies(player2, player3, player4);
 		player.play();
-
+		player.getHand().HandReader();
 		assertTrue(player.getHand().sizeOfHand() == 5);
 		assertTrue(player.getTable().getNumberOfTile() == 4);
 		assertTrue(player.isWinner() == false);
@@ -176,9 +176,9 @@ public class TestPlayer3Strategy extends TestCase{
 	public void test2ndCase() {  //FOR WHEN strategy patern 2 DOES NOT have to be done
 		
 		player = new Player("23",23,new PlayerStrategy3());
-		player2 = new Player("33",23,new PlayerStrategy2());
-		player3 = new Player("3",23,new PlayerStrategy2());
-		player4 = new Player("2",23,new PlayerStrategy2());
+		player2 = new Player("33",23,new p2());
+		player3 = new Player("3",23,new p2());
+		player4 = new Player("2",23,new p2());
 		
 		ArrayList<Tile> test = new ArrayList<Tile>();
 		

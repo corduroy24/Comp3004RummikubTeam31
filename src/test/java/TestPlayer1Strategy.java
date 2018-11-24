@@ -47,13 +47,12 @@ public class TestPlayer1Strategy extends TestCase{
 		player.getHand().addTileToHand(tile6);
 		player.play();
 		assertTrue(player.getIsFirstMeldComplete() == false);
-		assertTrue(player.getHand().getTiles().size() == 4);
 		assertTrue(player.getTable().getNumberOfTile() == 0);
 		assertTrue(player.isWinner() == false);	
 		
 		
 		// test player players one meld of 30 points (4a1)--- play a single set(8b)
-		player = new Player("Player",999,new PlayerStrategy1());
+		player = new Player("player",999,new p1());
 		player.getHand().addTileToHand(t10);
 		player.getHand().addTileToHand(t11);
 		player.getHand().addTileToHand(t12);
@@ -63,7 +62,7 @@ public class TestPlayer1Strategy extends TestCase{
 				
 		
 		// test player plays one meld for more than 30 points (4a2)--- play a single run (8a)
-		player = new Player("Player",999,new PlayerStrategy1());
+		player = new Player("Player",999,new p1());
 		player.getHand().addTileToHand(tile);
 		player.getHand().addTileToHand(tile1);
 		player.getHand().addTileToHand(tile2);
@@ -73,7 +72,7 @@ public class TestPlayer1Strategy extends TestCase{
 			
 		
 		//test player plays several melds 30 points (4b1)
-		player = new Player("Player",999,new PlayerStrategy1());
+		player = new Player("Player",999,new p1());
 		player.getHand().addTileToHand(t13);
 		player.getHand().addTileToHand(t14);
 		player.getHand().addTileToHand(t15);
@@ -84,7 +83,7 @@ public class TestPlayer1Strategy extends TestCase{
 		assertTrue(player.getTable().getNumberOfTile() == 6);	
 		
 		//test player plays several melds more than 30 points (4b2)--- play a mix of runs and sets (8e)
-		player = new Player("Player",999,new PlayerStrategy1());
+		player = new Player("Player",999,new p1());
 		player.getHand().addTileToHand(tile);
 		player.getHand().addTileToHand(tile1);
 		player.getHand().addTileToHand(tile2);
@@ -96,7 +95,7 @@ public class TestPlayer1Strategy extends TestCase{
 		assertTrue(player.getIsFirstMeldComplete() == true);
 		
 		// test player win on the first turn (4c)
-		player = new Player("Player",999,new PlayerStrategy1());
+		player = new Player("Player",999,new p1());
 		player.getHand().addTileToHand(tile);
 		player.getHand().addTileToHand(tile1);
 		player.getHand().addTileToHand(tile2);
@@ -106,7 +105,7 @@ public class TestPlayer1Strategy extends TestCase{
 		assertTrue(player.getIsFirstMeldComplete() == true);
 		
 		//test player play several runs (8c)
-		player = new Player("Player",999,new PlayerStrategy1());
+		player = new Player("Player",999,new p1());
 		player.getHand().addTileToHand(tile);
 		player.getHand().addTileToHand(tile1);
 		player.getHand().addTileToHand(tile2);
@@ -118,7 +117,7 @@ public class TestPlayer1Strategy extends TestCase{
 		assertTrue(player.getIsFirstMeldComplete() == true);
 		
 		//test player play several sets (8d)
-		player = new Player("Player",999,new PlayerStrategy1());
+		player = new Player("Player",999,new p1());
 		player.getHand().addTileToHand(t10);
 		player.getHand().addTileToHand(t11);
 		player.getHand().addTileToHand(t12);
@@ -131,7 +130,7 @@ public class TestPlayer1Strategy extends TestCase{
 	}
 	
 	public void testAfterFirstMove() {
-		player = new Player("Player",999,new PlayerStrategy1());
+		player = new Player("Player",999,new p1());
 		//1 set 111
 		player.getHand().addTileToHand(t7);
 		player.getHand().addTileToHand(t8);
@@ -146,7 +145,7 @@ public class TestPlayer1Strategy extends TestCase{
 		assertTrue(player.getTable().getNumberOfTile() == 3);
 		assertTrue(player.getHand().sizeOfHand() == 3);
 		
-		player = new Player("Player",999,new PlayerStrategy1());
+		player = new Player("Player",999,new p1());
 		//1 set 111
 		player.getHand().addTileToHand(t7);
 		player.getHand().addTileToHand(t8);

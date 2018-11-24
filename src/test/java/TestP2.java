@@ -145,4 +145,32 @@ public class TestP2 extends TestCase{
 		assertTrue(p.getHand().sizeOfHand() == 1);
 	}
 	
+	public void testUnPlayedTiles() {
+		Player p = new Player("test",1,new p2());
+		Tile joker = new Tile(14,14);
+		Tile[] l = {new Tile(1,6),new Tile(2,6),
+					new Tile(1,5), new Tile(2,5),
+					new Tile(3,5),joker, new Tile(1,1)};
+		p.getHand().addTilesToHand(l);
+		ArrayList<Tile> a = new ArrayList<Tile>();
+		
+		p.setIsfirstMeldComplete(true);
+		assertTrue(p.play() == false);
+	}
+	
+	public void testUnPlayedTiles1() {
+		Player p = new Player("test",1,new p2());
+		Tile joker = new Tile(14,14);
+		Tile[] l = {new Tile(1,6),new Tile(2,7),
+					new Tile(1,9), new Tile(2,5),
+					new Tile(3,5),joker, new Tile(1,1)};
+		p.getHand().addTilesToHand(l);
+		ArrayList<Tile> a = new ArrayList<Tile>();
+		
+		p.setIsfirstMeldComplete(true);
+		assertTrue(p.play() == false);
+	}
+	
+	
+	
 }
