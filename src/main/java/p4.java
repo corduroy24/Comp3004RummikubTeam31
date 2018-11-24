@@ -30,6 +30,8 @@ public class p4 implements PlayerStrategy{
 			ArrayList<Tile> sample1 = new ArrayList<Tile>(p.getHand().getTiles());
 			
 			ArrayList<ArrayList<Tile>> output = new ArrayList<ArrayList<Tile>>();
+			ArrayList<ArrayList<Tile>> output2 = new ArrayList<ArrayList<Tile>>();
+			ArrayList<ArrayList<Tile>> output3= new ArrayList<ArrayList<Tile>>();
 			checkMeld.separateList(p.getHand().getTiles()); //  initial tile for each list of 5
 			
 			if(num == 0) return old_p4.playTheGame(p);
@@ -40,6 +42,12 @@ public class p4 implements PlayerStrategy{
 					
 					ArrayList<ArrayList<Tile>> object = new ArrayList<ArrayList<Tile>>();
 					ArrayList<ArrayList<Tile>> object1 = new ArrayList<ArrayList<Tile>>();
+			
+					
+					ArrayList<Tile> tempOut = new ArrayList<Tile>();
+					
+					ArrayList<ArrayList<Tile>> AllOut = new ArrayList<ArrayList<Tile>>();
+					
 					
 					//get runs, then get sets
 					first = checkMeld.getFirst(complete_first_turn,num,sample);
@@ -60,6 +68,8 @@ public class p4 implements PlayerStrategy{
 					checkMeld.initialOutput(output,p.getPlayerHand().getTiles());
 					
 					
+				
+					 
 					if(checkMeld.getPoint(output) >= 30) {
 						String out = "";
 						for(int i = output.size()-1; i > -1 ;i--) {

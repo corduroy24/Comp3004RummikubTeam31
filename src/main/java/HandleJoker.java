@@ -102,7 +102,7 @@ public class HandleJoker {
 		orange = new ArrayList<Tile>();
 		joker = new ArrayList<Tile>();
 		separateList(sample);
-		run = getJokerSequences(complete_first_turn,num,sample);
+		run = getJokerSequences(complete_first_turn,num,sample); 
 		sample = function.renew(sample, run);
 		set = function.getSets(sample);
 		//set = getJokerSet(complete_first_turn,num,sample);
@@ -303,7 +303,7 @@ public class HandleJoker {
 				else if(i == 3) {
 					sample = new ArrayList<ArrayList<Tile>>();
 					if(num == 1) {current.add(j);}
-					else if(num == 2) {current.add(j);current.add(j1);}
+					else if(num == 2) {current.add(j);current.add(j1);} 
 					current.addAll(orange);
 					sample.addAll(getSequences(blue));
 					sample.addAll(getSequences(green));
@@ -315,7 +315,7 @@ public class HandleJoker {
 					if(maxPoint < getPoint(sample)) {
 						maxPoint = getPoint(sample);
 						max_point = sample;
-					}
+					}	
 				}
 			}
 			
