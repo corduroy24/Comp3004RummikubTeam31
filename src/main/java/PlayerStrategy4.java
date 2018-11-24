@@ -101,8 +101,14 @@
 					 output=AllLeastSets;
 				 }
 				 else {
-					 output=AllLeastSeqs;
-					
+					 int z1= functions.getSizeOf(AllLeastSeqs);
+					 int z2=functions.getSizeOf(AllLeastSets);
+					 if (z1>z2) {
+						 output=AllLeastSeqs; 
+					 }
+					 else {
+					 output=AllLeastSets;
+					 }
 				 }
 			//	System.out.println(output);
 			
