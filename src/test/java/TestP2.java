@@ -171,6 +171,147 @@ public class TestP2 extends TestCase{
 		assertTrue(p.play() == false);
 	}
 	
+	/*
+	 * Player hand (6,6,6) (5,5,1)
+	 * Table (1,1,Joker)
+	 * Replace joker with 1 and play all the melds (6,6,6) (5,5,Joker)
+	 */
+	public void testReUseTable() {
+		Player p = new Player("test",1,new p2());
+		Tile joker = new Tile(14,14);
+		Tile[] l = {new Tile(1,6),new Tile(2,6),
+					new Tile(3,6), new Tile(2,5),
+					new Tile(3,5), new Tile(1,1)};
+		
+		Tile[] l1 = {joker, new Tile(2,1), new Tile(3,1)};
+		joker.setJokerPoint(1);
+
+		p.getHand().addTilesToHand(l);
+		
+		ArrayList<Tile> a = new ArrayList<Tile>();
+		a.addAll(Arrays.asList(l1));
+		p.getTable().addTiles(a);
+		
+		p.setIsfirstMeldComplete(true);
+		assertTrue(p.play() == true);
+		assertTrue(p.getHand().sizeOfHand() == 0);
+		assertTrue(p.isWinner() == true);
+	}
+	
+	/*
+	 * Player hand (6,6,6) (5,5,1)
+	 * Table (1,1,1,Joker)
+	 * Can't replace => don't play this case
+	 */
+	public void testReUseTable1() {
+		Player p = new Player("test",1,new p2());
+		Tile joker = new Tile(14,14);
+		Tile[] l = {new Tile(1,6),new Tile(2,6),
+					new Tile(3,6), new Tile(2,5),
+					new Tile(3,5), new Tile(1,1)};
+		
+		Tile[] l1 = {joker, new Tile(2,1), new Tile(3,1), new Tile(1,1)};
+		joker.setJokerPoint(1);
+
+		p.getHand().addTilesToHand(l);
+		
+		ArrayList<Tile> a = new ArrayList<Tile>();
+		a.addAll(Arrays.asList(l1));
+		p.getTable().addTiles(a);
+		
+		p.setIsfirstMeldComplete(true);
+		assertTrue(p.play() == false);
+		
+		assertTrue(p.getHand().sizeOfHand() == 6);
+		assertTrue(p.isWinner() == false);
+	}
+	
+	/*
+	 * Player hand (8,8,8) (5,6,1)
+	 * Table (1,1,Joker)
+	 * Can replace 1 with joker -> using joker to play 5 6 Joker.
+	 */
+	public void testReUseTable2() {
+		Player p = new Player("test",1,new p2());
+		Tile joker = new Tile(14,14);
+		Tile[] l = {new Tile(1,8),new Tile(2,8),
+					new Tile(3,8), new Tile(2,5),
+					new Tile(2,6), new Tile(1,1)};
+		
+		Tile[] l1 = {joker, new Tile(2,1), new Tile(3,1)};
+		joker.setJokerPoint(1);
+
+		p.getHand().addTilesToHand(l);
+		
+		ArrayList<Tile> a = new ArrayList<Tile>();
+		a.addAll(Arrays.asList(l1));
+		p.getTable().addTiles(a);
+		
+		p.setIsfirstMeldComplete(true);
+		assertTrue(p.play() == true);
+		assertTrue(p.getHand().sizeOfHand() == 0);
+		assertTrue(p.isWinner() == true);
+	}
+	/*
+	 * Player hand (5,6,7) (5,3,1)
+	 * Table (1,1,Joker)	
+	 * Can replace 1 with joker -> using joker to play 3 Joker 5.
+	 */
+	public void testReUseTable3() {
+		Player p = new Player("test",1,new p2());
+		Tile joker = new Tile(14,14);
+		Tile[] l = {new Tile(1,5),new Tile(1,6),
+					new Tile(1,7), new Tile(3,5),
+					new Tile(3,3), new Tile(3,1)};
+		
+		Tile[] l1 = {joker, new Tile(2,1), new Tile(1,1)};
+		joker.setJokerPoint(1);
+
+		p.getHand().addTilesToHand(l);
+
+		ArrayList<Tile> a = new ArrayList<Tile>();
+		a.addAll(Arrays.asList(l1));
+		p.getTable().addTiles(a);
+		
+		p.setIsfirstMeldComplete(true);
+		assertTrue(p.play() == true);
+		assertTrue(p.getHand().sizeOfHand() == 1);
+	}
+	/*COMPLICATED BOARD REUSE
+	 * Player hand (5,6,7) (5,3,1,10)
+	 * Table (2,2,2,2) , (Joker 4 4 4)	
+	 * Take 2 from first meld -> 1,2,3. get for from the second meld
+	 * PLAY (1 2 3 4 5)
+	 */
+	public void testReUseTable4() {
+		Player p = new Player("test",1,new p2());
+		Tile joker = new Tile(14,14);
+		Tile[] l = {new Tile(1,5),new Tile(1,6),
+					new Tile(1,7), new Tile(4,5),
+					new Tile(4,3), new Tile(4,1), new Tile(1,10)};
+		
+		Tile[] l1 = {new Tile(1,2), new Tile(2,2), new Tile(3,2), new Tile(4,2)};
+		Tile[] l2 = {joker, new Tile(3,4), new Tile(2,4), new Tile(1,4)};
+		
+		joker.setJokerPoint(4);
+
+		p.getHand().addTilesToHand(l);
+
+		ArrayList<Tile> a = new ArrayList<Tile>();
+		a.addAll(Arrays.asList(l1));
+		p.getTable().addTiles(a);
+		
+		ArrayList<Tile> b = new ArrayList<Tile>();
+		b.addAll(Arrays.asList(l2));
+		p.getTable().addTiles(b);
+		
+		p.setIsfirstMeldComplete(true);
+		assertTrue(p.play() == true);
+		assertTrue(p.getHand().sizeOfHand() == 4);
+		assertTrue(p.isWinner() == true);
+	}
+	
+	
 	
 	
 }

@@ -107,7 +107,7 @@ public class p3 implements PlayerStrategy {
 				else object1 = first;
 				
 				
-				if(checkMeld.getPoint(object) <= checkMeld.getPoint(object1)) output = object1;
+				if(function.getSizeOf(object) <= function.getSizeOf(object1)) output = object1;
 				else output = object;
 				checkMeld.initialOutput(output,p.getPlayerHand().getTiles());
 				/*
@@ -136,6 +136,8 @@ public class p3 implements PlayerStrategy {
 				// If some player has 3 fewer tiles than p3, p3 will play all the melds it can.
 				if(p.isEligibleforP3()==true) {
 					String out = "";
+					boolean check = false;
+					if(output.size() > 0) check = true;
 					for(int i = output.size()-1; i > -1 ;i--) {
 						p.getTable().addTiles(output.get(i));
 						for(int u = 0; u < output.get(i).size();u++) {
@@ -155,17 +157,12 @@ public class p3 implements PlayerStrategy {
 					}
 					out += "\n";
 					p.set_report(out);
-					return true;
+					return check;
 				}
 				// noOne has 3 fewer tiles than p3, p3 just play use_less tiles on the table
-				else {
-					
-				}
-				
+				return false;
 			}
-			
 		}
-		return false;
 	}
 	
 	

@@ -418,9 +418,12 @@ public class HandleJoker {
 						
 						if (current.size() > 2) sample.add(current);
 						else if (current.size() == 2 && list.get(count).isJoker()) {
-							Tile l = new Tile();			
+							Tile l = new Tile();
 							l.setJokerColor(list.get(i).getColor());
-							l.setJokerPoint((current_point-1));
+							if(current.get(0).getNumber() == 13)
+								l.setJokerPoint((current_point-1));
+							else
+								l.setJokerPoint(current.get(0).getNumber()+1);
 							current.add(l); 
 							count ++;
 							sample.add(current);

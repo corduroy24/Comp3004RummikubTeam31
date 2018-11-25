@@ -30,7 +30,7 @@ public class TestP1 extends TestCase{
 		Player p1 = new Player("123",1,new p1());
 		p1.getHand().addTilesToHand(l1);
 		assertTrue(p1.play() == true);
-		assertTrue(joker.getJokerPoint() == 9);
+		assertTrue(joker.getJokerPoint() == 12);
 	}
 	
 	
@@ -53,7 +53,7 @@ public class TestP1 extends TestCase{
 		
 		assertTrue(p1.play() == true);
 		assertTrue(joker.getJokerColor().equals("R"));
-		assertTrue(joker.getJokerPoint() == 9);
+		assertTrue(joker.getJokerPoint() == 12);
 	}
 	
 	public void test6() {
