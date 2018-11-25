@@ -277,39 +277,7 @@ public class TestP2 extends TestCase{
 		assertTrue(p.play() == true);
 		assertTrue(p.getHand().sizeOfHand() == 1);
 	}
-	/*COMPLICATED BOARD REUSE
-	 * Player hand (5,6,7) (5,3,1,10)
-	 * Table (2,2,2,2) , (Joker 4 4 4)	
-	 * Take 2 from first meld -> 1,2,3. get for from the second meld
-	 * PLAY (1 2 3 4 5)
-	 */
-	public void testReUseTable4() {
-		Player p = new Player("test",1,new p2());
-		Tile joker = new Tile(14,14);
-		Tile[] l = {new Tile(1,5),new Tile(1,6),
-					new Tile(1,7), new Tile(4,5),
-					new Tile(4,3), new Tile(4,1), new Tile(1,10)};
-		
-		Tile[] l1 = {new Tile(1,2), new Tile(2,2), new Tile(3,2), new Tile(4,2)};
-		Tile[] l2 = {joker, new Tile(3,4), new Tile(2,4), new Tile(1,4)};
-		
-		joker.setJokerPoint(4);
 
-		p.getHand().addTilesToHand(l);
-
-		ArrayList<Tile> a = new ArrayList<Tile>();
-		a.addAll(Arrays.asList(l1));
-		p.getTable().addTiles(a);
-		
-		ArrayList<Tile> b = new ArrayList<Tile>();
-		b.addAll(Arrays.asList(l2));
-		p.getTable().addTiles(b);
-		
-		p.setIsfirstMeldComplete(true);
-		assertTrue(p.play() == true);
-		assertTrue(p.getHand().sizeOfHand() == 4);
-		assertTrue(p.isWinner() == true);
-	}
 	
 	
 	

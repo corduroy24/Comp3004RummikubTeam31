@@ -104,7 +104,7 @@ public class HandleJoker {
 		separateList(sample);
 		run = getJokerSequences(complete_first_turn,num,sample); 
 		sample = function.renew(sample, run);
-		set = function.getSets(sample);
+		set = getJokerSet(complete_first_turn,num,sample);
 		//set = getJokerSet(complete_first_turn,num,sample);
 		if(run != null && run.size() != 0) output.addAll(run);
 		if (set != null && set.size() != 0) output.addAll(set);	
@@ -122,10 +122,10 @@ public class HandleJoker {
 		red = new ArrayList<Tile>();
 		orange = new ArrayList<Tile>();
 		joker = new ArrayList<Tile>();
-		separateList(sample);
 		set = getJokerSet(complete_first_turn,num,sample);
 		sample = function.renew(sample, set);
-		run = function.getSequences(sample);
+		separateList(sample);
+		run = getJokerSequences(complete_first_turn,num,sample); 
 		//run = getJokerSequences(complete_first_turn,num,sample);
 		if(run != null && run.size() != 0) output.addAll(run);
 		if (set != null && set.size() != 0) output.addAll(set);	
@@ -134,7 +134,7 @@ public class HandleJoker {
 	
 	
 		//Initial the value of the joker tile after getting the Joker set
-		private ArrayList<ArrayList<Tile>> getJokerSet(boolean b, int num, ArrayList<Tile> sample) {
+		public ArrayList<ArrayList<Tile>> getJokerSet(boolean b, int num, ArrayList<Tile> sample) {
 			ArrayList<ArrayList<Tile>> output = new ArrayList<ArrayList<Tile>>();
 			ArrayList<Tile> current = sample;
 			Collections.sort(current,new BiggestToSmallest());
@@ -239,7 +239,7 @@ public class HandleJoker {
 		//get the most efficient sequences depends on the first initial turn
 		// return the output could be most tiles or most point due to first initial turn complete or not
 		// The algorithm try using a single joker on each single list with a specific color, then return the highest point or the most number of tiles.
-		private ArrayList<ArrayList<Tile>> getJokerSequences(boolean complete_first_turn,int num, ArrayList<Tile> sample2) {
+		public ArrayList<ArrayList<Tile>> getJokerSequences(boolean complete_first_turn,int num, ArrayList<Tile> sample2) {
 			ArrayList<ArrayList<Tile>> max_tile = new ArrayList<ArrayList<Tile>>();
 			ArrayList<ArrayList<Tile>> max_point = new ArrayList<ArrayList<Tile>>();
 			int numberOfTile = 0;

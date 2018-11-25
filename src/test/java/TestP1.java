@@ -105,7 +105,7 @@ public class TestP1 extends TestCase{
 		p1.getHand().addTilesToHand(l1);
 		
 		assertTrue(p1.play() == true);
-		assertTrue(joker.getJokerPoint() == 11);
+		assertTrue(joker.getJokerPoint() == 13);
 	}
 	
 	public void test10() {
