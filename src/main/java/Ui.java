@@ -63,10 +63,11 @@ public class Ui extends Application
 	int numPlayers = 0;
 	int[] aiType;;
 	
-	static GameMaster game = new GameMaster();	
+	private static GameMaster game;	
 	
 	public static void main(String [] args) 
 	{		
+		game = new GameMaster();
 		Application.launch(args);
 	}
 	
@@ -410,58 +411,20 @@ public class Ui extends Application
 		    	game.Announcement();
 		    	checkPlayerIsWinner();
 		    	console.clear();
-		    	
-		    	game.getAI().getHand().sortTilesByColour();
-		    	game.getAI2().getHand().sortTilesByColour();
-		    	game.getAI3().getHand().sortTilesByColour();
-	
-		    	if(game.getAI().play()) {
-		    		prevString += "AI1 play: \n";
-			    	prevString += game.getAI().return_report();
+		    	for(int i =0; i < game.getPlayers().size();i++) {
+		    		game.getPlayers().get(i).getHand().sortTilesByColour();
+		    		if(!game.getPlayers().get(i).getName().equals("Human")&& game.getPlayers().get(i).play()) {
+		    			prevString += game.getPlayers().get(i).getName() +  " play: \n";
+				    	prevString += game.getPlayers().get(i).return_report();
+		    		}
+		    		else if (!game.getPlayers().get(i).getName().equals("Human")&& game.getDeck().getDeck().size() > 0) {
+			    		Tile t= game.getDeck().Draw();
+			    		prevString += game.getPlayers().get(i).getName() + "draw: \n";
+			    		game.getPlayers().get(i).getHand().addTileToHand(t);
+			    		prevString += t.toString() + "\n";
+			    	}
+		    		game.Announcement();
 		    	}
-		    	else if (game.getDeck().getDeck().size() > 0) {
-		    		Tile t= game.getDeck().Draw();
-		    		prevString += "AI1 draw: \n";
-		    		game.getAI().getHand().addTileToHand(t);
-		    		prevString += t.toString() + "\n";
-		    	}
-		    	game.getTable().setTable(game.getAI().getTable().getTable());
-		    	game.Announcement();
-		    	
-		    	
-		    	if(game.getAI2().play()) {
-		    		prevString += "AI2 play: \n";
-			    	prevString += game.getAI2().return_report();
-		    	}
-		    	else if (game.getDeck().getDeck().size() > 0){
-		    		Tile t= game.getDeck().Draw();
-		    		prevString += "AI2 draw: \n";
-		    		game.getAI2().getHand().addTileToHand(t);
-		    		prevString += t.toString() + "\n";
-		    	}
-		    	game.getTable().setTable(game.getAI2().getTable().getTable());
-		    	game.Announcement();
-		    	
-		    	
-		    	if(game.getAI3().play()) {
-		    		prevString += "AI3 play: \n";
-			    	prevString += game.getAI3().return_report();
-		    	}
-		    	else if (game.getDeck().getDeck().size() > 0){
-		    		Tile t= game.getDeck().Draw();
-		    		prevString += "AI3 draw: \n";
-		    		game.getAI3().getHand().addTileToHand(t);
-		    		prevString += t.toString() + "\n";
-		    	}
-		    	game.getTable().setTable(game.getAI3().getTable().getTable());
-		    	game.Announcement();
-		    	
-		    	game.getAI().getHand().HandReader();
-		    	System.out.println();
-		    	game.getAI2().getHand().HandReader();
-		    	System.out.println();
-		    	game.getAI3().getHand().HandReader();
-		    	System.out.println();
 		    	console.setText(prevString);  
 		    	prevString = "";
 		    	updateTable();
@@ -506,6 +469,25 @@ public class Ui extends Application
 				    }
 				});
 		    	
+		    	for(int i =0; i < game.getPlayers().size();i++) {
+		    		if(game.getPlayers().get(i).getHand().sizeOfHand() == 0) {
+		    			InputStream mainImagePath = getClass().getResourceAsStream("Looser.jpg");
+						Image mainImage = new Image(mainImagePath);
+						mainImageNode = new ImageView(mainImage);
+						mainImageNode.setX(200);
+						mainImageNode.setY(200);
+						AnchorPane mainScreen = new AnchorPane(mainImageNode,OK_Button);
+						mainScreen.setMinSize(1095,	790);
+						
+						mainMenuScene = new Scene(mainScreen);
+						window.setScene(mainMenuScene);
+						window.show();
+						System.out.println("YOU ARE THE LOOSER");
+						return true;
+		    			
+		    		}
+		    	}
+		    	/*
 				if(game.getAI().getHand().sizeOfHand() == 0 || game.getAI2().getHand().sizeOfHand() == 0
 					|| game.getAI3().getHand().sizeOfHand() == 0)  {
 					InputStream mainImagePath = getClass().getResourceAsStream("Looser.jpg");
@@ -522,6 +504,7 @@ public class Ui extends Application
 					System.out.println("YOU ARE THE LOOSER");
 					return true;
 					}
+				*/
 				return false;
 			}
 
@@ -625,6 +608,7 @@ public class Ui extends Application
 		    	aiOne.setDisable(true);
 		    	aiType[numPlayers] = 1;
 		    	numPlayers++;
+		    	game.addPlayer(1);
 		    	if(numPlayers==maxPlayers-1)
 		    	{
 		    		int[] temp = game.dealInitialHand(aiType);
@@ -648,6 +632,7 @@ public class Ui extends Application
 		    	aiTwo.setDisable(true);
 		    	aiType[numPlayers] = 2;
 		    	numPlayers++;
+		    	game.addPlayer(2);
 		    	if(numPlayers==maxPlayers-1)
 		    	{
 		    		int[] temp = game.dealInitialHand(aiType);
@@ -670,6 +655,7 @@ public class Ui extends Application
 		    	//System.out.println("Pressed ai 3 button");
 		    	aiThree.setDisable(true);
 		    	aiType[numPlayers] = 3;
+		    	game.addPlayer(3);
 		    	numPlayers++;
 		    	if(numPlayers==maxPlayers-1)
 		    	{
@@ -693,6 +679,7 @@ public class Ui extends Application
 		    	//System.out.println("Pressed ai 4 button");
 		    	aiFour.setDisable(true);
 		    	aiType[numPlayers] = 4;
+		    	game.addPlayer(4);
 		    	numPlayers++;
 		    	if(numPlayers==maxPlayers-1)
 		    	{
@@ -824,7 +811,7 @@ public class Ui extends Application
 				else if(test.getTile(x).getColor().equals("O"))
 				{
 					playerHandButtons.get(x).setStyle("-fx-background-color: #c69033");
-				}
+				} 
 				else
 				{
 					System.out.println("Something went wrong in setPlayerHand()");
@@ -917,9 +904,9 @@ public class Ui extends Application
 	{
 		PlayerHand test = game.getHuman().getHand();
 		playerHand.getChildren().clear();
-		
 		for(int x=0;x<game.getHuman().getHand().sizeOfHand();x++)
 		{
+			
 			playerHandButtons.get(x).setText(""+test.getTile(x).getNumber());
 			
 			if(test.getTile(x).getColor().equals("R"))

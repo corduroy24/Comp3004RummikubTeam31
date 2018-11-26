@@ -116,16 +116,23 @@ public class Player implements Observer{
 	
     public void update(Observable obs, Object x) {
         GameMaster update = (GameMaster) obs;
-        ArrayList<Player> enemies = update.getPlayers();
-       // avoid duplicate information
+        ArrayList<Player> enemies = new ArrayList<Player>(update.getPlayers());
+       
+        // avoid duplicate information
+        
         enemies.remove(this);
         // update table and deck to decide what to play
         table = update.getTable();
         deck = update.getDeck();
+        for(int i =0; i < enemies.size();i++) {
+        	if(i == 0)
+        		firstPlayerPoint = enemies.get(0).getHand().sizeOfHand();
+        	else if (i == 1)
+        		secondPlayerPoint = enemies.get(1).getHand().sizeOfHand();
+        	else
+        		thirdPlayerPoint = enemies.get(2).getHand().sizeOfHand();
+        }
         
-        firstPlayerPoint = enemies.get(0).getHand().sizeOfHand();
-        secondPlayerPoint = enemies.get(1).getHand().sizeOfHand();
-        thirdPlayerPoint = enemies.get(2).getHand().sizeOfHand();
 
       }
     

@@ -16,24 +16,39 @@ public class GameMaster extends Observable{
 	private Player AI4;
 	private Deck deck;
 	private Table table;
+	private ArrayList<Player> players;
 	
 	public GameMaster(){
 		//create human, AI1, AI2, AI3, deck table GUI
 		human = new Player("Human",1, new HumanPlayerStrategy());
-		AI1 = new Player("AI1",2, new p1());
-		AI2 = new Player("AI2",3, new PlayerStrategy2());
-		AI3 = new Player("AI3",4, new PlayerStrategy3());
-		AI4 = new Player("AI4",5, new PlayerStrategy4());
-
+		AI1 = new Player("AI1",1, new PlayerStrategy1());
+		AI2 = new Player("AI2",2, new PlayerStrategy2());
+		AI3 = new Player("AI3",3, new PlayerStrategy3());
+		AI4 = new Player("AI4",4, new PlayerStrategy4());
+		players = new ArrayList<Player>();
 		deck = new Deck();
 		deck.Shuffle();
 		table = new Table();
 		//Add human  and AIs to Observable
 		this.addObserver(human);
-		this.addObserver(AI1);
-		this.addObserver(AI2);
-		this.addObserver(AI3);
-		this.addObserver(AI4);
+		players.add(human);
+		
+
+		
+	}
+	public void addPlayer(int a) {
+		if(a == 1) {
+			players.add(AI1);
+			addObserver(AI1);}
+		else if(a == 2) {
+			players.add(AI2);
+			addObserver(AI2);}
+		else if(a == 3) {
+			players.add(AI3);
+			addObserver(AI3);}
+		else if(a == 4) {
+			players.add(AI4);
+			addObserver(AI4);}
 	}
 	
 	// main deck
@@ -41,14 +56,7 @@ public class GameMaster extends Observable{
 	
 	//get human and AIs to update data to each player
 	public ArrayList<Player> getPlayers(){
-		ArrayList<Player> players  = new ArrayList<Player>();
-		players.add(human);
-		players.add(AI1);
-		players.add(AI2);
-		players.add(AI3);
-		players.add(AI4);
-		return players;
-	}
+		return players;}
 	
 	public Table getTable() 
 	{
