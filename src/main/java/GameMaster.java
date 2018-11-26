@@ -162,6 +162,8 @@ public class GameMaster extends Observable{
 	//draw card to human and AI
 	public int[] dealInitialHand(int[] ai) 
 	{
+		Arrays.sort(ai);
+		
 		int[][] turnOrder = new int[ai.length][2];
 		Deck turnDeck = new Deck();
 		turnDeck.Shuffle();
@@ -172,6 +174,7 @@ public class GameMaster extends Observable{
 			{
 				//System.out.println("You picked AI 1");
 				
+				addPlayer(1);
 				int temp = turnDeck.Draw().getNumber();
 				if(temp == 14)
 				{
@@ -201,6 +204,7 @@ public class GameMaster extends Observable{
 			{
 				//System.out.println("You picked AI 2");
 				
+				addPlayer(2);
 				int temp = turnDeck.Draw().getNumber();
 				if(temp == 14)
 				{
@@ -230,6 +234,7 @@ public class GameMaster extends Observable{
 			{
 				//System.out.println("You picked AI 3");
 				
+				addPlayer(3);
 				int temp = turnDeck.Draw().getNumber();
 				if(temp == 14)
 				{
@@ -259,7 +264,7 @@ public class GameMaster extends Observable{
 			{
 				//System.out.println("You picked AI 4");
 				
-				
+				addPlayer(4);
 				int temp = turnDeck.Draw().getNumber();
 				if(temp == 14)
 				{
@@ -284,12 +289,10 @@ public class GameMaster extends Observable{
 				AI4.getHand().drawFirst14(deck);
 				AI4.getHand().sortTilesByColour();
 				AI4.getHand().HandReader();
-				
 			}
 		}
 		
 		turnOrder[ai.length-1][0] = turnDeck.Draw().getNumber();
-		turnOrder[ai.length-1][1] = 10;
 
 		human.getHand().drawFirst14(deck);
 		human.getHand().sortTilesByColour();
@@ -336,12 +339,24 @@ public class GameMaster extends Observable{
 			
 		}while(doubles);
 		
+		int[] temp = new int[ai.length];
 		int[] returnOrder = new int[ai.length];
 		for(int x=0;x<turnOrder.length;x++)
 		{
-			returnOrder[x] = turnOrder[x][1];
+			temp[x] = turnOrder[x][1];
+			System.out.println(temp[x]);
 		}
 		
+		for(int x=0;x<temp.length;x++)
+		{
+			for(int y=0;y<ai.length;y++)
+			{
+				if(temp[x]==ai[y])
+				{
+					returnOrder[x] = y;
+				}
+			}
+		}
 
 		Announcement();
 		

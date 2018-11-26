@@ -389,7 +389,7 @@ public class Ui extends Application
 		
 		//Creates the text console where it will ouput any necessary info\
 		console = new TextArea();
-		console.setText("Player's turn.");
+		console.setText("");
 		console.setEditable(false); //Makes it not editable
 		console.setMinSize(1095, 100); //sets the size of the box
 		console.setMaxSize(1095, 100); //sets the size of the box
@@ -411,13 +411,18 @@ public class Ui extends Application
 		    	game.Announcement();
 		    	checkPlayerIsWinner();
 		    	console.clear();
-		    	for(int i =0; i < game.getPlayers().size();i++) {
+		    	
+		    	for(int i =0; i < game.getPlayers().size();i++) 
+		    	{
 		    		game.getPlayers().get(i).getHand().sortTilesByColour();
-		    		if(!game.getPlayers().get(i).getName().equals("Human")&& game.getPlayers().get(i).play()) {
+		    		
+		    		if(!game.getPlayers().get(i).getName().equals("Human")&& game.getPlayers().get(i).play()) 
+		    		{
 		    			prevString += game.getPlayers().get(i).getName() +  " play: \n";
 				    	prevString += game.getPlayers().get(i).return_report();
 		    		}
-		    		else if (!game.getPlayers().get(i).getName().equals("Human")&& game.getDeck().getDeck().size() > 0) {
+		    		else if (!game.getPlayers().get(i).getName().equals("Human")&& game.getDeck().getDeck().size() > 0) 
+		    		{
 			    		Tile t= game.getDeck().Draw();
 			    		prevString += game.getPlayers().get(i).getName() + "draw: \n";
 			    		game.getPlayers().get(i).getHand().addTileToHand(t);
@@ -452,116 +457,6 @@ public class Ui extends Application
 		    	lightRecentlyPlayed();
 		    	game.getTable().clearBool();
 		    }
-		    
-
-			private boolean checkAIIsWinner() {
-				Button OK_Button = new Button();
-		    	OK_Button.setText("OK");
-		    	OK_Button.setMinSize(100, 50);
-		    	OK_Button.setLayoutX(480);
-		    	OK_Button.setLayoutY(650);
-		    	OK_Button.setOnAction(new EventHandler<ActionEvent>() 
-				{
-				    public void handle(ActionEvent e) 
-				    {
-				    	window.close();
-				    	
-				    }
-				});
-		    	
-		    	for(int i =0; i < game.getPlayers().size();i++) {
-		    		if(game.getPlayers().get(i).getHand().sizeOfHand() == 0) {
-		    			InputStream mainImagePath = getClass().getResourceAsStream("Looser.jpg");
-						Image mainImage = new Image(mainImagePath);
-						mainImageNode = new ImageView(mainImage);
-						mainImageNode.setX(200);
-						mainImageNode.setY(200);
-						AnchorPane mainScreen = new AnchorPane(mainImageNode,OK_Button);
-						mainScreen.setMinSize(1095,	790);
-						
-						mainMenuScene = new Scene(mainScreen);
-						window.setScene(mainMenuScene);
-						window.show();
-						System.out.println("YOU ARE THE LOOSER");
-						return true;
-		    			
-		    		}
-		    	}
-		    	/*
-				if(game.getAI().getHand().sizeOfHand() == 0 || game.getAI2().getHand().sizeOfHand() == 0
-					|| game.getAI3().getHand().sizeOfHand() == 0)  {
-					InputStream mainImagePath = getClass().getResourceAsStream("Looser.jpg");
-					Image mainImage = new Image(mainImagePath);
-					mainImageNode = new ImageView(mainImage);
-					mainImageNode.setX(200);
-					mainImageNode.setY(200);
-					AnchorPane mainScreen = new AnchorPane(mainImageNode,OK_Button);
-					mainScreen.setMinSize(1095,	790);
-					
-					mainMenuScene = new Scene(mainScreen);
-					window.setScene(mainMenuScene);
-					window.show();
-					System.out.println("YOU ARE THE LOOSER");
-					return true;
-					}
-				*/
-				return false;
-			}
-
-			private boolean checkPlayerIsWinner() {
-				Button OK_Button = new Button();
-		    	OK_Button.setText("OK");
-		    	OK_Button.setMinSize(100, 50);
-		    	OK_Button.setLayoutX(480);
-		    	OK_Button.setLayoutY(650);
-		    	OK_Button.setOnAction(new EventHandler<ActionEvent>() 
-				{
-				    public void handle(ActionEvent e) 
-				    {
-				    	window.close();
-				    	
-				    }
-				});
-				if(game.getHuman().getHand().sizeOfHand() == 0) {
-					InputStream mainImagePath = getClass().getResourceAsStream("Winner.jpg");
-					Image mainImage = new Image(mainImagePath);
-					mainImageNode = new ImageView(mainImage);
-					mainImageNode.setX(200);
-					mainImageNode.setY(200);
-					AnchorPane mainScreen = new AnchorPane(mainImageNode,OK_Button);
-					mainScreen.setMinSize(1095,	790);
-					
-					mainMenuScene = new Scene(mainScreen);
-					window.setScene(mainMenuScene);
-					window.show();
-					System.out.println("YOU ARE THE WINNER");
-				return true;	
-				}
-				return false;
-			}
-			
-			private void lightRecentlyPlayed()
-			{
-				for(int x=0;x<20;x++)
-				{
-					for(int y=0;y<7;y++)
-					{
-						Boolean[][] isTableSet = game.getTable().getBool();
-						
-						if(isTableSet[x][y])
-						{
-							DropShadow dropShadow = new DropShadow();
-							dropShadow.setRadius(10.0);
-							dropShadow.setColor(Color.BLUE);
-							tableButtons[x][y].setEffect(dropShadow);
-						}
-						else
-						{
-							tableButtons[x][y].setEffect(null);
-						}
-					}
-				}
-			}
 		});
 		
 		//The layoutPane that seperated the Player's hand and the end turn button
@@ -579,6 +474,187 @@ public class Ui extends Application
 		
 		window.setScene(rummiScene);
 		window.show();
+		
+		aiPlayFirst(turnOrder);
+	}
+	
+	public void aiPlayFirst(int[] turnOrder)
+	{
+		System.out.print("\n");
+		for(int x=0;x<turnOrder.length;x++)
+		{
+			System.out.println(turnOrder[x]);
+		}
+		System.out.print("\n");
+		
+		int x=0;
+		
+		while(turnOrder[x] != 0)
+		{
+			System.out.println("--------------------------- "+ turnOrder[x]);
+			
+	    	//Change to send a message that players turn has ended
+	    	//boolean hasWinner = false;
+	    	game.getHuman().getTable().setTable(current_table());
+	    	game.getTable().setTable(game.getHuman().getTable().getTable());
+	    	game.Announcement();
+	    	checkPlayerIsWinner();
+	    	//console.clear();
+
+    		game.getPlayers().get(turnOrder[x]).getHand().sortTilesByColour();
+    		
+    		if(game.getPlayers().get(turnOrder[x]).play()) 
+    		{
+    			prevString += game.getPlayers().get(turnOrder[x]).getName() +  " play: \n";
+		    	prevString += game.getPlayers().get(turnOrder[x]).return_report();
+    		}
+    		else if (game.getDeck().getDeck().size() > 0) 
+    		{
+	    		Tile t= game.getDeck().Draw();
+	    		prevString += game.getPlayers().get(turnOrder[x]).getName() + "draw: \n";
+	    		game.getPlayers().get(turnOrder[x]).getHand().addTileToHand(t);
+	    		prevString += t.toString() + "\n";
+	    	}
+    		game.Announcement();
+	    	
+	    	console.setText(console.getText() + prevString);  
+	    	prevString = "";
+	    	updateTable();
+	    	
+	    	if(!played)
+	    	{
+	    		if(game.getDeck().getDeck().size() > 0)
+	    			drawTile();
+	    		else
+	    			System.out.println("Out of tiles");
+	    		
+	    		updateHand();
+	    	}
+	    	else {
+	    		game.getTable().addTableCounter();
+	    		played=false;
+	    	}
+	    	checkAIIsWinner();
+	    	
+	    	if(playerScore>=30) 
+	    	{
+	    		game.getHuman().setIsfirstMeldComplete(true);
+	    	}
+	    	
+	    	lightRecentlyPlayed();
+	    	game.getTable().clearBool();
+	    	
+	    	x++;
+	    }
+	}
+	
+	private boolean checkAIIsWinner() {
+		Button OK_Button = new Button();
+    	OK_Button.setText("OK");
+    	OK_Button.setMinSize(100, 50);
+    	OK_Button.setLayoutX(480);
+    	OK_Button.setLayoutY(650);
+    	OK_Button.setOnAction(new EventHandler<ActionEvent>() 
+		{
+		    public void handle(ActionEvent e) 
+		    {
+		    	window.close();
+		    	
+		    }
+		});
+    	
+    	for(int i =0; i < game.getPlayers().size();i++) {
+    		if(game.getPlayers().get(i).getHand().sizeOfHand() == 0) {
+    			InputStream mainImagePath = getClass().getResourceAsStream("Looser.jpg");
+				Image mainImage = new Image(mainImagePath);
+				mainImageNode = new ImageView(mainImage);
+				mainImageNode.setX(200);
+				mainImageNode.setY(200);
+				AnchorPane mainScreen = new AnchorPane(mainImageNode,OK_Button);
+				mainScreen.setMinSize(1095,	790);
+				
+				mainMenuScene = new Scene(mainScreen);
+				window.setScene(mainMenuScene);
+				window.show();
+				System.out.println("YOU ARE THE LOOSER");
+				return true;
+    			
+    		}
+    	}
+    	/*
+		if(game.getAI().getHand().sizeOfHand() == 0 || game.getAI2().getHand().sizeOfHand() == 0
+			|| game.getAI3().getHand().sizeOfHand() == 0)  {
+			InputStream mainImagePath = getClass().getResourceAsStream("Looser.jpg");
+			Image mainImage = new Image(mainImagePath);
+			mainImageNode = new ImageView(mainImage);
+			mainImageNode.setX(200);
+			mainImageNode.setY(200);
+			AnchorPane mainScreen = new AnchorPane(mainImageNode,OK_Button);
+			mainScreen.setMinSize(1095,	790);
+			
+			mainMenuScene = new Scene(mainScreen);
+			window.setScene(mainMenuScene);
+			window.show();
+			System.out.println("YOU ARE THE LOOSER");
+			return true;
+			}
+		*/
+		return false;
+	}
+
+	private boolean checkPlayerIsWinner() {
+		Button OK_Button = new Button();
+    	OK_Button.setText("OK");
+    	OK_Button.setMinSize(100, 50);
+    	OK_Button.setLayoutX(480);
+    	OK_Button.setLayoutY(650);
+    	OK_Button.setOnAction(new EventHandler<ActionEvent>() 
+		{
+		    public void handle(ActionEvent e) 
+		    {
+		    	window.close();
+		    	
+		    }
+		});
+		if(game.getHuman().getHand().sizeOfHand() == 0) {
+			InputStream mainImagePath = getClass().getResourceAsStream("Winner.jpg");
+			Image mainImage = new Image(mainImagePath);
+			mainImageNode = new ImageView(mainImage);
+			mainImageNode.setX(200);
+			mainImageNode.setY(200);
+			AnchorPane mainScreen = new AnchorPane(mainImageNode,OK_Button);
+			mainScreen.setMinSize(1095,	790);
+			
+			mainMenuScene = new Scene(mainScreen);
+			window.setScene(mainMenuScene);
+			window.show();
+			System.out.println("YOU ARE THE WINNER");
+		return true;	
+		}
+		return false;
+	}
+	
+	private void lightRecentlyPlayed()
+	{
+		for(int x=0;x<20;x++)
+		{
+			for(int y=0;y<7;y++)
+			{
+				Boolean[][] isTableSet = game.getTable().getBool();
+				
+				if(isTableSet[x][y])
+				{
+					DropShadow dropShadow = new DropShadow();
+					dropShadow.setRadius(10.0);
+					dropShadow.setColor(Color.BLUE);
+					tableButtons[x][y].setEffect(dropShadow);
+				}
+				else
+				{
+					tableButtons[x][y].setEffect(null);
+				}
+			}
+		}
 	}
 	
 	public void clearMainScreen()
