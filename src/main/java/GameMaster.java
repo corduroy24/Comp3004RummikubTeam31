@@ -168,7 +168,7 @@ public class GameMaster extends Observable{
 		Deck turnDeck = new Deck();
 		turnDeck.Shuffle();
 		
-		for(int x=0;x<ai.length;x++)
+		for(int x=1;x<ai.length;x++)
 		{
 			if(ai[x]==1)
 			{
@@ -292,7 +292,7 @@ public class GameMaster extends Observable{
 			}
 		}
 		
-		turnOrder[ai.length-1][0] = turnDeck.Draw().getNumber();
+		turnOrder[0][0] = turnDeck.Draw().getNumber();
 
 		human.getHand().drawFirst14(deck);
 		human.getHand().sortTilesByColour();
@@ -341,11 +341,14 @@ public class GameMaster extends Observable{
 		
 		int[] temp = new int[ai.length];
 		int[] returnOrder = new int[ai.length];
+		
+		System.out.println("\nGM Class");
 		for(int x=0;x<turnOrder.length;x++)
 		{
 			temp[x] = turnOrder[x][1];
 			System.out.println(temp[x]);
 		}
+		
 		
 		for(int x=0;x<temp.length;x++)
 		{
@@ -357,6 +360,7 @@ public class GameMaster extends Observable{
 				}
 			}
 		}
+		
 
 		Announcement();
 		

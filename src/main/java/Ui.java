@@ -480,7 +480,7 @@ public class Ui extends Application
 	
 	public void aiPlayFirst(int[] turnOrder)
 	{
-		System.out.print("\n");
+		System.out.println("\nUI Class");
 		for(int x=0;x<turnOrder.length;x++)
 		{
 			System.out.println(turnOrder[x]);
