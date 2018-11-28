@@ -31,11 +31,13 @@ public class GameMaster extends Observable{
 		table = new Table();
 		//Add human  and AIs to Observable
 		this.addObserver(human);
-		players.add(human);
-		
-
 		
 	}
+	
+	public Memento saveData() {
+		return new Memento(this);
+	}
+	
 	public void addPlayer(int a) {
 		if(a == 1) {
 			players.add(AI1);

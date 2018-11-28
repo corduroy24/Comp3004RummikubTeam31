@@ -34,6 +34,12 @@ public class PlayerHand {
 			hand.add(x.Draw());
 		}
 	}
+	
+	public void setPlayerHand(ArrayList<Tile> t ) {
+		hand = new ArrayList<Tile>();
+		for(int i =0; i < t.size();i++) hand.add(t.get(i));
+	}
+	
 
 	public boolean hasJoker() {
 		for (int i=0;i<sizeOfHand();i++) {

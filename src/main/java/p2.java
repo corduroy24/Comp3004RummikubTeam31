@@ -114,10 +114,10 @@ public class p2 implements PlayerStrategy{
 				second = checkMeld.getFirst(complete_first_turn,num,sample1);
 				if(function.getSizeOf(first) <= function.getSizeOf(second)) object1 = second;
 				else object1 = first;
-				
+				//System.out.println(first);
 				
 				if(function.getSizeOf(object) <= function.getSizeOf(object1)) output = object1;
-				else output = object;
+				else output = object; 
 				
 				checkMeld.initialOutput(output,p.getPlayerHand().getTiles());
 				/*
@@ -142,7 +142,7 @@ public class p2 implements PlayerStrategy{
 							}
 						}
 					}
-				}
+				}//System.out.println(useless_tile);
 				ArrayList<ArrayList<Tile>> table = new ArrayList<ArrayList<Tile>>(p.getTable().getTable());
 					
 				// index of meld on the table, which contain joker tiles
@@ -162,18 +162,19 @@ public class p2 implements PlayerStrategy{
 				
 				int indexToReplace = 999;
 				
+				//System.out.println(index);
 				
 				if(index != 999) {
 					for(int i =0; i < useless_tile.size();i++) {
-						if(useless_tile.get(i).getNumber() == table.get(index).get(index_meld).getJokerPoint()) {
-							if(checkMeld.isSet(table.get(index))) {
+						if(useless_tile.get(i).getNumber() == table.get(index).get(index_meld).getJokerPoint()) { //System.out.println(i);
+							if(checkMeld.isSet(table.get(index))) {//System.out.println(i);
 								HashSet<String> checking_color = new HashSet<String>();
 								for(int x =0; x< table.get(index).size();x++) {
 									checking_color.add(table.get(index).get(x).getColor());
 								}
-								if(checking_color.add(useless_tile.get(i).getColor())) {
+								//System.out.println(i);
 									indexToReplace = i;
-								}
+								
 							}
 							else {
 								if(useless_tile.get(i).getColor().equals(table.get(index).get(index_meld).getJokerColor())) {
@@ -182,14 +183,14 @@ public class p2 implements PlayerStrategy{
 							}
 						}
 					}
-				}
-				if(indexToReplace != 999) {
+				}//System.out.println(indexToReplace);
+				if(indexToReplace != 999) {    //System.out.println("TEST");
 				//Replace tiles on hand to the table.
 				table.get(index).get(index_meld).setJoker(false);
 				table.get(index).get(index_meld).setColor(useless_tile.get(indexToReplace).getColor());
 				table.get(index).get(index_meld).setNumber(useless_tile.get(indexToReplace).getNumber());
 				useless_tile.get(indexToReplace).setJoker(true);
-				useless_tile.get(indexToReplace).setColor("J");
+				useless_tile.get(indexToReplace).setColor("J");   
 				useless_tile.get(indexToReplace).setNumber(14);
 				// use joker tile to play tile on hand first.
 				ArrayList<ArrayList<Tile>> melds = new ArrayList<ArrayList<Tile>>();
