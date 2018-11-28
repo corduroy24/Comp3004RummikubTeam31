@@ -32,7 +32,7 @@ public class TestP4 extends TestCase{
 			 p4.getTable().addTiles(t);
 		p4.getHand().addTilesToHand(l1);
 		assertTrue(p4.play() == true);
-		assertTrue(joker.getJokerPoint() == 9);
+		assertTrue(joker.getJokerPoint() == 12);
 	}
 	
 	
@@ -55,7 +55,7 @@ public class TestP4 extends TestCase{
 		
 		assertTrue(p4.play() == true);
 		assertTrue(joker.getJokerColor().equals("R"));
-		assertTrue(joker.getJokerPoint() == 9);
+		assertTrue(joker.getJokerPoint() == 12);
 	}
 	
 	public void test6() {
@@ -107,7 +107,7 @@ public class TestP4 extends TestCase{
 		p4.getHand().addTilesToHand(l1);
 		
 		assertTrue(p4.play() == true);
-		assertTrue(joker.getJokerPoint() == 11);
+		assertTrue(joker.getJokerPoint() == 13);
 	}
 	
 	public void test10() {

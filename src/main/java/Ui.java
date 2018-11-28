@@ -1,5 +1,9 @@
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
+
 import javafx.application.Application;
 import javafx.collections.ObservableList;
 import javafx.stage.Stage;
@@ -63,16 +67,20 @@ public class Ui extends Application
 	int numPlayers = 0;
 	int[] aiType;;
 	
-	private static GameMaster game;	
+	private GameMaster game;
+	private HandleJoker checkMeld;
+	private Memento lastMove;
+	
 	
 	public static void main(String [] args) 
 	{		
-		game = new GameMaster();
 		Application.launch(args);
 	}
 	
 	public void start(Stage primaryStage) throws Exception 
 	{
+		game = new GameMaster();
+		lastMove = new Memento(game);
 		window = primaryStage;
 		window.setTitle("Rummikub");
 		
@@ -150,7 +158,7 @@ public class Ui extends Application
 	
 	//turnOrder goes by ai numbers and the player is listed as 10
 	public void mainGame(int[] turnOrder)
-	{
+	{	lastMove= new Memento(game);
 		//The layoutPane for the gridded table in the center
 		TilePane tablePane = new TilePane();
 		tablePane.setPrefRows(7); //Sets the row length to 7
@@ -159,7 +167,6 @@ public class Ui extends Application
 		tablePane.setHgap(5);
 		tablePane.setVgap(5);
 		ObservableList<Node> list = tablePane.getChildren();
-		
 		//Adds all of the table buttons onto the table
 		for(int x=0;x<tableButtons[0].length;x++)
 		{
@@ -406,12 +413,20 @@ public class Ui extends Application
 		    {
 		    	//Change to send a message that players turn has ended
 		    	//boolean hasWinner = false;
-		    	game.getHuman().getTable().setTable(current_table());
+		    	checkMeld = new HandleJoker();
+		    	ArrayList<ArrayList<Tile>> currentTable = current_table();
+		    	boolean valid = true;
+		    	for(int i =0; i < currentTable.size();i++) {
+		    		if(!checkMeld.isRun(currentTable.get(i)) && !checkMeld.isSet(currentTable.get(i))) {
+		    			valid = false;
+		    		}
+		    	}
+		    	if(valid) {
+		    	game.getHuman().getTable().setTable(currentTable);
 		    	game.getTable().setTable(game.getHuman().getTable().getTable());
 		    	game.Announcement();
 		    	checkPlayerIsWinner();
 		    	console.clear();
-		    	
 		    	for(int i =0; i < game.getPlayers().size();i++) 
 		    	{
 		    		game.getPlayers().get(i).getHand().sortTilesByColour();
@@ -429,6 +444,7 @@ public class Ui extends Application
 			    		prevString += t.toString() + "\n";
 			    	}
 		    		game.Announcement();
+		    		lastMove = new Memento(game);
 		    	}
 		    	console.setText(prevString);  
 		    	prevString = "";
@@ -456,7 +472,29 @@ public class Ui extends Application
 		    	
 		    	lightRecentlyPlayed();
 		    	game.getTable().clearBool();
+		    	}
+		    else {
+		    	updateTableAndHand();
+		    	updateTable();
+		    	updateHand();
+		    
+		    
+		    	if(game.getDeck().getDeck().size() > 0)
+	    			drawTile();
+		    	updateHand();
+		    	lastMove = new Memento(game);
+		    	System.out.println(game.getHuman().getHand().sizeOfHand());
+		    
+		    	}
+		    	
 		    }
+
+			private void updateTableAndHand() {
+				// TODO Auto-generated method stub
+				game.getTable().setTable(lastMove.getStateTable().getTable());
+				game.getHuman().getHand().setPlayerHand(lastMove.getStateHumanHand().getTiles());
+				
+			}
 		});
 		
 		//The layoutPane that seperated the Player's hand and the end turn button
@@ -684,12 +722,12 @@ public class Ui extends Application
 		    	aiOne.setDisable(true);
 		    	aiType[numPlayers] = 1;
 		    	numPlayers++;
-		    	game.addPlayer(1);
 		    	if(numPlayers==maxPlayers-1)
 		    	{
 		    		int[] temp = game.dealInitialHand(aiType);
 		    		mainGame(temp);
 		    	}
+
 		    }
 		});
 		
@@ -708,7 +746,6 @@ public class Ui extends Application
 		    	aiTwo.setDisable(true);
 		    	aiType[numPlayers] = 2;
 		    	numPlayers++;
-		    	game.addPlayer(2);
 		    	if(numPlayers==maxPlayers-1)
 		    	{
 		    		int[] temp = game.dealInitialHand(aiType);
@@ -731,7 +768,6 @@ public class Ui extends Application
 		    	//System.out.println("Pressed ai 3 button");
 		    	aiThree.setDisable(true);
 		    	aiType[numPlayers] = 3;
-		    	game.addPlayer(3);
 		    	numPlayers++;
 		    	if(numPlayers==maxPlayers-1)
 		    	{
@@ -755,7 +791,6 @@ public class Ui extends Application
 		    	//System.out.println("Pressed ai 4 button");
 		    	aiFour.setDisable(true);
 		    	aiType[numPlayers] = 4;
-		    	game.addPlayer(4);
 		    	numPlayers++;
 		    	if(numPlayers==maxPlayers-1)
 		    	{
@@ -913,7 +948,7 @@ public class Ui extends Application
 		game.setTable(table);
 	}
 	
-	public void updateTable()
+	public boolean updateTable()
 	{
 		Table table = game.getTable();
 		ArrayList<ArrayList<Tile>> t = table.getTable();
@@ -973,7 +1008,7 @@ public class Ui extends Application
 				
 			}
 		}
-			
+		return false;	
 	}
 	
 	public void updateHand()
