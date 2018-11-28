@@ -183,7 +183,7 @@ public class TestP2 extends TestCase{
 					new Tile(3,6), new Tile(2,5),
 					new Tile(3,5), new Tile(1,1)};
 		
-		Tile[] l1 = {joker, new Tile(2,1), new Tile(3,1)};
+		Tile[] l1 = {joker, new Tile(2,1), new Tile(1,1)};
 		joker.setJokerPoint(1);
 
 		p.getHand().addTilesToHand(l);
@@ -220,10 +220,10 @@ public class TestP2 extends TestCase{
 		p.getTable().addTiles(a);
 		
 		p.setIsfirstMeldComplete(true);
-		assertTrue(p.play() == false);
+		assertTrue(p.play() == true);
 		
-		assertTrue(p.getHand().sizeOfHand() == 6);
-		assertTrue(p.isWinner() == false);
+		assertTrue(p.getHand().sizeOfHand() == 0);
+		assertTrue(p.isWinner() == true);
 	}
 	
 	/*
@@ -275,7 +275,7 @@ public class TestP2 extends TestCase{
 		
 		p.setIsfirstMeldComplete(true);
 		assertTrue(p.play() == true);
-		assertTrue(p.getHand().sizeOfHand() == 1);
+		assertTrue(p.getHand().sizeOfHand() == 1); p.getHand().HandReader();;
 	}
 
 	
