@@ -450,8 +450,19 @@ public class Ui extends Application
 		    	for(int i =0; i < currentTable.size();i++) {
 		    		if(!checkMeld.isRun(currentTable.get(i)) && !checkMeld.isSet(currentTable.get(i))) {
 		    			valid = false;
+				    	System.out.println("YOUR MOVE IS INVALID");
 		    		}
 		    	}
+
+
+		    	if(!game.getHuman().getIsFirstMeldComplete()) {
+		    		if(playerScore >= 30) valid = true;
+		    		else valid = false;
+		    		System.out.println("PLAY YOUR FIRST INITIAL TURN ASAP");
+		    	}
+		    
+		    	
+		    	
 		    	if(valid) {
 		    	game.getHuman().getTable().setTable(currentTable);
 		    	game.getTable().setTable(game.getHuman().getTable().getTable());
@@ -477,19 +488,20 @@ public class Ui extends Application
 		    		{
 		    			currentLocation = 0;
 		    		}
+		    		System.out.println("Current location : " + currentLocation);
+		    		System.out.println("Player size " + game.getPlayers().size());
+	    			game.getPlayers().get(i).getHand().sortTilesByColour();
 		    		
-	    			game.getPlayers().get(order[currentLocation]).getHand().sortTilesByColour();
-		    		
-		    		if(!game.getPlayers().get(order[currentLocation]).getName().equals("Human") && game.getPlayers().get(order[currentLocation]).play()) 
+		    		if(!game.getPlayers().get(i).getName().equals("Human") && game.getPlayers().get(i).play()) 
 		    		{
-		    			prevString += game.getPlayers().get(order[currentLocation]).getName() +  " play: \n";
-				    	prevString += game.getPlayers().get(order[currentLocation]).return_report();
+		    			prevString += game.getPlayers().get(i).getName() +  " play: \n";
+				    	prevString += game.getPlayers().get(i).return_report();
 		    		}
-		    		else if (!game.getPlayers().get(order[currentLocation]).getName().equals("Human") && game.getDeck().getDeck().size() > 0) 
+		    		else if (!game.getPlayers().get(i).getName().equals("Human") && game.getDeck().getDeck().size() > 0) 
 		    		{
 			    		Tile t= game.getDeck().Draw();
-			    		prevString += game.getPlayers().get(order[currentLocation]).getName() + "draw: \n";
-			    		game.getPlayers().get(order[currentLocation]).getHand().addTileToHand(t);
+			    		prevString += game.getPlayers().get(i).getName() + "draw: \n";
+			    		game.getPlayers().get(i).getHand().addTileToHand(t);
 			    		prevString += t.toString() + "\n";
 			    	}
 		    		game.Announcement();
@@ -525,16 +537,35 @@ public class Ui extends Application
 		    	}
 		    else {
 		    	updateTableAndHand();
-		    	updateTable();
-		    	updateHand();
-		    
-		    
+		 
 		    	if(game.getDeck().getDeck().size() > 0)
 	    			drawTile();
 		    	updateHand();
+		    	game.Announcement();
 		    	lastMove = new Memento(game);
-		    	System.out.println(game.getHuman().getHand().sizeOfHand());
-		    
+		    	for(int i = 1; i < game.getPlayers().size();i++) 
+		    	{
+	    			game.getPlayers().get(i).getHand().sortTilesByColour();
+		    		if(!game.getPlayers().get(i).getName().equals("Human") && game.getPlayers().get(i).play()) 
+		    		{
+		    			prevString += game.getPlayers().get(i).getName() +  " play: \n";
+				    	prevString += game.getPlayers().get(i).return_report();
+		    		}
+		    		else if (!game.getPlayers().get(i).getName().equals("Human") && game.getDeck().getDeck().size() > 0) 
+		    		{
+			    		Tile t= game.getDeck().Draw();
+			    		prevString += game.getPlayers().get(i).getName() + "draw: \n";
+			    		game.getPlayers().get(i).getHand().addTileToHand(t);
+			    		prevString += t.toString() + "\n";
+			    	}
+		    		game.Announcement();
+		    		lastMove = new Memento(game);  	
+		    		console.setText(prevString);  
+			    	prevString = "";
+		    	}
+		    	
+		    	
+		    	
 		    	}
 		    	
 		    }
@@ -543,6 +574,9 @@ public class Ui extends Application
 				// TODO Auto-generated method stub
 				game.getTable().setTable(lastMove.getStateTable().getTable());
 				game.getHuman().getHand().setPlayerHand(lastMove.getStateHumanHand().getTiles());
+				updateTable();
+		    	updateHand();		    
+		    
 				
 			}
 		});
