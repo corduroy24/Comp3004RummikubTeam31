@@ -1,6 +1,11 @@
+import java.awt.event.KeyEvent;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
+
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.stage.Stage;
 import javafx.scene.control.Button;
@@ -51,6 +56,8 @@ public class Ui extends Application
 	Button scenarioThree;
 	Button scenarioFour;
 	
+	Timer timer;
+	
 	Button[][] tableButtons = new Button[20][7];
 	//Boolean[][] isTableSet = new Boolean[20][7];
 	
@@ -66,7 +73,7 @@ public class Ui extends Application
 	Boolean played = false;
 	
 	String prevString = "";
-	
+	boolean OutOfTime = false;
 	int playerScore = 0;
 	int numPlayers = 0;
 	int[] aiType;
@@ -76,10 +83,14 @@ public class Ui extends Application
 	private HandleJoker checkMeld;
 	private Memento lastMove;
 	
+	int timing = 120;
+	
+	boolean validMove = true;
 	
 	public static void main(String [] args) 
 	{		
 		Application.launch(args);
+		
 	}
 	
 	public void start(Stage primaryStage) throws Exception 
@@ -88,6 +99,8 @@ public class Ui extends Application
 		lastMove = new Memento(game);
 		window = primaryStage;
 		window.setTitle("Rummikub");
+	
+		
 		
 		InputStream mainImagePath = getClass().getResourceAsStream("TitleImage.png");
 		Image mainImage = new Image(mainImagePath);
@@ -182,6 +195,56 @@ public class Ui extends Application
 	//turnOrder goes by ai numbers and the player is listed as 10
 	public void mainGame(int[] turnOrder)
 	{	lastMove= new Memento(game);
+		class Time extends TimerTask{
+			@Override
+		public void run() {
+			// TODO Auto-generated method stub
+			System.out.println("Timing left for human: " + timing--);
+			if(timing == 0) {
+				Platform.runLater(new Runnable() {
+					@Override
+					public void run() {
+						updateTableAndHand();
+						// TODO Auto-generated method stub
+						System.out.println("OUT OF TIME");
+				    	if(game.getDeck().getDeck().size() > 0)
+			    			drawTile();
+				    	updateHand();
+				    	lastMove = new Memento(game);
+				    	game.Announcement();
+				    	for(int i = 1; i < game.getPlayers().size();i++) 
+				    	{
+			    			game.getPlayers().get(i).getHand().sortTilesByColour();
+				    		if(!game.getPlayers().get(i).getName().equals("Human") && game.getPlayers().get(i).play()) 
+				    		{
+				    			prevString += game.getPlayers().get(i).getName() +  " play: \n";
+						    	prevString += game.getPlayers().get(i).return_report();
+				    		}
+				    		else if (!game.getPlayers().get(i).getName().equals("Human") && game.getDeck().getDeck().size() > 0) 
+				    		{
+					    		Tile t= game.getDeck().Draw();
+					    		prevString += game.getPlayers().get(i).getName() + "draw: \n";
+					    		game.getPlayers().get(i).getHand().addTileToHand(t);
+					    		prevString += t.toString() + "\n";
+					    	}
+				    		game.Announcement();
+				    		lastMove = new Memento(game);  	
+				    		console.setText(prevString);  
+					    	prevString = "";
+				    	}
+				    	updateTableAndHand();
+				    	updateTable();
+				    	updateHand();	
+					}
+				});
+				timing = 120;
+			}
+		}
+		}
+		timer = new Timer();
+		timer.scheduleAtFixedRate(new Time(), 0, 1000);
+	
+	
 		//The layoutPane for the gridded table in the center
 		TilePane tablePane = new TilePane();
 		tablePane.setPrefRows(7); //Sets the row length to 7
@@ -429,7 +492,6 @@ public class Ui extends Application
 		endTurnButton.setText("End Turn");
 		endTurnButton.setMinSize(100, 100);
 		endTurnButton.setDisable(false);
-		
 		endTurnButton.setOnAction(new EventHandler<ActionEvent>() 
 		{
 		    public void handle(ActionEvent e) 
@@ -505,8 +567,9 @@ public class Ui extends Application
 			    		prevString += t.toString() + "\n";
 			    	}
 		    		game.Announcement();
-		    		lastMove = new Memento(game);  		
+		    		lastMove = new Memento(game); 
 		    	}
+		    	timing = 120;
 		    	
 		    	console.setText(prevString);  
 		    	prevString = "";
@@ -563,22 +626,12 @@ public class Ui extends Application
 		    		console.setText(prevString);  
 			    	prevString = "";
 		    	}
-		    	
-		    	
-		    	
+		    	timing = 120;
+		    	updateTable();
+		    	updateHand();
 		    	}
-		    	
 		    }
 
-			private void updateTableAndHand() {
-				// TODO Auto-generated method stub
-				game.getTable().setTable(lastMove.getStateTable().getTable());
-				game.getHuman().getHand().setPlayerHand(lastMove.getStateHumanHand().getTiles());
-				updateTable();
-		    	updateHand();		    
-		    
-				
-			}
 		});
 		
 		//The layoutPane that seperated the Player's hand and the end turn button
@@ -1287,6 +1340,13 @@ public class Ui extends Application
 		hand.addTileToHand(tile);
 		hand.sortTilesByColour();
 		addPlayerTile(tile);
+	}
+	private void updateTableAndHand() {
+		// TODO Auto-generated method stub
+		game.getTable().setTable(lastMove.getStateTable().getTable());
+		game.getHuman().getHand().setPlayerHand(lastMove.getStateHumanHand().getTiles());		    
+    
+		
 	}
 	
 	
