@@ -46,6 +46,7 @@ public class Ui extends Application
 	Button aiThree;
 	Button aiFour;
 	Button endTurnButton;
+	Button scenario1; 
 	
 	Button[][] tableButtons = new Button[20][7];
 	//Boolean[][] isTableSet = new Boolean[20][7];
@@ -141,7 +142,44 @@ public class Ui extends Application
 		    }
 		});
 		
+		//Sets up the 4 player Button
+				/*scenario1 = new Button();
+				scenario1.setText("Scenario 1");
+				scenario1.setMinSize(100, 50);
+				scenario1.setDisable(false);
+				scenario1.setLayoutX(610);
+				scenario1.setLayoutY(200);
+				scenario1.setOnAction(new EventHandler<ActionEvent>() 
+				{
+				    public void handle(ActionEvent e) 
+				    {
+				    	int maxPlayers  = 4; 
+				    	clearMainScreen();
+						aiType = new int[maxPlayers];
+						aiType[0] = 1;
+						aiType[1] = 2;
+						aiType[2] = 3;
+						aiType[3] = 4;
+					    ScenarioFactory scenarioFactory = new ScenarioFactory();
+
+					    Scenario s1 = scenarioFactory.getScenario("s1");
+					    game = s1.deal(game);
+
+			    		int[] temp = game.turnOrder(aiType);
+			    		game.getPlayers().remove(game.getHuman());
+			    		
+					   //game.getAI().getHand().HandReader();
+					   
+					  // game.getAI().play();
+			    		mainGame(temp);		   
+			    		
+				    }
+				});*/
+
+		
 		mainScreen = new AnchorPane(mainImageNode, twoPlayer, threePlayer, fourPlayer);
+		//mainScreen = new AnchorPane(mainImageNode, twoPlayer, threePlayer, fourPlayer, scenario1);
+
 		mainScreen.setMinSize(1095,	790);
 		
 		mainMenuScene = new Scene(mainScreen);
