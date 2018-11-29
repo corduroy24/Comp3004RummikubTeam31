@@ -29,6 +29,7 @@ public class GameMaster extends Observable{
 		deck = new Deck();
 		deck.Shuffle();
 		table = new Table();
+		players.add(human);
 		//Add human  and AIs to Observable
 		this.addObserver(human);
 		
@@ -363,7 +364,6 @@ public class GameMaster extends Observable{
 			}
 		}
 		
-
 		Announcement();
 		
 		return returnOrder;
