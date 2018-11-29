@@ -3,7 +3,6 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
-
 import javafx.application.Application;
 import javafx.collections.ObservableList;
 import javafx.stage.Stage;
@@ -66,7 +65,8 @@ public class Ui extends Application
 	
 	int playerScore = 0;
 	int numPlayers = 0;
-	int[] aiType;;
+	int[] aiType;
+	ArrayList<Integer> turnOrder = new ArrayList<Integer>();
 	
 	private GameMaster game;
 	private HandleJoker checkMeld;
@@ -449,6 +449,14 @@ public class Ui extends Application
 		{
 		    public void handle(ActionEvent e) 
 		    {
+		    	ArrayList<Integer> temp = getTurnOrder();
+		    	int[] order = new int[temp.size()];
+		    	
+		    	for(int x=0;x<temp.size();x++)
+		    	{
+		    		order[x] = temp.get(x);
+		    	}
+		    	
 		    	//Change to send a message that players turn has ended
 		    	//boolean hasWinner = false;
 		    	checkMeld = new HandleJoker();
@@ -465,25 +473,44 @@ public class Ui extends Application
 		    	game.Announcement();
 		    	checkPlayerIsWinner();
 		    	console.clear();
-		    	for(int i =0; i < game.getPlayers().size();i++) 
+		    	
+		    	int playerLocation = 0;
+		    	int currentLocation = 0;
+		    	
+		    	for(int x=0;x<order.length;x++)
 		    	{
-		    		game.getPlayers().get(i).getHand().sortTilesByColour();
-		    		
-		    		if(!game.getPlayers().get(i).getName().equals("Human")&& game.getPlayers().get(i).play()) 
+		    		if(order[x]==0)
 		    		{
-		    			prevString += game.getPlayers().get(i).getName() +  " play: \n";
-				    	prevString += game.getPlayers().get(i).return_report();
+		    			playerLocation = x;
 		    		}
-		    		else if (!game.getPlayers().get(i).getName().equals("Human")&& game.getDeck().getDeck().size() > 0) 
+		    	}
+		    	
+		    	for(int i = 1; i < game.getPlayers().size();i++) 
+		    	{
+		    		currentLocation = playerLocation + i;
+		    		if(currentLocation == order.length-1)
+		    		{
+		    			currentLocation = 0;
+		    		}
+		    		
+	    			game.getPlayers().get(order[currentLocation]).getHand().sortTilesByColour();
+		    		
+		    		if(!game.getPlayers().get(order[currentLocation]).getName().equals("Human") && game.getPlayers().get(order[currentLocation]).play()) 
+		    		{
+		    			prevString += game.getPlayers().get(order[currentLocation]).getName() +  " play: \n";
+				    	prevString += game.getPlayers().get(order[currentLocation]).return_report();
+		    		}
+		    		else if (!game.getPlayers().get(order[currentLocation]).getName().equals("Human") && game.getDeck().getDeck().size() > 0) 
 		    		{
 			    		Tile t= game.getDeck().Draw();
-			    		prevString += game.getPlayers().get(i).getName() + "draw: \n";
-			    		game.getPlayers().get(i).getHand().addTileToHand(t);
+			    		prevString += game.getPlayers().get(order[currentLocation]).getName() + "draw: \n";
+			    		game.getPlayers().get(order[currentLocation]).getHand().addTileToHand(t);
 			    		prevString += t.toString() + "\n";
 			    	}
 		    		game.Announcement();
-		    		lastMove = new Memento(game);
+		    		lastMove = new Memento(game);  		
 		    	}
+		    	
 		    	console.setText(prevString);  
 		    	prevString = "";
 		    	updateTable();
@@ -554,20 +581,22 @@ public class Ui extends Application
 		aiPlayFirst(turnOrder);
 	}
 	
-	public void aiPlayFirst(int[] turnOrder)
+	public void aiPlayFirst(int[] turnOrders)
 	{
+		setTurnOrder(turnOrders);
+		
 		System.out.println("\nUI Class");
-		for(int x=0;x<turnOrder.length;x++)
+		for(int x=0;x<turnOrders.length;x++)
 		{
-			System.out.println(turnOrder[x]);
+			System.out.println(turnOrders[x]);
 		}
 		System.out.print("\n");
 		
 		int x=0;
 		
-		while(turnOrder[x] != 0)
+		while(turnOrders[x] != 0)
 		{
-			System.out.println("--------------------------- "+ turnOrder[x]);
+			System.out.println("--------------------------- "+ turnOrders[x]);
 			
 	    	//Change to send a message that players turn has ended
 	    	//boolean hasWinner = false;
@@ -577,18 +606,18 @@ public class Ui extends Application
 	    	checkPlayerIsWinner();
 	    	//console.clear();
 
-    		game.getPlayers().get(turnOrder[x]).getHand().sortTilesByColour();
+    		game.getPlayers().get(turnOrders[x]).getHand().sortTilesByColour();
     		
-    		if(game.getPlayers().get(turnOrder[x]).play()) 
+    		if(game.getPlayers().get(turnOrders[x]).play()) 
     		{
-    			prevString += game.getPlayers().get(turnOrder[x]).getName() +  " play: \n";
-		    	prevString += game.getPlayers().get(turnOrder[x]).return_report();
+    			prevString += game.getPlayers().get(turnOrders[x]).getName() +  " play: \n";
+		    	prevString += game.getPlayers().get(turnOrders[x]).return_report();
     		}
     		else if (game.getDeck().getDeck().size() > 0) 
     		{
 	    		Tile t= game.getDeck().Draw();
-	    		prevString += game.getPlayers().get(turnOrder[x]).getName() + "draw: \n";
-	    		game.getPlayers().get(turnOrder[x]).getHand().addTileToHand(t);
+	    		prevString += game.getPlayers().get(turnOrders[x]).getName() + "draw: \n";
+	    		game.getPlayers().get(turnOrders[x]).getHand().addTileToHand(t);
 	    		prevString += t.toString() + "\n";
 	    	}
     		game.Announcement();
@@ -622,6 +651,19 @@ public class Ui extends Application
 	    	
 	    	x++;
 	    }
+	}
+	
+	public void setTurnOrder(int[] turns)
+	{
+		for(int x=0;x<turns.length;x++)
+		{
+			turnOrder.add(turns[x]);
+		}
+	}
+	
+	public ArrayList<Integer> getTurnOrder()
+	{
+		return turnOrder;
 	}
 	
 	private boolean checkAIIsWinner() {
