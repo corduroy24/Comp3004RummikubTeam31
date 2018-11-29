@@ -177,7 +177,7 @@ public class Ui extends Application
 				});*/
 
 		
-		mainScreen = new AnchorPane(mainImageNode, twoPlayer, threePlayer, fourPlayer, scenario1);
+		mainScreen = new AnchorPane(mainImageNode, twoPlayer, threePlayer, fourPlayer);
 		//mainScreen = new AnchorPane(mainImageNode, twoPlayer, threePlayer, fourPlayer, scenario1);
 
 		mainScreen.setMinSize(1095,	790);
