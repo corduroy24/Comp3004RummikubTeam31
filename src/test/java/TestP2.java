@@ -276,8 +276,8 @@ public class TestP2 extends TestCase{
 		p.setIsfirstMeldComplete(true);
 		assertTrue(p.play() == true);
 		assertTrue(p.getHand().sizeOfHand() == 1); p.getHand().HandReader();;
+		
 	}
-
 	
 	
 	

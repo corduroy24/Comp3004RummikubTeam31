@@ -56,6 +56,8 @@ public class Ui extends Application
 	Button scenarioThree;
 	Button scenarioFour;
 	
+	boolean isTimerOn=false;
+	Button timerButton;
 	Timer timer;
 	
 	Button[][] tableButtons = new Button[20][7];
@@ -176,7 +178,27 @@ public class Ui extends Application
 		});
 
 		
-		mainScreen = new AnchorPane(mainImageNode, twoPlayer, threePlayer, fourPlayer, scenarios);
+			timerButton = new Button();
+			timerButton.setText("Turn Timer On");
+			timerButton.setMinSize(100, 50);
+			timerButton.setDisable(false);
+			timerButton.setLayoutX(400);
+			timerButton.setLayoutY(300);
+			timerButton.setOnAction(new EventHandler<ActionEvent>() 
+			{
+			    public void handle(ActionEvent e) 
+			    {
+			    	//clearMainScreen();
+			    	if (isTimerOn==false) {
+			    	isTimerOn=true;
+			    	System.out.println("Timer turned on");
+			    	}
+			    	
+			    
+			    }
+			});
+		
+		mainScreen = new AnchorPane(mainImageNode, twoPlayer, threePlayer, fourPlayer, scenarios,timerButton);
 
 		mainScreen.setMinSize(1095,	790);
 		
@@ -195,6 +217,7 @@ public class Ui extends Application
 	//turnOrder goes by ai numbers and the player is listed as 10
 	public void mainGame(int[] turnOrder)
 	{	lastMove= new Memento(game);
+	if (isTimerOn==true) {
 		class Time extends TimerTask{
 			@Override
 		public void run() {
@@ -244,7 +267,7 @@ public class Ui extends Application
 		timer = new Timer();
 		timer.scheduleAtFixedRate(new Time(), 0, 1000);
 	
-	
+	}
 		//The layoutPane for the gridded table in the center
 		TilePane tablePane = new TilePane();
 		tablePane.setPrefRows(7); //Sets the row length to 7
@@ -791,7 +814,7 @@ public class Ui extends Application
 		*/
 		return false;
 	}
-
+	
 	private boolean checkPlayerIsWinner() {
 		Button OK_Button = new Button();
     	OK_Button.setText("OK");
@@ -855,6 +878,8 @@ public class Ui extends Application
 		mainScreen.getChildren().remove(fourPlayer);
 		mainScreen.getChildren().remove(scenarios);
 	}
+	
+
 	
 	public void whoGoesFirst(final int maxPlayers)
 	{
@@ -988,6 +1013,8 @@ public class Ui extends Application
 		mainScreen.getChildren().add(aiFour);
 		mainScreen.getChildren().add(mainImageNode);
 	}
+	
+	
 	
 	public void scenariosList()
 	{
