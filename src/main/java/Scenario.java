@@ -33,7 +33,7 @@ public interface Scenario {
 			game.getAI2().getHand().DrawThis(new Tile(1,6), deck);
 			game.getAI2().getHand().DrawThis(new Tile(1,5), deck);
 			game.getAI2().getHand().DrawThis(new Tile(2,5), deck);
-			game.getAI2().getHand().DrawThis(new Tile(3,5), deck);
+			//game.getAI2().getHand().DrawThis(new Tile(3,5), deck);
 			
 			game.getAI3().getHand().DrawThis(new Tile(1,4), deck);
 			game.getAI3().getHand().DrawThis(new Tile(1,5), deck);
