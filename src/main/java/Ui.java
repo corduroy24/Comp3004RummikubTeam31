@@ -1,8 +1,5 @@
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
 import javafx.application.Application;
 import javafx.collections.ObservableList;
 import javafx.stage.Stage;
@@ -40,12 +37,19 @@ public class Ui extends Application
 	Button twoPlayer;
 	Button threePlayer;
 	Button fourPlayer;
+	
 	Button aiOne;
 	Button aiTwo;
 	Button aiThree;
 	Button aiFour;
+	
 	Button endTurnButton;
-	Button scenario1; 
+	
+	Button scenarios;
+	Button scenarioOne;
+	Button scenarioTwo;
+	Button scenarioThree;
+	Button scenarioFour;
 	
 	Button[][] tableButtons = new Button[20][7];
 	//Boolean[][] isTableSet = new Boolean[20][7];
@@ -142,43 +146,24 @@ public class Ui extends Application
 		    }
 		});
 		
-		//Sets up the 4 player Button
-				/*scenario1 = new Button();
-				scenario1.setText("Scenario 1");
-				scenario1.setMinSize(100, 50);
-				scenario1.setDisable(false);
-				scenario1.setLayoutX(610);
-				scenario1.setLayoutY(200);
-				scenario1.setOnAction(new EventHandler<ActionEvent>() 
-				{
-				    public void handle(ActionEvent e) 
-				    {
-				    	int maxPlayers  = 4; 
-				    	clearMainScreen();
-						aiType = new int[maxPlayers];
-						aiType[0] = 1;
-						aiType[1] = 2;
-						aiType[2] = 3;
-						aiType[3] = 4;
-					    ScenarioFactory scenarioFactory = new ScenarioFactory();
-
-					    Scenario s1 = scenarioFactory.getScenario("s1");
-					    game = s1.deal(game);
-
-			    		int[] temp = game.turnOrder(aiType);
-			    		game.getPlayers().remove(game.getHuman());
-			    		
-					   //game.getAI().getHand().HandReader();
-					   
-					  // game.getAI().play();
-			    		mainGame(temp);		   
-			    		
-				    }
-				});*/
+		//Sets up Scenario Button
+		scenarios = new Button();
+		scenarios.setText("Scenarios");
+		scenarios.setMinSize(100, 50);
+		scenarios.setDisable(false);
+		scenarios.setLayoutX(500);
+		scenarios.setLayoutY(600);
+		scenarios.setOnAction(new EventHandler<ActionEvent>() 
+		{
+		    public void handle(ActionEvent e) 
+		    {
+		    	clearMainScreen();
+		    	scenariosList();
+		    }
+		});
 
 		
-		mainScreen = new AnchorPane(mainImageNode, twoPlayer, threePlayer, fourPlayer);
-		//mainScreen = new AnchorPane(mainImageNode, twoPlayer, threePlayer, fourPlayer, scenario1);
+		mainScreen = new AnchorPane(mainImageNode, twoPlayer, threePlayer, fourPlayer, scenarios);
 
 		mainScreen.setMinSize(1095,	790);
 		
@@ -781,6 +766,7 @@ public class Ui extends Application
 		mainScreen.getChildren().remove(twoPlayer);
 		mainScreen.getChildren().remove(threePlayer);
 		mainScreen.getChildren().remove(fourPlayer);
+		mainScreen.getChildren().remove(scenarios);
 	}
 	
 	public void whoGoesFirst(final int maxPlayers)
@@ -914,6 +900,82 @@ public class Ui extends Application
 		mainScreen.getChildren().add(aiThree);
 		mainScreen.getChildren().add(aiFour);
 		mainScreen.getChildren().add(mainImageNode);
+	}
+	
+	public void scenariosList()
+	{
+		//Sets up the Scenario 1 Button
+		scenarioOne = new Button();
+		scenarioOne.setText("Scenario 1");
+		scenarioOne.setMinSize(100, 50);
+		scenarioOne.setDisable(false);
+		scenarioOne.setLayoutX(327);
+		scenarioOne.setLayoutY(500);
+		scenarioOne.setOnAction(new EventHandler<ActionEvent>() 
+		{
+		    public void handle(ActionEvent e) 
+		    {
+		    	
+		    }
+		});
+		
+		//Sets up the Scenario 2 Button
+		scenarioTwo = new Button();
+		scenarioTwo.setText("Scenario 2");
+		scenarioTwo.setMinSize(100, 50);
+		scenarioTwo.setDisable(false);
+		scenarioTwo.setLayoutX(437);
+		scenarioTwo.setLayoutY(500);
+		scenarioTwo.setOnAction(new EventHandler<ActionEvent>() 
+		{
+		    public void handle(ActionEvent e) 
+		    {
+		    	
+		    }
+		});
+		
+		//Sets up the Scenario 3 Button
+		scenarioThree = new Button();
+		scenarioThree.setText("Scenario 3");
+		scenarioThree.setMinSize(100, 50);
+		scenarioThree.setDisable(false);
+		scenarioThree.setLayoutX(547);
+		scenarioThree.setLayoutY(500);
+		scenarioThree.setOnAction(new EventHandler<ActionEvent>() 
+		{
+		    public void handle(ActionEvent e) 
+		    {
+		    	
+		    }
+		});
+		
+		//Sets up the Scenario 4 Button
+		scenarioFour = new Button();
+		scenarioFour.setText("Scenario 4");
+		scenarioFour.setMinSize(100, 50);
+		scenarioFour.setDisable(false);
+		scenarioFour.setLayoutX(657);
+		scenarioFour.setLayoutY(500);
+		scenarioFour.setOnAction(new EventHandler<ActionEvent>() 
+		{
+		    public void handle(ActionEvent e) 
+		    {
+		    	
+		    }
+		});
+		
+		InputStream mainImagePath = getClass().getResourceAsStream("pickOne.png");
+		Image mainImage = new Image(mainImagePath);
+		mainImageNode = new ImageView(mainImage);
+		mainImageNode.setX(442);
+		mainImageNode.setY(100);
+		
+		mainScreen.getChildren().add(scenarioOne);
+		mainScreen.getChildren().add(scenarioTwo);
+		mainScreen.getChildren().add(scenarioThree);
+		mainScreen.getChildren().add(scenarioFour);
+		mainScreen.getChildren().add(mainImageNode);
+		
 	}
 	
 	public void updateConsole(String output)
