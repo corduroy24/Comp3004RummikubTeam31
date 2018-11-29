@@ -179,7 +179,7 @@ public class Ui extends Application
 
 		
 			timerButton = new Button();
-			timerButton.setText("Turn Timer On");
+			timerButton.setText("Timer On/Off");
 			timerButton.setMinSize(100, 50);
 			timerButton.setDisable(false);
 			timerButton.setLayoutX(400);
@@ -193,7 +193,10 @@ public class Ui extends Application
 			    	isTimerOn=true;
 			    	System.out.println("Timer turned on");
 			    	}
-			    	
+			    	else {
+			    		isTimerOn=false;
+			    		System.out.println("Timer turned off");
+			    	}
 			    
 			    }
 			});
