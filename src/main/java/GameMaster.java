@@ -41,12 +41,17 @@ public class GameMaster extends Observable{
 		return new Memento(this);
 	}
 	public void deal() {
+		Deck  d = new Deck();
+		d.Shuffle();
 		for(int i =0; i < players.size();i++) {
-			players.get(i).getHand().drawFirst14(deck);
+			players.get(i).getHand().drawFirst14(d);
 		}
-		Collections.sort(players, new SortByCommand());
+		Collections.sort(players, new SortByCommand());		
+		
 		
 		for(int i =0; i < players.size();i++) {
+			players.get(i).getHand().clear();
+			players.get(i).getHand().drawFirst14(deck);
 			if(players.get(i).getName().equals("Human"))
 				IndexOfHuman = i;
 		}
@@ -588,10 +593,15 @@ public class GameMaster extends Observable{
 	class SortByCommand implements Comparator<Player> 
 	{ 	
 	    public int compare(Player a, Player b) 
-	    { 
-	    	if(a.getHand().getTile(0).getNumber() - b.getHand().getTile(0).getNumber() == 0) 
-	    		return a.getHand().getTile(0).getColor().compareTo(b.getHand().getTile(0).getColor());
-	    	return a.getHand().getTile(0).getNumber() - b.getHand().getTile(0).getNumber();
+	    { int i =0;
+	    	while(b.getHand().getTile(i).getNumber() - a.getHand().getTile(i).getNumber() == 0){
+	    		i++;
+	    		if(b.getHand().getTile(i).getNumber() - a.getHand().getTile(i).getNumber() != 0)
+	    			return b.getHand().getTile(i).getNumber() -a.getHand().getTile(i).getNumber();
+	    	}
+	    	System.out.println("hello");
+	    	return b.getHand().getTile(i).getNumber() - a.getHand().getTile(i).getNumber();
 	    }
 	}
+	
 }

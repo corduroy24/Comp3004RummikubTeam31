@@ -16,6 +16,10 @@ public class PlayerHand {
 
 	private ArrayList<Tile> hand = new ArrayList<Tile>();
 
+	public void clear() {
+		hand.clear();
+	}
+	
 	public void DrawThis(Tile x, Deck y) {
 		for (int i=0;i<y.DeckofTiles.size();i++) {
 			if ((x.getColor()==y.DeckofTiles.get(i).getColor())&&(x.getNumber()==y.DeckofTiles.get(i).getNumber())) {
