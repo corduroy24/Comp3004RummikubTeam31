@@ -18,14 +18,15 @@ public class GameMaster extends Observable{
 	private Deck deck;
 	private Table table;
 	private ArrayList<Player> players;
+	private int IndexOfHuman;
 	
 	public GameMaster(){
 		//create human, AI1, AI2, AI3, deck table GUI
 		human = new Player("Human",1, new HumanPlayerStrategy());
-		AI1 = new Player("AI1",1, new PlayerStrategy1());
-		AI2 = new Player("AI2",2, new PlayerStrategy2());
-		AI3 = new Player("AI3",3, new PlayerStrategy3());
-		AI4 = new Player("AI4",4, new PlayerStrategy4());
+		AI1 = new Player("AI1",1, new p1());
+		AI2 = new Player("AI2",2, new p2());
+		AI3 = new Player("AI3",3, new p3());
+		AI4 = new Player("AI4",4, new p4());
 		players = new ArrayList<Player>();
 		deck = new Deck();
 		deck.Shuffle();
@@ -43,9 +44,14 @@ public class GameMaster extends Observable{
 		for(int i =0; i < players.size();i++) {
 			players.get(i).getHand().drawFirst14(deck);
 		}
-		
 		Collections.sort(players, new SortByCommand());
+		
+		for(int i =0; i < players.size();i++) {
+			if(players.get(i).getName().equals("Human"))
+				IndexOfHuman = i;
+		}
 	}
+	public int getHumanPosition() {return IndexOfHuman;}
 	
 	public void addPlayer(int a) {
 		if(a == 1) {

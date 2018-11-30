@@ -18,7 +18,8 @@ public class Support {
 			output = p.getTable().getTable().get(i);
 			output.add(p.getHand().getTile(0));
 			for (int j=0;j<output.size();j++) {  
-			count=getSequences(output).get(j).size();
+				if(output.get(j) != null && getSequences(output).get(j) != null)
+					count=getSequences(output).get(j).size();
 			if (count==output.size()) {
 			c=i;
 			done=true;
@@ -29,7 +30,7 @@ public class Support {
 				return true;
 			}
 			}
-		}
+		}		
 			for (int j=0;j<output.size();j++) {
 				count=getSets(output).get(j).size();
 				if (count==output.size()) {

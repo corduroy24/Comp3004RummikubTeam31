@@ -82,6 +82,7 @@ public class Ui extends Application
 	private GameMaster game;
 	private HandleJoker checkMeld;
 	private Memento lastMove;
+	private int turnOfHuman = 0;
 	
 	int timing = 120;
 	
@@ -215,7 +216,8 @@ public class Ui extends Application
 	
 	//turnOrder goes by ai numbers and the player is listed as 10
 	public void mainGame()
-	{	game.deal();
+	{
+		turnOfHuman = game.getHumanPosition();
 		lastMove= new Memento(game);
 		if (isTimerOn==true) {
 			class Time extends TimerTask{
@@ -234,11 +236,12 @@ public class Ui extends Application
 						    	lastMove = new Memento(game);
 						    	game.Announcement();
 						    	String report = "";
-						    	for(int i = 1; i < game.getPlayers().size();i++) 
+						    	for(int i = turnOfHuman; i < game.getPlayers().size();i++) 
 						    	{
 					    			game.getPlayers().get(i).getHand().sortTilesByColour();
 						    		if(!game.getPlayers().get(i).getName().equals("Human") && game.getPlayers().get(i).play()) 
 						    		{
+						    			report += game.getPlayers().get(i).getName() + "\n";
 						    			report += game.getPlayers().get(i).return_report();
 						    		}
 						    		else if (!game.getPlayers().get(i).getName().equals("Human") && game.getDeck().getDeck().size() > 0) 
@@ -253,6 +256,7 @@ public class Ui extends Application
 						    		prevString = report;
 						    		console.setText(prevString);  
 						    	}
+						    	AisPlay(turnOfHuman,report);
 						    	updateTableAndHand();
 						    	updateTable();
 						    	updateHand();	
@@ -563,12 +567,13 @@ public class Ui extends Application
 		    	//console.clear()
 		    	
 		    	String report = "";
-		    	for(int i = 0; i < game.getPlayers().size();i++) 
+		    	for(int i = turnOfHuman; i < game.getPlayers().size();i++) 
 		    	{
 	    			game.getPlayers().get(i).getHand().sortTilesByColour();
 		    		
 		    		if(!game.getPlayers().get(i).getName().equals("Human") && game.getPlayers().get(i).play()) 
 		    		{
+		    			report += game.getPlayers().get(i).getName() + "\n";
 		    			report += game.getPlayers().get(i).return_report();
 		    		}
 		    		else if (!game.getPlayers().get(i).getName().equals("Human") && game.getDeck().getDeck().size() > 0) 
@@ -585,6 +590,8 @@ public class Ui extends Application
 		    	prevString = report;
 		    	console.setText(report);  
 		    	updateTable();
+		    	AisPlay(turnOfHuman,report);
+		    	
 		    	
 		    	if(!played)
 		    	{
@@ -608,7 +615,8 @@ public class Ui extends Application
 		    	
 		    	lightRecentlyPlayed();
 		    	game.getTable().clearBool();
-		    	}
+		    
+		    }
 		    else {
 		    	updateTableAndHand();
 		 
@@ -618,11 +626,12 @@ public class Ui extends Application
 		    	game.Announcement();
 		    	lastMove = new Memento(game);
 		    	String report = "";
-		    	for(int i = 0; i < game.getPlayers().size();i++) 
+		    	for(int i = turnOfHuman; i < game.getPlayers().size();i++) 
 		    	{
 	    			game.getPlayers().get(i).getHand().sortTilesByColour();
 		    		if(!game.getPlayers().get(i).getName().equals("Human") && game.getPlayers().get(i).play()) 
 		    		{
+		    			report += game.getPlayers().get(i).getName() + "\n";
 		    			report += game.getPlayers().get(i).return_report();
 		    		}
 		    		else if (!game.getPlayers().get(i).getName().equals("Human") && game.getDeck().getDeck().size() > 0) 
@@ -637,12 +646,12 @@ public class Ui extends Application
 		    		prevString = report;
 		    		console.setText(prevString);  
 		    	}
+		    	AisPlay(turnOfHuman,report);
 		    	timing = 120;
 		    	updateTable();
 		    	updateHand();
 		    	}
 		    }
-
 		});
 		
 		//The layoutPane that seperated the Player's hand and the end turn button
@@ -747,7 +756,7 @@ public class Ui extends Application
 		    }
 		});
     	
-    	for(int i =0; i < game.getPlayers().size();i++) {
+    	for(int i =0; i < game.getPlayers().size()-1;i++) {
     		if(game.getPlayers().get(i).getHand().sizeOfHand() == 0) {
     			InputStream mainImagePath = getClass().getResourceAsStream("Looser.jpg");
 				Image mainImage = new Image(mainImagePath);
@@ -852,8 +861,11 @@ public class Ui extends Application
 		    	//System.out.println("Pressed ai 1 button");
 		    	aiOne.setDisable(true);
 		    	game.addPlayer(1);
-		    	if(game.getPlayers().size() == maxPlayers)
+		    	if(game.getPlayers().size() == maxPlayers) {
+		    		game.deal();
 		    		mainGame();
+		    		AisPlay(turnOfHuman,prevString);
+		    	}
 		    }
 		});
 		
@@ -871,8 +883,11 @@ public class Ui extends Application
 		    	//System.out.println("Pressed ai 2 button");
 		    	aiTwo.setDisable(true);
 		    	game.addPlayer(2);
-		    	if(game.getPlayers().size() == maxPlayers)
+		    	if(game.getPlayers().size() == maxPlayers) {
+		    		game.deal();
 		    		mainGame();
+		    		AisPlay(turnOfHuman,prevString);
+		    	}
 		    }
 		});
 		
@@ -890,8 +905,11 @@ public class Ui extends Application
 		    	//System.out.println("Pressed ai 3 button");
 		    	aiThree.setDisable(true);
 		    	game.addPlayer(3);
-		    	if(game.getPlayers().size() == maxPlayers)
+		    	if(game.getPlayers().size() == maxPlayers) {
+		    		game.deal();
 		    		mainGame();
+		    		AisPlay(turnOfHuman,prevString);
+		    	}
 		    }
 		});
 		
@@ -909,8 +927,11 @@ public class Ui extends Application
 		    	//System.out.println("Pressed ai 4 button");
 		    	aiFour.setDisable(true);
 		    	game.addPlayer(4);
-		    	if(game.getPlayers().size() == maxPlayers)
-		    		mainGame();
+		    	if(game.getPlayers().size() == maxPlayers) {
+		    		game.deal();
+		    		mainGame();	
+		    		AisPlay(turnOfHuman,prevString);
+		    	}
 		    }
 		});
 		
@@ -1445,7 +1466,33 @@ public class Ui extends Application
 	   	    game.getTable().clearBool();
 	    	
 	}	
-}	    
+}	   
+	private void AisPlay(int index,String report){
+		for(int i = 0; i < index;i++) 
+    	{
+			game.getPlayers().get(i).getHand().sortTilesByColour();
+    		
+    		if(game.getPlayers().get(i).play()) 
+    		{
+    			report += game.getPlayers().get(i).getName() + " \n";
+    			report += game.getPlayers().get(i).return_report();
+    		}
+    		else if (game.getDeck().getDeck().size() > 0) 
+    		{
+	    		Tile t= game.getDeck().Draw();
+	    		report += game.getPlayers().get(i).getName() + "draw: \n";
+	    		game.getPlayers().get(i).getHand().addTileToHand(t);
+	    		report += t.toString() + "\n";
+	    	}
+    		game.Announcement();
+    	}
+		game.Announcement();
+		lastMove = new Memento(game); 
+		prevString = report;
+    	console.setText(prevString);  
+    	updateTable();
+	}
+	
 
 	
 }
