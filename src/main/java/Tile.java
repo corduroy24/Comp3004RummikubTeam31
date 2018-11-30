@@ -34,7 +34,7 @@ public class Tile{
 	}
 	
 	public void setColor(String x) {
-	Color = x;	
+		Color = x;	
 	}
 	
 	public void setNumber(int x) {

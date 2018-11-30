@@ -64,6 +64,7 @@ public class Ui extends Application
 	ArrayList<Button> playerHandButtons = new ArrayList<Button>();
 	
 	TextArea console;
+	TextArea scoreConsole;
 	
 	HBox playerHand;
 	
@@ -241,13 +242,13 @@ public class Ui extends Application
 					    			game.getPlayers().get(i).getHand().sortTilesByColour();
 						    		if(!game.getPlayers().get(i).getName().equals("Human") && game.getPlayers().get(i).play()) 
 						    		{
-						    			report += game.getPlayers().get(i).getName() + "\n";
+						    			report += game.getPlayers().get(i).getName() + " played: ";
 						    			report += game.getPlayers().get(i).return_report();
 						    		}
 						    		else if (!game.getPlayers().get(i).getName().equals("Human") && game.getDeck().getDeck().size() > 0) 
 						    		{
 							    		Tile t= game.getDeck().Draw();
-							    		report += game.getPlayers().get(i).getName() + "draw: \n";
+							    		report += game.getPlayers().get(i).getName() + " drew: ";
 							    		game.getPlayers().get(i).getHand().addTileToHand(t);
 							    		report += t.toString() + "\n";
 							    	}
@@ -515,12 +516,19 @@ public class Ui extends Application
 			playerHand.getChildren().add(playerHandButtons.get(x));
 		}
 		
-		//Creates the text console where it will ouput any necessary info\
+		//Creates the text console where it will ouput any necessary info
 		console = new TextArea();
 		console.setText("");
 		console.setEditable(false); //Makes it not editable
-		console.setMinSize(1095, 100); //sets the size of the box
-		console.setMaxSize(1095, 100); //sets the size of the box
+		console.setMinSize(795, 100); //sets the size of the box
+		console.setMaxSize(795, 100); //sets the size of the box
+		
+		//Creates the text console where it will ouput The score
+		scoreConsole = new TextArea();
+		scoreConsole.setText("Score: ");
+		scoreConsole.setEditable(false); //Makes it not editable
+		scoreConsole.setMinSize(300, 100); //sets the size of the box
+		scoreConsole.setMaxSize(300, 100); //sets the size of the box
 		
 		//Sets up the End Turn Button
 		endTurnButton = new Button();
@@ -573,13 +581,13 @@ public class Ui extends Application
 		    		
 		    		if(!game.getPlayers().get(i).getName().equals("Human") && game.getPlayers().get(i).play()) 
 		    		{
-		    			report += game.getPlayers().get(i).getName() + "\n";
+		    			report += game.getPlayers().get(i).getName() + " played: ";
 		    			report += game.getPlayers().get(i).return_report();
 		    		}
 		    		else if (!game.getPlayers().get(i).getName().equals("Human") && game.getDeck().getDeck().size() > 0) 
 		    		{
 			    		Tile t= game.getDeck().Draw();
-			    		report += game.getPlayers().get(i).getName() + "draw: \n";
+			    		report += game.getPlayers().get(i).getName() + " drew: ";
 			    		game.getPlayers().get(i).getHand().addTileToHand(t);
 			    		report += t.toString() + "\n";
 			    	}
@@ -631,13 +639,13 @@ public class Ui extends Application
 	    			game.getPlayers().get(i).getHand().sortTilesByColour();
 		    		if(!game.getPlayers().get(i).getName().equals("Human") && game.getPlayers().get(i).play()) 
 		    		{
-		    			report += game.getPlayers().get(i).getName() + "\n";
+		    			report += game.getPlayers().get(i).getName() + " played: ";
 		    			report += game.getPlayers().get(i).return_report();
 		    		}
 		    		else if (!game.getPlayers().get(i).getName().equals("Human") && game.getDeck().getDeck().size() > 0) 
 		    		{
 			    		Tile t= game.getDeck().Draw();
-			    		report += game.getPlayers().get(i).getName() + "draw: \n";
+			    		report += game.getPlayers().get(i).getName() + " drew: ";
 			    		game.getPlayers().get(i).getHand().addTileToHand(t);
 			    		report += t.toString() + "\n";
 			    	}
@@ -659,9 +667,13 @@ public class Ui extends Application
 		bottomSkeleton.setCenter(playerHand);
 		bottomSkeleton.setRight(endTurnButton);
 		
+		BorderPane topSkeleton = new BorderPane();
+		topSkeleton.setLeft(console);
+		topSkeleton.setRight(scoreConsole);
+		
 		//The layoutPane for the overarching skeleton (holds all the other layouts)
 		BorderPane bigSkeleton = new BorderPane();
-		bigSkeleton.setTop(console); 
+		bigSkeleton.setTop(topSkeleton); 
 		bigSkeleton.setBottom(bottomSkeleton); 
 		bigSkeleton.setCenter(tablePane); 
 		
@@ -687,10 +699,10 @@ public class Ui extends Application
     		{
 		    	prevString += game.getPlayers().get(turnOrders[x]).return_report();
     		}
-    		else if (game.getDeck().getDeck().size() > 0) 
+    		else if (!game.getPlayers().get(x).getName().equals("Human") && game.getDeck().getDeck().size() > 0) 
     		{
 	    		Tile t= game.getDeck().Draw();
-	    		prevString += game.getPlayers().get(turnOrders[x]).getName() + "draw: \n";
+	    		prevString += game.getPlayers().get(turnOrders[x]).getName() + " drew: ";
 	    		game.getPlayers().get(turnOrders[x]).getHand().addTileToHand(t);
 	    		prevString += t.toString() + "\n";
 	    	}
@@ -1141,11 +1153,15 @@ public class Ui extends Application
 		PlayerHand test = game.getHuman().getHand();
 		test.sortTilesByColour();
 		
-		for(int x=0;x<14;x++)
+		System.out.println("Size of hand "+game.getHuman().getHand().sizeOfHand());
+		
+		for(int x=0;x<game.getHuman().getHand().sizeOfHand();x++)
 		{
 			if(test.getTile(x)!=null)
 			{
 				playerHandButtons.get(x).setText(""+test.getTile(x).getNumber());
+				
+				System.out.println(test.getTile(x).isJoker());
 				
 				if(test.getTile(x).getColor().equals("R"))
 				{
@@ -1163,7 +1179,7 @@ public class Ui extends Application
 				{
 					playerHandButtons.get(x).setStyle("-fx-background-color: #c69033");
 				} 
-				else if(test.getTile(x).getColor().equals("J"))
+				else if(test.getTile(x).isJoker())
 				{
 					playerHandButtons.get(x).setStyle("-fx-background-color: #000000");
 				} 
@@ -1444,13 +1460,13 @@ public class Ui extends Application
 			
 			if(game.getPlayers().get(turnOrders[x]-1).play()) 
 			{
-				prevString += game.getPlayers().get(turnOrders[x]-1).getName() +  " play: \n";
+				prevString += game.getPlayers().get(turnOrders[x]-1).getName() +  " played: ";
 		    	prevString += game.getPlayers().get(turnOrders[x]-1).return_report();
 			}
 			else if (game.getDeck().getDeck().size() > 0) 
 			{
 	    		//Tile t= game.getDeck().Draw();
-	    		prevString += game.getPlayers().get(turnOrders[x]-1).getName() + "draw: \n";
+	    		prevString += game.getPlayers().get(turnOrders[x]-1).getName() + " drew: ";
 	    		//game.getPlayers().get(turnOrders[x]).getHand().addTileToHand(t);
 	    		//prevString += t.toString() + "\n";
 	    	}
@@ -1472,15 +1488,15 @@ public class Ui extends Application
     	{
 			game.getPlayers().get(i).getHand().sortTilesByColour();
     		
-    		if(game.getPlayers().get(i).play()) 
+    		if(!game.getPlayers().get(i).getName().equals("Human") && game.getPlayers().get(i).play()) 
     		{
-    			report += game.getPlayers().get(i).getName() + " \n";
+    			report += game.getPlayers().get(i).getName() + " played: ";
     			report += game.getPlayers().get(i).return_report();
     		}
-    		else if (game.getDeck().getDeck().size() > 0) 
+    		else if (!game.getPlayers().get(i).getName().equals("Human") && game.getDeck().getDeck().size() > 0) 
     		{
 	    		Tile t= game.getDeck().Draw();
-	    		report += game.getPlayers().get(i).getName() + "draw: \n";
+	    		report += game.getPlayers().get(i).getName() + " drew: ";
 	    		game.getPlayers().get(i).getHand().addTileToHand(t);
 	    		report += t.toString() + "\n";
 	    	}

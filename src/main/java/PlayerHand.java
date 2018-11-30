@@ -72,6 +72,8 @@ public class PlayerHand {
 
 	public void addTileToHand(Tile newTile) {
 		hand.add(newTile);
+		//System.out.println("test");
+		HandReader();
 	}
 	
 	public void addTilesToHand(Tile[] newTiles) {
