@@ -12,7 +12,7 @@ public class PlayerStrategy2 implements PlayerStrategy {
 		p.set_report("");
 		ArrayList<Tile> input = new ArrayList<Tile>();
 		functions = new Support();
-		if(p.getIsFirstMeldComplete()) {
+		if(p.getIsFirstMeldComplete()) { 
 			ArrayList<ArrayList<Tile>> output = new ArrayList<ArrayList<Tile>>();
 			// all set and all sequence could be generate from hands and tables
 			output = functions.merge(p.getHand().getTiles(),p.getTable());

@@ -7,6 +7,48 @@ import java.util.Map;
 //support functions
 public class Support {
 
+	
+	public boolean playLastTile(Player p) {
+		ArrayList<Tile> output = new ArrayList<Tile>();
+		boolean done=false;
+		int count=0;
+		int c=0;//System.out.println(p.getTable().getTable().size());
+		for (int i=0;i<p.getTable().getTable().size();i++) {
+			
+			output = p.getTable().getTable().get(i);
+			output.add(p.getHand().getTile(0));
+			for (int j=0;j<output.size();j++) {  
+			count=getSequences(output).get(j).size();
+			if (count==output.size()) {
+			c=i;
+			done=true;
+			if (done==true) {
+				p.getHand().removeTile(p.getHand().getTile(0));
+				p.getTable().getTable().remove(c);
+				p.getTable().addTiles(output);
+				return true;
+			}
+			}
+		}
+			for (int j=0;j<output.size();j++) {
+				count=getSets(output).get(j).size();
+				if (count==output.size()) {
+				c=i;
+				done=true;
+				if (done==true) {
+					p.getHand().removeTile(p.getHand().getTile(0));
+					p.getTable().getTable().remove(c);
+					p.getTable().addTiles(output);
+					return true;
+				}
+				}
+			}
+			
+		}
+		
+		return true;
+	}
+	
 	public boolean one_short(Player p) {
 		ArrayList<ArrayList<Tile>> output = new ArrayList<ArrayList<Tile>>();
 		output = merge(p.getHand().getTiles(),p.getTable());

@@ -367,6 +367,36 @@ public class p2 implements PlayerStrategy{
 							else return false;
 						}
 				}
+				if (usefull_tile.size()>2) {
+					String out = "";
+					int a = 0;
+					loop :for(int i = output.size()-1; i > -1 ;i--) {
+						p.getTable().addTiles(output.get(i));
+						a += checkMeld.getPointOfSeq(output.get(i));
+						for(int u = 0; u < output.get(i).size();u++) {
+							if(output.get(i).get(u).isJoker()) {
+								myloop: for(int k =0; k < p.getHand().getTiles().size();k++) {
+									if(p.getHand().getTiles().get(k).isJoker() && p.getHand().getTiles().get(k).getJokerColor().equals(output.get(i).get(u).getJokerColor())
+										&& p.getHand().getTiles().get(k).getJokerPoint() == output.get(i).get(u).getJokerPoint()) {
+										p.getHand().getTiles().remove(k);
+										break myloop;
+									}
+								}	
+							}
+							else
+								p.getHand().getTiles().remove(output.get(i).get(u));
+							out += output.get(i).get(u).toString();
+						}
+						if( a >= 30) break loop;
+					}
+					out += "\n";
+					p.set_report(out);
+					//return true;
+				}
+				if (useless_tile.size()>0) {
+					function.playLastTile(p);
+				}return true;
+				
 			}
 		}
 	return false;

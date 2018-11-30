@@ -366,6 +366,51 @@ public class TestP2 extends TestCase{
 		assertTrue(p.isWinner() == true);
 	}
 	
-	
+	public void testReUseTable7() {
+		Player p = new Player("test",1,new p2());
+		Tile joker = new Tile(14,14);
+		Tile[] l = {new Tile(3,4),new Tile(4,4),
+					new Tile(1,5),joker};
+		
+		Tile[] l1 = {new Tile(1,1), new Tile(1,2), new Tile(1,3), new Tile(1,4)};
+		Tile[] l2 = { new Tile(1,3),new Tile(2,3), new Tile(3,3),new Tile(4,3)};
+		Tile[] l3 = { new Tile(3,3),new Tile(3,4), new Tile(3,5),new Tile(3,6)};
+		Tile[] l4 = { new Tile(2,3),new Tile(2,4), new Tile(2,5)};
+		Tile[] l5 = { new Tile(1,6),new Tile(2,6), new Tile(3,6)};
+		Tile[] l6 = { new Tile(4,1),new Tile(4,2), new Tile(4,3),new Tile(4,4)};
+		
+		
+
+		p.getHand().addTilesToHand(l);
+		
+		ArrayList<Tile> a = new ArrayList<Tile>();
+		a.addAll(Arrays.asList(l1));
+		p.getTable().addTiles(a);
+		
+		ArrayList<Tile> b = new ArrayList<Tile>();
+		b.addAll(Arrays.asList(l2));
+		p.getTable().addTiles(b);
+		
+		ArrayList<Tile> c = new ArrayList<Tile>();
+		c.addAll(Arrays.asList(l3));
+		p.getTable().addTiles(c);
+		
+		ArrayList<Tile> d = new ArrayList<Tile>();
+		d.addAll(Arrays.asList(l4));
+		p.getTable().addTiles(d);
+		
+		ArrayList<Tile> e = new ArrayList<Tile>();
+		e.addAll(Arrays.asList(l5));
+		p.getTable().addTiles(e);
+		
+		ArrayList<Tile> f = new ArrayList<Tile>();
+		f.addAll(Arrays.asList(l6));
+		p.getTable().addTiles(f);
+		//System.out.println(p.getTable().getTable().size());
+		p.setIsfirstMeldComplete(true);
+		assertTrue(p.play() == true);
+		p.getHand().HandReader();
+		//assertTrue(p.isWinner() == true);
+	}
 	
 }
