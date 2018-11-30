@@ -525,9 +525,31 @@ public class Ui extends Application
 		    	ArrayList<Integer> temp = getTurnOrder();
 		    	int[] order = new int[temp.size()];
 		    	
+		    	int playerLocation = 0;
+		    	
+		    	
+		    	for(int x=0;x<order.length;x++)
+		    	{
+		    		if(temp.get(x)==0)
+		    		{
+		    			playerLocation = x;
+		    		}
+		    	}
+		    	
+		    	int currentLocation = playerLocation;
+		    	
 		    	for(int x=0;x<temp.size();x++)
 		    	{
-		    		order[x] = temp.get(x);
+		    		currentLocation++;
+		    		if(currentLocation>=temp.size())
+		    		{
+		    			currentLocation = 0;
+		    			order[x] = temp.get(currentLocation);
+		    		}
+		    		else
+		    		{
+		    			order[x] = temp.get(currentLocation);
+		    		}
 		    	}
 		    	
 		    	//Change to send a message that players turn has ended
@@ -557,39 +579,21 @@ public class Ui extends Application
 		    	game.Announcement();
 		    	checkPlayerIsWinner();
 		    	console.clear();
-		    	
-		    	int playerLocation = 0;
-		    	int currentLocation = 0;
-		    	
-		    	for(int x=0;x<order.length;x++)
+
+		    	for(int i = 1; i < order.length;i++) 
 		    	{
-		    		if(order[x]==0)
-		    		{
-		    			playerLocation = x;
-		    		}
-		    	}
-		    	
-		    	for(int i = 1; i < game.getPlayers().size();i++) 
-		    	{
-		    		currentLocation = playerLocation + i;
-		    		if(currentLocation == order.length-1)
-		    		{
-		    			currentLocation = 0;
-		    		}
-		    		System.out.println("Current location : " + currentLocation);
-		    		System.out.println("Player size " + game.getPlayers().size());
-	    			game.getPlayers().get(i).getHand().sortTilesByColour();
+	    			game.getPlayers().get(order[i]).getHand().sortTilesByColour();
 		    		
-		    		if(!game.getPlayers().get(i).getName().equals("Human") && game.getPlayers().get(i).play()) 
+		    		if(!game.getPlayers().get(order[i]).getName().equals("Human") && game.getPlayers().get(order[i]).play()) 
 		    		{
-		    			prevString += game.getPlayers().get(i).getName() +  " play: \n";
-				    	prevString += game.getPlayers().get(i).return_report();
+		    			prevString += game.getPlayers().get(order[i]).getName() +  " play: \n";
+				    	prevString += game.getPlayers().get(order[i]).return_report();
 		    		}
-		    		else if (!game.getPlayers().get(i).getName().equals("Human") && game.getDeck().getDeck().size() > 0) 
+		    		else if (!game.getPlayers().get(order[i]).getName().equals("Human") && game.getDeck().getDeck().size() > 0) 
 		    		{
 			    		Tile t= game.getDeck().Draw();
-			    		prevString += game.getPlayers().get(i).getName() + "draw: \n";
-			    		game.getPlayers().get(i).getHand().addTileToHand(t);
+			    		prevString += game.getPlayers().get(order[i]).getName() + "draw: \n";
+			    		game.getPlayers().get(order[i]).getHand().addTileToHand(t);
 			    		prevString += t.toString() + "\n";
 			    	}
 		    		game.Announcement();
@@ -597,7 +601,7 @@ public class Ui extends Application
 		    	}
 		    	timing = 120;
 		    	
-		    	console.setText(prevString);  
+		    	console.setText(console.getText() + prevString);  
 		    	prevString = "";
 		    	updateTable();
 		    	
