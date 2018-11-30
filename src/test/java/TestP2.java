@@ -275,7 +275,7 @@ public class TestP2 extends TestCase{
 		
 		p.setIsfirstMeldComplete(true);
 		assertTrue(p.play() == true);
-		assertTrue(p.getHand().sizeOfHand() == 1); p.getHand().HandReader();;
+		assertTrue(p.getHand().sizeOfHand() == 0); p.getHand().HandReader();;
 		
 	}
 	public void testReUseTable4() {
@@ -293,7 +293,7 @@ public class TestP2 extends TestCase{
 		
 
 		p.getHand().addTilesToHand(l);
-
+		p.getHand().HandReader();
 		ArrayList<Tile> a = new ArrayList<Tile>();
 		a.addAll(Arrays.asList(l1));
 		p.getTable().addTiles(a);
@@ -305,7 +305,7 @@ public class TestP2 extends TestCase{
 		p.setIsfirstMeldComplete(true);
 		assertTrue(p.play() == true);
 		p.getHand().HandReader();
-		assertTrue(p.getHand().sizeOfHand() == 4);
+		assertTrue(p.getHand().sizeOfHand() == 2);
 	}
 	public void testReUseTable5() {
 		Player p = new Player("test",1,new p2());
@@ -363,7 +363,7 @@ public class TestP2 extends TestCase{
 		p.setIsfirstMeldComplete(true);
 		assertTrue(p.play() == true);
 		p.getHand().HandReader();
-		assertTrue(p.getHand().sizeOfHand() == 4);
+		assertTrue(p.isWinner() == true);
 	}
 	
 	
