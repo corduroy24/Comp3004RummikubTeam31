@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.Observable;
 
@@ -37,6 +38,13 @@ public class GameMaster extends Observable{
 	
 	public Memento saveData() {
 		return new Memento(this);
+	}
+	public void deal() {
+		for(int i =0; i < players.size();i++) {
+			players.get(i).getHand().drawFirst14(deck);
+		}
+		
+		Collections.sort(players, new SortByCommand());
 	}
 	
 	public void addPlayer(int a) {
@@ -571,4 +579,13 @@ public class GameMaster extends Observable{
 		notifyObservers(human);
 	}
 
+	class SortByCommand implements Comparator<Player> 
+	{ 	
+	    public int compare(Player a, Player b) 
+	    { 
+	    	if(a.getHand().getTile(0).getNumber() - b.getHand().getTile(0).getNumber() == 0) 
+	    		return a.getHand().getTile(0).getColor().compareTo(b.getHand().getTile(0).getColor());
+	    	return a.getHand().getTile(0).getNumber() - b.getHand().getTile(0).getNumber();
+	    }
+	}
 }
