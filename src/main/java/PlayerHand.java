@@ -375,7 +375,6 @@ public class PlayerHand {
 	}
 
 	private ArrayList<PlayerHand> seperateByNumber() {
-		// TODO Auto-generated method stub
     	ArrayList<PlayerHand> handsByNumber = new ArrayList<PlayerHand>();
 
 		this.sortTilesByNumber();

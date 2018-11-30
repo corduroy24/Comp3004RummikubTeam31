@@ -345,13 +345,14 @@ public class GameMaster extends Observable{
 		int[] temp = new int[ai.length];
 		int[] returnOrder = new int[ai.length];
 		
+		/*
 		System.out.println("\nGM Class");
 		for(int x=0;x<turnOrder.length;x++)
 		{
 			temp[x] = turnOrder[x][1];
 			System.out.println(temp[x]);
 		}
-		
+		*/
 		
 		for(int x=0;x<temp.length;x++)
 		{

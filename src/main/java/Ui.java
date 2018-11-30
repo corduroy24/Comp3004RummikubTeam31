@@ -1,9 +1,7 @@
-import java.awt.event.KeyEvent;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
-
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
@@ -102,8 +100,6 @@ public class Ui extends Application
 		window = primaryStage;
 		window.setTitle("Rummikub");
 	
-		
-		
 		InputStream mainImagePath = getClass().getResourceAsStream("TitleImage.png");
 		Image mainImage = new Image(mainImagePath);
 		mainImageNode = new ImageView(mainImage);
@@ -166,7 +162,7 @@ public class Ui extends Application
 		scenarios.setText("Scenarios");
 		scenarios.setMinSize(100, 50);
 		scenarios.setDisable(false);
-		scenarios.setLayoutX(500);
+		scenarios.setLayoutX(445);
 		scenarios.setLayoutY(600);
 		scenarios.setOnAction(new EventHandler<ActionEvent>() 
 		{
@@ -177,29 +173,29 @@ public class Ui extends Application
 		    }
 		});
 
-		
-			timerButton = new Button();
-			timerButton.setText("Timer On/Off");
-			timerButton.setMinSize(100, 50);
-			timerButton.setDisable(false);
-			timerButton.setLayoutX(400);
-			timerButton.setLayoutY(300);
-			timerButton.setOnAction(new EventHandler<ActionEvent>() 
-			{
-			    public void handle(ActionEvent e) 
-			    {
-			    	//clearMainScreen();
-			    	if (isTimerOn==false) {
-			    	isTimerOn=true;
-			    	System.out.println("Timer turned on");
-			    	}
-			    	else {
-			    		isTimerOn=false;
-			    		System.out.println("Timer turned off");
-			    	}
-			    
-			    }
-			});
+		//Sets up the timer button
+		timerButton = new Button();
+		timerButton.setText("Timer On/Off");
+		timerButton.setMinSize(100, 50);
+		timerButton.setDisable(false);
+		timerButton.setLayoutX(555);
+		timerButton.setLayoutY(600);
+		timerButton.setOnAction(new EventHandler<ActionEvent>() 
+		{
+		    public void handle(ActionEvent e) 
+		    {
+		    	//clearMainScreen();
+		    	if (isTimerOn==false) {
+		    	isTimerOn=true;
+		    	System.out.println("Timer turned on");
+		    	}
+		    	else {
+		    		isTimerOn=false;
+		    		System.out.println("Timer turned off");
+		    	}
+		    
+		    }
+		});
 		
 		mainScreen = new AnchorPane(mainImageNode, twoPlayer, threePlayer, fourPlayer, scenarios,timerButton);
 
@@ -219,56 +215,58 @@ public class Ui extends Application
 	
 	//turnOrder goes by ai numbers and the player is listed as 10
 	public void mainGame(int[] turnOrder)
-	{	lastMove= new Memento(game);
-	if (isTimerOn==true) {
-		class Time extends TimerTask{
-			@Override
-		public void run() {
-			System.out.println("Timing left for human: " + timing--);
-			if(timing == 0) {
-				Platform.runLater(new Runnable() {
-					@Override
-					public void run() {
-						updateTableAndHand();
-						System.out.println("OUT OF TIME");
-				    	if(game.getDeck().getDeck().size() > 0)
-			    			drawTile();
-				    	updateHand();
-				    	lastMove = new Memento(game);
-				    	game.Announcement();
-				    	for(int i = 1; i < game.getPlayers().size();i++) 
-				    	{
-			    			game.getPlayers().get(i).getHand().sortTilesByColour();
-				    		if(!game.getPlayers().get(i).getName().equals("Human") && game.getPlayers().get(i).play()) 
-				    		{
-				    			prevString += game.getPlayers().get(i).getName() +  " play: \n";
-						    	prevString += game.getPlayers().get(i).return_report();
-				    		}
-				    		else if (!game.getPlayers().get(i).getName().equals("Human") && game.getDeck().getDeck().size() > 0) 
-				    		{
-					    		Tile t= game.getDeck().Draw();
-					    		prevString += game.getPlayers().get(i).getName() + "draw: \n";
-					    		game.getPlayers().get(i).getHand().addTileToHand(t);
-					    		prevString += t.toString() + "\n";
-					    	}
-				    		game.Announcement();
-				    		lastMove = new Memento(game);  	
-				    		console.setText(prevString);  
-					    	prevString = "";
-				    	}
-				    	updateTableAndHand();
-				    	updateTable();
-				    	updateHand();	
+	{	
+		lastMove= new Memento(game);
+		if (isTimerOn==true) {
+			class Time extends TimerTask{
+				@Override
+				public void run() {
+					System.out.println("Timing left for human: " + timing--);
+					if(timing == 0) {
+						Platform.runLater(new Runnable() {
+							@Override
+							public void run() {
+								updateTableAndHand();
+								System.out.println("OUT OF TIME");
+						    	if(game.getDeck().getDeck().size() > 0)
+					    			drawTile();
+						    	updateHand();
+						    	lastMove = new Memento(game);
+						    	game.Announcement();
+						    	for(int i = 1; i < game.getPlayers().size();i++) 
+						    	{
+					    			game.getPlayers().get(i).getHand().sortTilesByColour();
+						    		if(!game.getPlayers().get(i).getName().equals("Human") && game.getPlayers().get(i).play()) 
+						    		{
+						    			prevString += game.getPlayers().get(i).getName() +  " play: \n";
+								    	prevString += game.getPlayers().get(i).return_report();
+						    		}
+						    		else if (!game.getPlayers().get(i).getName().equals("Human") && game.getDeck().getDeck().size() > 0) 
+						    		{
+							    		Tile t= game.getDeck().Draw();
+							    		prevString += game.getPlayers().get(i).getName() + "draw: \n";
+							    		game.getPlayers().get(i).getHand().addTileToHand(t);
+							    		prevString += t.toString() + "\n";
+							    	}
+						    		game.Announcement();
+						    		lastMove = new Memento(game);  	
+						    		console.setText(prevString);  
+							    	prevString = "";
+						    	}
+						    	updateTableAndHand();
+						    	updateTable();
+						    	updateHand();	
+							}
+						});
+						timing = 120;
 					}
-				});
-				timing = 120;
+				}
 			}
-		}
-		}
+			
 		timer = new Timer();
 		timer.scheduleAtFixedRate(new Time(), 0, 1000);
-	
-	}
+		}
+		
 		//The layoutPane for the gridded table in the center
 		TilePane tablePane = new TilePane();
 		tablePane.setPrefRows(7); //Sets the row length to 7
@@ -277,6 +275,7 @@ public class Ui extends Application
 		tablePane.setHgap(5);
 		tablePane.setVgap(5);
 		ObservableList<Node> list = tablePane.getChildren();
+		
 		//Adds all of the table buttons onto the table
 		for(int x=0;x<tableButtons[0].length;x++)
 		{
@@ -304,7 +303,7 @@ public class Ui extends Application
 				    }
 				});
 				
-				//Turns the button into the button that was dropped on it
+				//Turns the table button into the button that was dropped on it
 				tableButtons[y][x].setOnDragDropped(new EventHandler<DragEvent>()
 				{
 				    public void handle(DragEvent event) 
@@ -544,6 +543,7 @@ public class Ui extends Application
 		    	
 		    	int currentLocation = playerLocation;
 		    	
+		    	//Reorganizes the turn order into an array that starts with the player
 		    	for(int x=0;x<temp.size();x++)
 		    	{
 		    		currentLocation++;
@@ -693,20 +693,20 @@ public class Ui extends Application
 		
 		window.setScene(rummiScene);
 		window.show();
-		
-		//aiPlayFirst(turnOrder);
 	}
 	
 	public void aiPlayFirst(int[] turnOrders)
 	{
 		setTurnOrder(turnOrders);
 		
+		/*
 		System.out.println("\nUI Class");
 		for(int x=0;x<turnOrders.length;x++)
 		{
 			System.out.println(turnOrders[x]);
 		}
 		System.out.print("\n");
+		*/
 		
 		int x=0;
 		
@@ -1447,8 +1447,6 @@ public class Ui extends Application
 				tableButtons[y][x].setMinSize(50, 80);
 				list.addAll(tableButtons[y][x]);
 				
-				final int numberX = x;
-				final int numberY = y;
 				//Shows the button as droppable if it isn't from itself
 			}
 		}
