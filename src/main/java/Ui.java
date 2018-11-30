@@ -1045,7 +1045,7 @@ public class Ui extends Application
 		    public void handle(ActionEvent e) 
 		    {
 		    	//partially working 
-		    	/*
+		    	
 		    	clearMainScreen();
 		    	int maxPlayers  = 4; 
 		    	int [] turnOrders = new int[maxPlayers];
@@ -1060,14 +1060,15 @@ public class Ui extends Application
 		        game = s1.deal(game);
 		    	setupGameRigging(); 
 
-		    	//game.getPlayers().remove(game.getHuman());
+		    	game.getPlayers().remove(game.getHuman());
 		    	try {
 					Thread.sleep(2000);
 				} catch (InterruptedException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-		    	playGameRigging(turnOrders);*/
+		    	turnOrders = game.turnOrderAI(turnOrders); 
+		    	playGameRigging(turnOrders);
 		    }		    
 		});
 		
@@ -1494,7 +1495,7 @@ public class Ui extends Application
 		
 		//int x=0;
 		
-//		while(turnOrders[x] != 0)
+		//while(turnOrders[x] != 0)
 		for(int x = 0; x < 4; x++)
 		{
 			System.out.println("--------------------------- "+ turnOrders[x]);
@@ -1504,27 +1505,27 @@ public class Ui extends Application
 	    	game.Announcement();
 	    	//console.clear();
 
-			game.getPlayers().get(turnOrders[x]).getHand().sortTilesByColour();
+			game.getPlayers().get(turnOrders[x]-1).getHand().sortTilesByColour();
 			
-			if(game.getPlayers().get(turnOrders[x]).play()) 
+			if(game.getPlayers().get(turnOrders[x]-1).play()) 
 			{
-				prevString += game.getPlayers().get(turnOrders[x]).getName() +  " play: \n";
-		    	prevString += game.getPlayers().get(turnOrders[x]).return_report();
+				prevString += game.getPlayers().get(turnOrders[x]-1).getName() +  " play: \n";
+		    	prevString += game.getPlayers().get(turnOrders[x]-1).return_report();
 			}
 			else if (game.getDeck().getDeck().size() > 0) 
 			{
 	    		//Tile t= game.getDeck().Draw();
-	    		prevString += game.getPlayers().get(turnOrders[x]).getName() + "draw: \n";
+	    		prevString += game.getPlayers().get(turnOrders[x]-1).getName() + "draw: \n";
 	    		//game.getPlayers().get(turnOrders[x]).getHand().addTileToHand(t);
 	    		//prevString += t.toString() + "\n";
 	    	}
 			game.Announcement();
 	    	
 	    	console.setText(console.getText() + prevString);  
-	    	prevString = "";
+	    	prevString = "\n";
 	    	this.updateTable();
 	    	
-	    		if(game.getPlayers().get(turnOrders[x]).getHand().sizeOfHand() == 0) 
+	    		if(game.getPlayers().get(turnOrders[x]-1).getHand().sizeOfHand() == 0) 
 	    			System.out.println("Winner: "+ turnOrders[x]); 
 	    	
 	   	    game.getTable().clearBool();
