@@ -1036,7 +1036,27 @@ public class Ui extends Application
 		{
 		    public void handle(ActionEvent e) 
 		    {
-		    	
+		    	/*
+		    	int maxPlayers  = 4; 
+		    	clearMainScreen();
+		    	aiType = new int[maxPlayers];
+		    	aiType[0] = 1;
+		    	aiType[1] = 2;
+		    	aiType[2] = 3;
+		    	aiType[3] = 4;
+		    	ScenarioFactory scenarioFactory = new ScenarioFactory();
+
+		    	Scenario s1 = scenarioFactory.getScenario("s1");
+		    	game = s1.deal(game);
+
+		    	int[] temp = game.turnOrder(aiType);
+		    	game.getPlayers().remove(game.getHuman());
+
+		    	//game.getAI().getHand().HandReader();
+
+		    	// game.getAI().play();
+		    	mainGame(temp);	
+		    	*/	   
 		    }
 		});
 		
