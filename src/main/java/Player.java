@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.TimerTask;
 
 public class Player implements Observer{
 	private PlayerStrategy playerStrategy; 
@@ -13,6 +14,7 @@ public class Player implements Observer{
 	private boolean isTilePlaced = false;
 	private boolean isFirstMeldComplete = false;
 	private int playerID = 0; 
+	private int countdown = 5;
 	
 	private boolean p1FirstMeldComplete;
 	private boolean p2FirstMeldComplete;
@@ -227,7 +229,7 @@ public class Player implements Observer{
 	public void setWinner() {
 		win = true;
 	}
-    
-	
+
+
     
 }

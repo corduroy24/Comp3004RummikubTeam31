@@ -1,6 +1,11 @@
+import java.awt.event.KeyEvent;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
+
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.stage.Stage;
 import javafx.scene.control.Button;
@@ -51,6 +56,10 @@ public class Ui extends Application
 	Button scenarioThree;
 	Button scenarioFour;
 	
+	boolean isTimerOn=false;
+	Button timerButton;
+	Timer timer;
+	
 	Button[][] tableButtons = new Button[20][7];
 	//Boolean[][] isTableSet = new Boolean[20][7];
 	
@@ -66,7 +75,7 @@ public class Ui extends Application
 	Boolean played = false;
 	
 	String prevString = "";
-	
+	boolean OutOfTime = false;
 	int playerScore = 0;
 	int numPlayers = 0;
 	int[] aiType;
@@ -76,10 +85,14 @@ public class Ui extends Application
 	private HandleJoker checkMeld;
 	private Memento lastMove;
 	
+	int timing = 120;
+	
+	boolean validMove = true;
 	
 	public static void main(String [] args) 
 	{		
 		Application.launch(args);
+		
 	}
 	
 	public void start(Stage primaryStage) throws Exception 
@@ -88,6 +101,8 @@ public class Ui extends Application
 		lastMove = new Memento(game);
 		window = primaryStage;
 		window.setTitle("Rummikub");
+	
+		
 		
 		InputStream mainImagePath = getClass().getResourceAsStream("TitleImage.png");
 		Image mainImage = new Image(mainImagePath);
@@ -163,7 +178,30 @@ public class Ui extends Application
 		});
 
 		
-		mainScreen = new AnchorPane(mainImageNode, twoPlayer, threePlayer, fourPlayer, scenarios);
+			timerButton = new Button();
+			timerButton.setText("Timer On/Off");
+			timerButton.setMinSize(100, 50);
+			timerButton.setDisable(false);
+			timerButton.setLayoutX(400);
+			timerButton.setLayoutY(300);
+			timerButton.setOnAction(new EventHandler<ActionEvent>() 
+			{
+			    public void handle(ActionEvent e) 
+			    {
+			    	//clearMainScreen();
+			    	if (isTimerOn==false) {
+			    	isTimerOn=true;
+			    	System.out.println("Timer turned on");
+			    	}
+			    	else {
+			    		isTimerOn=false;
+			    		System.out.println("Timer turned off");
+			    	}
+			    
+			    }
+			});
+		
+		mainScreen = new AnchorPane(mainImageNode, twoPlayer, threePlayer, fourPlayer, scenarios,timerButton);
 
 		mainScreen.setMinSize(1095,	790);
 		
@@ -182,6 +220,57 @@ public class Ui extends Application
 	//turnOrder goes by ai numbers and the player is listed as 10
 	public void mainGame(int[] turnOrder)
 	{	lastMove= new Memento(game);
+	if (isTimerOn==true) {
+		class Time extends TimerTask{
+			@Override
+		public void run() {
+			// TODO Auto-generated method stub
+			System.out.println("Timing left for human: " + timing--);
+			if(timing == 0) {
+				Platform.runLater(new Runnable() {
+					@Override
+					public void run() {
+						updateTableAndHand();
+						// TODO Auto-generated method stub
+						System.out.println("OUT OF TIME");
+				    	if(game.getDeck().getDeck().size() > 0)
+			    			drawTile();
+				    	updateHand();
+				    	lastMove = new Memento(game);
+				    	game.Announcement();
+				    	for(int i = 1; i < game.getPlayers().size();i++) 
+				    	{
+			    			game.getPlayers().get(i).getHand().sortTilesByColour();
+				    		if(!game.getPlayers().get(i).getName().equals("Human") && game.getPlayers().get(i).play()) 
+				    		{
+				    			prevString += game.getPlayers().get(i).getName() +  " play: \n";
+						    	prevString += game.getPlayers().get(i).return_report();
+				    		}
+				    		else if (!game.getPlayers().get(i).getName().equals("Human") && game.getDeck().getDeck().size() > 0) 
+				    		{
+					    		Tile t= game.getDeck().Draw();
+					    		prevString += game.getPlayers().get(i).getName() + "draw: \n";
+					    		game.getPlayers().get(i).getHand().addTileToHand(t);
+					    		prevString += t.toString() + "\n";
+					    	}
+				    		game.Announcement();
+				    		lastMove = new Memento(game);  	
+				    		console.setText(prevString);  
+					    	prevString = "";
+				    	}
+				    	updateTableAndHand();
+				    	updateTable();
+				    	updateHand();	
+					}
+				});
+				timing = 120;
+			}
+		}
+		}
+		timer = new Timer();
+		timer.scheduleAtFixedRate(new Time(), 0, 1000);
+	
+	}
 		//The layoutPane for the gridded table in the center
 		TilePane tablePane = new TilePane();
 		tablePane.setPrefRows(7); //Sets the row length to 7
@@ -338,6 +427,10 @@ public class Ui extends Application
 								{
 									temp = "4";
 								}
+								else if(tableButtons[numberY][numberX].getStyle().equals("-fx-background-color: #000000"))
+								{
+									temp = "5";
+								}
 						        
 						        temp = ""+temp+"|"+tableButtons[numberY][numberX].getText();
 						        
@@ -396,6 +489,10 @@ public class Ui extends Application
 					{
 						temp = "4";
 					}
+					else if(playerHandButtons.get(number).getStyle().equals("-fx-background-color: #000000"))
+					{
+						temp = "5";
+					}
 			        
 			        temp = ""+temp+"|"+playerHandButtons.get(number).getText();
 			        
@@ -429,7 +526,6 @@ public class Ui extends Application
 		endTurnButton.setText("End Turn");
 		endTurnButton.setMinSize(100, 100);
 		endTurnButton.setDisable(false);
-		
 		endTurnButton.setOnAction(new EventHandler<ActionEvent>() 
 		{
 		    public void handle(ActionEvent e) 
@@ -437,9 +533,31 @@ public class Ui extends Application
 		    	ArrayList<Integer> temp = getTurnOrder();
 		    	int[] order = new int[temp.size()];
 		    	
+		    	int playerLocation = 0;
+		    	
+		    	
+		    	for(int x=0;x<order.length;x++)
+		    	{
+		    		if(temp.get(x)==0)
+		    		{
+		    			playerLocation = x;
+		    		}
+		    	}
+		    	
+		    	int currentLocation = playerLocation;
+		    	
 		    	for(int x=0;x<temp.size();x++)
 		    	{
-		    		order[x] = temp.get(x);
+		    		currentLocation++;
+		    		if(currentLocation>=temp.size())
+		    		{
+		    			currentLocation = 0;
+		    			order[x] = temp.get(currentLocation);
+		    		}
+		    		else
+		    		{
+		    			order[x] = temp.get(currentLocation);
+		    		}
 		    	}
 		    	
 		    	//Change to send a message that players turn has ended
@@ -450,53 +568,48 @@ public class Ui extends Application
 		    	for(int i =0; i < currentTable.size();i++) {
 		    		if(!checkMeld.isRun(currentTable.get(i)) && !checkMeld.isSet(currentTable.get(i))) {
 		    			valid = false;
+				    	System.out.println("YOUR MOVE IS INVALID");
 		    		}
 		    	}
+
+
+		    	if(!game.getHuman().getIsFirstMeldComplete()) {
+		    		if(playerScore >= 30) valid = true;
+		    		else valid = false;
+		    		System.out.println("PLAY YOUR FIRST INITIAL TURN ASAP");
+		    	}
+		    
+		    	
+		    	
 		    	if(valid) {
 		    	game.getHuman().getTable().setTable(currentTable);
 		    	game.getTable().setTable(game.getHuman().getTable().getTable());
 		    	game.Announcement();
 		    	checkPlayerIsWinner();
 		    	console.clear();
-		    	
-		    	int playerLocation = 0;
-		    	int currentLocation = 0;
-		    	
-		    	for(int x=0;x<order.length;x++)
+
+		    	for(int i = 1; i < order.length;i++) 
 		    	{
-		    		if(order[x]==0)
-		    		{
-		    			playerLocation = x;
-		    		}
-		    	}
-		    	
-		    	for(int i = 1; i < game.getPlayers().size();i++) 
-		    	{
-		    		currentLocation = playerLocation + i;
-		    		if(currentLocation == order.length-1)
-		    		{
-		    			currentLocation = 0;
-		    		}
+	    			game.getPlayers().get(order[i]).getHand().sortTilesByColour();
 		    		
-	    			game.getPlayers().get(order[currentLocation]).getHand().sortTilesByColour();
-		    		
-		    		if(!game.getPlayers().get(order[currentLocation]).getName().equals("Human") && game.getPlayers().get(order[currentLocation]).play()) 
+		    		if(!game.getPlayers().get(order[i]).getName().equals("Human") && game.getPlayers().get(order[i]).play()) 
 		    		{
-		    			prevString += game.getPlayers().get(order[currentLocation]).getName() +  " play: \n";
-				    	prevString += game.getPlayers().get(order[currentLocation]).return_report();
+		    			prevString += game.getPlayers().get(order[i]).getName() +  " play: \n";
+				    	prevString += game.getPlayers().get(order[i]).return_report();
 		    		}
-		    		else if (!game.getPlayers().get(order[currentLocation]).getName().equals("Human") && game.getDeck().getDeck().size() > 0) 
+		    		else if (!game.getPlayers().get(order[i]).getName().equals("Human") && game.getDeck().getDeck().size() > 0) 
 		    		{
 			    		Tile t= game.getDeck().Draw();
-			    		prevString += game.getPlayers().get(order[currentLocation]).getName() + "draw: \n";
-			    		game.getPlayers().get(order[currentLocation]).getHand().addTileToHand(t);
+			    		prevString += game.getPlayers().get(order[i]).getName() + "draw: \n";
+			    		game.getPlayers().get(order[i]).getHand().addTileToHand(t);
 			    		prevString += t.toString() + "\n";
 			    	}
 		    		game.Announcement();
-		    		lastMove = new Memento(game);  		
+		    		lastMove = new Memento(game); 
 		    	}
+		    	timing = 120;
 		    	
-		    	console.setText(prevString);  
+		    	console.setText(console.getText() + prevString);  
 		    	prevString = "";
 		    	updateTable();
 		    	
@@ -525,26 +638,38 @@ public class Ui extends Application
 		    	}
 		    else {
 		    	updateTableAndHand();
-		    	updateTable();
-		    	updateHand();
-		    
-		    
+		 
 		    	if(game.getDeck().getDeck().size() > 0)
 	    			drawTile();
 		    	updateHand();
+		    	game.Announcement();
 		    	lastMove = new Memento(game);
-		    	System.out.println(game.getHuman().getHand().sizeOfHand());
-		    
+		    	for(int i = 1; i < game.getPlayers().size();i++) 
+		    	{
+	    			game.getPlayers().get(i).getHand().sortTilesByColour();
+		    		if(!game.getPlayers().get(i).getName().equals("Human") && game.getPlayers().get(i).play()) 
+		    		{
+		    			prevString += game.getPlayers().get(i).getName() +  " play: \n";
+				    	prevString += game.getPlayers().get(i).return_report();
+		    		}
+		    		else if (!game.getPlayers().get(i).getName().equals("Human") && game.getDeck().getDeck().size() > 0) 
+		    		{
+			    		Tile t= game.getDeck().Draw();
+			    		prevString += game.getPlayers().get(i).getName() + "draw: \n";
+			    		game.getPlayers().get(i).getHand().addTileToHand(t);
+			    		prevString += t.toString() + "\n";
+			    	}
+		    		game.Announcement();
+		    		lastMove = new Memento(game);  	
+		    		console.setText(prevString);  
+			    	prevString = "";
 		    	}
-		    	
+		    	timing = 120;
+		    	updateTable();
+		    	updateHand();
+		    	}
 		    }
 
-			private void updateTableAndHand() {
-				// TODO Auto-generated method stub
-				game.getTable().setTable(lastMove.getStateTable().getTable());
-				game.getHuman().getHand().setPlayerHand(lastMove.getStateHumanHand().getTiles());
-				
-			}
 		});
 		
 		//The layoutPane that seperated the Player's hand and the end turn button
@@ -704,7 +829,7 @@ public class Ui extends Application
 		*/
 		return false;
 	}
-
+	
 	private boolean checkPlayerIsWinner() {
 		Button OK_Button = new Button();
     	OK_Button.setText("OK");
@@ -768,6 +893,8 @@ public class Ui extends Application
 		mainScreen.getChildren().remove(fourPlayer);
 		mainScreen.getChildren().remove(scenarios);
 	}
+	
+
 	
 	public void whoGoesFirst(final int maxPlayers)
 	{
@@ -902,6 +1029,8 @@ public class Ui extends Application
 		mainScreen.getChildren().add(mainImageNode);
 	}
 	
+	
+	
 	public void scenariosList()
 	{
 		//Sets up the Scenario 1 Button
@@ -915,7 +1044,27 @@ public class Ui extends Application
 		{
 		    public void handle(ActionEvent e) 
 		    {
-		    	
+		    	/*
+		    	int maxPlayers  = 4; 
+		    	clearMainScreen();
+		    	aiType = new int[maxPlayers];
+		    	aiType[0] = 1;
+		    	aiType[1] = 2;
+		    	aiType[2] = 3;
+		    	aiType[3] = 4;
+		    	ScenarioFactory scenarioFactory = new ScenarioFactory();
+
+		    	Scenario s1 = scenarioFactory.getScenario("s1");
+		    	game = s1.deal(game);
+
+		    	int[] temp = game.turnOrder(aiType);
+		    	game.getPlayers().remove(game.getHuman());
+
+		    	//game.getAI().getHand().HandReader();
+
+		    	// game.getAI().play();
+		    	mainGame(temp);	
+		    	*/	   
 		    }
 		});
 		
@@ -1024,6 +1173,10 @@ public class Ui extends Application
 				{
 					temp = "4";
 				}
+				else if(playerHandButtons.get(counter).getStyle().equals("-fx-background-color: #000000"))
+				{
+					temp = "5";
+				}
 		        
 		        temp = ""+temp+"|"+playerHandButtons.get(counter).getText();
 		        
@@ -1064,6 +1217,10 @@ public class Ui extends Application
 				else if(test.getTile(x).getColor().equals("O"))
 				{
 					playerHandButtons.get(x).setStyle("-fx-background-color: #c69033");
+				} 
+				else if(test.getTile(x).getColor().equals("J"))
+				{
+					playerHandButtons.get(x).setStyle("-fx-background-color: #000000");
 				} 
 				else
 				{
@@ -1123,6 +1280,8 @@ public class Ui extends Application
 						tableButtons[y][x].setStyle("-fx-background-color: #1a9922");
 					else if(color.equals("O"))
 						tableButtons[y][x].setStyle("-fx-background-color: #c69033");
+					else if(color.equals("J"))
+						tableButtons[y][x].setStyle("-fx-background-color: #000000");
 					y++;
 				}
 				y++;
@@ -1144,6 +1303,8 @@ public class Ui extends Application
 						tableButtons[y][x].setStyle("-fx-background-color: #1a9922");
 					else if(color.equals("O"))
 						tableButtons[y][x].setStyle("-fx-background-color: #c69033");
+					else if(color.equals("J"))
+						tableButtons[y][x].setStyle("-fx-background-color: #000000");
 					y++;
 				}
 				y++;
@@ -1177,6 +1338,10 @@ public class Ui extends Application
 			else if(test.getTile(x).getColor().equals("O"))
 			{
 				playerHandButtons.get(x).setStyle("-fx-background-color: #c69033");
+			}
+			else if(test.getTile(x).getColor().equals("J"))
+			{
+				playerHandButtons.get(x).setStyle("-fx-background-color: #000000");
 			}
 			else
 			{
@@ -1253,6 +1418,13 @@ public class Ui extends Application
 		hand.addTileToHand(tile);
 		hand.sortTilesByColour();
 		addPlayerTile(tile);
+	}
+	private void updateTableAndHand() {
+		// TODO Auto-generated method stub
+		game.getTable().setTable(lastMove.getStateTable().getTable());
+		game.getHuman().getHand().setPlayerHand(lastMove.getStateHumanHand().getTiles());		    
+    
+		
 	}
 	
 	

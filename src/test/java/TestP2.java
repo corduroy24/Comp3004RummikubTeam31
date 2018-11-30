@@ -275,10 +275,96 @@ public class TestP2 extends TestCase{
 		
 		p.setIsfirstMeldComplete(true);
 		assertTrue(p.play() == true);
-		assertTrue(p.getHand().sizeOfHand() == 1); p.getHand().HandReader();;
+		assertTrue(p.getHand().sizeOfHand() == 0); p.getHand().HandReader();;
+		
 	}
+	public void testReUseTable4() {
+		Player p = new Player("test",1,new p2());
+		Tile joker = new Tile(14,14);
+		Tile[] l = {new Tile(1,5),new Tile(1,6),
+					new Tile(1,7), new Tile(3,7),
+					new Tile(1,3), new Tile(4,8)};
+		
+		Tile[] l1 = {joker, new Tile(1,2), new Tile(1,1)};
+		Tile[] l2 = { new Tile(3,5),new Tile(3,6), new Tile(3,4)};
+		
+		joker.setJokerPoint(3);
+		joker.setJokerColor(1);
+		
 
-	
+		p.getHand().addTilesToHand(l);
+		p.getHand().HandReader();
+		ArrayList<Tile> a = new ArrayList<Tile>();
+		a.addAll(Arrays.asList(l1));
+		p.getTable().addTiles(a);
+		
+		ArrayList<Tile> b = new ArrayList<Tile>();
+		b.addAll(Arrays.asList(l2));
+		p.getTable().addTiles(b);
+		
+		p.setIsfirstMeldComplete(true);
+		assertTrue(p.play() == true);
+		p.getHand().HandReader();
+		assertTrue(p.getHand().sizeOfHand() == 2);
+	}
+	public void testReUseTable5() {
+		Player p = new Player("test",1,new p2());
+		Tile joker = new Tile(14,14);
+		Tile[] l = {new Tile(1,5),new Tile(1,6),
+					new Tile(1,7), new Tile(4,5),
+					new Tile(1,3), new Tile(4,8)};
+		
+		Tile[] l1 = {joker, new Tile(1,3), new Tile(1,4)};
+		Tile[] l2 = { new Tile(3,5),new Tile(2,5), new Tile(1,5)};
+		
+		joker.setJokerPoint(5);
+		joker.setJokerColor(1);
+		
+
+		p.getHand().addTilesToHand(l);
+
+		ArrayList<Tile> a = new ArrayList<Tile>();
+		a.addAll(Arrays.asList(l1));
+		p.getTable().addTiles(a);
+		
+		ArrayList<Tile> b = new ArrayList<Tile>();
+		b.addAll(Arrays.asList(l2));
+		p.getTable().addTiles(b);
+		
+		p.setIsfirstMeldComplete(true);
+		assertTrue(p.play() == true);
+		p.getHand().HandReader();
+		assertTrue(p.getHand().sizeOfHand() == 2);
+	}
+	public void testReUseTable6() {
+		Player p = new Player("test",1,new p2());
+		Tile joker = new Tile(14,14);
+		Tile[] l = {new Tile(1,5),new Tile(1,6),
+					new Tile(1,7), new Tile(4,5),
+					new Tile(2,9), new Tile(2,8)};
+		
+		Tile[] l1 = {joker, new Tile(1,3), new Tile(1,4)};
+		Tile[] l2 = { new Tile(2,7),new Tile(2,6), new Tile(2,5)};
+		
+		joker.setJokerPoint(5);
+		joker.setJokerColor(1);
+		
+
+		p.getHand().addTilesToHand(l);
+
+		ArrayList<Tile> a = new ArrayList<Tile>();
+		a.addAll(Arrays.asList(l1));
+		p.getTable().addTiles(a);
+		
+		ArrayList<Tile> b = new ArrayList<Tile>();
+		b.addAll(Arrays.asList(l2));
+		p.getTable().addTiles(b);
+		
+		p.setIsfirstMeldComplete(true);
+		assertTrue(p.play() == true);
+		p.getHand().HandReader();
+		assertTrue(p.isWinner() == true);
+	}
 	
 	
 	
