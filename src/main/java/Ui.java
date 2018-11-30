@@ -561,6 +561,7 @@ public class Ui extends Application
 		    	//Change to send a message that players turn has ended
 		    	//boolean hasWinner = false;
 		    	checkMeld = new HandleJoker();
+		    	updateTable();
 		    	ArrayList<ArrayList<Tile>> currentTable = current_table();
 		    	boolean valid = true;
 		    	for(int i =0; i < currentTable.size();i++) {
@@ -705,12 +706,6 @@ public class Ui extends Application
 		while(turnOrders[x] != 0)
 		{
 			System.out.println("--------------------------- "+ turnOrders[x]);
-			
-	    	//Change to send a message that players turn has ended
-	    	//boolean hasWinner = false;
-	    	game.getHuman().getTable().setTable(current_table());
-	    	game.getTable().setTable(game.getHuman().getTable().getTable());
-	    	game.Announcement();
 	    	checkPlayerIsWinner();
 	    	//console.clear();
 
@@ -729,7 +724,7 @@ public class Ui extends Application
 	    		prevString += t.toString() + "\n";
 	    	}
     		game.Announcement();
-	    	
+    		lastMove = new Memento(game);
 	    	console.setText(console.getText() + prevString);  
 	    	prevString = "";
 	    	updateTable();
@@ -748,7 +743,7 @@ public class Ui extends Application
 	    		played=false;
 	    	}
 	    	checkAIIsWinner();
-	    	
+	    	lastMove = new Memento(game);
 	    	if(playerScore>=30) 
 	    	{
 	    		game.getHuman().setIsfirstMeldComplete(true);
