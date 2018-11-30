@@ -561,8 +561,8 @@ public class Ui extends Application
 		    	//Change to send a message that players turn has ended
 		    	//boolean hasWinner = false;
 		    	checkMeld = new HandleJoker();
-		    	updateTable();
 		    	ArrayList<ArrayList<Tile>> currentTable = current_table();
+		    	
 		    	boolean valid = true;
 		    	for(int i =0; i < currentTable.size();i++) {
 		    		if(!checkMeld.isRun(currentTable.get(i)) && !checkMeld.isSet(currentTable.get(i))) {
@@ -573,17 +573,24 @@ public class Ui extends Application
 
 
 		    	if(!game.getHuman().getIsFirstMeldComplete()) {
-		    		if(playerScore >= 30) valid = true;
-		    		else valid = false;
-		    		System.out.println("PLAY YOUR FIRST INITIAL TURN ASAP");
+		    		if(playerScore >= 30) { 
+		    			valid = true;
+		    		System.out.println("First play is success");
+		    		}
+		    		else {
+		    			valid = false;
+		    		System.out.println("PLAY YOUR FIRST INITIAL TURN ASAP");}
 		    	}
 		    
 		    	
 		    	
 		    	if(valid) {
+		    	System.out.println(currentTable);
 		    	game.getHuman().getTable().setTable(currentTable);
 		    	game.getTable().setTable(game.getHuman().getTable().getTable());
+		    	System.out.println(game.getTable().toString());
 		    	game.Announcement();
+		    	lastMove = new Memento(game); 
 		    	checkPlayerIsWinner();
 		    	//console.clear();
 
@@ -687,7 +694,7 @@ public class Ui extends Application
 		window.setScene(rummiScene);
 		window.show();
 		
-		aiPlayFirst(turnOrder);
+		//aiPlayFirst(turnOrder);
 	}
 	
 	public void aiPlayFirst(int[] turnOrders)
