@@ -725,6 +725,7 @@ public class Ui extends Application
 	    	}
     		game.Announcement();
     		lastMove = new Memento(game);
+    		
 	    	console.setText(console.getText() + prevString);  
 	    	prevString = "";
 	    	updateTable();
