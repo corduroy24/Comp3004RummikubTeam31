@@ -224,14 +224,12 @@ public class Ui extends Application
 		class Time extends TimerTask{
 			@Override
 		public void run() {
-			// TODO Auto-generated method stub
 			System.out.println("Timing left for human: " + timing--);
 			if(timing == 0) {
 				Platform.runLater(new Runnable() {
 					@Override
 					public void run() {
 						updateTableAndHand();
-						// TODO Auto-generated method stub
 						System.out.println("OUT OF TIME");
 				    	if(game.getDeck().getDeck().size() > 0)
 			    			drawTile();
@@ -586,7 +584,7 @@ public class Ui extends Application
 		    	game.getTable().setTable(game.getHuman().getTable().getTable());
 		    	game.Announcement();
 		    	checkPlayerIsWinner();
-		    	console.clear();
+		    	//console.clear();
 
 		    	for(int i = 1; i < order.length;i++) 
 		    	{
@@ -1064,7 +1062,6 @@ public class Ui extends Application
 		    	try {
 					Thread.sleep(2000);
 				} catch (InterruptedException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 		    	playGameRigging(turnOrders);*/
@@ -1422,12 +1419,10 @@ public class Ui extends Application
 		hand.sortTilesByColour();
 		addPlayerTile(tile);
 	}
-	private void updateTableAndHand() {
-		// TODO Auto-generated method stub
+	private void updateTableAndHand() 
+	{
 		game.getTable().setTable(lastMove.getStateTable().getTable());
 		game.getHuman().getHand().setPlayerHand(lastMove.getStateHumanHand().getTiles());		    
-    
-		
 	}
 	
 	public void setupGameRigging() {
@@ -1441,20 +1436,18 @@ public class Ui extends Application
 		//Adds all of the table buttons onto the table
 		for(int x=0;x<tableButtons[0].length;x++)
 		{
-		for(int y=0;y<tableButtons.length;y++)
-		{
-			tableButtons[y][x] = new Button();
-			tableButtons[y][x].setText(" ");
-			tableButtons[y][x].setMinSize(50, 80);
-			list.addAll(tableButtons[y][x]);
-			
-			final int numberX = x;
-			final int numberY = y;
-			//Shows the button as droppable if it isn't from itself
-			
-			
+			for(int y=0;y<tableButtons.length;y++)
+			{
+				tableButtons[y][x] = new Button();
+				tableButtons[y][x].setText(" ");
+				tableButtons[y][x].setMinSize(50, 80);
+				list.addAll(tableButtons[y][x]);
+				
+				final int numberX = x;
+				final int numberY = y;
+				//Shows the button as droppable if it isn't from itself
+			}
 		}
-	}
 
 		//Creates the text console where it will ouput any necessary info\
 		console = new TextArea();
