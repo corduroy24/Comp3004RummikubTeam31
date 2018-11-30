@@ -427,6 +427,10 @@ public class Ui extends Application
 								{
 									temp = "4";
 								}
+								else if(tableButtons[numberY][numberX].getStyle().equals("-fx-background-color: #000000"))
+								{
+									temp = "5";
+								}
 						        
 						        temp = ""+temp+"|"+tableButtons[numberY][numberX].getText();
 						        
@@ -484,6 +488,10 @@ public class Ui extends Application
 					else if(playerHandButtons.get(number).getStyle().equals("-fx-background-color: #c69033"))
 					{
 						temp = "4";
+					}
+					else if(playerHandButtons.get(number).getStyle().equals("-fx-background-color: #000000"))
+					{
+						temp = "5";
 					}
 			        
 			        temp = ""+temp+"|"+playerHandButtons.get(number).getText();
@@ -1165,6 +1173,10 @@ public class Ui extends Application
 				{
 					temp = "4";
 				}
+				else if(playerHandButtons.get(counter).getStyle().equals("-fx-background-color: #000000"))
+				{
+					temp = "5";
+				}
 		        
 		        temp = ""+temp+"|"+playerHandButtons.get(counter).getText();
 		        
@@ -1205,6 +1217,10 @@ public class Ui extends Application
 				else if(test.getTile(x).getColor().equals("O"))
 				{
 					playerHandButtons.get(x).setStyle("-fx-background-color: #c69033");
+				} 
+				else if(test.getTile(x).getColor().equals("J"))
+				{
+					playerHandButtons.get(x).setStyle("-fx-background-color: #000000");
 				} 
 				else
 				{
@@ -1264,6 +1280,8 @@ public class Ui extends Application
 						tableButtons[y][x].setStyle("-fx-background-color: #1a9922");
 					else if(color.equals("O"))
 						tableButtons[y][x].setStyle("-fx-background-color: #c69033");
+					else if(color.equals("J"))
+						tableButtons[y][x].setStyle("-fx-background-color: #000000");
 					y++;
 				}
 				y++;
@@ -1285,6 +1303,8 @@ public class Ui extends Application
 						tableButtons[y][x].setStyle("-fx-background-color: #1a9922");
 					else if(color.equals("O"))
 						tableButtons[y][x].setStyle("-fx-background-color: #c69033");
+					else if(color.equals("J"))
+						tableButtons[y][x].setStyle("-fx-background-color: #000000");
 					y++;
 				}
 				y++;
@@ -1318,6 +1338,10 @@ public class Ui extends Application
 			else if(test.getTile(x).getColor().equals("O"))
 			{
 				playerHandButtons.get(x).setStyle("-fx-background-color: #c69033");
+			}
+			else if(test.getTile(x).getColor().equals("J"))
+			{
+				playerHandButtons.get(x).setStyle("-fx-background-color: #000000");
 			}
 			else
 			{
