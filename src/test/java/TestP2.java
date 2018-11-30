@@ -144,7 +144,7 @@ public class TestP2 extends TestCase{
 		assertTrue(p.play() == true);
 		assertTrue(p.getHand().sizeOfHand() == 1);
 	}
-	
+	/*
 	public void testUnPlayedTiles() {
 		Player p = new Player("test",1,new p2());
 		Tile joker = new Tile(14,14);
@@ -170,7 +170,7 @@ public class TestP2 extends TestCase{
 		p.setIsfirstMeldComplete(true);
 		assertTrue(p.play() == false);
 	}
-	
+	*/
 	/*
 	 * Player hand (6,6,6) (5,5,1)
 	 * Table (1,1,Joker)

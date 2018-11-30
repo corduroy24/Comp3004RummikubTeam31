@@ -393,7 +393,7 @@ public class p2 implements PlayerStrategy{
 					p.set_report(out);
 					//return true;
 				}
-				if (useless_tile.size()>0) {
+				if (useless_tile.size()==1) {
 					function.playLastTile(p);
 				}return true;
 				
