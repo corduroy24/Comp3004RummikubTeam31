@@ -1044,28 +1044,31 @@ public class Ui extends Application
 		{
 		    public void handle(ActionEvent e) 
 		    {
+		    	//partially working 
 		    	/*
-		    	int maxPlayers  = 4; 
 		    	clearMainScreen();
-		    	aiType = new int[maxPlayers];
-		    	aiType[0] = 1;
-		    	aiType[1] = 2;
-		    	aiType[2] = 3;
-		    	aiType[3] = 4;
-		    	ScenarioFactory scenarioFactory = new ScenarioFactory();
+		    	int maxPlayers  = 4; 
+		    	int [] turnOrders = new int[maxPlayers];
+		    	//still need to properly determine order of players 
+		    	turnOrders[0] = 1;
+		    	turnOrders[1] = 2;
+		    	turnOrders[2] = 3;
+		    	turnOrders[3] = 4;
+		        ScenarioFactory scenarioFactory = new ScenarioFactory();
+		        Scenario s1 = scenarioFactory.getScenario("s1");
+		        game.Announcement();
+		        game = s1.deal(game);
+		    	setupGameRigging(); 
 
-		    	Scenario s1 = scenarioFactory.getScenario("s1");
-		    	game = s1.deal(game);
-
-		    	int[] temp = game.turnOrder(aiType);
-		    	game.getPlayers().remove(game.getHuman());
-
-		    	//game.getAI().getHand().HandReader();
-
-		    	// game.getAI().play();
-		    	mainGame(temp);	
-		    	*/	   
-		    }
+		    	//game.getPlayers().remove(game.getHuman());
+		    	try {
+					Thread.sleep(2000);
+				} catch (InterruptedException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+		    	playGameRigging(turnOrders);*/
+		    }		    
 		});
 		
 		//Sets up the Scenario 2 Button
@@ -1427,5 +1430,107 @@ public class Ui extends Application
 		
 	}
 	
+	public void setupGameRigging() {
+		TilePane tablePane = new TilePane();
+		tablePane.setPrefRows(7); //Sets the row length to 7
+		tablePane.setPrefColumns(20); //Sets the column length to 20
+		tablePane.setMaxSize(1100, 1000); //Makes the resize not squish the table
+		tablePane.setHgap(5);
+		tablePane.setVgap(5);
+		ObservableList<Node> list = tablePane.getChildren();
+		//Adds all of the table buttons onto the table
+		for(int x=0;x<tableButtons[0].length;x++)
+		{
+		for(int y=0;y<tableButtons.length;y++)
+		{
+			tableButtons[y][x] = new Button();
+			tableButtons[y][x].setText(" ");
+			tableButtons[y][x].setMinSize(50, 80);
+			list.addAll(tableButtons[y][x]);
+			
+			final int numberX = x;
+			final int numberY = y;
+			//Shows the button as droppable if it isn't from itself
+			
+			
+		}
+	}
+
+		//Creates the text console where it will ouput any necessary info\
+		console = new TextArea();
+		console.setText("");
+		console.setEditable(false); //Makes it not editable
+		console.setMinSize(1095, 100); //sets the size of the box
+		console.setMaxSize(1095, 100); //sets the size of the box
+
+
+		//The layoutPane that seperated the Player's hand and the end turn button
+		BorderPane bottomSkeleton = new BorderPane();
+		bottomSkeleton.setCenter(playerHand);
+		bottomSkeleton.setRight(endTurnButton);
+
+		//The layoutPane for the overarching skeleton (holds all the other layouts)
+		BorderPane bigSkeleton = new BorderPane();
+		bigSkeleton.setTop(console); 
+		bigSkeleton.setBottom(bottomSkeleton); 
+		bigSkeleton.setCenter(tablePane); 
+
+		rummiScene = new Scene(bigSkeleton);
+    	updateTable();
+
+		window.setScene(rummiScene);
+		window.show();
+	}
+	
+	public void playGameRigging(int [] turnOrders) {
+		setTurnOrder(turnOrders);
+		
+		System.out.println("\nUI Class");
+		for(int x=0;x<turnOrders.length;x++)
+		{
+			System.out.println(turnOrders[x]);
+		}
+		System.out.print("\n");
+		
+		//int x=0;
+		
+//		while(turnOrders[x] != 0)
+		for(int x = 0; x < 4; x++)
+		{
+			System.out.println("--------------------------- "+ turnOrders[x]);
+			
+	    	//Change to send a message that players turn has ended
+
+	    	game.Announcement();
+	    	//console.clear();
+
+			game.getPlayers().get(turnOrders[x]).getHand().sortTilesByColour();
+			
+			if(game.getPlayers().get(turnOrders[x]).play()) 
+			{
+				prevString += game.getPlayers().get(turnOrders[x]).getName() +  " play: \n";
+		    	prevString += game.getPlayers().get(turnOrders[x]).return_report();
+			}
+			else if (game.getDeck().getDeck().size() > 0) 
+			{
+	    		//Tile t= game.getDeck().Draw();
+	    		prevString += game.getPlayers().get(turnOrders[x]).getName() + "draw: \n";
+	    		//game.getPlayers().get(turnOrders[x]).getHand().addTileToHand(t);
+	    		//prevString += t.toString() + "\n";
+	    	}
+			game.Announcement();
+	    	
+	    	console.setText(console.getText() + prevString);  
+	    	prevString = "";
+	    	this.updateTable();
+	    	
+	    		if(game.getPlayers().get(turnOrders[x]).getHand().sizeOfHand() == 0) 
+	    			System.out.println("Winner: "+ turnOrders[x]); 
+	    	
+	   	    game.getTable().clearBool();
+	    	
+	}	
+}	    
+
 	
 }
