@@ -721,7 +721,7 @@ public class Ui extends Application
 		    {
 		    	ArrayList<Tile> suggestionTiles = new ArrayList<Tile>();
 		    	
-		    	for(int x=0;x<suggestionTiles.size();x++)
+		    	for(int x=0;x<playerHandButtons.size();x++)
 		    	{
 		    		String color = "";
 		    		
@@ -740,15 +740,24 @@ public class Ui extends Application
 					else if(playerHandButtons.get(x).getStyle().equals("-fx-background-color: #c69033"))
 					{
 						color = "O";
-					} 		    		
+					} 
 		    		
-		    		if(suggestionTiles.get(x).getNumber() == Integer.parseInt(playerHandButtons.get(x).getText()) && color.equals(suggestionTiles.get(x).getColor()))
+		    		for(int y=0;y<suggestionTiles.size();y++)
 		    		{
-		    			DropShadow dropShadow = new DropShadow();
-						dropShadow.setRadius(10.0);
-						dropShadow.setColor(Color.CHOCOLATE);
-						playerHandButtons.get(x).setEffect(dropShadow);
-		    		}		    		
+			    		if(!playerHandButtons.get(x).getText().equals("J") || !suggestionTiles.get(x).getColor().equals("J"))
+			    		{
+			    			if(suggestionTiles.get(y).getNumber() == Integer.parseInt(playerHandButtons.get(x).getText()) && 
+				    				color.equals(suggestionTiles.get(y).getColor()))
+				    		{
+				    			DropShadow dropShadow = new DropShadow();
+								dropShadow.setRadius(10.0);
+								dropShadow.setColor(Color.CHOCOLATE);
+								playerHandButtons.get(x).setEffect(dropShadow);
+								
+								suggestionTiles.set(x, new Tile(14, 14));
+				    		}	
+			    		}  
+		    		}	
 		    	}
 		    }
 		});
