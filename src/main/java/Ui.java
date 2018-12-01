@@ -659,6 +659,7 @@ public class Ui extends Application
 		    	String report = "";
 		    	for(int i = turnOfHuman; i < game.getPlayers().size();i++) 
 		    	{
+		    		report = "";
 	    			game.getPlayers().get(i).getHand().sortTilesByColour();
 		    		if(!game.getPlayers().get(i).getName().equals("Human") && game.getPlayers().get(i).play()) 
 		    		{
@@ -676,6 +677,7 @@ public class Ui extends Application
 		    		lastMove = new Memento(game);  	
 		    		prevString = report;
 		    		console.setText(console.getText() + prevString);  
+		    		prevString = "";
 		    	}
 		    	AisPlay(turnOfHuman,report);
 		    	timing = 120;
@@ -1426,11 +1428,15 @@ public class Ui extends Application
 	    	
 	   	    game.getTable().clearBool();
 	    	
-	}	
-}	   
-	private void AisPlay(int index,String report){
+		}	
+	}	   
+	private void AisPlay(int index,String report)
+	{
+		prevString = "";
+		
 		for(int i = 0; i < index;i++) 
     	{
+    		report = "";
 			game.getPlayers().get(i).getHand().sortTilesByColour();
     		
     		if(!game.getPlayers().get(i).getName().equals("Human") && game.getPlayers().get(i).play()) 
@@ -1445,12 +1451,15 @@ public class Ui extends Application
 	    		game.getPlayers().get(i).getHand().addTileToHand(t);
 	    		report += t.toString() + "\n";
 	    	}
+    		
+
+    		prevString = report;
+        	console.setText(console.getText() + prevString); 
+        	prevString = "";
     		game.Announcement();
     	}
 		game.Announcement();
 		lastMove = new Memento(game); 
-		prevString = report;
-    	console.setText(console.getText() + prevString);  
     	updateTable();
 	}
 }
