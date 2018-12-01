@@ -1020,7 +1020,9 @@ public class Ui extends Application
 				} catch (InterruptedException e1) {
 					e1.printStackTrace();
 				}
-		    	turnOrders = game.turnOrderAI(turnOrders); 
+		    	
+		    	//Have to make a seperate method to make turn order or just rig that as well
+		    	//turnOrders = game.turnOrderAI(turnOrders); 
 		    	playGameRigging(turnOrders);
 		    }		    
 		});
