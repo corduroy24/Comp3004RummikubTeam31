@@ -47,6 +47,7 @@ public class Ui extends Application
 	Button aiFour;
 	
 	Button endTurnButton;
+	Button suggestions;
 	
 	Button scenarios;
 	Button scenarioOne;
@@ -553,7 +554,7 @@ public class Ui extends Application
 		//Sets up the End Turn Button
 		endTurnButton = new Button();
 		endTurnButton.setText("End Turn");
-		endTurnButton.setMinSize(100, 100);
+		endTurnButton.setMinSize(100, 50);
 		endTurnButton.setDisable(false);
 		endTurnButton.setOnAction(new EventHandler<ActionEvent>() 
 		{
@@ -566,7 +567,10 @@ public class Ui extends Application
 		    	
 		    	console.setText(console.getText() + "---------------------------- \n");
 		    	
-		    	
+		    	for(int x=0;x<playerHandButtons.size();x++)
+		    	{
+		    		playerHandButtons.get(x).setEffect(null);
+		    	}
 		    	
 		    	//Change to send a message that players turn has ended
 		    	//boolean hasWinner = false;
@@ -707,11 +711,59 @@ public class Ui extends Application
 		    }
 		});
 		
+		suggestions = new Button();
+		suggestions.setText("Suggestion");
+		suggestions.setMinSize(100, 50);
+		suggestions.setDisable(false);
+		suggestions.setOnAction(new EventHandler<ActionEvent>() 
+		{
+		    public void handle(ActionEvent e) 
+		    {
+		    	ArrayList<Tile> suggestionTiles = new ArrayList<Tile>();
+		    	
+		    	for(int x=0;x<suggestionTiles.size();x++)
+		    	{
+		    		String color = "";
+		    		
+		    		if(playerHandButtons.get(x).getStyle().equals("-fx-background-color: #db4c4c"))
+					{
+						color = "R";
+					}
+					else if(playerHandButtons.get(x).getStyle().equals("-fx-background-color: #3888d8"))
+					{
+						color = "B";
+					}
+					else if(playerHandButtons.get(x).getStyle().equals("-fx-background-color: #1a9922"))
+					{
+						color = "G";
+					}
+					else if(playerHandButtons.get(x).getStyle().equals("-fx-background-color: #c69033"))
+					{
+						color = "O";
+					} 		    		
+		    		
+		    		if(suggestionTiles.get(x).getNumber() == Integer.parseInt(playerHandButtons.get(x).getText()) && color.equals(suggestionTiles.get(x).getColor()))
+		    		{
+		    			DropShadow dropShadow = new DropShadow();
+						dropShadow.setRadius(10.0);
+						dropShadow.setColor(Color.CHOCOLATE);
+						playerHandButtons.get(x).setEffect(dropShadow);
+		    		}		    		
+		    	}
+		    }
+		});
+		
+		//Controls the button panel on the right of the player hand
+		BorderPane controlSkeleton = new BorderPane();
+		controlSkeleton.setTop(endTurnButton);
+		controlSkeleton.setBottom(suggestions);
+		
 		//The layoutPane that seperated the Player's hand and the end turn button
 		BorderPane bottomSkeleton = new BorderPane();
 		bottomSkeleton.setCenter(playerHand);
-		bottomSkeleton.setRight(endTurnButton);
+		bottomSkeleton.setRight(controlSkeleton);
 		
+		//Controls the top part of the screen with the consoles
 		BorderPane topSkeleton = new BorderPane();
 		topSkeleton.setLeft(console);
 		topSkeleton.setRight(scoreConsole);

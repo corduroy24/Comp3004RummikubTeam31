@@ -66,7 +66,7 @@ public class GameMaster extends Observable{
 				players.get(i).getHand().addTileToHand(new Tile(14, 14));
 				
 				
-				players.get(i).getHand().drawFirst14(deck);
+				//players.get(i).getHand().drawFirst14(deck);
 			}
 			else
 			{
