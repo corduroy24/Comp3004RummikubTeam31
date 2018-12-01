@@ -96,7 +96,8 @@ public class GameMaster extends Observable{
 	
 	//get human and AIs to update data to each player
 	public ArrayList<Player> getPlayers(){
-		return players;}
+		return players;
+	}
 	
 	public Table getTable() 
 	{

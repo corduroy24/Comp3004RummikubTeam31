@@ -1104,18 +1104,6 @@ public class Ui extends Application
 		
 	}
 	
-	public void updateConsole(String output)
-	{
-		prevString = prevString+output;
-		console.setText(prevString);
-		
-	}
-	
-	public String getConsoleText()
-	{
-		return console.getText();
-	}
-	
 	public void addPlayerTile(Tile tile)
 	{
 		//String color = tile.getColor();
@@ -1210,22 +1198,6 @@ public class Ui extends Application
 				}
 			}
 		}
-	}
-	
-	public void testTable()
-	{
-		Table table = game.getTable();
-		
-		Tile test1 = new Tile(2, 3);
-		table.setTile(1, 4, test1);
-		
-		Tile test2 = new Tile(1, 4);
-		table.setTile(15, 2, test2);
-		
-		Tile test3 = new Tile(4, 11);
-		table.setTile(8, 6, test3);
-		
-		game.setTable(table);
 	}
 	
 	public boolean updateTable()
@@ -1369,7 +1341,7 @@ public class Ui extends Application
 				}
 		
 			}
-	}
+		}
 		return t;
 	}
 	
@@ -1386,6 +1358,8 @@ public class Ui extends Application
 			return 2;
 		else if(text.contains("1a9922"))
 			return 3;
+		else if(text.contains("000000"))
+			return 5;
 		else
 			return 4;			
 	}
@@ -1400,6 +1374,7 @@ public class Ui extends Application
 		hand.sortTilesByColour();
 		addPlayerTile(tile);
 	}
+	
 	private void updateTableAndHand() 
 	{
 		game.getTable().setTable(lastMove.getStateTable().getTable());
@@ -1428,7 +1403,7 @@ public class Ui extends Application
 			}
 		}
 
-		//Creates the text console where it will ouput any necessary info\
+		//Creates the text console where it will ouput any necessary info
 		console = new TextArea();
 		console.setText("");
 		console.setEditable(false); //Makes it not editable
