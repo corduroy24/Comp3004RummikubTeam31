@@ -256,7 +256,7 @@ public class Ui extends Application
 						    		game.Announcement();
 						    		lastMove = new Memento(game);
 						    		prevString = report;
-						    		console.setText(prevString);  
+						    		console.setText(console.getText() + prevString);  
 						    	}
 						    	AisPlay(turnOfHuman,report);
 						    	updateTableAndHand();
@@ -546,6 +546,9 @@ public class Ui extends Application
 		    		System.out.println(recentlyPlayed.get(x));
 		    	}
 		    	
+		    	console.setText(console.getText() + "---------------------------- \n");
+		    	
+		    	
 		    	
 		    	//Change to send a message that players turn has ended
 		    	//boolean hasWinner = false;
@@ -558,6 +561,7 @@ public class Ui extends Application
 		    			valid = false;
 		    			playerScore = 0;
 				    	System.out.println("YOUR MOVE IS INVALID\n");
+				    	console.setText(console.getText() + "YOUR MOVE IS INVALID\n");
 		    		}
 		    	}
 
@@ -570,7 +574,9 @@ public class Ui extends Application
 		    		else {
 		    			playerScore = 0;
 		    			valid = false;
-		    		System.out.println("PLAY YOUR FIRST INITIAL TURN ASAP\n");}
+		    		System.out.println("PLAY YOUR FIRST INITIAL TURN ASAP\n");
+		    		console.setText(console.getText() + "PLAY YOUR FIRST INITIAL TURN ASAP\n");
+		    		}
 		    	}
 		    
 		  
@@ -613,7 +619,7 @@ public class Ui extends Application
 		    	}
 		    	timing = 120;
 		    	prevString = report;
-		    	console.setText(report);  
+		    	console.setText(console.getText() + report);  
 		    	updateTable();
 		    	AisPlay(turnOfHuman,report);
 		    	
@@ -669,7 +675,7 @@ public class Ui extends Application
 		    		game.Announcement();
 		    		lastMove = new Memento(game);  	
 		    		prevString = report;
-		    		console.setText(prevString);  
+		    		console.setText(console.getText() + prevString);  
 		    	}
 		    	AisPlay(turnOfHuman,report);
 		    	timing = 120;
@@ -677,6 +683,7 @@ public class Ui extends Application
 		    	updateHand();
 		    	}
 		    	recentlyPlayed.clear();
+		    	console.end();
 		    }
 		});
 		
@@ -699,63 +706,6 @@ public class Ui extends Application
 		
 		window.setScene(rummiScene);
 		window.show();
-	}
-	
-	public void aiPlayFirst(int[] turnOrders)
-	{
-		int x=0;
-		
-		while(turnOrders[x] != 0)
-		{
-			System.out.println("--------------------------- "+ turnOrders[x]);
-	    	checkPlayerIsWinner();
-	    	//console.clear();
-
-    		game.getPlayers().get(turnOrders[x]).getHand().sortTilesByColour();
-    		
-    		if(game.getPlayers().get(turnOrders[x]).play()) 
-    		{
-		    	prevString += game.getPlayers().get(turnOrders[x]).return_report();
-    		}
-    		else if (!game.getPlayers().get(x).getName().equals("Human") && game.getDeck().getDeck().size() > 0) 
-    		{
-	    		Tile t= game.getDeck().Draw();
-	    		prevString += game.getPlayers().get(turnOrders[x]).getName() + " drew: ";
-	    		game.getPlayers().get(turnOrders[x]).getHand().addTileToHand(t);
-	    		prevString += t.toString() + "\n";
-	    	}
-    		game.Announcement();
-    		lastMove = new Memento(game);
-    		
-	    	console.setText(console.getText() + prevString);  
-	    	prevString = "";
-	    	updateTable();
-	    	
-	    	if(!played)
-	    	{
-	    		if(game.getDeck().getDeck().size() > 0)
-	    			drawTile();
-	    		else
-	    			System.out.println("Out of tiles");
-	    		
-	    		updateHand();
-	    	}
-	    	else {
-	    		game.getTable().addTableCounter();
-	    		played=false;
-	    	}
-	    	checkAIIsWinner();
-	    	lastMove = new Memento(game);
-	    	if(playerScore>=30) 
-	    	{
-	    		game.getHuman().setIsfirstMeldComplete(true);
-	    	}
-	    	
-	    	lightRecentlyPlayed();
-	    	game.getTable().clearBool();
-	    	
-	    	x++;
-	    }
 	}
 	
 	public void setTurnOrder(int[] turns)
@@ -1500,10 +1450,7 @@ public class Ui extends Application
 		game.Announcement();
 		lastMove = new Memento(game); 
 		prevString = report;
-    	console.setText(prevString);  
+    	console.setText(console.getText() + prevString);  
     	updateTable();
 	}
-	
-
-	
 }
