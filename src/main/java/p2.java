@@ -219,8 +219,8 @@ public class p2 implements PlayerStrategy{
 							}
 						}
 					}
-				}//System.out.println(indexToReplace);
-				
+				}//System.out.println(indexToReplace); 
+				//System.out.println("TEST 4");
 				if (usefull==false) {
 				if(indexToReplace != 999) {    //System.out.println(index);
 				//Replace tiles on hand to the table.
@@ -366,11 +366,11 @@ public class p2 implements PlayerStrategy{
 							}
 							else return false;
 						}
-				}
-				if (usefull_tile.size()>2) {
-					String out = "";
+				}System.out.println(usefull_tile.size());
+				if (usefull_tile.size()>2) { 
+					String out = "";  //System.out.println("TEST 5");
 					int a = 0;
-					loop :for(int i = output.size()-1; i > -1 ;i--) {
+					for(int i = output.size()-1; i > -1 ;i--) {
 						p.getTable().addTiles(output.get(i));
 						a += checkMeld.getPointOfSeq(output.get(i));
 						for(int u = 0; u < output.get(i).size();u++) {
@@ -379,7 +379,7 @@ public class p2 implements PlayerStrategy{
 									if(p.getHand().getTiles().get(k).isJoker() && p.getHand().getTiles().get(k).getJokerColor().equals(output.get(i).get(u).getJokerColor())
 										&& p.getHand().getTiles().get(k).getJokerPoint() == output.get(i).get(u).getJokerPoint()) {
 										p.getHand().getTiles().remove(k);
-										break myloop;
+										
 									}
 								}	
 							}
@@ -387,18 +387,17 @@ public class p2 implements PlayerStrategy{
 								p.getHand().getTiles().remove(output.get(i).get(u));
 							out += output.get(i).get(u).toString();
 						}
-						if( a >= 30) break loop;
+						
 					}
-					out += "\n";
-					p.set_report(out);
-					//return true;
-				}
+					
+				}//System.out.println("TEST 8");
 				if (useless_tile.size()==1) {
-					function.playLastTile(p);
-				}return true;
+					function.playLastTile(p);//System.out.println("TEST 6");
+					return true;
+				}
 				
 			}
-		}
+		}//System.out.println("TEST 7");
 	return false;
 	}
 }
