@@ -148,7 +148,7 @@ public class PlayerHand {
 		handsByColour = seperateByColour();
 
 		// sorts the hand by number then adds to hand
-		for (int i = 0; i < 4; i++) {
+		for (int i = 0; i < 5; i++) {
 			handsByColour.get(i).sortTilesByNumber();
 			tempHand.addAll(handsByColour.get(i).getTiles());
 		}
@@ -162,7 +162,7 @@ public class PlayerHand {
 		ArrayList<PlayerHand> handsByColour = new ArrayList<PlayerHand>();
 		Tile currTile;
 
-		for (int i = 0; i < 4; i++)
+		for (int i = 0; i < 5; i++)
 			handsByColour.add(new PlayerHand("" + i));
 
 		// seperates the hand by colour
@@ -180,6 +180,9 @@ public class PlayerHand {
 
 			else if (currTile.getColor() == "O")
 				handsByColour.get(3).addTileToHand(currTile);
+			
+			else if (currTile.getColor() == "J")
+				handsByColour.get(4).addTileToHand(currTile);
 		}
 		return handsByColour;
 	}

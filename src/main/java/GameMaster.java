@@ -56,7 +56,7 @@ public class GameMaster extends Observable{
 			{
 				IndexOfHuman = i;
 				
-				/*
+				/*Allows you to set the player hand
 				for(int x=1;x<13;x++)
 				{
 					players.get(i).getHand().addTileToHand(new Tile(1, x));
