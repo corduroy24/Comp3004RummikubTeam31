@@ -163,7 +163,6 @@ public class PlayerStrategy2 implements PlayerStrategy {
 				// update table and remove tiles from player hand
 				System.out.println("Tiles played by AI2: ");
 				String set_out = "";
-				set_out += "Tiles played by AI2: \n";
 				String out = "";
 				myloop: for(int i =output.size()-1; i >-1 ;i--) {
 					p.getTable().addTiles(output.get(i));

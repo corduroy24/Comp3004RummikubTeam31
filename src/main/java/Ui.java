@@ -79,6 +79,7 @@ public class Ui extends Application
 	int numPlayers = 0;
 	int[] aiType;
 	ArrayList<Integer> turnOrder = new ArrayList<Integer>();
+	ArrayList<Integer> recentlyPlayed = new ArrayList<Integer>();
 	
 	private GameMaster game;
 	private HandleJoker checkMeld;
@@ -497,6 +498,7 @@ public class Ui extends Application
 					}
 			        
 			        temp = ""+temp+"|"+playerHandButtons.get(number).getText();
+			        recentlyPlayed.add(Integer.parseInt(playerHandButtons.get(number).getText()));
 			        
 			        ClipboardContent content = new ClipboardContent();
 			        content.putString(playerHandButtons.get(number).getText());
@@ -525,7 +527,7 @@ public class Ui extends Application
 		
 		//Creates the text console where it will ouput The score
 		scoreConsole = new TextArea();
-		scoreConsole.setText("Score: ");
+		scoreConsole.setText("Score: 0");
 		scoreConsole.setEditable(false); //Makes it not editable
 		scoreConsole.setMinSize(300, 100); //sets the size of the box
 		scoreConsole.setMaxSize(300, 100); //sets the size of the box
@@ -538,7 +540,13 @@ public class Ui extends Application
 		endTurnButton.setOnAction(new EventHandler<ActionEvent>() 
 		{
 		    public void handle(ActionEvent e) 
-		    {		    	
+		    {
+		    	for(int x=0;x<recentlyPlayed.size();x++)
+		    	{
+		    		System.out.println(recentlyPlayed.get(x));
+		    	}
+		    	
+		    	
 		    	//Change to send a message that players turn has ended
 		    	//boolean hasWinner = false;
 		    	checkMeld = new HandleJoker();
@@ -567,6 +575,15 @@ public class Ui extends Application
 		    
 		  
 		    	if(valid) {
+	    		int temp = 0;
+		    	
+		    	for(int x=0;x<recentlyPlayed.size();x++)
+		    	{
+		    		temp += recentlyPlayed.get(x);
+		    	}
+		    	
+		    	scoreConsole.setText("Score: "+temp);
+		    	
 		    	game.getHuman().getTable().setTable(currentTable);
 		    	game.getTable().setTable(game.getHuman().getTable().getTable());
 		    	game.Announcement();
@@ -659,6 +676,7 @@ public class Ui extends Application
 		    	updateTable();
 		    	updateHand();
 		    	}
+		    	recentlyPlayed.clear();
 		    }
 		});
 		
