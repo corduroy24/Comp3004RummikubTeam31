@@ -1398,15 +1398,29 @@ public class Ui extends Application
 		ArrayList<Tile> meld = new ArrayList<Tile>();
 		for(int x=0;x<7;x++){
 			for(int y=0;y < 20;y++){
-				if(!tableButtons[y][x].getText().equals("") && !tableButtons[y][x].getText().equals(" ")) {
-					current_number = Integer.valueOf(tableButtons[y][x].getText());
+				if(!tableButtons[y][x].getText().equals("") && !tableButtons[y][x].getText().equals(" ")) 
+				{		
+					System.out.println("Text: "+tableButtons[y][x].getText()+", Color: "+tableButtons[y][x].getStyle());
+					
+					
+					if(tableButtons[y][x].getText().equals("14") || tableButtons[y][x].getText().equals("J"))
+					{
+						current_number = 14;
+					}
+					else
+					{
+						current_number = Integer.valueOf(tableButtons[y][x].getText());
+					}
+					
 					current_color =  getColorFromStyle(tableButtons[y][x].getStyle());
 				}
 				
-				if(y <= 19 && can_add(tableButtons[y][x].getText()) && can_add(tableButtons[y+1][x].getText())) { 
+				if(y <= 19 && can_add(tableButtons[y][x].getText()) && can_add(tableButtons[y+1][x].getText())) 
+				{ 
 					meld.add(new Tile(current_color,current_number));
 				}
-				else if (can_add(tableButtons[y][x].getText()) && meld.size() > 0 ) {
+				else if (can_add(tableButtons[y][x].getText()) && meld.size() > 0 ) 
+				{
 					meld.add(new Tile(current_color,current_number));
 					t.add(meld);
 					meld = new ArrayList<Tile>();
