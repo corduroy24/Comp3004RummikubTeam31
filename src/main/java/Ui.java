@@ -7,6 +7,8 @@ import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.stage.Stage;
 import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.control.TextArea;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
@@ -554,7 +556,7 @@ public class Ui extends Application
 		//Sets up the End Turn Button
 		endTurnButton = new Button();
 		endTurnButton.setText("End Turn");
-		endTurnButton.setMinSize(100, 50);
+		endTurnButton.setMinSize(100, 55);
 		endTurnButton.setDisable(false);
 		endTurnButton.setOnAction(new EventHandler<ActionEvent>() 
 		{
@@ -772,7 +774,7 @@ public class Ui extends Application
 		
 		suggestions = new Button();
 		suggestions.setText("Suggestion");
-		suggestions.setMinSize(100, 50);
+		suggestions.setMinSize(100, 55);
 		suggestions.setDisable(false);
 		suggestions.setOnAction(new EventHandler<ActionEvent>() 
 		{
@@ -867,9 +869,15 @@ public class Ui extends Application
 		controlSkeleton.setTop(endTurnButton);
 		controlSkeleton.setBottom(suggestions);
 		
+		//Creates the scroll pane to store the player hand tiles
+		ScrollPane playerHandScroller = new ScrollPane();
+		playerHandScroller.setContent(playerHand);
+		playerHandScroller.setPrefHeight(110);
+		playerHandScroller.setVbarPolicy(ScrollBarPolicy.AS_NEEDED);
+		
 		//The layoutPane that seperated the Player's hand and the end turn button
 		BorderPane bottomSkeleton = new BorderPane();
-		bottomSkeleton.setCenter(playerHand);
+		bottomSkeleton.setCenter(playerHandScroller);
 		bottomSkeleton.setRight(controlSkeleton);
 		
 		//Controls the top part of the screen with the consoles
@@ -1459,8 +1467,7 @@ public class Ui extends Application
 			for(int y=0;y < 20;y++){
 				if(!tableButtons[y][x].getText().equals("") && !tableButtons[y][x].getText().equals(" ")) 
 				{		
-					System.out.println("Text: "+tableButtons[y][x].getText()+", Color: "+tableButtons[y][x].getStyle());
-					
+					//System.out.println("Text: "+tableButtons[y][x].getText()+", Color: "+tableButtons[y][x].getStyle());
 					
 					if(tableButtons[y][x].getText().equals("14") || tableButtons[y][x].getText().equals("J"))
 					{
