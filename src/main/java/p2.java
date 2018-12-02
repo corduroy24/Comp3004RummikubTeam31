@@ -72,7 +72,7 @@ public class p2 implements PlayerStrategy{
 						a += checkMeld.getPointOfSeq(output.get(i));
 						for(int u = 0; u < output.get(i).size();u++) {
 							if(output.get(i).get(u).isJoker()) {
-								myloop: for(int k =0; k < p.getHand().getTiles().size()-1;k++) {
+								myloop: for(int k =0; k < p.getHand().getTiles().size();k++) {
 									if(p.getHand().getTiles().get(k).isJoker() && p.getHand().getTiles().get(k).getJokerColor().equals(output.get(i).get(u).getJokerColor())
 										&& p.getHand().getTiles().get(k).getJokerPoint() == output.get(i).get(u).getJokerPoint()) {
 										p.getHand().getTiles().remove(k);
@@ -162,7 +162,7 @@ public class p2 implements PlayerStrategy{
 				// index of meld on the table, which contain joker tiles
 				int index = 999;
 				int index_meld = 0; // index of joker tile in the meld
-				
+				System.out.println(table);
 				// find the joker meld in the table
 				FindIndex: for(int i =0; i < table.size();i++) {
 					for(int u =0; u < table.get(i).size();u++) {
@@ -173,10 +173,20 @@ public class p2 implements PlayerStrategy{
 					}
 				}	
 				//check useless tile can replace joker tiles on the table or not.
-				
+				String s = "";
 				int indexToReplace = 999;
-				
+				int tempIndex=0;
 				//System.out.println(index);
+				if (index!=999) {
+				for (int i=0;i<table.get(index).size();i++) {
+					if (table.get(index).get(i).isJoker()) {
+						tempIndex=i;
+						 s = (table.get(index).get(tempIndex).getJokerColor());
+						//System.out.println(tempIndex);
+					}
+				}
+				}
+				
 				
 				if(index != 999) {
 					for(int i =0; i < useless_tile.size();i++) {
@@ -191,7 +201,7 @@ public class p2 implements PlayerStrategy{
 								
 							}
 							
-							else if(useless_tile.get(i).getColor().equals(table.get(index).get(index_meld).getJokerColor())) {
+							else if(useless_tile.get(i).getColor().equals(s)) {
 									indexToReplace = i;
 								}
 							
@@ -333,7 +343,7 @@ public class p2 implements PlayerStrategy{
 								p.getHand().playTileFromHand(p.getHand().getTile(u));
 								u--;
 							}
-							System.out.println(11);
+							//System.out.println(11);
 							p.getHand().HandReader();
 							p.setWinner();
 							return true;
@@ -366,11 +376,11 @@ public class p2 implements PlayerStrategy{
 							}
 							else return false;
 						}
-				}System.out.println(usefull_tile.size());
+				}//System.out.println(usefull_tile.size());
 				if (usefull_tile.size()>2) { 
 					String out = "";  //System.out.println("TEST 5");
 					int a = 0;
-					for(int i = output.size()-1; i > -1 ;i--) {
+					loop:for(int i = output.size()-1; i > -1 ;i--) {
 						p.getTable().addTiles(output.get(i));
 						a += checkMeld.getPointOfSeq(output.get(i));
 						for(int u = 0; u < output.get(i).size();u++) {
@@ -383,9 +393,13 @@ public class p2 implements PlayerStrategy{
 									}
 								}	
 							}
-							else
-								p.getHand().getTiles().remove(output.get(i).get(u));
+							else {
+								p.getHand().getTiles().remove(output.get(i).get(u)); 
+								//System.out.println(p.getHand().getTiles().size());
+								
+							}
 							out += output.get(i).get(u).toString();
+							
 						}
 						
 					}
@@ -395,9 +409,9 @@ public class p2 implements PlayerStrategy{
 					function.playLastTile(p);//System.out.println("TEST 6");
 					return true;
 				}
-				
+			
 			}
-		}//System.out.println("TEST 7");
+		}
 	return false;
 	}
 }

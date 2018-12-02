@@ -152,11 +152,22 @@ public class Table{
 	    public int compare(Tile a, Tile b) 
 	    { 
 	    	if ((a.getNumber()==14)||(a.getNumber()==0)) {
+	    		if (a.getJokerPoint()>=b.getNumber()) {
 	    		return a.getJokerPoint()-b.getNumber();
+	    		}
+	    		else {//System.out.println(a.getJokerPoint()); 
+	    			return b.getNumber()-a.getJokerPoint();
+	    		}
 	    	}
-	    	if ((b.getNumber()==14)||(b.getNumber()==0)) {
-	    		return a.getNumber()-b.getJokerPoint();
-	    	}
+	   /* 	if ((b.getNumber()==14)||(b.getNumber()==0)) {
+	    		if (a.getJokerPoint()<=b.getNumber()) { System.out.println(a.getJokerPoint()); System.out.println(b.getNumber());
+	    		return b.getNumber()-a.getJokerPoint();
+	    		}
+	    		else {
+	    			return a.getJokerPoint()-b.getNumber();
+	    		}
+	    	} */
+	    	//System.out.println(b.getJokerPoint()); System.out.println(b.getNumber());
 	        return a.getNumber() - b.getNumber(); 
 	    } 
 	} 
