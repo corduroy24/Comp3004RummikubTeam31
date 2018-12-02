@@ -58,7 +58,7 @@ public class Ui extends Application
 	boolean isTimerOn=false;
 	Button timerButton;
 	Timer timer;
-	
+	boolean details=false;
 	Button[][] tableButtons = new Button[20][7];
 	//Boolean[][] isTableSet = new Boolean[20][7];
 	
@@ -719,6 +719,8 @@ public class Ui extends Application
 		{
 		    public void handle(ActionEvent e) 
 		    {
+		    	
+		    	
 		    	game.getHuman().play();
 		    	ArrayList<Tile> suggestionTiles = game.getHuman().getSuggPlayList();
 		    	
@@ -731,12 +733,20 @@ public class Ui extends Application
                     }
                 }
 		    	
-		    	/*
+		    	if (details==false) {
+		    	System.out.println("Tiles Player should play are: ");
+					
 		    	for(int x=0;x<suggestionTiles.size();x++)
                 {
                     System.out.println("color: "+suggestionTiles.get(x).getColor()+", Number: " +suggestionTiles.get(x).getNumber());
                 }
-		    	*/
+		    	details=true;
+		    	}
+		    	else if (details==true) {
+		    		details=false;
+		    	}
+		    	System.out.println("Press again to get details");
+		    	
 		    	
 		    	for(int x=0;x<playerHandButtons.size();x++)
 		    	{

@@ -148,7 +148,7 @@ public class HumanPlayerStrategy implements PlayerStrategy{
 					}
 					
 					//add tiles in the table and remove tiles from player hand.
-					System.out.println("Tiles Player should play are: ");
+				//	System.out.println("Tiles Player should play are: ");
 					String out = "";
 					for(int i = output.size()-1; i > -1 ;i--) {
 						for(int u = 0; u < output.get(i).size();u++) {
@@ -157,7 +157,7 @@ public class HumanPlayerStrategy implements PlayerStrategy{
 						}
 					}
 					out += "\n";
-					System.out.println(out);
+					//System.out.println(out);
 					p.set_report(out);
 					
 					System.out.println("Why: ");
@@ -287,7 +287,7 @@ public class HumanPlayerStrategy implements PlayerStrategy{
 					}
 					// if point >= 30, add tiles to the table and remove them from hand
 					if(point >= 30) {
-						System.out.println("Tiles Player should play are: ");
+						//System.out.println("Tiles Player should play are: ");
 						String out = "";
 						for(int i = output.size()-1; i > -1 ;i--) {
 							for(int u = 0; u < output.get(i).size();u++) {
@@ -296,7 +296,7 @@ public class HumanPlayerStrategy implements PlayerStrategy{
 							}
 						}
 						out += "\n";
-						System.out.println(out);
+						//System.out.println(out);
 						p.set_report(out);
 						
 						System.out.println("Why: ");
@@ -334,7 +334,7 @@ public class HumanPlayerStrategy implements PlayerStrategy{
 						return true;
 					}
 					else if(point3 >= 30) {
-						System.out.println("Tiles Player should play are: ");					
+						//System.out.println("Tiles Player should play are: ");					
 						String out = "";
 						for(int i = output3.size()-1; i > -1 ;i--) {
 							for(int u = 0; u < output3.get(i).size();u++) {
@@ -343,7 +343,7 @@ public class HumanPlayerStrategy implements PlayerStrategy{
 							}
 						}
 						out += "\n";
-						System.out.println(out);
+						//System.out.println(out);
 						p.set_report(out);
 						
 						System.out.println("Why: ");
