@@ -47,31 +47,13 @@ public class GameMaster extends Observable{
 			players.get(i).getHand().drawFirst14(d);
 		}
 		Collections.sort(players, new SortByCommand());		
-		
-		
 		for(int i =0; i < players.size();i++) 
 		{
 			players.get(i).getHand().clear();
 			if(players.get(i).getName().equals("Human"))
-			{
 				IndexOfHuman = i;
-				
-				//Allows you to set the player hand
-				for(int x=1;x<13;x++)
-				{
-					players.get(i).getHand().addTileToHand(new Tile(1, x));
-				}
-				
-				players.get(i).getHand().addTileToHand(new Tile(2, 1));
-				players.get(i).getHand().addTileToHand(new Tile(14, 14));
-				
-				
-				//players.get(i).getHand().drawFirst14(deck);
-			}
-			else
-			{
-				players.get(i).getHand().drawFirst14(deck);
-			}
+			players.get(i).getHand().drawFirst14(deck);
+			players.get(i).getHand().HandReader();
 		}
 	}
 	public int getHumanPosition() {return IndexOfHuman;}
@@ -383,14 +365,6 @@ public class GameMaster extends Observable{
 		int[] temp = new int[ai.length];
 		int[] returnOrder = new int[ai.length];
 		
-		/*
-		System.out.println("\nGM Class");
-		for(int x=0;x<turnOrder.length;x++)
-		{
-			temp[x] = turnOrder[x][1];
-			System.out.println(temp[x]);
-		}
-		*/
 		
 		for(int x=0;x<temp.length;x++)
 		{

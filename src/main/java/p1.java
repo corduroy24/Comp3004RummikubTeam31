@@ -57,14 +57,13 @@ public class p1 implements PlayerStrategy{
 				
 				checkMeld.initialOutput(output,p.getPlayerHand().getTiles());
 				
-				
 				if(checkMeld.getPoint(output) >= 30) {
 					String out = "";
 					for(int i = output.size()-1; i > -1 ;i--) {
 						p.getTable().addTiles(output.get(i));
 						for(int u = 0; u < output.get(i).size();u++) {
 							if(output.get(i).get(u).isJoker()) {
-								myloop: for(int k =0; k < p.getHand().getTiles().size();k++) {
+								myloop: for(int k =0; k < p.getHand().getTiles().size()-1;k++) {
 									if(p.getHand().getTiles().get(k).isJoker() && p.getHand().getTiles().get(k).getJokerColor().equals(output.get(i).get(u).getJokerColor())
 										&& p.getHand().getTiles().get(k).getJokerPoint() == output.get(i).get(u).getJokerPoint()) {
 										p.getHand().getTiles().remove(k);
@@ -108,7 +107,7 @@ public class p1 implements PlayerStrategy{
 				else output = object;
 				
 				checkMeld.initialOutput(output,p.getPlayerHand().getTiles());
-				
+				System.out.println(output);
 				
 				if(output == null || output.size() == 0) return false;
 				
