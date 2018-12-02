@@ -872,8 +872,9 @@ public class Ui extends Application
 		//Creates the scroll pane to store the player hand tiles
 		ScrollPane playerHandScroller = new ScrollPane();
 		playerHandScroller.setContent(playerHand);
+		playerHandScroller.setFitToWidth(true);
 		playerHandScroller.setPrefHeight(110);
-		playerHandScroller.setVbarPolicy(ScrollBarPolicy.AS_NEEDED);
+		playerHandScroller.setVbarPolicy(ScrollBarPolicy.NEVER);
 		
 		//The layoutPane that seperated the Player's hand and the end turn button
 		BorderPane bottomSkeleton = new BorderPane();
