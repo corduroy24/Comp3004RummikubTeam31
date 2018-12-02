@@ -577,10 +577,12 @@ public class Ui extends Application
 		    	//Change to send a message that players turn has ended
 		    	//boolean hasWinner = false;
 		    	checkMeld = new HandleJoker();
+		    	boolean valid = true;
 		    	ArrayList<ArrayList<Tile>> currentTable = current_table();
 		    	ArrayList<Tile> xList = new ArrayList<Tile>();
 		    	//System.out.println(currentTable);
-		    	for (int i=0;i<currentTable.size();i++) {
+		    	myloop:for (int i=0;i<currentTable.size();i++) {
+		    		if(currentTable.get(i).size() < 3) {valid = false; break myloop;}
 		    		for (int j=0;j<currentTable.get(i).size();j++) {
 		    			if (currentTable.get(i).get(j).getColor().equals("J")) {
 		    				currentTable.get(i).get(j).setJoker(true);
@@ -638,7 +640,6 @@ public class Ui extends Application
 		    		}
 		    	}
 		    	System.out.println("REPORT TO USER: ---------------------");
-		    	boolean valid = true;
 		    	for(int i =0; i < currentTable.size();i++) {
 		    		if(!checkMeld.isRun(currentTable.get(i)) && !checkMeld.isSet(currentTable.get(i))) {
 		    			valid = false;
