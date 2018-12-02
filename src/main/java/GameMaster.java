@@ -51,9 +51,25 @@ public class GameMaster extends Observable{
 		{
 			players.get(i).getHand().clear();
 			if(players.get(i).getName().equals("Human"))
+			{
 				IndexOfHuman = i;
-			players.get(i).getHand().drawFirst14(deck);
-			players.get(i).getHand().HandReader();
+				
+				//Allows you to set the player hand
+				for(int x=1;x<13;x++)
+				{
+					players.get(i).getHand().addTileToHand(new Tile(1, x));
+				}
+				
+				players.get(i).getHand().addTileToHand(new Tile(2, 1));
+				players.get(i).getHand().addTileToHand(new Tile(14, 14));
+				
+				
+				//players.get(i).getHand().drawFirst14(deck);
+			}
+			else
+			{
+				players.get(i).getHand().drawFirst14(deck);
+			}
 		}
 	}
 	public int getHumanPosition() {return IndexOfHuman;}
