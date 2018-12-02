@@ -576,6 +576,7 @@ public class Ui extends Application
 		    	//boolean hasWinner = false;
 		    	checkMeld = new HandleJoker();
 		    	ArrayList<ArrayList<Tile>> currentTable = current_table();
+		    	System.out.println(currentTable);
 		    	System.out.println("REPORT TO USER: ---------------------");
 		    	boolean valid = true;
 		    	for(int i =0; i < currentTable.size();i++) {
