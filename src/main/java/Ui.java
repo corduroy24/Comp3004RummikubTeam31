@@ -235,8 +235,14 @@ public class Ui extends Application
 							public void run() {
 								updateTableAndHand();
 								System.out.println("OUT OF TIME");
-						    	if(game.getDeck().getDeck().size() > 0)
+						    	if(game.getDeck().getDeck().size() > 2) {
 					    			drawTile();
+					    			drawTile();
+					    			drawTile();
+						    	}
+						    	else 
+						    		for(int i =0; i < game.getDeck().getDeck().size();i++)
+						    			drawTile();
 						    	updateHand();
 						    	lastMove = new Memento(game);
 						    	game.Announcement();
