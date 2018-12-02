@@ -23,6 +23,12 @@ public class Tile{
 			this.Color = "J";
 			this.Number = 14;
 		}
+		else if(x == 5 && y == 14)
+		{
+			isJoker = true;
+			this.Color = "J";
+			this.Number = 14;
+		}
 		else {
 		this.Color = Colors[x - 1];
 		this.Number = Numbers[y - 1];
