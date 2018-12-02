@@ -587,7 +587,7 @@ public class HandleJoker {
 		
 
 		//SET JOKER VALUE FOR THE SAMPLE 
-		private void setJoker(ArrayList<Tile> subset) {
+		public void setJoker(ArrayList<Tile> subset) {
 			int NumberOfJoker = NumberOfJoker(subset);
 			Collections.sort(subset,new SmallestToBiggest());
 			if(subset.get(0).isJoker()) return;

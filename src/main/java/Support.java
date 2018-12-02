@@ -345,8 +345,8 @@ public class Support {
 		Tile T3 = new Tile();
 		T3.setJoker(false);
 		
-		T.setNumber(x.get(0).getNumber());
-		
+		T.setJokerPoint(x.get(0).getNumber());
+		System.out.println(T.getJokerPoint());
 		T1.setColor(x.get(0).getColor());
 		T2.setColor(x.get(1).getColor());
 		
@@ -360,19 +360,19 @@ public class Support {
 		
 		if (newList.size()==3) {
 		if (T1.getColor() != "R" && T2.getColor() !="R" && T3.getColor()!="R"){
-			T.setColor("R");
+			T.setJokerColor("R");
 			newList.add(T);
 		}
 			else if (T1.getColor() != "B" && T2.getColor() !="B" && T3.getColor()!="B") {
-				T.setColor("B");
+				T.setJokerColor("B");
 				newList.add(T);
 		}
 			else if (T1.getColor() != "G" && T2.getColor() !="G" && T3.getColor()!="G") {
-				T.setColor("G");
+				T.setJokerColor("G");
 				newList.add(T);
 		}
 			else if (T1.getColor() != "O" && T2.getColor() !="O" && T3.getColor()!="O") {
-				T.setColor("O");
+				T.setJokerColor("O");
 				newList.add(T);
 		}
 		
@@ -380,19 +380,19 @@ public class Support {
 		
 		if (newList.size()==2) {
 		if (T1.getColor() != "R" && T2.getColor() !="R" ) {
-			T.setColor("R");
+			T.setJokerColor("R");
 			newList.add(T);
 		}
 			else if (T1.getColor() != "B" && T2.getColor() !="B") {
-				T.setColor("B");
+				T.setJokerColor("B");
 				newList.add(T);
 		}
 			else if (T1.getColor() != "G" && T2.getColor() !="G" ) {
-				T.setColor("G");
+				T.setJokerColor("G");
 				newList.add(T);
 		}
 			else if (T1.getColor() != "O" && T2.getColor() !="O" ) {
-				T.setColor("O");
+				T.setJokerColor("O");
 				newList.add(T);
 		}
 		

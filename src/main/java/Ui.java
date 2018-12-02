@@ -88,7 +88,7 @@ public class Ui extends Application
 	private int turnOfHuman = 0;
 	
 	int timing = 120;
-	
+	Support functions= new Support();
 	boolean validMove = true;
 	
 	public static void main(String [] args) 
@@ -576,6 +576,65 @@ public class Ui extends Application
 		    	//boolean hasWinner = false;
 		    	checkMeld = new HandleJoker();
 		    	ArrayList<ArrayList<Tile>> currentTable = current_table();
+		    	ArrayList<Tile> xList = new ArrayList<Tile>();
+		    	//System.out.println(currentTable);
+		    	for (int i=0;i<currentTable.size();i++) {
+		    		for (int j=0;j<currentTable.get(i).size();j++) {
+		    			if (currentTable.get(i).get(j).getColor().equals("J")) {
+		    				currentTable.get(i).get(j).setJoker(true);
+		    				if (j==0) {
+		    					if (currentTable.get(i).get(j+1).getColor().equals((currentTable.get(i).get(j+2).getColor()))){
+		    						currentTable.get(i).get(j).setJokerColor(currentTable.get(i).get(j+1).getColor());
+		    						currentTable.get(i).get(j).setJokerPoint (currentTable.get(i).get(j+1).getNumber()-1);
+		    					}
+		    					else {
+		    						if (currentTable.get(i).get(j+1).getNumber()==(currentTable.get(i).get(j+2).getNumber())){
+		    							ArrayList<Tile> temp = new ArrayList<Tile>();
+		    							temp = currentTable.get(i);
+		    							temp.remove(0);
+			    						xList=functions.getJokerSets(temp);
+			    						currentTable.set(i, xList); //System.out.println(currentTable.get(i).get(j).getJokerPoint());
+			    					}
+		    					}
+		    				}
+		    				if (j==currentTable.get(i).size()-1) {
+		    					if (currentTable.get(i).get(j-1).getColor().equals((currentTable.get(i).get(j-2).getColor()))){
+		    						currentTable.get(i).get(j).setJokerColor(currentTable.get(i).get(j-1).getColor());
+		    						currentTable.get(i).get(j).setJokerPoint (currentTable.get(i).get(j-1).getNumber()+1);
+		    					}
+		    					else {
+		    						if (currentTable.get(i).get(j-1).getNumber()==(currentTable.get(i).get(j-2).getNumber())){
+		    							ArrayList<Tile> temp = new ArrayList<Tile>();
+		    							temp = currentTable.get(i);
+		    							temp.remove(j);
+			    						xList=functions.getJokerSets(temp);
+			    						currentTable.set(i, xList); //System.out.println(currentTable.get(i).get(j).getJokerPoint());
+			    					}
+		    					}
+		    				}
+		    				
+		    				
+		    				if ((j!=currentTable.get(i).size()-1)&&(j!=0)) {
+		    					if (currentTable.get(i).get(j-1).getColor().equals((currentTable.get(i).get(j+1).getColor()))){
+		    						currentTable.get(i).get(j).setJokerColor(currentTable.get(i).get(j-1).getColor());
+		    						currentTable.get(i).get(j).setJokerPoint (currentTable.get(i).get(j-1).getNumber()+1); 
+		    						//System.out.println(currentTable.get(i).get(j).getJokerPoint());		
+		    						}
+		    					else {
+		    						if (currentTable.get(i).get(j-1).getNumber()==(currentTable.get(i).get(j+1).getNumber())){
+		    							ArrayList<Tile> temp = new ArrayList<Tile>();
+		    							temp = currentTable.get(i);
+		    							temp.remove(j);
+			    						xList=functions.getJokerSets(temp);
+			    						currentTable.set(i, xList); //System.out.println(currentTable.get(i).get(j).getJokerPoint());
+			    					}
+		    					}
+		    				}
+		    				//currentTable.get(i).get(j).setJokerColor(1);
+		    				//currentTable.get(i).get(j).setJokerPoint(10);
+		    			}
+		    		}
+		    	}
 		    	System.out.println("REPORT TO USER: ---------------------");
 		    	boolean valid = true;
 		    	for(int i =0; i < currentTable.size();i++) {
