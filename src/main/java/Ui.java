@@ -719,24 +719,24 @@ public class Ui extends Application
 		{
 		    public void handle(ActionEvent e) 
 		    {
-		    	ArrayList<Tile> suggestionTiles = new ArrayList<Tile>();
 		    	game.getHuman().play();
-		    	suggestionTiles=game.getHuman().getSuggPlayList();
+		    	ArrayList<Tile> suggestionTiles = game.getHuman().getSuggPlayList();
 		    	
 		    	for(int x=0;x<suggestionTiles.size();x++)
                 {
-                    if (suggestionTiles.get(x)==null) {
+                    if (suggestionTiles.get(x)==null) 
+                    {
                     	Tile t = new Tile(14,14);
-                    //	suggestionTiles.get(x).setColor("J");
-                    	
                     	suggestionTiles.set(x, t);
                     }
                 }
 		    	
+		    	/*
 		    	for(int x=0;x<suggestionTiles.size();x++)
                 {
-                    System.out.println(suggestionTiles.get(x));
+                    System.out.println("color: "+suggestionTiles.get(x).getColor()+", Number: " +suggestionTiles.get(x).getNumber());
                 }
+		    	*/
 		    	
 		    	for(int x=0;x<playerHandButtons.size();x++)
 		    	{
@@ -758,22 +758,36 @@ public class Ui extends Application
 					{
 						color = "O";
 					} 
+					else if(playerHandButtons.get(x).getStyle().equals("-fx-background-color: #474747"))
+					{
+						color = "J";
+					}
 		    		
 		    		for(int y=0;y<suggestionTiles.size();y++)
 		    		{
-			    		if(!playerHandButtons.get(x).getText().equals("J") || !suggestionTiles.get(x).getColor().equals("J"))
+		    			if(suggestionTiles.get(y).getNumber() == 14 && playerHandButtons.get(x).getText().equals("J"))
+		    			{
+		    				DropShadow dropShadow = new DropShadow();
+							dropShadow.setRadius(20.0);
+							dropShadow.setColor(Color.PURPLE);
+							playerHandButtons.get(x).setEffect(dropShadow);
+							
+							suggestionTiles.set(y, new Tile(5, 1));
+		    			}
+		    			else if(playerHandButtons.get(x).getText().equals("J"))
+		    			{
+		    				
+		    			}
+		    			else if(suggestionTiles.get(y).getNumber() == Integer.parseInt(playerHandButtons.get(x).getText()) && 
+			    				color.equals(suggestionTiles.get(y).getColor()))
 			    		{
-			    			if(suggestionTiles.get(y).getNumber() == Integer.parseInt(playerHandButtons.get(x).getText()) && 
-				    				color.equals(suggestionTiles.get(y).getColor()))
-				    		{
-				    			DropShadow dropShadow = new DropShadow();
-								dropShadow.setRadius(10.0);
-								dropShadow.setColor(Color.CHOCOLATE);
-								playerHandButtons.get(x).setEffect(dropShadow);
-								
-								suggestionTiles.set(x, new Tile(14, 14));
-				    		}	
-			    		}  
+			    			DropShadow dropShadow = new DropShadow();
+							dropShadow.setRadius(20.0);
+							dropShadow.setColor(Color.PURPLE);
+							playerHandButtons.get(x).setEffect(dropShadow);
+							
+							suggestionTiles.set(y, new Tile(5, 1));
+			    		}	
 		    		}	
 		    	} 
 		    }
