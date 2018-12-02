@@ -104,7 +104,8 @@ public class HandleJoker {
 		separateList(sample);
 		run = getJokerSequences(complete_first_turn,num,sample); 
 		sample = function.renew(sample, run);
-		set = getJokerSet(complete_first_turn,num,sample);
+		int check_new_list = NumberOfJoker(sample);
+		set = getJokerSet(complete_first_turn,check_new_list,sample);
 		//set = getJokerSet(complete_first_turn,num,sample);
 		if(run != null && run.size() != 0) output.addAll(run);
 		if (set != null && set.size() != 0) output.addAll(set);	
@@ -114,6 +115,7 @@ public class HandleJoker {
 	// the first initial turn, p1 will find the set has joker which is has the highest point.
 	public ArrayList<ArrayList<Tile>> getSecond(boolean complete_first_turn, int num, ArrayList<Tile> sample) {
 		// TODO Auto-generated method stub
+		System.out.println("-----------------------------------");
 		ArrayList<ArrayList<Tile>> output = new ArrayList<ArrayList<Tile>>();
 		ArrayList<ArrayList<Tile>> run;
 		ArrayList<ArrayList<Tile>> set;
@@ -125,8 +127,8 @@ public class HandleJoker {
 		set = getJokerSet(complete_first_turn,num,sample);
 		sample = function.renew(sample, set);
 		separateList(sample);
-		run = getJokerSequences(complete_first_turn,num,sample); 
-		//run = getJokerSequences(complete_first_turn,num,sample);
+		int check_new_list = NumberOfJoker(sample);
+		run = getJokerSequences(complete_first_turn,check_new_list,sample); 
 		if(run != null && run.size() != 0) output.addAll(run);
 		if (set != null && set.size() != 0) output.addAll(set);	
 		return output;

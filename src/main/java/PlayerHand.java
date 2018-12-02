@@ -20,6 +20,14 @@ public class PlayerHand {
 		hand.clear();
 	}
 	
+	public boolean containJoker() {
+		for(int i =0; i <hand.size();i++) {
+			if(hand.get(i).isJoker()) return true;
+		}
+		
+		return false;
+	}
+	
 	public void DrawThis(Tile x, Deck y) {
 		for (int i=0;i<y.DeckofTiles.size();i++) {
 			if ((x.getColor()==y.DeckofTiles.get(i).getColor())&&(x.getNumber()==y.DeckofTiles.get(i).getNumber())) {
@@ -35,7 +43,12 @@ public class PlayerHand {
 	
 	public void drawFirst14(Deck x) {
 		for (int i = 0; i < 14; i++) {
-			hand.add(x.Draw());
+			Tile T= x.Draw();
+			if(containJoker() && T.isJoker()) {
+				x.add(T);
+				i--;
+			}
+			else hand.add(T);
 		}
 	}
 	
@@ -72,8 +85,6 @@ public class PlayerHand {
 
 	public void addTileToHand(Tile newTile) {
 		hand.add(newTile);
-		//System.out.println("test");
-		//HandReader();
 	}
 	
 	public void addTilesToHand(Tile[] newTiles) {

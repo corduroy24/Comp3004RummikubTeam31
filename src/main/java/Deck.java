@@ -24,6 +24,10 @@ public class Deck{
 	    count += 2;
 	
 	}
+	public void add(Tile t) {
+		int random = (int) (Math.random()*DeckofTiles.size());
+		DeckofTiles.add(random,t);
+	}
 
 	
 	public void Shuffle() { 

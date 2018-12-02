@@ -248,12 +248,13 @@ public class Ui extends Application
 						    		{
 						    			report += game.getPlayers().get(i).getName() + " played: ";
 						    			report += game.getPlayers().get(i).return_report();
+						    			game.getTable().setTable(game.getPlayers().get(i).getTable().getTable());
 						    		}
 						    		else if (!game.getPlayers().get(i).getName().equals("Human") && game.getDeck().getDeck().size() > 0) 
 						    		{
 							    		Tile t= game.getDeck().Draw();
 							    		report += game.getPlayers().get(i).getName() + " drew: ";
-							    		game.getPlayers().get(i).getHand().addTileToHand(t);
+							    		AiAddTile(game.getPlayers().get(i),t);
 							    		report += t.toString() + "\n";
 							    	}
 						    		game.Announcement();
@@ -690,13 +691,13 @@ public class Ui extends Application
 		    		{
 		    			report += game.getPlayers().get(i).getName() + " played: ";
 		    			report += game.getPlayers().get(i).return_report();
+		    			game.getTable().setTable(game.getPlayers().get(i).getTable().getTable());
 		    		}
 		    		else if (!game.getPlayers().get(i).getName().equals("Human") && game.getDeck().getDeck().size() > 0) 
 		    		{
 			    		Tile t= game.getDeck().Draw();
 			    		report += game.getPlayers().get(i).getName() + " drew: ";
-			    		game.getPlayers().get(i).getHand().addTileToHand(t);
-			    		report += t.toString() + "\n";
+			    		report +=AiAddTile(game.getPlayers().get(i),t) + "\n";
 			    	}
 		    		game.Announcement();
 		    		lastMove = new Memento(game); 
@@ -754,8 +755,7 @@ public class Ui extends Application
 		    		{
 			    		Tile t= game.getDeck().Draw();
 			    		report += game.getPlayers().get(i).getName() + " drew: ";
-			    		game.getPlayers().get(i).getHand().addTileToHand(t);
-			    		report += t.toString() + "\n";
+			    		report +=AiAddTile(game.getPlayers().get(i),t) + "\n";
 			    	}
 		    		game.Announcement();
 		    		lastMove = new Memento(game);  	
@@ -1640,33 +1640,48 @@ public class Ui extends Application
 	private void AisPlay(int index,String report)
 	{
 		prevString = "";
-		
+		report = "";
 		for(int i = 0; i < index;i++) 
     	{
-    		report = "";
 			game.getPlayers().get(i).getHand().sortTilesByColour();
     		
     		if(!game.getPlayers().get(i).getName().equals("Human") && game.getPlayers().get(i).play()) 
     		{
     			report += game.getPlayers().get(i).getName() + " played: ";
     			report += game.getPlayers().get(i).return_report();
+    			game.getTable().setTable(game.getPlayers().get(i).getTable().getTable());
     		}
     		else if (!game.getPlayers().get(i).getName().equals("Human") && game.getDeck().getDeck().size() > 0) 
     		{
 	    		Tile t= game.getDeck().Draw();
 	    		report += game.getPlayers().get(i).getName() + " drew: ";
-	    		game.getPlayers().get(i).getHand().addTileToHand(t);
-	    		report += t.toString() + "\n";
+	    		report += AiAddTile(game.getPlayers().get(i),t) + "\n";
 	    	}
-    		
-
-    		prevString = report;
-        	console.setText(console.getText() + prevString); 
-        	prevString = "";
     		game.Announcement();
     	}
+		prevString = report;
+    	console.setText(console.getText() + prevString); 
+    	prevString = "";
 		game.Announcement();
-		lastMove = new Memento(game); 
+		lastMove = new Memento(game);
     	updateTable();
+	}
+	private String AiAddTile(Player p, Tile t) {
+		String out = "";
+		if(p.getHand().containJoker() && t.isJoker()) {
+			game.getDeck().add(t);
+			while(true) {
+			int random = (int) (Math.random()*game.getDeck().getDeck().size());
+			Tile T = game.getDeck().getTile(random);
+			if(!T.isJoker()) {
+				p.getHand().addTileToHand(T);
+				out += T.toString();
+				return out;
+				}
+			}
+		}
+		p.getHand().addTileToHand(t);
+		out += t.toString();
+		return out;
 	}
 }
