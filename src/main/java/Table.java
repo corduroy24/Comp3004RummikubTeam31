@@ -151,6 +151,12 @@ public class Table{
 	{ 
 	    public int compare(Tile a, Tile b) 
 	    { 
+	    	if ((a.getNumber()==14)||(a.getNumber()==0)) {
+	    		return a.getJokerPoint()-b.getNumber();
+	    	}
+	    	if ((b.getNumber()==14)||(b.getNumber()==0)) {
+	    		return a.getNumber()-b.getJokerPoint();
+	    	}
 	        return a.getNumber() - b.getNumber(); 
 	    } 
 	} 
