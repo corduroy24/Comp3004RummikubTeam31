@@ -720,6 +720,23 @@ public class Ui extends Application
 		    public void handle(ActionEvent e) 
 		    {
 		    	ArrayList<Tile> suggestionTiles = new ArrayList<Tile>();
+		    	game.getHuman().play();
+		    	suggestionTiles=game.getHuman().getSuggPlayList();
+		    	
+		    	for(int x=0;x<suggestionTiles.size();x++)
+                {
+                    if (suggestionTiles.get(x)==null) {
+                    	Tile t = new Tile(14,14);
+                    //	suggestionTiles.get(x).setColor("J");
+                    	
+                    	suggestionTiles.set(x, t);
+                    }
+                }
+		    	
+		    	for(int x=0;x<suggestionTiles.size();x++)
+                {
+                    System.out.println(suggestionTiles.get(x));
+                }
 		    	
 		    	for(int x=0;x<playerHandButtons.size();x++)
 		    	{
@@ -758,7 +775,7 @@ public class Ui extends Application
 				    		}	
 			    		}  
 		    		}	
-		    	}
+		    	} 
 		    }
 		});
 		
