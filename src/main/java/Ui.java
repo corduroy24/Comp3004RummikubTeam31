@@ -42,6 +42,8 @@ public class Ui extends Application
 	Button twoPlayer;
 	Button threePlayer;
 	Button fourPlayer;
+	Button humanVHuman;
+	Button aiVHuman;
 	
 	Button aiOne;
 	Button aiTwo;
@@ -111,6 +113,38 @@ public class Ui extends Application
 		mainImageNode = new ImageView(mainImage);
 		mainImageNode.setX(310);
 		mainImageNode.setY(100);
+		
+		//Sets up the Ai v Human Button
+		aiVHuman = new Button();
+		aiVHuman.setText("Human v Ai");
+		aiVHuman.setMinSize(100, 50);
+		aiVHuman.setDisable(false);
+		aiVHuman.setLayoutX(445);
+		aiVHuman.setLayoutY(500);
+		aiVHuman.setOnAction(new EventHandler<ActionEvent>() 
+		{
+		    public void handle(ActionEvent e) 
+		    {
+		    	clearMainScreen();
+		    	aiVHuman();
+		    }
+		});
+		
+		//Sets up the Human v Human Button
+		humanVHuman = new Button();
+		humanVHuman.setText("Human v Human");
+		humanVHuman.setMinSize(100, 50);
+		humanVHuman.setDisable(false);
+		humanVHuman.setLayoutX(555);
+		humanVHuman.setLayoutY(500);
+		humanVHuman.setOnAction(new EventHandler<ActionEvent>() 
+		{
+		    public void handle(ActionEvent e) 
+		    {
+		    	clearMainScreen();
+		    	humanVHuman();
+		    }
+		});
 		
 		//Sets up the 2 player Button
 		twoPlayer = new Button();
@@ -203,7 +237,7 @@ public class Ui extends Application
 		    }
 		});
 		
-		mainScreen = new AnchorPane(mainImageNode, twoPlayer, threePlayer, fourPlayer, scenarios,timerButton);
+		mainScreen = new AnchorPane(mainImageNode, aiVHuman, humanVHuman);
 
 		mainScreen.setMinSize(1095,	790);
 		
@@ -1009,9 +1043,30 @@ public class Ui extends Application
 		mainScreen.getChildren().remove(threePlayer);
 		mainScreen.getChildren().remove(fourPlayer);
 		mainScreen.getChildren().remove(scenarios);
+		mainScreen.getChildren().remove(aiVHuman);
+		mainScreen.getChildren().remove(humanVHuman);
 	}
 	
-
+	public void aiVHuman()
+	{
+		mainScreen.getChildren().add(mainImageNode);
+		mainScreen.getChildren().add(twoPlayer);
+		mainScreen.getChildren().add(threePlayer);
+		mainScreen.getChildren().add(fourPlayer);
+		mainScreen.getChildren().add(scenarios);
+		mainScreen.getChildren().add(timerButton);
+	}
+	
+	public void humanVHuman()
+	{
+		InputStream mainImagePath = getClass().getResourceAsStream("wait.png");
+		Image mainImage = new Image(mainImagePath);
+		mainImageNode = new ImageView(mainImage);
+		mainImageNode.setX(72);
+		mainImageNode.setY(100);
+		
+		mainScreen.getChildren().add(mainImageNode);
+	}
 	
 	public void whoGoesFirst(final int maxPlayers)
 	{
