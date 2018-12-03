@@ -22,6 +22,11 @@ public class p2 implements PlayerStrategy{
 	
 	public boolean playTheGame(Player p) {
 		int num = checkMeld.NumberOfJoker(p.getHand().getTiles());
+		int num2=0;
+		for (int i=0;i<p.getTable().getTable().size();i++) {
+			num2+=checkMeld.NumberOfJoker(p.getTable().getTable().get(i));
+		}//System.out.println(num2);
+		
 		boolean complete_first_turn = p.getIsFirstMeldComplete();
 		
 		ArrayList<Tile> sample = new ArrayList<Tile>(p.getHand().getTiles());
@@ -30,9 +35,10 @@ public class p2 implements PlayerStrategy{
 		ArrayList<ArrayList<Tile>> output = new ArrayList<ArrayList<Tile>>();
 		checkMeld.separateList(p.getHand().getTiles()); //  initial tile for each list of 5
 		
-		if(num == 0 && p.getIsFirstMeldComplete() == false) return old_p2.playTheGame(p);
-		else {
-			if(p.getTable().getNumberOfTile() > 0 && p.getIsFirstMeldComplete() == false) {
+		if((num == 0 )&&(num2 == 0)) {System.out.println("PLAYS AI2 NORMALLY");
+		return old_p2.playTheGame(p);}
+		
+		else if(p.getTable().getNumberOfTile() > 0 && p.getIsFirstMeldComplete() == false) {
 				ArrayList<ArrayList<Tile>> first = new ArrayList<ArrayList<Tile>>();
 				ArrayList<ArrayList<Tile>> second = new ArrayList<ArrayList<Tile>>();
 				
@@ -155,8 +161,8 @@ public class p2 implements PlayerStrategy{
 						
 				ArrayList<ArrayList<Tile>> table = new ArrayList<ArrayList<Tile>>(p.getTable().getTable());
 				
-				System.out.println(useless_tile);
-				System.out.println(table);
+				//System.out.println(useless_tile);
+				//System.out.println(table);
 				
 				
 				
@@ -269,7 +275,7 @@ public class p2 implements PlayerStrategy{
 						p.getHand().playTileFromHand(p.getHand().getTile(u));
 						u--;
 					}
-					System.out.println(11);
+					//System.out.println(11);
 					p.getHand().HandReader();
 					p.setWinner();
 					return true;
@@ -410,7 +416,7 @@ public class p2 implements PlayerStrategy{
 				}
 			
 			}
-		}
+		
 	return false;
 	}
 }
