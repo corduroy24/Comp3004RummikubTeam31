@@ -125,6 +125,8 @@ public class Table{
 		if (t == null) return false;
 		if(t.size() > 4 || t.size() < 3) return false;
 		Collections.sort(t, new SortbyValue());
+		//ArrayList<Tile> y = new ArrayList<Tile>();
+		//t = jokerSort(t);
 		int NumberOfJoker = 0;
 		if (t.get(t.size()-1).getNumber()== 14) NumberOfJoker++;
 		if (t.get(t.size()-2).getNumber()== 14) NumberOfJoker++;
@@ -152,9 +154,17 @@ public class Table{
 	    public int compare(Tile a, Tile b) 
 	    { 
 	    	if (a.getNumber()==14) {
+	    		
 	    		return a.getJokerPoint()-b.getNumber();
+	    		
+	    	}/*
+	   	else if (b.getNumber()==14) {
+	    		
+	    		return b.getNumber()-b.getJokerPoint();
+	    		
 	    	}
-	    	//System.out.println(b.getJokerPoint()); System.out.println(b.getNumber());
+	    */	
+	    	//System.out.println(a.getJokerPoint()); System.out.println(a.getNumber());
 	        return a.getNumber() - b.getNumber(); 
 	    } 
 	} 
@@ -162,24 +172,40 @@ public class Table{
 	public boolean isSequence(ArrayList<Tile> t) {
 		if (t == null) return false;
 		Collections.sort(t, new SortbyValue());
+		
 		if(t.size() < 3) return false;
 		int NumberOfJoker = 0;
 		if (t.get(t.size()-1).getNumber()== 14) NumberOfJoker++;
 		if (t.get(t.size()-2).getNumber()== 14) NumberOfJoker++;
 		if(t.size()-1-NumberOfJoker == 0) return true;
-		
+		if (NumberOfJoker!=0) {
+		//	t = jokerSort(t);
+		}
 		String color = t.get(0).getColor();
+		if (t.get(0).getColor()=="J") {
+			 color = t.get(0).getJokerColor(); 
+		}
 		
 		for(int u =0; u < t.size()-1-NumberOfJoker;u++) {
 			int current, next;
 			String current_color = t.get(u).getColor();
+			if (t.get(u).getColor()=="J") {
+				current_color= t.get(0).getJokerColor(); 
+			}
 			current = t.get(u).getNumber();
+			if (t.get(u).getNumber()==14) {
+				current= t.get(0).getJokerPoint(); 
+			}
 			next = t.get(u+1).getNumber();
+			if (t.get(u+1).getNumber()==14) {
+				next= t.get(0).getJokerPoint(); 
+			}
 			
-			if(next == 14) return true;
+			if(next == 14) {
+				return true;}
 			
-			if(!current_color.equals(color))
-					return false;
+			if(!current_color.equals(color)) {
+					return false;}
 			else {
 				if(current+1 != next) {
 					if(next - current > 2) return false;
@@ -189,6 +215,36 @@ public class Table{
 			}
 		}
 		return true;
+	}
+	
+	public ArrayList<Tile> jokerSort(ArrayList<Tile> x) {
+		ArrayList<Tile> y = new ArrayList<Tile>();
+		//System.out.println(x);
+		int z=0;
+		int u=0;
+		for (int j=0;j<x.size();j++) {
+			if (x.get(j).isJoker()) {
+				z=j;
+			}
+		}
+		for (int i=0;i<x.size();i++) {
+			if (x.get(z).getJokerPoint()<x.get(i).getNumber()) {
+				u=x.size()-i-1; //System.out.println(u);
+				
+			}
+		}//System.out.println(u);
+			for (int j=0;j<x.size()-1;j++) {
+				if (j==u) {
+				y.add(x.get(z)); y.add(x.get(j)); //System.out.println(x.get(z));
+				}
+			
+			else {
+				y.add(x.get(j)); //System.out.println((j));
+			}
+		}
+			System.out.println(y);
+		
+		return y;
 	}
 	
 	public ArrayList<Tile> get(int i ){

@@ -181,11 +181,11 @@ public class TestP2 extends TestCase{
 		Tile joker = new Tile(14,14);
 		Tile[] l = {new Tile(1,6),new Tile(2,6),
 					new Tile(3,6), new Tile(2,5),
-					new Tile(3,5), new Tile(1,1)};
+					new Tile(3,5), new Tile(1,3)};
 		
-		Tile[] l1 = {joker, new Tile(1,2), new Tile(1,3)};
+		Tile[] l1 = {joker, new Tile(1,4), new Tile(1,5)};
 		
-		joker.setJokerPoint(1);
+		joker.setJokerPoint(3);
 		joker.setJokerColor(1);
 		//joker.setJoker(true);
 		p.getHand().addTilesToHand(l);
