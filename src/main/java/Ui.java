@@ -2,6 +2,8 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.TimeUnit;
+
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
@@ -1224,7 +1226,6 @@ public class Ui extends Application
 		    	clearMainScreen();
 		    	int maxPlayers  = 4; 
 		    	int [] turnOrders = new int[maxPlayers];
-		    	//still need to properly determine order of players 
 		    	turnOrders[0] = 1;
 		    	turnOrders[1] = 2;
 		    	turnOrders[2] = 3;
@@ -1236,15 +1237,16 @@ public class Ui extends Application
 		    	setupGameRigging(); 
 
 		    	game.getPlayers().remove(game.getHuman());
+		    	
 		    	try {
 					Thread.sleep(2000);
 				} catch (InterruptedException e1) {
 					e1.printStackTrace();
 				}
 		    	
-		    	//Have to make a seperate method to make turn order or just rig that as well
-		    	//turnOrders = game.turnOrderAI(turnOrders); 
-		    	playGameRigging(turnOrders);
+		    	//turn orders are rigged 
+
+		    	playGameRigging(s1, turnOrders);
 		    }		    
 		});
 		
@@ -1651,53 +1653,58 @@ public class Ui extends Application
 		window.show();
 	}
 	
-	public void playGameRigging(int [] turnOrders) {
+	public void playGameRigging(Scenario s, int [] turnOrders) {
 		setTurnOrder(turnOrders);
 		
 		System.out.println("\nUI Class");
 		for(int x=0;x<turnOrders.length;x++)
-		{
 			System.out.println(turnOrders[x]);
-		}
+	
 		System.out.print("\n");
 		
-		//int x=0;
-		
-		//while(turnOrders[x] != 0)
-		for(int x = 0; x < 4; x++)
+		int x =0; 
+		int round = 0; 
+		for(int i = 0; i < s.getNumTurns(); i++)
 		{
 			System.out.println("--------------------------- "+ turnOrders[x]);
 			
-	    	//Change to send a message that players turn has ended
-
 	    	game.Announcement();
-	    	//console.clear();
 
 			game.getPlayers().get(turnOrders[x]-1).getHand().sortTilesByColour();
-			
+			game.getPlayers().get(turnOrders[x]-1).getHand().HandReader(); 
+
 			if(game.getPlayers().get(turnOrders[x]-1).play()) 
-			{
+			{				
 				prevString += game.getPlayers().get(turnOrders[x]-1).getName() +  " played: ";
 		    	prevString += game.getPlayers().get(turnOrders[x]-1).return_report();
 			}
 			else if (game.getDeck().getDeck().size() > 0) 
 			{
-	    		//Tile t= game.getDeck().Draw();
 	    		prevString += game.getPlayers().get(turnOrders[x]-1).getName() + " drew: ";
-	    		//game.getPlayers().get(turnOrders[x]).getHand().addTileToHand(t);
-	    		//prevString += t.toString() + "\n";
+	    		switch(round) {
+		    		case 0:  game = s.secondTurn(game, turnOrders[x]); break; 
+		    		case 1:  game = s.thirdTurn(game, turnOrders[x]); break; 
+		    		default: System.out.println("Scenario finished ");
+	    		}
+			        game = s.secondTurn(game, turnOrders[x]);
 	    	}
 			game.Announcement();
 	    	
 	    	console.setText(console.getText() + prevString);  
 	    	prevString = "\n";
+
 	    	this.updateTable();
 	    	
 	    		if(game.getPlayers().get(turnOrders[x]-1).getHand().sizeOfHand() == 0) 
 	    			System.out.println("Winner: "+ turnOrders[x]); 
 	    	
 	   	    game.getTable().clearBool();
+	    	x++;
 	    	
+	   	    if(x==4) {
+	   	    	x=0; 
+	   	    	round++;
+	   	    }
 		}	
 	}	   
 	private void AisPlay(int index,String report)
