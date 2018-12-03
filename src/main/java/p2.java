@@ -94,6 +94,8 @@ public class p2 implements PlayerStrategy{
 					}
 					out += "\n";
 					p.set_report(out);
+					System.out.println("testing:      " + out);
+					System.out.println("Things left" + p.getHand().getTiles());
 					return true;
 				}
 				return false;
@@ -404,7 +406,8 @@ public class p2 implements PlayerStrategy{
 								
 							}
 							out += output.get(i).get(u).toString();
-							
+							System.out.println("testing:      " + out);
+							System.out.println("Things left" + p.getHand().getTiles());
 						}
 						
 					}
