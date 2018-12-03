@@ -495,6 +495,8 @@ public class Ui extends Application
 			{
 			    public void handle(MouseEvent event) 
 			    {
+			    	playerHandButtons.get(number).setEffect(null);
+			    	
 			        Dragboard db = playerHandButtons.get(number).startDragAndDrop(TransferMode.ANY);
 			        String temp = "";
 			        
