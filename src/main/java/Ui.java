@@ -823,8 +823,6 @@ public class Ui extends Application
 		{
 		    public void handle(ActionEvent e) 
 		    {
-		    	
-		    	
 		    	game.getHuman().play();
 		    	ArrayList<Tile> suggestionTiles = game.getHuman().getSuggPlayList();
 		    	
@@ -888,7 +886,7 @@ public class Ui extends Application
 							
 							suggestionTiles.set(y, new Tile(5, 1));
 		    			}
-		    			else if(playerHandButtons.get(x).getText().equals("J") || !suggestionTiles.get(y).getColor().equals(""))
+		    			else if(playerHandButtons.get(x).getText().equals("J"))
 		    			{
 		    				
 		    			}
