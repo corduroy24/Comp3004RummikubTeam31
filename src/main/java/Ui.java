@@ -44,13 +44,14 @@ public class Ui extends Application
 	Button twoPlayer;
 	Button threePlayer;
 	Button fourPlayer;
-	Button humanVHuman;
-	Button aiVHuman;
 	
 	Button aiOne;
 	Button aiTwo;
 	Button aiThree;
 	Button aiFour;
+	Button humanOne;
+	Button humanTwo;
+	Button humanThree;
 	
 	Button endTurnButton;
 	Button suggestions;
@@ -66,7 +67,6 @@ public class Ui extends Application
 	Timer timer;
 	boolean details=false;
 	Button[][] tableButtons = new Button[20][7];
-	//Boolean[][] isTableSet = new Boolean[20][7];
 	
 	ArrayList<Button> playerHandButtons = new ArrayList<Button>();
 	
@@ -115,38 +115,6 @@ public class Ui extends Application
 		mainImageNode = new ImageView(mainImage);
 		mainImageNode.setX(310);
 		mainImageNode.setY(100);
-		
-		//Sets up the Ai v Human Button
-		aiVHuman = new Button();
-		aiVHuman.setText("Human v Ai");
-		aiVHuman.setMinSize(100, 50);
-		aiVHuman.setDisable(false);
-		aiVHuman.setLayoutX(445);
-		aiVHuman.setLayoutY(500);
-		aiVHuman.setOnAction(new EventHandler<ActionEvent>() 
-		{
-		    public void handle(ActionEvent e) 
-		    {
-		    	clearMainScreen();
-		    	aiVHuman();
-		    }
-		});
-		
-		//Sets up the Human v Human Button
-		humanVHuman = new Button();
-		humanVHuman.setText("Human v Human");
-		humanVHuman.setMinSize(100, 50);
-		humanVHuman.setDisable(false);
-		humanVHuman.setLayoutX(555);
-		humanVHuman.setLayoutY(500);
-		humanVHuman.setOnAction(new EventHandler<ActionEvent>() 
-		{
-		    public void handle(ActionEvent e) 
-		    {
-		    	clearMainScreen();
-		    	humanVHuman();
-		    }
-		});
 		
 		//Sets up the 2 player Button
 		twoPlayer = new Button();
@@ -203,7 +171,7 @@ public class Ui extends Application
 		scenarios.setText("Scenarios");
 		scenarios.setMinSize(100, 50);
 		scenarios.setDisable(false);
-		scenarios.setLayoutX(445);
+		scenarios.setLayoutX(500);
 		scenarios.setLayoutY(600);
 		scenarios.setOnAction(new EventHandler<ActionEvent>() 
 		{
@@ -238,7 +206,7 @@ public class Ui extends Application
 		    }
 		});
 		
-		mainScreen = new AnchorPane(mainImageNode, aiVHuman, humanVHuman);
+		mainScreen = new AnchorPane(mainImageNode, twoPlayer, threePlayer, fourPlayer, scenarios);
 
 		mainScreen.setMinSize(1095,	790);
 		
@@ -1055,36 +1023,58 @@ public class Ui extends Application
 		mainScreen.getChildren().remove(threePlayer);
 		mainScreen.getChildren().remove(fourPlayer);
 		mainScreen.getChildren().remove(scenarios);
-		mainScreen.getChildren().remove(aiVHuman);
-		mainScreen.getChildren().remove(humanVHuman);
-	}
-	
-	public void aiVHuman()
-	{
-		mainScreen.getChildren().add(mainImageNode);
-		mainScreen.getChildren().add(twoPlayer);
-		mainScreen.getChildren().add(threePlayer);
-		mainScreen.getChildren().add(fourPlayer);
-		mainScreen.getChildren().add(scenarios);
-		mainScreen.getChildren().add(timerButton);
-	}
-	
-	public void humanVHuman()
-	{
-		InputStream mainImagePath = getClass().getResourceAsStream("wait.png");
-		Image mainImage = new Image(mainImagePath);
-		mainImageNode = new ImageView(mainImage);
-		mainImageNode.setX(72);
-		mainImageNode.setY(100);
-		System.out.println("Number of Current Players:" + game.getPlayers().size());
-		mainScreen.getChildren().add(mainImageNode);
-		
 	}
 	
 	public void whoGoesFirst(final int maxPlayers)
 	{
 		aiType = new int[maxPlayers];
-    	System.out.println(maxPlayers);
+    	//System.out.println(maxPlayers);
+    	
+		//Sets up the AI 2 Button
+		humanOne = new Button();
+		humanOne.setText("Human");
+		humanOne.setMinSize(100, 50);
+		humanOne.setDisable(false);
+		humanOne.setLayoutX(377);
+		humanOne.setLayoutY(560);
+		humanOne.setOnAction(new EventHandler<ActionEvent>() 
+		{
+		    public void handle(ActionEvent e) 
+		    {
+		    	humanOne.setDisable(true);
+		    }
+		});
+		
+		//Sets up the AI 2 Button
+		humanTwo = new Button();
+		humanTwo.setText("Human");
+		humanTwo.setMinSize(100, 50);
+		humanTwo.setDisable(false);
+		humanTwo.setLayoutX(487);
+		humanTwo.setLayoutY(560);
+		humanTwo.setOnAction(new EventHandler<ActionEvent>() 
+		{
+		    public void handle(ActionEvent e) 
+		    {
+		    	humanTwo.setDisable(true);
+		    }
+		});
+		
+		//Sets up the AI 2 Button
+		humanThree = new Button();
+		humanThree.setText("Human");
+		humanThree.setMinSize(100, 50);
+		humanThree.setDisable(false);
+		humanThree.setLayoutX(597);
+		humanThree.setLayoutY(560);
+		humanThree.setOnAction(new EventHandler<ActionEvent>() 
+		{
+		    public void handle(ActionEvent e) 
+		    {
+		    	humanThree.setDisable(true);
+		    }
+		});
+		
 		//Sets up the AI 1 Button
 		aiOne = new Button();
 		aiOne.setText("AI 1");
@@ -1206,6 +1196,9 @@ public class Ui extends Application
 		mainScreen.getChildren().add(aiTwo);
 		mainScreen.getChildren().add(aiThree);
 		mainScreen.getChildren().add(aiFour);
+		mainScreen.getChildren().add(humanOne);
+		mainScreen.getChildren().add(humanTwo);
+		mainScreen.getChildren().add(humanThree);
 		mainScreen.getChildren().add(mainImageNode);
 	}
 	
