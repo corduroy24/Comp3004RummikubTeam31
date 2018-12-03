@@ -15,6 +15,7 @@ public class Player implements Observer{
 	private boolean isFirstMeldComplete = false;
 	private int playerID = 0; 
 	private int countdown = 5;
+	private int score = 0;
 	
 	private boolean p1FirstMeldComplete;
 	private boolean p2FirstMeldComplete;
@@ -230,6 +231,18 @@ public class Player implements Observer{
 		win = true;
 	}
 
-
+	public int getScore()
+	{
+		return this.score;
+	}
+	
+	public void addScore(int x)
+	{
+		this.score += x;
+	}
     
+	public void setScore(int x)
+	{
+		this.score = x;
+	}
 }

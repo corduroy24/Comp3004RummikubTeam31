@@ -82,7 +82,6 @@ public class Ui extends Application
 	
 	String prevString = "";
 	boolean OutOfTime = false;
-	int playerScore = 0;
 	int numPlayers = 0;
 	int[] aiType;
 	ArrayList<Integer> turnOrder = new ArrayList<Integer>();
@@ -283,8 +282,8 @@ public class Ui extends Application
 				}
 			}
 			
-		timer = new Timer();
-		timer.scheduleAtFixedRate(new Time(), 0, 1000);
+			timer = new Timer();
+			timer.scheduleAtFixedRate(new Time(), 0, 1000);
 		}
 		
 		//The layoutPane for the gridded table in the center
@@ -337,19 +336,19 @@ public class Ui extends Application
                         {
                             Tile temp = new Tile(Integer.parseInt(db.getRtf().substring(0, 1)), Integer.parseInt(db.getRtf().substring(2, 3)));
                             game.getHuman().getHand().removeTile(temp);
-                            playerScore+=temp.getNumber();
+                            game.getHuman().addScore(temp.getNumber());
                         }
 				        else if(db.getRtf().length()==5)
 				        {
 				        	Tile temp = new Tile(Integer.parseInt(db.getRtf().substring(0, 2)), Integer.parseInt(db.getRtf().substring(3, 5)));
                             game.getHuman().getHand().removeTile(temp);
-                            playerScore+=temp.getNumber();
+                            game.getHuman().addScore(temp.getNumber());
 				        }
                         else
                         {
                             Tile temp = new Tile(Integer.parseInt(db.getRtf().substring(0, 1)), Integer.parseInt(db.getRtf().substring(2, 4)));
                             game.getHuman().getHand().removeTile(temp);
-                            playerScore+=temp.getNumber();
+                            game.getHuman().addScore(temp.getNumber());
                         }
                         
                         updateHand();
@@ -652,7 +651,7 @@ public class Ui extends Application
 		    	for(int i =0; i < currentTable.size();i++) {
 		    		if(!checkMeld.isRun(currentTable.get(i)) && !checkMeld.isSet(currentTable.get(i))) {
 		    			valid = false;
-		    			playerScore = 0;
+		    			game.getHuman().setScore(0);
 				    	System.out.println("YOUR MOVE IS INVALID\n");
 				    	console.setText(console.getText() + "YOUR MOVE IS INVALID\n");
 		    		}
@@ -660,12 +659,12 @@ public class Ui extends Application
 
 
 		    	if(!game.getHuman().getIsFirstMeldComplete()) {
-		    		if(playerScore >= 30) { 
+		    		if(game.getHuman().getScore() >= 30) { 
 		    			valid = true;
 		    		System.out.println("First play is success\n");
 		    		}
 		    		else {
-		    			playerScore = 0;
+		    			game.getHuman().setScore(0);
 		    			valid = false;
 		    		System.out.println("PLAY YOUR FIRST INITIAL TURN ASAP\n");
 		    		console.setText(console.getText() + "PLAY YOUR FIRST INITIAL TURN ASAP\n");
@@ -732,13 +731,10 @@ public class Ui extends Application
 			    	}
 			    	checkAIIsWinner();
 			    	
-			    	if(playerScore>=30) 
+			    	if(game.getHuman().getScore()>=30) 
 			    	{
 			    		game.getHuman().setIsfirstMeldComplete(true);
-			    	}
-			    	
-			    	
-			    
+			    	}			    
 			    }
 			    else 
 			    {
@@ -1032,7 +1028,7 @@ public class Ui extends Application
 		aiType = new int[maxPlayers];
     	//System.out.println(maxPlayers);
     	
-		//Sets up the AI 2 Button
+		//Sets up the first human Button
 		humanOne = new Button();
 		humanOne.setText("Human");
 		humanOne.setMinSize(100, 50);
@@ -1044,10 +1040,16 @@ public class Ui extends Application
 		    public void handle(ActionEvent e) 
 		    {
 		    	humanOne.setDisable(true);
+		    	game.addPlayer(5);
+		    	if(game.getPlayers().size() == maxPlayers) {
+		    		game.deal();
+		    		mainGame();
+		    		AisPlay(turnOfHuman,prevString);
+		    	}
 		    }
 		});
 		
-		//Sets up the AI 2 Button
+		//Sets up the second human Button
 		humanTwo = new Button();
 		humanTwo.setText("Human");
 		humanTwo.setMinSize(100, 50);
@@ -1059,10 +1061,16 @@ public class Ui extends Application
 		    public void handle(ActionEvent e) 
 		    {
 		    	humanTwo.setDisable(true);
+		    	game.addPlayer(6);
+		    	if(game.getPlayers().size() == maxPlayers) {
+		    		game.deal();
+		    		mainGame();
+		    		AisPlay(turnOfHuman,prevString);
+		    	}
 		    }
 		});
 		
-		//Sets up the AI 2 Button
+		//Sets up the third human Button
 		humanThree = new Button();
 		humanThree.setText("Human");
 		humanThree.setMinSize(100, 50);
@@ -1074,6 +1082,12 @@ public class Ui extends Application
 		    public void handle(ActionEvent e) 
 		    {
 		    	humanThree.setDisable(true);
+		    	game.addPlayer(7);
+		    	if(game.getPlayers().size() == maxPlayers) {
+		    		game.deal();
+		    		mainGame();
+		    		AisPlay(turnOfHuman,prevString);
+		    	}
 		    }
 		});
 		

@@ -10,7 +10,10 @@ import java.util.Observable;
 public class GameMaster extends Observable{
     
 	
-	private Player human;
+	private Player mainHuman;
+	private Player humanTwo;
+	private Player humanThree;
+	private Player humanFour;
 	private Player AI1;
 	private Player AI2;
 	private Player AI3;
@@ -22,7 +25,10 @@ public class GameMaster extends Observable{
 	
 	public GameMaster(){
 		//create human, AI1, AI2, AI3, deck table GUI
-		human = new Player("Human",1, new HumanPlayerStrategy());
+		mainHuman = new Player("Human",1, new HumanPlayerStrategy());
+		humanTwo = new Player("Human Two",2, new HumanPlayerStrategy());
+		humanThree = new Player("Human Three",3, new HumanPlayerStrategy());
+		humanFour = new Player("Human Four",4, new HumanPlayerStrategy());
 		AI1 = new Player("AI1",1, new p1());
 		AI2 = new Player("AI2",2, new p2());
 		AI3 = new Player("AI3",3, new p3());
@@ -31,9 +37,9 @@ public class GameMaster extends Observable{
 		deck = new Deck();
 		deck.Shuffle();
 		table = new Table();
-		players.add(human);
+		players.add(mainHuman);
 		//Add human  and AIs to Observable
-		this.addObserver(human);
+		this.addObserver(mainHuman);
 		
 	}
 	
@@ -80,6 +86,15 @@ public class GameMaster extends Observable{
 		else if(a == 4) {
 			players.add(AI4);
 			addObserver(AI4);}
+		else if(a == 5) {
+			players.add(humanTwo);
+			addObserver(humanTwo);}
+		else if(a == 6) {
+			players.add(humanThree);
+			addObserver(humanThree);}
+		else if(a == 7) {
+			players.add(humanFour);
+			addObserver(humanFour);}
 	}
 	
 	// main deck
@@ -101,7 +116,7 @@ public class GameMaster extends Observable{
 	}
 	
 	public Player getHuman() {
-		return human;
+		return mainHuman;
 	}
 	
 	public Player getAI() {
@@ -121,7 +136,7 @@ public class GameMaster extends Observable{
 	
 	
 	public void AI_play() {
-		human.setIsTurn(false);
+		mainHuman.setIsTurn(false);
 		AI1.setIsTurn(true);
 		System.out.println("AI1 REPORT:  ");
 		//AI1.getHand().HandReader();
@@ -169,7 +184,7 @@ public class GameMaster extends Observable{
 			System.out.println("AI 3 decide not to play");}
 		AI3.getHand().sortTilesByColour();
 		AI3.setIsTurn(false);
-		human.setIsTurn(true);
+		mainHuman.setIsTurn(true);
 		Announcement();
 		System.out.println("Number of tiles are: " + AI3.getHand().sizeOfHand() + "\n");
 		
@@ -184,7 +199,7 @@ public class GameMaster extends Observable{
 			System.out.println("AI 4 decide not to play");}
 		AI4.getHand().sortTilesByColour();
 		AI4.setIsTurn(false);
-		human.setIsTurn(true);
+		mainHuman.setIsTurn(true);
 		Announcement();
 		System.out.println("Number of tiles are: " + AI4.getHand().sizeOfHand() + "\n");
 		
@@ -326,10 +341,10 @@ public class GameMaster extends Observable{
 		
 		turnOrder[0][0] = turnDeck.Draw().getNumber();
 
-		human.getHand().drawFirst14(deck);
-		human.getHand().sortTilesByColour();
-		human.getHand().HandReader();
-		human.setIsTurn(true);
+		mainHuman.getHand().drawFirst14(deck);
+		mainHuman.getHand().sortTilesByColour();
+		mainHuman.getHand().HandReader();
+		mainHuman.setIsTurn(true);
 		
 		boolean doubles = true;
 		int xOne = -1;
