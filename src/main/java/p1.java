@@ -78,6 +78,7 @@ public class p1 implements PlayerStrategy{
 					}
 					out += "\n";
 					p.set_report(out);
+					p.setIsfirstMeldComplete(true);
 					return true;
 				}
 				return false;
@@ -89,7 +90,6 @@ public class p1 implements PlayerStrategy{
 				
 				ArrayList<ArrayList<Tile>> object = new ArrayList<ArrayList<Tile>>();
 				ArrayList<ArrayList<Tile>> object1 = new ArrayList<ArrayList<Tile>>();
-				
 				//get runs, then get sets
 				first = checkMeld.getFirst(complete_first_turn,num,sample);
 				second = checkMeld.getSecond(complete_first_turn,num,sample);
@@ -107,8 +107,7 @@ public class p1 implements PlayerStrategy{
 				else output = object;
 				
 				checkMeld.initialOutput(output,p.getPlayerHand().getTiles());
-				System.out.println(output);
-				
+				System.out.println("Original   " + p.getHand().getTiles());
 				if(output == null || output.size() == 0) return false;
 				
 				String out = "";
@@ -117,6 +116,9 @@ public class p1 implements PlayerStrategy{
 					for(int u = 0; u < output.get(i).size();u++) {
 						if(output.get(i).get(u).isJoker()) {
 							myloop: for(int k =0; i < p.getHand().getTiles().size();k++) {
+								System.out.println(p.getHand().getTiles().size());
+								System.out.println(k);
+								
 								if(p.getHand().getTiles().get(k).isJoker() && p.getHand().getTiles().get(k).getJokerColor().equals(output.get(i).get(u).getJokerColor())
 									&& p.getHand().getTiles().get(k).getJokerPoint() == output.get(i).get(u).getJokerPoint()) {
 									p.getHand().getTiles().remove(k);
@@ -131,6 +133,8 @@ public class p1 implements PlayerStrategy{
 				}
 				out += "\n";
 				p.set_report(out);
+				System.out.println("testing:      " + out);
+				System.out.println("Things left" + p.getHand().getTiles());
 				return true;
 			}
 		}

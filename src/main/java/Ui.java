@@ -157,7 +157,6 @@ public class Ui extends Application
 		{
 		    public void handle(ActionEvent e) 
 		    {
-		    	//System.out.println("Pressed 2 player button");
 		    	clearMainScreen();
 		    	whoGoesFirst(2);
 		    }
@@ -603,11 +602,6 @@ public class Ui extends Application
 		{
 		    public void handle(ActionEvent e) 
 		    {
-		    	/*
-		    	for(int x=0;x<recentlyPlayed.size();x++)
-		    	{
-		    	}
-		    	*/
 		    	
 		    	console.setText(console.getText() + "---------------------------- \n");
 		    	
@@ -743,6 +737,7 @@ public class Ui extends Application
 			    		game.Announcement();
 			    		lastMove = new Memento(game); 
 			    	}
+			    	game.getAI().getHand().HandReader();
 			    	timing = 120;
 			    	prevString = report;
 			    	console.setText(console.getText() + report);  

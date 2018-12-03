@@ -62,7 +62,6 @@ public class Table{
 			
 			for(int x=0;x<tiles2.size()+1;x++)
 			{
-				System.out.println("test");
 				isTableSet[totalAdded+x][nextLine] = true;
 			}
 			timesAdded++;
