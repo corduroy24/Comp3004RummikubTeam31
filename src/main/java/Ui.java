@@ -605,7 +605,6 @@ public class Ui extends Application
 		    {
 		    	for(int x=0;x<recentlyPlayed.size();x++)
 		    	{
-		    		System.out.println(recentlyPlayed.get(x));
 		    	}
 		    	
 		    	console.setText(console.getText() + "---------------------------- \n");
@@ -1071,8 +1070,9 @@ public class Ui extends Application
 		mainImageNode = new ImageView(mainImage);
 		mainImageNode.setX(72);
 		mainImageNode.setY(100);
-		
+		System.out.println("Number of Current Players:" + game.getPlayers().size());
 		mainScreen.getChildren().add(mainImageNode);
+		
 	}
 	
 	public void whoGoesFirst(final int maxPlayers)
@@ -1543,7 +1543,7 @@ public class Ui extends Application
 					
 					current_color =  getColorFromStyle(tableButtons[y][x].getStyle());
 				}
-				
+				try {
 				if(y <= 19 && can_add(tableButtons[y][x].getText()) && can_add(tableButtons[y+1][x].getText())) 
 				{ 
 					meld.add(new Tile(current_color,current_number));
@@ -1558,7 +1558,8 @@ public class Ui extends Application
 					meld.add(new Tile(current_color,current_number));
 					t.add(meld);
 					meld = new ArrayList<Tile>();
-				}
+				}}
+				catch(ArrayIndexOutOfBoundsException exception) {}
 		
 			}
 		}
