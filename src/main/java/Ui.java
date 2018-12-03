@@ -1683,7 +1683,6 @@ public class Ui extends Application
 		    		case 1:  game = s.thirdTurn(game, turnOrders[x]); break; 
 		    		default: System.out.println("Scenario finished ");
 	    		}
-			        game = s.secondTurn(game, turnOrders[x]);
 	    	}
 			game.Announcement();
 	    	
