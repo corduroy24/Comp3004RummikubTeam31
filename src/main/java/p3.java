@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.HashSet;
 
 public class p3 implements PlayerStrategy {
 	Support function = new Support();
@@ -59,7 +60,7 @@ public class p3 implements PlayerStrategy {
 					String out = "";
 					int a = 0;
 					loop :for(int i = output.size()-1; i > -1 ;i--) {
-						p.getTable().addTiles(output.get(i));
+						p.getTable().AiAddTiles(output.get(i));
 						a += checkMeld.getPointOfSeq(output.get(i));
 						for(int u = 0; u < output.get(i).size();u++) {
 							if(output.get(i).get(u).isJoker()) {
@@ -133,13 +134,13 @@ public class p3 implements PlayerStrategy {
 						}
 					}
 				}
-				// If some player has 3 fewer tiles than p3, p3 will play all the melds it can.
+				// If some player has 3 fewer tiles than p3, p3 will play all the melds it can
 				if(p.isEligibleforP3()==true) {
 					String out = "";
 					boolean check = false;
 					if(output.size() > 0) check = true;
 					for(int i = output.size()-1; i > -1 ;i--) {
-						p.getTable().addTiles(output.get(i));
+						p.getTable().AiAddTiles(output.get(i));
 						for(int u = 0; u < output.get(i).size();u++) {
 							if(output.get(i).get(u).isJoker()) {
 								myloop: for(int k =0; i < p.getHand().getTiles().size()-1;k++) {
@@ -160,12 +161,201 @@ public class p3 implements PlayerStrategy {
 					return check;
 				}
 				// noOne has 3 fewer tiles than p3, p3 just play use_less tiles on the table
-				return false;
+				else {
+					ArrayList<ArrayList<Tile>> table = new ArrayList<ArrayList<Tile>>(p.getTable().getTable());
+					// index of meld on the table, which contain joker tiles
+					int index = 999;
+					int index_meld = 0; // index of joker tile in the meld
+					// find the joker meld in the table
+					FindIndex: for(int i =0; i < table.size();i++) {
+						for(int u =0; u < table.get(i).size();u++) {
+							if(table.get(i).get(u).isJoker()) 
+								if(index == 999 ) {index = i; index_meld = u;
+								break FindIndex;
+								}
+						}
+					}	
+					//check useless tile can replace joker tiles on the table or not.
+					String s = "";
+					int indexToReplace = 999;
+					int tempIndex=0;
+					if (index!=999) {
+					for (int i=0;i<table.get(index).size();i++) {
+						if (table.get(index).get(i).isJoker()) {
+							tempIndex=i;
+							 s = (table.get(index).get(tempIndex).getJokerColor());
+						}
+					}
+					}
+					
+					if(index != 999) {
+						for(int i =0; i < useless_tile.size();i++) {
+							if(useless_tile.get(i).getNumber() == table.get(index).get(index_meld).getJokerPoint()) {
+								if(checkMeld.isSet(table.get(index))) {
+									HashSet<String> checking_color = new HashSet<String>();
+									for(int x =0; x< table.get(index).size();x++) {
+										checking_color.add(table.get(index).get(x).getColor());
+									}
+									if(checking_color.add(useless_tile.get(i).getColor()))
+										indexToReplace = i;
+									
+								}
+								else if(useless_tile.get(i).getColor().equals(s)) { 
+										indexToReplace = i;
+								}
+							}
+						}
+					}
+					String out = " ";
+					if(indexToReplace != 999) {    //System.out.println(index);
+						//Replace tiles on hand to the table.
+						
+						table.get(index).get(index_meld).setJoker(false);
+						table.get(index).get(index_meld).setColor(useless_tile.get(indexToReplace).getColor());
+						table.get(index).get(index_meld).setNumber(useless_tile.get(indexToReplace).getNumber());
+						out += useless_tile.get(indexToReplace).toString();
+						useless_tile.get(indexToReplace).setJoker(true);
+						useless_tile.get(indexToReplace).setColor("J");   
+						useless_tile.get(indexToReplace).setNumber(14);
+						// use joker tile to play tile on hand first.
+						ArrayList<ArrayList<Tile>> melds = new ArrayList<ArrayList<Tile>>();
+						if(checkMeld.getJokerSequences(true, 1, useless_tile).size() > 0 && checkMeld.getPoint(checkMeld.getJokerSequences(true, 1, useless_tile)) > 0) {
+							melds = checkMeld.getJokerSequences(true, 1, useless_tile);
+						}
+						else if (checkMeld.getJokerSet(true, 1, useless_tile).size() > 0) {
+							melds = checkMeld.getJokerSet(true, 1, useless_tile);
+						}
+						else {
+							// if can't use joker to play tiles on hand, find place to put it back to the table.
+							loop : for(int i =0; i < table.size();i++) {
+								ArrayList<Tile> a = new ArrayList<Tile>(table.get(i));
+								a.add(useless_tile.get(indexToReplace));
+								if(checkMeld.isJokerSequences(a)) {
+									table.get(i).add(useless_tile.get(indexToReplace));
+									for(int x =0; x < p.getHand().sizeOfHand();x++) {
+										if(p.getHand().getTile(x).isJoker()) {
+											if(p.getHand().getTile(x).getJokerPoint() == useless_tile.get(indexToReplace).getJokerPoint() && 
+													p.getHand().getTile(x).getColor().equals(useless_tile.get(indexToReplace).getJokerColor()))
+												p.getHand().removeTile(p.getHand().getTile(x));
+										}
+									}
+									break loop;
+								}
+								else if (checkMeld.isJokerSet(a)) {
+									table.get(i).add(useless_tile.get(indexToReplace));
+									for(int x =0; x < p.getHand().sizeOfHand();x++) {
+										if(p.getHand().getTile(x).isJoker()) {
+											if(p.getHand().getTile(x).getJokerPoint() == useless_tile.get(indexToReplace).getJokerPoint() && 
+													p.getHand().getTile(x).getColor().equals(useless_tile.get(indexToReplace).getJokerColor()))
+												p.getHand().removeTile(p.getHand().getTile(x));
+										}
+									}
+									break loop;
+								}
+							}
+							return true;
+						}
+						// if can play all tiles, p3 play all the tiles and become a winner
+						if(function.getSizeOf(melds) == useless_tile.size()) {
+							for(int i =0; i < melds.size();i++)
+								p.getTable().AiAddTiles(melds.get(i));
+							for(int u =0; u < p.getHand().sizeOfHand();u++) {
+								p.getHand().playTileFromHand(p.getHand().getTile(u));
+								out += p.getHand().getTile(u).toString();
+								u--;
+							}
+							out += "\n";
+							p.set_report(out);
+							p.setWinner();
+							return true;
+						}
+						// else it plays as most as tiles as it can and put in on the table
+						else if(melds.size() > 0 ) {
+							// remove tiles from player' hand
+							for(int k =0; k < melds.size();k++) {
+								p.getTable().addTiles(melds.get(k));
+								for(int  u =0; u < melds.get(k).size();u++) {
+									if(melds.get(k).get(u).isJoker()) {
+										 for(int x =0; x < p.getHand().sizeOfHand();x++) {
+											if(p.getHand().getTile(x).isJoker()) {
+												if(p.getHand().getTile(x).getJokerPoint() == melds.get(k).get(u).getJokerPoint() && 
+														p.getHand().getTile(x).getColor().equals( melds.get(k).get(u).getJokerColor()))
+													p.getHand().removeTile(p.getHand().getTile(x));
+											}
+										}
+									}
+									else {p.getHand().playTileFromHand(melds.get(k).get(u));
+									out += melds.get(k).get(u).toString();
+									}	
+									}
+								}
+							if ((p.getHand().sizeOfHand()==1)&&(p.getHand().getTile(0).isJoker())) {
+								Tile t = new Tile();
+								t = p.getHand().getTile(0);
+								p.getHand().removeTile(t);
+								p.setWinner();
+							}
+							out += "\n";
+							p.set_report(out);
+							return true;
+							}
+						}
+
+					if(function.one_short(p))
+						return true;
+					output = new ArrayList<ArrayList<Tile>>();
+					int length = useless_tile.size();
+					int max_tiles = 0;
+					// this array list will hold the best result (as most tiles) and will be use to update play on the table legally
+					ArrayList<Tile> TilesWillBeStore = new ArrayList<Tile>();
+					Table t = new Table();
+					t.setTable(p.getTable().getTable());
+					ArrayList<ArrayList<Tile>> jokerMelds = new ArrayList<ArrayList<Tile>>();
+					for(int u =0; u < t.getTable().size();u++) 
+						if(checkMeld.NumberOfJoker(t.get(u)) > 0) 
+							jokerMelds.add(t.getTable().remove(u));
+					//System.out.println("current table of P3" + p.getTable().getTable());
+					for (int i = 0; i < (1<<length); i++) {
+						ArrayList<Tile> subset = new ArrayList<Tile>();
+						for (int j = 0; j < length; j++)  
+			                if ((i & (1 << j)) > 0) 
+			                	subset.add(useless_tile.get(j));
+
+						// merge subset and table hand
+						output = function.merge(subset,t);
+						// check if the output array list from merge is perfect
+						if(function.getSizeOf(output) == t.getNumberOfTile() + subset.size()) {
+							if(subset.size() > max_tiles) {
+								max_tiles = subset.size();
+								TilesWillBeStore = subset;		
+							}
+						}
+					}
+
+						if(TilesWillBeStore == null || TilesWillBeStore.size() == 0) {
+							for(int i =0; i < jokerMelds.size();i++)
+								p.getTable().AiAddTiles(jokerMelds.get(i));
+							return false;}
+				                    
+						//Update the table and remove TilesWillBeStore' tile from hands
+						output = function.merge(TilesWillBeStore,t);
+						p.getTable().setTable(output);
+						for(int i =0; i < jokerMelds.size();i++)
+							p.getTable().AiAddTiles(jokerMelds.get(i));
+						
+						
+						out = "";
+						for(int i =0; i < TilesWillBeStore.size();i++) {
+							p.getHand().playTileFromHand(TilesWillBeStore.get(i));
+							p.getPlayedList().add(TilesWillBeStore.get(i));
+							out += TilesWillBeStore.get(i).toString();
+						}
+						out += "\n";
+						p.set_report(out);
+						return true;
+					}	
+				
+				}
 			}
 		}
 	}
-	
-	
-	
-
-}

@@ -126,8 +126,8 @@ public class HandleJoker {
 		joker = new ArrayList<Tile>();
 		set = getJokerSet(complete_first_turn,num,sample);
 		sample = function.renew(sample, set);
-		separateList(sample);
 		int check_new_list = NumberOfJoker(sample);
+		separateList(sample);
 		run = getJokerSequences(complete_first_turn,check_new_list,sample); 
 		if(run != null && run.size() != 0) output.addAll(run);
 		if (set != null && set.size() != 0) output.addAll(set);	

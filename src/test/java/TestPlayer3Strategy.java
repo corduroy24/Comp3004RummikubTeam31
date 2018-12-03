@@ -121,7 +121,7 @@ public class TestPlayer3Strategy extends TestCase{
 	////////////////FUNCTIONS BELOW ARE RESPONSIBLE OVER WHAT IS AFTER INITIAL 30 POINT MOVE
 	
 	public void testFirstCase() {          //FOR WHEN strategy patern 2 has to be done
-		player = new Player("23",23,new PlayerStrategy3());
+		player = new Player("23",23,new p3());
 		player2 = new Player("33",23,new p2());
 		player3 = new Player("3",23,new p2());
 		player4 = new Player("2",23,new p2());
@@ -166,16 +166,15 @@ public class TestPlayer3Strategy extends TestCase{
 
 		player.setEnimies(player2, player3, player4);
 		player.play();
-		player.getHand().HandReader();
-		assertTrue(player.getHand().sizeOfHand() == 5);
-		assertTrue(player.getTable().getNumberOfTile() == 4);
+		assertTrue(player.getHand().sizeOfHand() == 3);
+		assertTrue(player.getTable().getNumberOfTile() == 6);
 		assertTrue(player.isWinner() == false);
 		
 	}
 
 	public void test2ndCase() {  //FOR WHEN strategy patern 2 DOES NOT have to be done
 		
-		player = new Player("23",23,new PlayerStrategy3());
+		player = new Player("23",23,new p3());
 		player2 = new Player("33",23,new p2());
 		player3 = new Player("3",23,new p2());
 		player4 = new Player("2",23,new p2());
@@ -233,7 +232,8 @@ public class TestPlayer3Strategy extends TestCase{
 		player.setEnimies(player2, player3, player4);
 		player.play();
 		
-		
+		player.getHand().HandReader();
+		System.out.println(player.getTable().getTable());
 		assertTrue(player.getHand().sizeOfHand() == 0);
 		assertTrue(player.getTable().getNumberOfTile() == 7);
 		assertTrue(player.isWinner() == true);

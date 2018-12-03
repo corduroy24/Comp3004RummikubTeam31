@@ -31,7 +31,7 @@ public class Player implements Observer{
 	private ArrayList<Tile> SuggPlayTileList; //needs to be reset everytime ???
 
 	
-	
+	public void setTest(int a, int b, int c ) {firstPlayerPoint= a; secondPlayerPoint = b; thirdPlayerPoint= c;}
 	public void setPoints(int x,int y, int z) {
 		x = firstPlayerPoint;
 		y = secondPlayerPoint;
@@ -124,7 +124,7 @@ public class Player implements Observer{
         
         enemies.remove(this);
         // update table and deck to decide what to play
-        table = update.getTable();
+        table.setTable(update.getTable().getTable());
         deck = update.getDeck();
         for(int i =0; i < enemies.size();i++) {
         	if(i == 0)

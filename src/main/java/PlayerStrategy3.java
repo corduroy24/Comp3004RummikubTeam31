@@ -174,7 +174,6 @@ public class PlayerStrategy3 implements PlayerStrategy {
 						}
 					}
 					out += "\n";
-					System.out.println(out);
 					p.set_report(out);
 					//set the fist meld complete
 					p.setIsfirstMeldComplete(true);

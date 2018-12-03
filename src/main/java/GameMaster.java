@@ -49,7 +49,6 @@ public class GameMaster extends Observable{
 			System.out.println(players.get(i).getName()+ " player randomly pick up the tile "+ players.get(i).getHand().getTile(0));
 		}
 		Collections.sort(players, new SortByCommand());	
-		
 		String order= "So the order of the game is : ";
 		for(int i =0; i < players.size();i++) 
 		{
@@ -58,7 +57,6 @@ public class GameMaster extends Observable{
 			if(players.get(i).getName().equals("Human"))
 				IndexOfHuman = i;
 			players.get(i).getHand().drawFirst14(deck);
-			players.get(i).getHand().HandReader();
 		}
 		System.out.println(order);
 	}

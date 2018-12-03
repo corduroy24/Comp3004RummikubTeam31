@@ -346,7 +346,6 @@ public class Support {
 		T3.setJoker(false);
 		
 		T.setJokerPoint(x.get(0).getNumber());
-		System.out.println(T.getJokerPoint());
 		T1.setColor(x.get(0).getColor());
 		T2.setColor(x.get(1).getColor());
 		

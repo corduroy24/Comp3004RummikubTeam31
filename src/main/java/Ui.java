@@ -290,6 +290,8 @@ public class Ui extends Application
 						    			report += game.getPlayers().get(i).getName() + " played: ";
 						    			report += game.getPlayers().get(i).return_report();
 						    			game.getTable().setTable(game.getPlayers().get(i).getTable().getTable());
+						    			game.Announcement();
+						    			lastMove = new Memento(game);
 						    		}
 						    		else if (!game.getPlayers().get(i).getName().equals("Human") && game.getDeck().getDeck().size() > 0) 
 						    		{
@@ -298,7 +300,6 @@ public class Ui extends Application
 							    		AiAddTile(game.getPlayers().get(i),t);
 							    		report += t.toString() + "\n";
 							    	}
-						    		game.Announcement();
 						    		lastMove = new Memento(game);
 						    		prevString = report;
 						    		console.setText(console.getText() + prevString);  
@@ -729,6 +730,8 @@ public class Ui extends Application
 			    			report += game.getPlayers().get(i).getName() + " played: ";
 			    			report += game.getPlayers().get(i).return_report();
 			    			game.getTable().setTable(game.getPlayers().get(i).getTable().getTable());
+			    			game.Announcement();
+			    			lastMove = new Memento(game);
 			    		}
 			    		else if (!game.getPlayers().get(i).getName().equals("Human") && game.getDeck().getDeck().size() > 0) 
 			    		{
@@ -736,16 +739,13 @@ public class Ui extends Application
 				    		report += game.getPlayers().get(i).getName() + " drew: ";
 				    		report +=AiAddTile(game.getPlayers().get(i),t) + "\n";
 				    	}
-			    		game.Announcement();
 			    		lastMove = new Memento(game); 
 			    	}
-			    	game.getAI().getHand().HandReader();
 			    	timing = 120;
 			    	prevString = report;
 			    	console.setText(console.getText() + report);  
 			    	updateTable();
 			    	AisPlay(turnOfHuman,report);
-			    	
 			    	
 			    	if(!played)
 			    	{
@@ -788,6 +788,9 @@ public class Ui extends Application
 			    		{
 			    			report += game.getPlayers().get(i).getName() + " played: ";
 			    			report += game.getPlayers().get(i).return_report();
+			    			game.getTable().setTable(game.getPlayers().get(i).getTable().getTable());
+			    			game.Announcement();
+			    			lastMove = new Memento(game);
 			    		}
 			    		else if (!game.getPlayers().get(i).getName().equals("Human") && game.getDeck().getDeck().size() > 0) 
 			    		{
@@ -1655,6 +1658,7 @@ public class Ui extends Application
 	
 	public void playGameRigging(Scenario s, int [] turnOrders) {
 		setTurnOrder(turnOrders);
+
 		
 		System.out.println("\nUI Class");
 		for(int x=0;x<turnOrders.length;x++)
@@ -1664,8 +1668,8 @@ public class Ui extends Application
 		
 		int x =0; 
 		int round = 0; 
-		for(int i = 0; i < s.getNumTurns(); i++)
-		{
+		for(int i = 0; i < s.getNumTurns(); i++) {
+
 			System.out.println("--------------------------- "+ turnOrders[x]);
 			
 	    	game.Announcement();
@@ -1720,6 +1724,7 @@ public class Ui extends Application
     			report += game.getPlayers().get(i).getName() + " played: ";
     			report += game.getPlayers().get(i).return_report();
     			game.getTable().setTable(game.getPlayers().get(i).getTable().getTable());
+    			game.Announcement();
     		}
     		else if (!game.getPlayers().get(i).getName().equals("Human") && game.getDeck().getDeck().size() > 0) 
     		{
@@ -1727,7 +1732,6 @@ public class Ui extends Application
 	    		report += game.getPlayers().get(i).getName() + " drew: ";
 	    		report += AiAddTile(game.getPlayers().get(i),t) + "\n";
 	    	}
-    		game.Announcement();
     	}
 		prevString = report;
     	console.setText(console.getText() + prevString); 
