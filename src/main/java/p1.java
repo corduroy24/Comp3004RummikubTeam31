@@ -60,10 +60,11 @@ public class p1 implements PlayerStrategy{
 				if(checkMeld.getPoint(output) >= 30) {
 					String out = "";
 					for(int i = output.size()-1; i > -1 ;i--) {
-						p.getTable().addTiles(output.get(i));
+						p.getTable().AiAddTiles(output.get(i));
 						for(int u = 0; u < output.get(i).size();u++) {
 							if(output.get(i).get(u).isJoker()) {
-								myloop: for(int k =0; k < p.getHand().getTiles().size()-1;k++) {
+								myloop: for(int k =0; k < p.getHand().getTiles().size();k++) {
+									if(k == p.getHand().sizeOfHand()) break myloop;
 									if(p.getHand().getTiles().get(k).isJoker() && p.getHand().getTiles().get(k).getJokerColor().equals(output.get(i).get(u).getJokerColor())
 										&& p.getHand().getTiles().get(k).getJokerPoint() == output.get(i).get(u).getJokerPoint()) {
 										p.getHand().getTiles().remove(k);
@@ -107,18 +108,15 @@ public class p1 implements PlayerStrategy{
 				else output = object;
 				
 				checkMeld.initialOutput(output,p.getPlayerHand().getTiles());
-				System.out.println("Original   " + p.getHand().getTiles());
 				if(output == null || output.size() == 0) return false;
 				
 				String out = "";
 				for(int i = output.size()-1; i > -1 ;i--) {
-					p.getTable().addTiles(output.get(i));
+					p.getTable().AiAddTiles(output.get(i));
 					for(int u = 0; u < output.get(i).size();u++) {
 						if(output.get(i).get(u).isJoker()) {
 							myloop: for(int k =0; i < p.getHand().getTiles().size();k++) {
-								System.out.println(p.getHand().getTiles().size());
-								System.out.println(k);
-								
+								if(k == p.getHand().getTiles().size()) break myloop;
 								if(p.getHand().getTiles().get(k).isJoker() && p.getHand().getTiles().get(k).getJokerColor().equals(output.get(i).get(u).getJokerColor())
 									&& p.getHand().getTiles().get(k).getJokerPoint() == output.get(i).get(u).getJokerPoint()) {
 									p.getHand().getTiles().remove(k);
@@ -133,8 +131,6 @@ public class p1 implements PlayerStrategy{
 				}
 				out += "\n";
 				p.set_report(out);
-				System.out.println("testing:      " + out);
-				System.out.println("Things left" + p.getHand().getTiles());
 				return true;
 			}
 		}

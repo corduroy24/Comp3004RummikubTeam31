@@ -8,7 +8,7 @@ public class Memento {
     	 human.addTileToHand(g.getHuman().getHand().getTile(i));
      }
      for(int i =0; i < g.getTable().getTable().size();i++) {
-    	 table.addTiles(g.getTable().get(i));
+    	 table.AiAddTiles(g.getTable().get(i));
      }   
    }
 

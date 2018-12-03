@@ -47,7 +47,6 @@ public class PlayerStrategy1 implements PlayerStrategy {
 				}
 			}
 			out += "\n";
-			System.out.println(out);
 			p.set_report(out);
 			//if size ==0, this player is the winner
 			if(p.getHand().getTiles().size() == 0) p.setWinner();
@@ -92,7 +91,6 @@ public class PlayerStrategy1 implements PlayerStrategy {
 					}
 				}
 				out += "\n";
-				System.out.println(out);
 				p.set_report(out);
 				//set the fist meld complete
 				p.setIsfirstMeldComplete(true);
