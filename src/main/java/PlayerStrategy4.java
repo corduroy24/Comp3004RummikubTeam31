@@ -14,7 +14,7 @@
 	 if(p.getIsFirstMeldComplete()) {
 		 if(functions.one_short(p)) {
 				return true;}
-				//copy player hand to sample hand
+				//copy player hand to sample hand 
 				ArrayList<Tile> first_hand = new ArrayList<Tile>(p.getHand().getTiles());
 				ArrayList<Tile> second_hand = new ArrayList<Tile>(p.getHand().getTiles());
 				
@@ -55,7 +55,7 @@
 						tempsum+=functions.getProbability(x1.get(i).get(j),p.getTable(),p.getDeck().DeckofTiles,p1,p2,p3);
 					}
 					
-					if (tempsum==0) {
+					if (tempsum==0) {//System.out.println("LOL1");
 						AllLeastSeqs.add(x1.get(i)); AllLeastSets.add(x1.get(i)); 
 					}
 					if (tempsum<sum) {
@@ -64,7 +64,7 @@
 					}
 				}
 				
-				 if (sum!=0) {
+				 if (sum!=0) {//System.out.println("LOL2");
 					 AllLeastSeqs.add(leastSeq); 
 				 }
 				 //prob for sequences 
@@ -72,10 +72,10 @@
 					for (int j = 0; j<x2.get(i).size();j++) 
 						tempsum+=functions.getProbability(x2.get(i).get(j),p.getTable(),p.getDeck().DeckofTiles,p1,p2,p3); 
 					
-					if (tempsum==0) {
+					if (tempsum==0) {//System.out.println("LOL3");
 						AllLeastSets.add(x2.get(i)); AllLeastSeqs.add(x2.get(i));
 					}
-					if (tempsum<sum2) {
+					if (tempsum<sum2) {//System.out.println("LOL4");
 						sum2=tempsum;
 						leastSet=x2.get(i);
 					}
@@ -107,14 +107,14 @@
 						 output=AllLeastSeqs; 
 					 }
 					 else {
-					 output=AllLeastSets;
+					 output=AllLeastSets; //System.out.println("LOL");
 					 }
 				 }
 			//	System.out.println(output);
-			
-				
-				
-				if (output.size() == 0) return false;
+				 //System.out.println(output.get(0).get(0));
+			//	if ((output.get(0).size()==0)) System.out.println(output.get(0));
+				 
+				if ((output.size() == 0)||(output.get(0).size()==0)) return false;
 				//add tiles in the table and remove tiles from player hand.
 				System.out.println("Tiles played from AI4 are: ");
 				String out = "";

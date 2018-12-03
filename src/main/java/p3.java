@@ -65,6 +65,7 @@ public class p3 implements PlayerStrategy {
 						for(int u = 0; u < output.get(i).size();u++) {
 							if(output.get(i).get(u).isJoker()) {
 								myloop: for(int k =0; k < p.getHand().getTiles().size();k++) {
+									if(k == p.getHand().getTiles().size()) break myloop;
 									if(p.getHand().getTiles().get(k).isJoker() && p.getHand().getTiles().get(k).getJokerColor().equals(output.get(i).get(u).getJokerColor())
 										&& p.getHand().getTiles().get(k).getJokerPoint() == output.get(i).get(u).getJokerPoint()) {
 										p.getHand().getTiles().remove(k);
@@ -143,7 +144,8 @@ public class p3 implements PlayerStrategy {
 						p.getTable().AiAddTiles(output.get(i));
 						for(int u = 0; u < output.get(i).size();u++) {
 							if(output.get(i).get(u).isJoker()) {
-								myloop: for(int k =0; i < p.getHand().getTiles().size()-1;k++) {
+								myloop: for(int k =0; i < p.getHand().getTiles().size();k++) {
+									if(k == p.getHand().getTiles().size()) break myloop;
 									if(p.getHand().getTiles().get(k).isJoker() && p.getHand().getTiles().get(k).getJokerColor().equals(output.get(i).get(u).getJokerColor())
 										&& p.getHand().getTiles().get(k).getJokerPoint() == output.get(i).get(u).getJokerPoint()) {
 										p.getHand().getTiles().remove(k);
@@ -273,7 +275,7 @@ public class p3 implements PlayerStrategy {
 						else if(melds.size() > 0 ) {
 							// remove tiles from player' hand
 							for(int k =0; k < melds.size();k++) {
-								p.getTable().addTiles(melds.get(k));
+								p.getTable().AiAddTiles(melds.get(k));
 								for(int  u =0; u < melds.get(k).size();u++) {
 									if(melds.get(k).get(u).isJoker()) {
 										 for(int x =0; x < p.getHand().sizeOfHand();x++) {

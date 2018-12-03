@@ -26,6 +26,20 @@ public class p2 implements PlayerStrategy{
 		for (int i=0;i<p.getTable().getTable().size();i++) {
 			num2+=checkMeld.NumberOfJoker(p.getTable().getTable().get(i));
 		}//System.out.println(num2);
+		Tile temp= new Tile();
+		for (int i=0;i<p.getTable().getTable().size();i++) {
+			for (int j=0;j<p.getTable().getTable().get(i).size();j++) {
+				if (p.getTable().getTable().get(i).get(j).isJoker()) {
+					temp=p.getTable().getTable().get(i).get(j);
+				}
+			}
+		}
+		boolean canPlayJ=false;
+		for (int x=0;x<p.getHand().sizeOfHand();x++) {
+			if ((temp.getJokerColor()==p.getHand().getTile(x).getColor())&&(temp.getJokerPoint()==p.getHand().getTile(x).getNumber())) {
+				canPlayJ=true;
+			}
+		}
 		
 		boolean complete_first_turn = p.getIsFirstMeldComplete();
 		
@@ -100,7 +114,7 @@ public class p2 implements PlayerStrategy{
 				}
 				return false;
 			}
-			else if (p.getIsFirstMeldComplete()) {
+			else if (p.getIsFirstMeldComplete() && (num != 0 )||((num2 != 0))) {
 				/*
 				 * Get as much as meld as possible from the player hand (p2).
 				 */
