@@ -603,10 +603,11 @@ public class Ui extends Application
 		{
 		    public void handle(ActionEvent e) 
 		    {
+		    	/*
 		    	for(int x=0;x<recentlyPlayed.size();x++)
 		    	{
-		    		System.out.println(recentlyPlayed.get(x));
 		    	}
+		    	*/
 		    	
 		    	console.setText(console.getText() + "---------------------------- \n");
 		    	
@@ -706,111 +707,117 @@ public class Ui extends Application
 		    
 		  
 		    	if(valid) {
-	    		int temp = 0;
-		    	
-		    	for(int x=0;x<recentlyPlayed.size();x++)
-		    	{
-		    		temp += recentlyPlayed.get(x);
-		    	}
-		    	
-		    	scoreConsole.setText("Score: "+temp);
-		    	
-		    	game.getHuman().getTable().setTable(currentTable);
-		    	game.getTable().setTable(game.getHuman().getTable().getTable());
-		    	game.Announcement();
-		    	lastMove = new Memento(game); 
-		    	checkPlayerIsWinner();
-		    	//console.clear()
-		    	
-		    	String report = "";
-		    	for(int i = turnOfHuman; i < game.getPlayers().size();i++) 
-		    	{
-	    			game.getPlayers().get(i).getHand().sortTilesByColour();
-		    		
-		    		if(!game.getPlayers().get(i).getName().equals("Human") && game.getPlayers().get(i).play()) 
-		    		{
-		    			report += game.getPlayers().get(i).getName() + " played: ";
-		    			report += game.getPlayers().get(i).return_report();
-		    			game.getTable().setTable(game.getPlayers().get(i).getTable().getTable());
-		    		}
-		    		else if (!game.getPlayers().get(i).getName().equals("Human") && game.getDeck().getDeck().size() > 0) 
-		    		{
-			    		Tile t= game.getDeck().Draw();
-			    		report += game.getPlayers().get(i).getName() + " drew: ";
-			    		report +=AiAddTile(game.getPlayers().get(i),t) + "\n";
+		    		int temp = 0;
+			    	
+			    	for(int x=0;x<recentlyPlayed.size();x++)
+			    	{
+			    		temp += recentlyPlayed.get(x);
 			    	}
-		    		game.Announcement();
-		    		lastMove = new Memento(game); 
-		    	}
-		    	timing = 120;
-		    	prevString = report;
-		    	console.setText(console.getText() + report);  
-		    	updateTable();
-		    	AisPlay(turnOfHuman,report);
-		    	
-		    	
-		    	if(!played)
-		    	{
-		    		if(game.getDeck().getDeck().size() > 0)
+			    	
+			    	scoreConsole.setText("Score: "+temp);
+			    	
+			    	game.getHuman().getTable().setTable(currentTable);
+			    	game.getTable().setTable(game.getHuman().getTable().getTable());
+			    	game.Announcement();
+			    	lastMove = new Memento(game); 
+			    	checkPlayerIsWinner();
+			    	//console.clear()
+			    	
+			    	String report = "";
+			    	for(int i = turnOfHuman; i < game.getPlayers().size();i++) 
+			    	{
+		    			game.getPlayers().get(i).getHand().sortTilesByColour();
+			    		
+			    		if(!game.getPlayers().get(i).getName().equals("Human") && game.getPlayers().get(i).play()) 
+			    		{
+			    			report += game.getPlayers().get(i).getName() + " played: ";
+			    			report += game.getPlayers().get(i).return_report();
+			    			game.getTable().setTable(game.getPlayers().get(i).getTable().getTable());
+			    		}
+			    		else if (!game.getPlayers().get(i).getName().equals("Human") && game.getDeck().getDeck().size() > 0) 
+			    		{
+				    		Tile t= game.getDeck().Draw();
+				    		report += game.getPlayers().get(i).getName() + " drew: ";
+				    		report +=AiAddTile(game.getPlayers().get(i),t) + "\n";
+				    	}
+			    		game.Announcement();
+			    		lastMove = new Memento(game); 
+			    	}
+			    	timing = 120;
+			    	prevString = report;
+			    	console.setText(console.getText() + report);  
+			    	updateTable();
+			    	AisPlay(turnOfHuman,report);
+			    	
+			    	
+			    	if(!played)
+			    	{
+			    		if(game.getDeck().getDeck().size() > 0)
+			    			drawTile();
+			    		else
+			    			System.out.println("Out of tiles");
+			    		
+			    		updateHand();
+			    	}
+			    	else {
+			    		game.getTable().addTableCounter();
+			    		played=false;
+			    	}
+			    	checkAIIsWinner();
+			    	
+			    	if(playerScore>=30) 
+			    	{
+			    		game.getHuman().setIsfirstMeldComplete(true);
+			    	}
+			    	
+			    	
+			    
+			    }
+			    else 
+			    {
+			    	updateTableAndHand();
+			 
+			    	if(game.getDeck().getDeck().size() > 0)
 		    			drawTile();
-		    		else
-		    			System.out.println("Out of tiles");
-		    		
-		    		updateHand();
-		    	}
-		    	else {
-		    		game.getTable().addTableCounter();
-		    		played=false;
-		    	}
-		    	checkAIIsWinner();
-		    	
-		    	if(playerScore>=30) 
-		    	{
-		    		game.getHuman().setIsfirstMeldComplete(true);
-		    	}
+			    	updateHand();
+			    	game.Announcement();
+			    	lastMove = new Memento(game);
+			    	String report = "";
+			    	for(int i = turnOfHuman; i < game.getPlayers().size();i++) 
+			    	{
+			    		report = "";
+		    			game.getPlayers().get(i).getHand().sortTilesByColour();
+			    		if(!game.getPlayers().get(i).getName().equals("Human") && game.getPlayers().get(i).play()) 
+			    		{
+			    			report += game.getPlayers().get(i).getName() + " played: ";
+			    			report += game.getPlayers().get(i).return_report();
+			    		}
+			    		else if (!game.getPlayers().get(i).getName().equals("Human") && game.getDeck().getDeck().size() > 0) 
+			    		{
+				    		Tile t= game.getDeck().Draw();
+				    		report += game.getPlayers().get(i).getName() + " drew: ";
+				    		report +=AiAddTile(game.getPlayers().get(i),t) + "\n";
+				    	}
+			    		game.Announcement();
+			    		lastMove = new Memento(game);  	
+			    		prevString = report;
+			    		console.setText(console.getText() + prevString);  
+			    		prevString = "";
+			    	}
+			    	AisPlay(turnOfHuman,report);
+			    	timing = 120;
+			    	updateTable();
+			    	updateHand();
+	    		}
 		    	
 		    	lightRecentlyPlayed();
 		    	game.getTable().clearBool();
-		    
-		    }
-		    else {
-		    	updateTableAndHand();
-		 
-		    	if(game.getDeck().getDeck().size() > 0)
-	    			drawTile();
-		    	updateHand();
-		    	game.Announcement();
-		    	lastMove = new Memento(game);
-		    	String report = "";
-		    	for(int i = turnOfHuman; i < game.getPlayers().size();i++) 
-		    	{
-		    		report = "";
-	    			game.getPlayers().get(i).getHand().sortTilesByColour();
-		    		if(!game.getPlayers().get(i).getName().equals("Human") && game.getPlayers().get(i).play()) 
-		    		{
-		    			report += game.getPlayers().get(i).getName() + " played: ";
-		    			report += game.getPlayers().get(i).return_report();
-		    		}
-		    		else if (!game.getPlayers().get(i).getName().equals("Human") && game.getDeck().getDeck().size() > 0) 
-		    		{
-			    		Tile t= game.getDeck().Draw();
-			    		report += game.getPlayers().get(i).getName() + " drew: ";
-			    		report +=AiAddTile(game.getPlayers().get(i),t) + "\n";
-			    	}
-		    		game.Announcement();
-		    		lastMove = new Memento(game);  	
-		    		prevString = report;
-		    		console.setText(console.getText() + prevString);  
-		    		prevString = "";
-		    	}
-		    	AisPlay(turnOfHuman,report);
-		    	timing = 120;
-		    	updateTable();
-		    	updateHand();
-		    	}
+		    	
 		    	recentlyPlayed.clear();
 		    	console.end();
 		    }
+		    
+		    
 		});
 		
 		suggestions = new Button();
@@ -886,7 +893,7 @@ public class Ui extends Application
 							
 							suggestionTiles.set(y, new Tile(5, 1));
 		    			}
-		    			else if(playerHandButtons.get(x).getText().equals("J"))
+		    			else if(playerHandButtons.get(x).getText().equals("J") || !suggestionTiles.get(y).getColor().equals(""))
 		    			{
 		    				
 		    			}
@@ -1071,8 +1078,9 @@ public class Ui extends Application
 		mainImageNode = new ImageView(mainImage);
 		mainImageNode.setX(72);
 		mainImageNode.setY(100);
-		
+		System.out.println("Number of Current Players:" + game.getPlayers().size());
 		mainScreen.getChildren().add(mainImageNode);
+		
 	}
 	
 	public void whoGoesFirst(final int maxPlayers)
@@ -1543,7 +1551,7 @@ public class Ui extends Application
 					
 					current_color =  getColorFromStyle(tableButtons[y][x].getStyle());
 				}
-				
+				try {
 				if(y <= 19 && can_add(tableButtons[y][x].getText()) && can_add(tableButtons[y+1][x].getText())) 
 				{ 
 					meld.add(new Tile(current_color,current_number));
@@ -1558,7 +1566,8 @@ public class Ui extends Application
 					meld.add(new Tile(current_color,current_number));
 					t.add(meld);
 					meld = new ArrayList<Tile>();
-				}
+				}}
+				catch(ArrayIndexOutOfBoundsException exception) {}
 		
 			}
 		}

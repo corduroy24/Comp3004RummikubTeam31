@@ -43,39 +43,35 @@ public class GameMaster extends Observable{
 	public void deal() {
 		Deck  d = new Deck();
 		d.Shuffle();
+		ArrayList<Tile> or = new ArrayList<Tile>();
 		for(int i =0; i < players.size();i++) {
 			players.get(i).getHand().drawFirst14(d);
+			System.out.println(players.get(i).getName()+ " player randomly pick up the tile "+ players.get(i).getHand().getTile(0));
 		}
-		Collections.sort(players, new SortByCommand());		
+		Collections.sort(players, new SortByCommand());	
+		
+		String order= "So the order of the game is : ";
 		for(int i =0; i < players.size();i++) 
 		{
+			order += players.get(i).getName() + ", ";
 			players.get(i).getHand().clear();
 			if(players.get(i).getName().equals("Human"))
-			{
 				IndexOfHuman = i;
-				
-				//Allows you to set the player hand
-				for(int x=1;x<13;x++)
-				{
-					players.get(i).getHand().addTileToHand(new Tile(1, x));
-				}
-				
-				players.get(i).getHand().addTileToHand(new Tile(2, 1));
-				players.get(i).getHand().addTileToHand(new Tile(14, 14));
-				
-				
-				//players.get(i).getHand().drawFirst14(deck);
-			}
 			else
-			{
-				players.get(i).getHand().drawFirst14(deck);
-			}
+				players.get(i).getHand().addTileToHand(new Tile(14,14));
+			players.get(i).getHand().drawFirst14(deck);
 		}
+		System.out.println(order);
 	}
 	public int getHumanPosition() {return IndexOfHuman;}
 	
 	public void addPlayer(int a) {
-		if(a == 1) {
+		Player FirstPlayer = new Player("FirstPlayer",1, new HumanPlayerStrategy());
+		if(a == 0) {
+			players.add(FirstPlayer);
+			addObserver(FirstPlayer);
+		}	
+		else if(a == 1) {
 			players.add(AI1);
 			addObserver(AI1);}
 		else if(a == 2) {
@@ -418,9 +414,10 @@ public class GameMaster extends Observable{
 	    	while(b.getHand().getTile(i).getNumber() - a.getHand().getTile(i).getNumber() == 0){
 	    		i++;
 	    		if(b.getHand().getTile(i).getNumber() - a.getHand().getTile(i).getNumber() != 0)
-	    			return b.getHand().getTile(i).getNumber() -a.getHand().getTile(i).getNumber();
-	    	}
-	    	System.out.println("hello");
+	    		{
+	    			return b.getHand().getTile(i).getNumber() -a.getHand().getTile(i).getNumber();}
+	    		
+	    	}   	
 	    	return b.getHand().getTile(i).getNumber() - a.getHand().getTile(i).getNumber();
 	    }
 	}

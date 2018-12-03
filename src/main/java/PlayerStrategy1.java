@@ -9,7 +9,6 @@ public class PlayerStrategy1 implements PlayerStrategy {
 	
 	public boolean playTheGame(Player p) {
 		functions = new Support();
-		// TODO Auto-generated method stub
 		p.renewPlayedList();
 		p.set_report("");
 		if(functions.one_short(p)) {

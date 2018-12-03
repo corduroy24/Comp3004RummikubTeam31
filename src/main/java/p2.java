@@ -152,17 +152,17 @@ public class p2 implements PlayerStrategy{
 				}
 				
 				
-				
-				//System.out.println(useless_tile);
-				//System.out.println("TEST");
-				//System.out.println(usefull_tile);
-				
+						
 				ArrayList<ArrayList<Tile>> table = new ArrayList<ArrayList<Tile>>(p.getTable().getTable());
-					
+				
+				System.out.println(useless_tile);
+				System.out.println(table);
+				
+				
+				
 				// index of meld on the table, which contain joker tiles
 				int index = 999;
 				int index_meld = 0; // index of joker tile in the meld
-				System.out.println(table);
 				// find the joker meld in the table
 				FindIndex: for(int i =0; i < table.size();i++) {
 					for(int u =0; u < table.get(i).size();u++) {
@@ -186,7 +186,6 @@ public class p2 implements PlayerStrategy{
 					}
 				}
 				}
-				
 				
 				if(index != 999) {
 					for(int i =0; i < useless_tile.size();i++) {
