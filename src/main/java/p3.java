@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 
 public class p3 implements PlayerStrategy {
@@ -55,7 +56,7 @@ public class p3 implements PlayerStrategy {
 						i--;
 					}
 					p.setWinner();}
-				
+				Collections.reverse(output);
 				if(checkMeld.getPoint(output) >= 30) {
 					String out = "";
 					int a = 0;
@@ -262,8 +263,8 @@ public class p3 implements PlayerStrategy {
 							for(int i =0; i < melds.size();i++)
 								p.getTable().AiAddTiles(melds.get(i));
 							for(int u =0; u < p.getHand().sizeOfHand();u++) {
-								p.getHand().playTileFromHand(p.getHand().getTile(u));
 								out += p.getHand().getTile(u).toString();
+								p.getHand().playTileFromHand(p.getHand().getTile(u));
 								u--;
 							}
 							out += "\n";
