@@ -193,7 +193,10 @@ public interface Scenario {
 	//		game.getAI3().setIsfirstMeldComplete(true);
 //			game.getAI4().setIsfirstMeldComplete(true);
 
+			Tile[] l = {new Tile(1,12),
+					new Tile(1,13),new Tile(5,14)};
 			
+			game.getAI2().getHand().addTilesToHand(l);
 			
 					
 			Tile[] l1 = {new Tile(1,11), new Tile(2,11), new Tile(3,11)};
