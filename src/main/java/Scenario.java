@@ -27,7 +27,6 @@ public interface Scenario {
 			Tile t6[] = {new Tile(1,4), new Tile(1,5), new Tile(1,6)};
 			Tile t7[] = {new Tile(1,8), new Tile(1,9), new Tile(1,10)};
 			
-			
 					
 			ArrayList<Tile> listTiles1 = new ArrayList<Tile>(); 
 			ArrayList<Tile> listTiles2 = new ArrayList<Tile>(); 
@@ -56,15 +55,6 @@ public interface Scenario {
 			
 			game.getAI3().getHand().DrawThis(new Tile(2,5), deck);
 			game.getAI3().getHand().DrawThis(new Tile(2,6), deck);
-			game.getAI3().getHand().DrawThis(new Tile(2,9), deck);
-			game.getAI3().getHand().DrawThis(new Tile(2,10), deck);
-			game.getAI3().getHand().DrawThis(new Tile(3,5), deck);
-			game.getAI3().getHand().DrawThis(new Tile(3,9), deck);
-			game.getAI3().getHand().DrawThis(new Tile(4,11), deck);
-			game.getAI3().getHand().DrawThis(new Tile(1,9), deck);
-
-
-
 
 			game.getAI4().getHand().DrawThis(new Tile(3,4), deck);
 			game.getAI4().getHand().DrawThis(new Tile(4,5), deck);
@@ -73,7 +63,6 @@ public interface Scenario {
 			game.getAI4().getHand().DrawThis(new Tile(2,9), deck);
 			game.getAI4().getHand().DrawThis(new Tile(4,10), deck);
 
-			
 			game.Announcement();
 			return game; 
 		}
