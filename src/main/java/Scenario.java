@@ -78,7 +78,7 @@ public interface Scenario {
 				game.getAI3().getHand().DrawThis(new Tile(1, 11), deck); //can select next drawn tile to enable completion of meld on board
 
 			else if (player == 4)
-				game.getAI4().getHand().DrawThis(new Tile(3,5), deck);
+				game.getAI4().getHand().DrawThis(new Tile(5,14), deck);
 
 			return game; 
 		}
