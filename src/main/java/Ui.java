@@ -1594,6 +1594,84 @@ public class Ui extends Application
 		    	playGameRigging(s9, turnOrders);
 		    }
 		});
+	
+		//Sets up the Scenario 9 Button
+		scenarioTen = new Button();
+		scenarioTen.setText("Strategy 2-3");
+		scenarioTen.setMinSize(100, 50);
+		scenarioTen.setDisable(false);
+		scenarioTen.setLayoutX(767);
+		scenarioTen.setLayoutY(600);
+		scenarioTen.setOnAction(new EventHandler<ActionEvent>() 
+		{
+		    public void handle(ActionEvent e) 
+		    {
+		    	clearMainScreen();
+		    	int maxPlayers  = 4; 
+		    	int [] turnOrders = new int[maxPlayers];
+		    	turnOrders[0] = 1;
+		    	turnOrders[1] = 2;
+		    	turnOrders[2] = 3;
+		    	turnOrders[3] = 4;
+		        ScenarioFactory scenarioFactory = new ScenarioFactory();
+		        Scenario s10 = scenarioFactory.getScenario("s10");
+		        game.Announcement();
+		        game = s10.deal(game);
+		        
+		    	setupGameRigging(); 
+		    	game.getPlayers().remove(game.getHuman());
+		    	
+		    	
+		    	try {
+					Thread.sleep(2000);
+				} catch (InterruptedException e1) {
+					e1.printStackTrace();
+				}
+		    	
+		    	//turn orders are rigged 
+
+		    	playGameRigging(s10, turnOrders);
+		    }
+		});
+		
+		//Sets up the Scenario 9 Button
+		scenarioEleven = new Button();
+		scenarioEleven.setText("Strategy 2-4");
+		scenarioEleven.setMinSize(100, 50);
+		scenarioEleven.setDisable(false);
+		scenarioEleven.setLayoutX(217);
+		scenarioEleven.setLayoutY(700);
+		scenarioEleven.setOnAction(new EventHandler<ActionEvent>() 
+		{
+		    public void handle(ActionEvent e) 
+		    {
+		    	clearMainScreen();
+		    	int maxPlayers  = 4; 
+		    	int [] turnOrders = new int[maxPlayers];
+		    	turnOrders[0] = 1;
+		    	turnOrders[1] = 2;
+		    	turnOrders[2] = 3;
+		    	turnOrders[3] = 4;
+		        ScenarioFactory scenarioFactory = new ScenarioFactory();
+		        Scenario s11 = scenarioFactory.getScenario("s11");
+		        game.Announcement();
+		        game = s11.deal(game);
+		        
+		    	setupGameRigging(); 
+		    	game.getPlayers().remove(game.getHuman());
+		    	
+		    	
+		    	try {
+					Thread.sleep(2000);
+				} catch (InterruptedException e1) {
+					e1.printStackTrace();
+				}
+		    	
+		    	//turn orders are rigged 
+
+		    	playGameRigging(s11, turnOrders);
+		    }
+		});
 		
 		
 		InputStream mainImagePath = getClass().getResourceAsStream("pickOne.png");
@@ -1611,7 +1689,8 @@ public class Ui extends Application
 		mainScreen.getChildren().add(scenarioSeven);
 		mainScreen.getChildren().add(scenarioEight);
 		mainScreen.getChildren().add(scenarioNine);
-
+		mainScreen.getChildren().add(scenarioTen);
+		mainScreen.getChildren().add(scenarioEleven);
 		mainScreen.getChildren().add(mainImageNode);
 		
 	}
