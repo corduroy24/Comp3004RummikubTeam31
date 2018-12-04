@@ -65,6 +65,11 @@ public class Ui extends Application
 	Button scenarioSix;
 	Button scenarioSeven;
 	Button scenarioEight;
+	Button scenarioNine;
+	Button scenarioTen;
+	Button scenarioEleven;
+	Button scenarioTwelve;
+
 	
 	boolean isTimerOn=false;
 	Button timerButton;
@@ -1399,16 +1404,22 @@ public class Ui extends Application
 		});
 		//Sets up the Scenario 5 Button
 		scenarioFive = new Button();
-		scenarioFive.setText("Strategy 1");
+		scenarioFive.setText("Strategy 1-1");
 		scenarioFive.setMinSize(100, 50);
 		scenarioFive.setDisable(false);
-		scenarioFive.setLayoutX(327);
+		scenarioFive.setLayoutX(217);
 		scenarioFive.setLayoutY(600);
 		scenarioFive.setOnAction(new EventHandler<ActionEvent>() 
 		{
 		    public void handle(ActionEvent e) 
 		    {
 		    	clearMainScreen();
+		    	int maxPlayers  = 4; 
+		    	int [] turnOrders = new int[maxPlayers];
+		    	turnOrders[0] = 1;
+		    	turnOrders[1] = 2;
+		    	turnOrders[2] = 3;
+		    	turnOrders[3] = 4;
 		        ScenarioFactory scenarioFactory = new ScenarioFactory();
 		        Scenario s5 = scenarioFactory.getScenario("s5");
 		        game.Announcement();
@@ -1424,16 +1435,16 @@ public class Ui extends Application
 				}
 		    	
 		    	//turn orders are rigged 
-		    	playGameRigging(s5, s5.getTurnOrder());
+		    	playGameRigging(s5, turnOrders);
 		    }
 		});
 		
 		//Sets up the Scenario 6 Button
 		scenarioSix = new Button();
-		scenarioSix.setText("Strategy 2");
+		scenarioSix.setText("Strategy 1-2");
 		scenarioSix.setMinSize(100, 50);
 		scenarioSix.setDisable(false);
-		scenarioSix.setLayoutX(437);
+		scenarioSix.setLayoutX(327);
 		scenarioSix.setLayoutY(600);
 		scenarioSix.setOnAction(new EventHandler<ActionEvent>() 
 		{
@@ -1447,9 +1458,9 @@ public class Ui extends Application
 		    	turnOrders[2] = 3;
 		    	turnOrders[3] = 4;
 		        ScenarioFactory scenarioFactory = new ScenarioFactory();
-		        Scenario s4 = scenarioFactory.getScenario("s4");
+		        Scenario s6 = scenarioFactory.getScenario("s6");
 		        game.Announcement();
-		        game = s4.deal(game);
+		        game = s6.deal(game);
 		        
 		    	setupGameRigging(); 
 		    	game.getPlayers().remove(game.getHuman());
@@ -1463,16 +1474,16 @@ public class Ui extends Application
 		    	
 		    	//turn orders are rigged 
 
-		    	playGameRigging(s4, turnOrders);
+		    	playGameRigging(s6, turnOrders);
 		    }
 		});
 		
 		//Sets up the Scenario 7 Button
 		scenarioSeven = new Button();
-		scenarioSeven.setText("Strategy 3");
+		scenarioSeven.setText("Strategy 1-3");
 		scenarioSeven.setMinSize(100, 50);
 		scenarioSeven.setDisable(false);
-		scenarioSeven.setLayoutX(547);
+		scenarioSeven.setLayoutX(437);
 		scenarioSeven.setLayoutY(600);
 		scenarioSeven.setOnAction(new EventHandler<ActionEvent>() 
 		{
@@ -1486,9 +1497,9 @@ public class Ui extends Application
 		    	turnOrders[2] = 3;
 		    	turnOrders[3] = 4;
 		        ScenarioFactory scenarioFactory = new ScenarioFactory();
-		        Scenario s4 = scenarioFactory.getScenario("s4");
+		        Scenario s7 = scenarioFactory.getScenario("s7");
 		        game.Announcement();
-		        game = s4.deal(game);
+		        game = s7.deal(game);
 		        
 		    	setupGameRigging(); 
 		    	game.getPlayers().remove(game.getHuman());
@@ -1502,16 +1513,16 @@ public class Ui extends Application
 		    	
 		    	//turn orders are rigged 
 
-		    	playGameRigging(s4, turnOrders);
+		    	playGameRigging(s7, turnOrders);
 		    }
 		});
 		
 		//Sets up the Scenario 8 Button
 		scenarioEight = new Button();
-		scenarioEight.setText("Strategy 4");
+		scenarioEight.setText("Strategy 2-1");
 		scenarioEight.setMinSize(100, 50);
 		scenarioEight.setDisable(false);
-		scenarioEight.setLayoutX(657);
+		scenarioEight.setLayoutX(547);
 		scenarioEight.setLayoutY(600);
 		scenarioEight.setOnAction(new EventHandler<ActionEvent>() 
 		{
@@ -1525,9 +1536,9 @@ public class Ui extends Application
 		    	turnOrders[2] = 3;
 		    	turnOrders[3] = 4;
 		        ScenarioFactory scenarioFactory = new ScenarioFactory();
-		        Scenario s4 = scenarioFactory.getScenario("s4");
+		        Scenario s8 = scenarioFactory.getScenario("s8");
 		        game.Announcement();
-		        game = s4.deal(game);
+		        game = s8.deal(game);
 		        
 		    	setupGameRigging(); 
 		    	game.getPlayers().remove(game.getHuman());
@@ -1541,7 +1552,46 @@ public class Ui extends Application
 		    	
 		    	//turn orders are rigged 
 
-		    	playGameRigging(s4, turnOrders);
+		    	playGameRigging(s8, turnOrders);
+		    }
+		});
+		
+		//Sets up the Scenario 9 Button
+		scenarioNine = new Button();
+		scenarioNine.setText("Strategy 2-2");
+		scenarioNine.setMinSize(100, 50);
+		scenarioNine.setDisable(false);
+		scenarioNine.setLayoutX(657);
+		scenarioNine.setLayoutY(600);
+		scenarioNine.setOnAction(new EventHandler<ActionEvent>() 
+		{
+		    public void handle(ActionEvent e) 
+		    {
+		    	clearMainScreen();
+		    	int maxPlayers  = 4; 
+		    	int [] turnOrders = new int[maxPlayers];
+		    	turnOrders[0] = 1;
+		    	turnOrders[1] = 2;
+		    	turnOrders[2] = 3;
+		    	turnOrders[3] = 4;
+		        ScenarioFactory scenarioFactory = new ScenarioFactory();
+		        Scenario s9 = scenarioFactory.getScenario("s9");
+		        game.Announcement();
+		        game = s9.deal(game);
+		        
+		    	setupGameRigging(); 
+		    	game.getPlayers().remove(game.getHuman());
+		    	
+		    	
+		    	try {
+					Thread.sleep(2000);
+				} catch (InterruptedException e1) {
+					e1.printStackTrace();
+				}
+		    	
+		    	//turn orders are rigged 
+
+		    	playGameRigging(s9, turnOrders);
 		    }
 		});
 		
@@ -1560,6 +1610,8 @@ public class Ui extends Application
 		mainScreen.getChildren().add(scenarioSix);
 		mainScreen.getChildren().add(scenarioSeven);
 		mainScreen.getChildren().add(scenarioEight);
+		mainScreen.getChildren().add(scenarioNine);
+
 		mainScreen.getChildren().add(mainImageNode);
 		
 	}
@@ -1911,7 +1963,8 @@ public class Ui extends Application
 	public void playGameRigging(Scenario s, int [] turnOrders) {
 		setTurnOrder(turnOrders);
 
-		
+		int stop = s.getMaxPlayers(); 
+		System.out.println(stop);
 		System.out.println("\nUI Class");
 		for(int x=0;x<turnOrders.length;x++)
 			System.out.println(turnOrders[x]);
@@ -1937,9 +1990,10 @@ public class Ui extends Application
 			else if (game.getDeck().getDeck().size() > 0) 
 			{
 	    		prevString += game.getPlayers().get(turnOrders[x]-1).getName() + " drew: ";
+	    		//System.out.println(turnOrders[x]+"jn "+ x);
 	    		switch(round) {
 		    		case 0:  game = s.secondTurn(game, turnOrders[x]); break; 
-		    		//case 1:  game = s.thirdTurn(game, turnOrders[x]); break; 
+		    		case 1:  game = s.thirdTurn(game, turnOrders[x]); break; 
 		    		default: System.out.println("Scenario finished ");
 	    		}
 	    	}
@@ -1956,7 +2010,7 @@ public class Ui extends Application
 	   	    game.getTable().clearBool();
 	    	x++;
 	    	
-	   	    if(x==4) {
+	   	    if(x==stop) {
 	   	    	x=0; 
 	   	    	round++;
 	   	    }
