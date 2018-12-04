@@ -283,15 +283,6 @@ public class Ui extends Application
 						});
 						timing = 120;
 					}
-					if(humans) {
-			    		if(turnOfHuman == 0) turnOfHuman = 1;
-			    		else if(turnOfHuman == 3) turnOfHuman = 0;
-			    		else turnOfHuman = (int) turnOfHuman%(game.getPlayers().size())+1;
-			    		pointer = game.getPlayers().get(turnOfHuman);
-			    		System.out.print("WHAT");
-			    		System.out.println("CURRENT PLAYER'S HAND IS: " + pointer.getName() + " " + pointer.getId());
-			    		updateHand(pointer);
-			    	}
 				}
 			}
 			
