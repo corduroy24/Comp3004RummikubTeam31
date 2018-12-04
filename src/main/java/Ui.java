@@ -91,6 +91,9 @@ public class Ui extends Application
 	private HandleJoker checkMeld;
 	private Memento lastMove;
 	private int turnOfHuman = 0;
+	private Player pointer = new Player("pointer",999,new HumanPlayerStrategy());
+	
+	private boolean humans = false;
 	
 	int timing = 120;
 	Support functions= new Support();
@@ -183,10 +186,10 @@ public class Ui extends Application
 
 		//Sets up the timer button
 		timerButton = new Button();
-		timerButton.setText("Timer On/Off");
+		timerButton.setText("Timer On");
 		timerButton.setMinSize(100, 50);
 		timerButton.setDisable(false);
-		timerButton.setLayoutX(555);
+		timerButton.setLayoutX(615);
 		timerButton.setLayoutY(600);
 		timerButton.setOnAction(new EventHandler<ActionEvent>() 
 		{
@@ -205,7 +208,7 @@ public class Ui extends Application
 		    }
 		});
 		
-		mainScreen = new AnchorPane(mainImageNode, twoPlayer, threePlayer, fourPlayer, scenarios);
+		mainScreen = new AnchorPane(mainImageNode, twoPlayer, threePlayer, fourPlayer, scenarios,timerButton);
 
 		mainScreen.setMinSize(1095,	790);
 		
@@ -226,6 +229,7 @@ public class Ui extends Application
 	{
 		turnOfHuman = game.getHumanPosition();
 		lastMove= new Memento(game);
+		pointer = game.getHuman();
 		if (isTimerOn==true) {
 			class Time extends TimerTask{
 				@Override
@@ -238,21 +242,21 @@ public class Ui extends Application
 								updateTableAndHand();
 								System.out.println("OUT OF TIME");
 						    	if(game.getDeck().getDeck().size() > 2) {
-					    			drawTile();
-					    			drawTile();
-					    			drawTile();
+						    		drawTile(game.getPlayers().get(turnOfHuman));
+					    			drawTile(game.getPlayers().get(turnOfHuman));
+					    			drawTile(game.getPlayers().get(turnOfHuman));
 						    	}
 						    	else 
 						    		for(int i =0; i < game.getDeck().getDeck().size();i++)
-						    			drawTile();
-						    	updateHand();
+						    			drawTile(game.getPlayers().get(turnOfHuman));
+						    	updateHand(pointer);
 						    	lastMove = new Memento(game);
 						    	game.Announcement();
 						    	String report = "";
-						    	for(int i = turnOfHuman; i < game.getPlayers().size();i++) 
+						    	loop: for(int i = turnOfHuman; i < game.getPlayers().size();i++) 
 						    	{
 					    			game.getPlayers().get(i).getHand().sortTilesByColour();
-						    		if(!game.getPlayers().get(i).getName().equals("Human") && game.getPlayers().get(i).play()) 
+						    		if(!game.getPlayers().get(i).IsHuman() && game.getPlayers().get(i).play()) 
 						    		{
 						    			report += game.getPlayers().get(i).getName() + " played: ";
 						    			report += game.getPlayers().get(i).return_report();
@@ -260,7 +264,7 @@ public class Ui extends Application
 						    			game.Announcement();
 						    			lastMove = new Memento(game);
 						    		}
-						    		else if (!game.getPlayers().get(i).getName().equals("Human") && game.getDeck().getDeck().size() > 0) 
+						    		else if (!game.getPlayers().get(i).IsHuman() && game.getDeck().getDeck().size() > 0) 
 						    		{
 							    		Tile t= game.getDeck().Draw();
 							    		report += game.getPlayers().get(i).getName() + " drew: ";
@@ -274,11 +278,20 @@ public class Ui extends Application
 						    	AisPlay(turnOfHuman,report);
 						    	updateTableAndHand();
 						    	updateTable();
-						    	updateHand();	
+						    	updateHand(pointer);	
 							}
 						});
 						timing = 120;
 					}
+					if(humans) {
+			    		if(turnOfHuman == 0) turnOfHuman = 1;
+			    		else if(turnOfHuman == 3) turnOfHuman = 0;
+			    		else turnOfHuman = (int) turnOfHuman%(game.getPlayers().size())+1;
+			    		pointer = game.getPlayers().get(turnOfHuman);
+			    		System.out.print("WHAT");
+			    		System.out.println("CURRENT PLAYER'S HAND IS: " + pointer.getName() + " " + pointer.getId());
+			    		updateHand(pointer);
+			    	}
 				}
 			}
 			
@@ -335,23 +348,23 @@ public class Ui extends Application
 				        if(db.getRtf().length()==3)
                         {
                             Tile temp = new Tile(Integer.parseInt(db.getRtf().substring(0, 1)), Integer.parseInt(db.getRtf().substring(2, 3)));
-                            game.getHuman().getHand().removeTile(temp);
-                            game.getHuman().addScore(temp.getNumber());
+                            pointer.getHand().removeTile(temp);
+                            pointer.addScore(temp.getNumber());
                         }
 				        else if(db.getRtf().length()==5)
 				        {
 				        	Tile temp = new Tile(Integer.parseInt(db.getRtf().substring(0, 2)), Integer.parseInt(db.getRtf().substring(3, 5)));
-                            game.getHuman().getHand().removeTile(temp);
-                            game.getHuman().addScore(temp.getNumber());
+				        	pointer.getHand().removeTile(temp);
+				        	pointer.addScore(temp.getNumber());
 				        }
                         else
                         {
                             Tile temp = new Tile(Integer.parseInt(db.getRtf().substring(0, 1)), Integer.parseInt(db.getRtf().substring(2, 4)));
-                            game.getHuman().getHand().removeTile(temp);
-                            game.getHuman().addScore(temp.getNumber());
+                            pointer.getHand().removeTile(temp);
+                            pointer.addScore(temp.getNumber());
                         }
                         
-                        updateHand();
+                        updateHand(pointer);
 				        
 				        //Add the text to the button
 				        if (db.hasString()) 
@@ -425,7 +438,7 @@ public class Ui extends Application
 				{
 					public void handle(MouseEvent event) 
 					{
-						if(game.getHuman().getIsFirstMeldComplete())
+						if(pointer.getIsFirstMeldComplete())
 						{
 							if(tableButtons[numberY][numberX].getStyle().length() > 1) 
 							{
@@ -482,7 +495,7 @@ public class Ui extends Application
 		//System.out.println("Size of hand: "+game.getHuman().getHand().sizeOfHand());
 		
 		//Adds the starting cards to the players hand
-		for(int x=0;x<game.getHuman().getHand().sizeOfHand();x++)
+		for(int x=0;x<pointer.getHand().sizeOfHand();x++)
 		{
 			playerHandButtons.add(new Button());
 			//playerHandButtons[x].setText("x: "+x);
@@ -651,20 +664,20 @@ public class Ui extends Application
 		    	for(int i =0; i < currentTable.size();i++) {
 		    		if(!checkMeld.isRun(currentTable.get(i)) && !checkMeld.isSet(currentTable.get(i))) {
 		    			valid = false;
-		    			game.getHuman().setScore(0);
+		    			pointer.setScore(0);
 				    	System.out.println("YOUR MOVE IS INVALID\n");
 				    	console.setText(console.getText() + "YOUR MOVE IS INVALID\n");
 		    		}
 		    	}
 
 
-		    	if(!game.getHuman().getIsFirstMeldComplete()) {
-		    		if(game.getHuman().getScore() >= 30) { 
+		    	if(!pointer.getIsFirstMeldComplete()) {
+		    		if(pointer.getScore() >= 30) { 
 		    			valid = true;
 		    		System.out.println("First play is success\n");
 		    		}
 		    		else {
-		    			game.getHuman().setScore(0);
+		    			pointer.setScore(0);
 		    			valid = false;
 		    		System.out.println("PLAY YOUR FIRST INITIAL TURN ASAP\n");
 		    		console.setText(console.getText() + "PLAY YOUR FIRST INITIAL TURN ASAP\n");
@@ -682,19 +695,19 @@ public class Ui extends Application
 			    	
 			    	scoreConsole.setText("Score: "+temp);
 			    	
-			    	game.getHuman().getTable().setTable(currentTable);
-			    	game.getTable().setTable(game.getHuman().getTable().getTable());
+			    	pointer.getTable().setTable(currentTable);
+			    	game.getTable().setTable(pointer.getTable().getTable());
 			    	game.Announcement();
 			    	lastMove = new Memento(game); 
 			    	checkPlayerIsWinner();
 			    	//console.clear()
 			    	
 			    	String report = "";
-			    	for(int i = turnOfHuman; i < game.getPlayers().size();i++) 
+			    	loop:for(int i = turnOfHuman; i < game.getPlayers().size();i++) 
 			    	{
 		    			game.getPlayers().get(i).getHand().sortTilesByColour();
 			    		
-			    		if(!game.getPlayers().get(i).getName().equals("Human") && game.getPlayers().get(i).play()) 
+			    		if(!game.getPlayers().get(i).IsHuman() && game.getPlayers().get(i).play()) 
 			    		{
 			    			report += game.getPlayers().get(i).getName() + " played: ";
 			    			report += game.getPlayers().get(i).return_report();
@@ -702,7 +715,7 @@ public class Ui extends Application
 			    			game.Announcement();
 			    			lastMove = new Memento(game);
 			    		}
-			    		else if (!game.getPlayers().get(i).getName().equals("Human") && game.getDeck().getDeck().size() > 0) 
+			    		else if (!game.getPlayers().get(i).IsHuman() && game.getDeck().getDeck().size() > 0) 
 			    		{
 				    		Tile t= game.getDeck().Draw();
 				    		report += game.getPlayers().get(i).getName() + " drew: ";
@@ -719,11 +732,11 @@ public class Ui extends Application
 			    	if(!played)
 			    	{
 			    		if(game.getDeck().getDeck().size() > 0)
-			    			drawTile();
+			    			drawTile(game.getPlayers().get(turnOfHuman));
 			    		else
 			    			System.out.println("Out of tiles");
 			    		
-			    		updateHand();
+			    		updateHand(pointer);
 			    	}
 			    	else {
 			    		game.getTable().addTableCounter();
@@ -731,26 +744,35 @@ public class Ui extends Application
 			    	}
 			    	checkAIIsWinner();
 			    	
-			    	if(game.getHuman().getScore()>=30) 
+			    	if(pointer.getScore()>=30) 
 			    	{
-			    		game.getHuman().setIsfirstMeldComplete(true);
-			    	}			    
+			    		pointer.setIsfirstMeldComplete(true);
+			    	}
+			    	if(humans) {
+			    		if(turnOfHuman == 0) turnOfHuman = 1;
+			    		else if(turnOfHuman == 3) turnOfHuman = 0;
+			    		else turnOfHuman = (int) turnOfHuman%(game.getPlayers().size())+1;
+			    		pointer = game.getPlayers().get(turnOfHuman);
+			    		System.out.println("CURRENT PLAYER'S HAND IS: " + pointer.getName() + " " + pointer.getId());
+			    		updateHand(pointer);
+			    	}
 			    }
 			    else 
 			    {
 			    	updateTableAndHand();
 			 
-			    	if(game.getDeck().getDeck().size() > 0)
-		    			drawTile();
-			    	updateHand();
+			    	if(game.getDeck().getDeck().size() > 0) {
+		    			drawTile(game.getPlayers().get(turnOfHuman));
+			    	}
+			    	updateHand(pointer);
 			    	game.Announcement();
 			    	lastMove = new Memento(game);
 			    	String report = "";
-			    	for(int i = turnOfHuman; i < game.getPlayers().size();i++) 
+			    	loop: for(int i = turnOfHuman; i < game.getPlayers().size();i++) 
 			    	{
 			    		report = "";
 		    			game.getPlayers().get(i).getHand().sortTilesByColour();
-			    		if(!game.getPlayers().get(i).getName().equals("Human") && game.getPlayers().get(i).play()) 
+			    		if(!game.getPlayers().get(i).IsHuman()&& game.getPlayers().get(i).play()) 
 			    		{
 			    			report += game.getPlayers().get(i).getName() + " played: ";
 			    			report += game.getPlayers().get(i).return_report();
@@ -758,7 +780,7 @@ public class Ui extends Application
 			    			game.Announcement();
 			    			lastMove = new Memento(game);
 			    		}
-			    		else if (!game.getPlayers().get(i).getName().equals("Human") && game.getDeck().getDeck().size() > 0) 
+			    		else if (!game.getPlayers().get(i).IsHuman() && game.getDeck().getDeck().size() > 0) 
 			    		{
 				    		Tile t= game.getDeck().Draw();
 				    		report += game.getPlayers().get(i).getName() + " drew: ";
@@ -773,7 +795,15 @@ public class Ui extends Application
 			    	AisPlay(turnOfHuman,report);
 			    	timing = 120;
 			    	updateTable();
-			    	updateHand();
+			    	if(humans) {
+			    		if(turnOfHuman == 0) turnOfHuman = 1;
+			    		else if(turnOfHuman == 3) turnOfHuman = 0;
+			    		else turnOfHuman = (int) turnOfHuman%(game.getPlayers().size())+1;
+			    		pointer = game.getPlayers().get(turnOfHuman);
+			    		System.out.print("WHAT");
+			    		System.out.println("CURRENT PLAYER'S HAND IS: " + pointer.getName() + " " + pointer.getId());
+			    		updateHand(pointer);
+			    	}
 	    		}
 		    	
 		    	lightRecentlyPlayed();
@@ -794,8 +824,8 @@ public class Ui extends Application
 		{
 		    public void handle(ActionEvent e) 
 		    {
-		    	game.getHuman().play();
-		    	ArrayList<Tile> suggestionTiles = game.getHuman().getSuggPlayList();
+		    	pointer.play();
+		    	ArrayList<Tile> suggestionTiles = pointer.getSuggPlayList();
 		    	
 		    	for(int x=0;x<suggestionTiles.size();x++)
                 {
@@ -973,7 +1003,7 @@ public class Ui extends Application
 		    	
 		    }
 		});
-		if(game.getHuman().getHand().sizeOfHand() == 0) {
+		if(pointer.getHand().sizeOfHand() == 0) {
 			InputStream mainImagePath = getClass().getResourceAsStream("Winner.jpg");
 			Image mainImage = new Image(mainImagePath);
 			mainImageNode = new ImageView(mainImage);
@@ -1021,6 +1051,7 @@ public class Ui extends Application
 		mainScreen.getChildren().remove(threePlayer);
 		mainScreen.getChildren().remove(fourPlayer);
 		mainScreen.getChildren().remove(scenarios);
+		mainScreen.getChildren().remove(timerButton);
 	}
 	
 	public void whoGoesFirst(final int maxPlayers)
@@ -1043,6 +1074,7 @@ public class Ui extends Application
 		    	game.addPlayer(5);
 		    	if(game.getPlayers().size() == maxPlayers) {
 		    		game.deal();
+		    		check();
 		    		mainGame();
 		    		AisPlay(turnOfHuman,prevString);
 		    	}
@@ -1064,6 +1096,7 @@ public class Ui extends Application
 		    	game.addPlayer(6);
 		    	if(game.getPlayers().size() == maxPlayers) {
 		    		game.deal();
+		    		check();
 		    		mainGame();
 		    		AisPlay(turnOfHuman,prevString);
 		    	}
@@ -1085,6 +1118,7 @@ public class Ui extends Application
 		    	game.addPlayer(7);
 		    	if(game.getPlayers().size() == maxPlayers) {
 		    		game.deal();
+		    		check();
 		    		mainGame();
 		    		AisPlay(turnOfHuman,prevString);
 		    	}
@@ -1248,7 +1282,7 @@ public class Ui extends Application
 		        game = s1.deal(game);
 		    	setupGameRigging(); 
 
-		    	game.getPlayers().remove(game.getHuman());
+		    	game.getPlayers().remove(pointer);
 		    	
 		    	try {
 					Thread.sleep(2000);
@@ -1288,7 +1322,7 @@ public class Ui extends Application
 		{
 		    public void handle(ActionEvent e) 
 		    {
-		    	
+
 		    }
 		});
 		
@@ -1375,48 +1409,48 @@ public class Ui extends Application
 	
 	public void setPlayerHand()
 	{
-		game.getHuman().getHand().sortTilesByColour();
+		pointer.getHand().sortTilesByColour();
 		//System.out.println("Size of hand: "+game.getHuman().getHand().sizeOfHand());
 		
-		for(int x=0;x<game.getHuman().getHand().sizeOfHand();x++)
+		for(int x=0;x<pointer.getHand().sizeOfHand();x++)
 		{
-			if(game.getHuman().getHand().getTile(x)!=null)
+			if(pointer.getHand().getTile(x)!=null)
 			{
-				if(game.getHuman().getHand().getTile(x).getNumber() == 14)
+				if(pointer.getHand().getTile(x).getNumber() == 14)
 				{
 					playerHandButtons.get(x).setText("J");
 				}
 				else
 				{
-					playerHandButtons.get(x).setText(""+game.getHuman().getHand().getTile(x).getNumber());
+					playerHandButtons.get(x).setText(""+pointer.getHand().getTile(x).getNumber());
 				}
 				
 				//System.out.println("test"+game.getHuman().getHand().getTile(x).isJoker());
 				
-				if(game.getHuman().getHand().getTile(x).getColor().equals("R"))
+				if(pointer.getHand().getTile(x).getColor().equals("R"))
 				{
 					playerHandButtons.get(x).setStyle("-fx-background-color: #db4c4c");
 				}
-				else if(game.getHuman().getHand().getTile(x).getColor().equals("B"))
+				else if(pointer.getHand().getTile(x).getColor().equals("B"))
 				{
 					playerHandButtons.get(x).setStyle("-fx-background-color: #3888d8");
 				}
-				else if(game.getHuman().getHand().getTile(x).getColor().equals("G"))
+				else if(pointer.getHand().getTile(x).getColor().equals("G"))
 				{
 					playerHandButtons.get(x).setStyle("-fx-background-color: #1a9922");
 				}
-				else if(game.getHuman().getHand().getTile(x).getColor().equals("O"))
+				else if(pointer.getHand().getTile(x).getColor().equals("O"))
 				{
 					playerHandButtons.get(x).setStyle("-fx-background-color: #c69033");
 				} 
-				else if(game.getHuman().getHand().getTile(x).isJoker())
+				else if(pointer.getHand().getTile(x).isJoker())
 				{
 					playerHandButtons.get(x).setStyle("-fx-background-color: #474747");
 				} 
 				else
 				{
 					System.out.println("Something went wrong in setPlayerHand()");
-					System.out.println("Color for tile "+x+" is set to "+game.getHuman().getHand().getTile(x).getColor());
+					System.out.println("Color for tile "+x+" is set to "+pointer.getHand().getTile(x).getColor());
 				}
 			}
 		}
@@ -1489,11 +1523,11 @@ public class Ui extends Application
 		return false;	
 	}
 	
-	public void updateHand()
+	public void updateHand(Player p)
 	{
-		PlayerHand test = game.getHuman().getHand();
+		PlayerHand test = p.getHand();
 		playerHand.getChildren().clear();
-		for(int x=0;x<game.getHuman().getHand().sizeOfHand();x++)
+		for(int x=0;x<pointer.getHand().sizeOfHand();x++)
 		{
 			
 			playerHandButtons.get(x).setText(""+test.getTile(x).getNumber());
@@ -1524,7 +1558,7 @@ public class Ui extends Application
 				System.out.println("Color for tile "+x+" is set to "+test.getTile(x).getColor());
 			}
 		}
-		for(int x=0;x<game.getHuman().getHand().sizeOfHand();x++)
+		for(int x=0;x<pointer.getHand().sizeOfHand();x++)
 		{
 			playerHand.getChildren().add(playerHandButtons.get(x));
 		}
@@ -1600,10 +1634,10 @@ public class Ui extends Application
 			return 4;			
 	}
 	
-	public void drawTile()
+	public void drawTile(Player p)
 	{
-		game.getHuman().getPlayedList();
-		PlayerHand hand = game.getHuman().getHand();
+		p.getPlayedList();
+		PlayerHand hand = p.getHand();
 		Tile tile = game.getDeck().Draw();
 		
 		hand.addTileToHand(tile);
@@ -1614,7 +1648,7 @@ public class Ui extends Application
 	private void updateTableAndHand() 
 	{
 		game.getTable().setTable(lastMove.getStateTable().getTable());
-		game.getHuman().getHand().setPlayerHand(lastMove.getStateHumanHand().getTiles());		    
+		pointer.getHand().setPlayerHand(lastMove.getStateHumanHand().getTiles());		    
 	}
 	
 	public void setupGameRigging() {
@@ -1723,23 +1757,24 @@ public class Ui extends Application
 	{
 		prevString = "";
 		report = "";
-		for(int i = 0; i < index;i++) 
+		loop: for(int i = 0; i < index;i++) 
     	{
 			game.getPlayers().get(i).getHand().sortTilesByColour();
     		
-    		if(!game.getPlayers().get(i).getName().equals("Human") && game.getPlayers().get(i).play()) 
+    		if(!game.getPlayers().get(i).IsHuman() && game.getPlayers().get(i).play()) 
     		{
     			report += game.getPlayers().get(i).getName() + " played: ";
     			report += game.getPlayers().get(i).return_report();
     			game.getTable().setTable(game.getPlayers().get(i).getTable().getTable());
     			game.Announcement();
     		}
-    		else if (!game.getPlayers().get(i).getName().equals("Human") && game.getDeck().getDeck().size() > 0) 
+    		else if (!game.getPlayers().get(i).IsHuman() && game.getDeck().getDeck().size() > 0) 
     		{
 	    		Tile t= game.getDeck().Draw();
 	    		report += game.getPlayers().get(i).getName() + " drew: ";
 	    		report += AiAddTile(game.getPlayers().get(i),t) + "\n";
 	    	}
+
     	}
 		prevString = report;
     	console.setText(console.getText() + prevString); 
@@ -1765,5 +1800,13 @@ public class Ui extends Application
 		p.getHand().addTileToHand(t);
 		out += t.toString();
 		return out;
+	}
+	private void check() {
+		int check = 0; 
+		for(int i =0; i < game.getPlayers().size();i++) {
+			if(game.getPlayers().get(i).IsHuman())check++;
+		}
+		if(check == game.getPlayers().size()) humans = true;
+		
 	}
 }

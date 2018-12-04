@@ -25,10 +25,10 @@ public class GameMaster extends Observable{
 	
 	public GameMaster(){
 		//create human, AI1, AI2, AI3, deck table GUI
-		mainHuman = new Player("Human",1, new HumanPlayerStrategy());
-		humanTwo = new Player("Human Two",2, new HumanPlayerStrategy());
-		humanThree = new Player("Human Three",3, new HumanPlayerStrategy());
-		humanFour = new Player("Human Four",4, new HumanPlayerStrategy());
+		mainHuman = new Player("Human",0, new HumanPlayerStrategy());
+		humanTwo = new Player("Human",1, new HumanPlayerStrategy());
+		humanThree = new Player("Human",2, new HumanPlayerStrategy());
+		humanFour = new Player("Human",3, new HumanPlayerStrategy());
 		AI1 = new Player("AI1",1, new p1());
 		AI2 = new Player("AI2",2, new p2());
 		AI3 = new Player("AI3",3, new p3());
@@ -46,6 +46,8 @@ public class GameMaster extends Observable{
 	public Memento saveData() {
 		return new Memento(this);
 	}
+	
+	
 	public void deal() {
 		Deck  d = new Deck();
 		d.Shuffle();
@@ -69,12 +71,8 @@ public class GameMaster extends Observable{
 	public int getHumanPosition() {return IndexOfHuman;}
 	
 	public void addPlayer(int a) {
-		Player FirstPlayer = new Player("FirstPlayer",1, new HumanPlayerStrategy());
-		if(a == 0) {
-			players.add(FirstPlayer);
-			addObserver(FirstPlayer);
-		}	
-		else if(a == 1) {
+		
+		if(a == 1) {
 			players.add(AI1);
 			addObserver(AI1);}
 		else if(a == 2) {
