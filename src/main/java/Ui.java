@@ -61,6 +61,10 @@ public class Ui extends Application
 	Button scenarioTwo;
 	Button scenarioThree;
 	Button scenarioFour;
+	Button scenarioFive;
+	Button scenarioSix;
+	Button scenarioSeven;
+	Button scenarioEight;
 	
 	boolean isTimerOn=false;
 	Button timerButton;
@@ -1405,6 +1409,162 @@ public class Ui extends Application
 		    	playGameRigging(s4, turnOrders);
 		    }
 		});
+		//Sets up the Scenario 5 Button
+		scenarioFive = new Button();
+		scenarioFive.setText("Strategy 1");
+		scenarioFive.setMinSize(100, 50);
+		scenarioFive.setDisable(false);
+		scenarioFive.setLayoutX(327);
+		scenarioFive.setLayoutY(600);
+		scenarioFive.setOnAction(new EventHandler<ActionEvent>() 
+		{
+		    public void handle(ActionEvent e) 
+		    {
+		    	clearMainScreen();
+		    	int maxPlayers  = 4; 
+		    	int [] turnOrders = new int[maxPlayers];
+		    	turnOrders[0] = 1;
+		    	turnOrders[1] = 2;
+		    	turnOrders[2] = 3;
+		    	turnOrders[3] = 4;
+		        ScenarioFactory scenarioFactory = new ScenarioFactory();
+		        Scenario s4 = scenarioFactory.getScenario("s4");
+		        game.Announcement();
+		        game = s4.deal(game);
+		        
+		    	setupGameRigging(); 
+		    	game.getPlayers().remove(game.getHuman());
+		    	
+		    	
+		    	try {
+					Thread.sleep(2000);
+				} catch (InterruptedException e1) {
+					e1.printStackTrace();
+				}
+		    	
+		    	//turn orders are rigged 
+
+		    	playGameRigging(s4, turnOrders);
+		    }
+		});
+		
+		//Sets up the Scenario 6 Button
+		scenarioSix = new Button();
+		scenarioSix.setText("Strategy 2");
+		scenarioSix.setMinSize(100, 50);
+		scenarioSix.setDisable(false);
+		scenarioSix.setLayoutX(437);
+		scenarioSix.setLayoutY(600);
+		scenarioSix.setOnAction(new EventHandler<ActionEvent>() 
+		{
+		    public void handle(ActionEvent e) 
+		    {
+		    	clearMainScreen();
+		    	int maxPlayers  = 4; 
+		    	int [] turnOrders = new int[maxPlayers];
+		    	turnOrders[0] = 1;
+		    	turnOrders[1] = 2;
+		    	turnOrders[2] = 3;
+		    	turnOrders[3] = 4;
+		        ScenarioFactory scenarioFactory = new ScenarioFactory();
+		        Scenario s4 = scenarioFactory.getScenario("s4");
+		        game.Announcement();
+		        game = s4.deal(game);
+		        
+		    	setupGameRigging(); 
+		    	game.getPlayers().remove(game.getHuman());
+		    	
+		    	
+		    	try {
+					Thread.sleep(2000);
+				} catch (InterruptedException e1) {
+					e1.printStackTrace();
+				}
+		    	
+		    	//turn orders are rigged 
+
+		    	playGameRigging(s4, turnOrders);
+		    }
+		});
+		
+		//Sets up the Scenario 7 Button
+		scenarioSeven = new Button();
+		scenarioSeven.setText("Strategy 3");
+		scenarioSeven.setMinSize(100, 50);
+		scenarioSeven.setDisable(false);
+		scenarioSeven.setLayoutX(547);
+		scenarioSeven.setLayoutY(600);
+		scenarioSeven.setOnAction(new EventHandler<ActionEvent>() 
+		{
+		    public void handle(ActionEvent e) 
+		    {
+		    	clearMainScreen();
+		    	int maxPlayers  = 4; 
+		    	int [] turnOrders = new int[maxPlayers];
+		    	turnOrders[0] = 1;
+		    	turnOrders[1] = 2;
+		    	turnOrders[2] = 3;
+		    	turnOrders[3] = 4;
+		        ScenarioFactory scenarioFactory = new ScenarioFactory();
+		        Scenario s4 = scenarioFactory.getScenario("s4");
+		        game.Announcement();
+		        game = s4.deal(game);
+		        
+		    	setupGameRigging(); 
+		    	game.getPlayers().remove(game.getHuman());
+		    	
+		    	
+		    	try {
+					Thread.sleep(2000);
+				} catch (InterruptedException e1) {
+					e1.printStackTrace();
+				}
+		    	
+		    	//turn orders are rigged 
+
+		    	playGameRigging(s4, turnOrders);
+		    }
+		});
+		
+		//Sets up the Scenario 8 Button
+		scenarioEight = new Button();
+		scenarioEight.setText("Strategy 4");
+		scenarioEight.setMinSize(100, 50);
+		scenarioEight.setDisable(false);
+		scenarioEight.setLayoutX(657);
+		scenarioEight.setLayoutY(600);
+		scenarioEight.setOnAction(new EventHandler<ActionEvent>() 
+		{
+		    public void handle(ActionEvent e) 
+		    {
+		    	clearMainScreen();
+		    	int maxPlayers  = 4; 
+		    	int [] turnOrders = new int[maxPlayers];
+		    	turnOrders[0] = 1;
+		    	turnOrders[1] = 2;
+		    	turnOrders[2] = 3;
+		    	turnOrders[3] = 4;
+		        ScenarioFactory scenarioFactory = new ScenarioFactory();
+		        Scenario s4 = scenarioFactory.getScenario("s4");
+		        game.Announcement();
+		        game = s4.deal(game);
+		        
+		    	setupGameRigging(); 
+		    	game.getPlayers().remove(game.getHuman());
+		    	
+		    	
+		    	try {
+					Thread.sleep(2000);
+				} catch (InterruptedException e1) {
+					e1.printStackTrace();
+				}
+		    	
+		    	//turn orders are rigged 
+
+		    	playGameRigging(s4, turnOrders);
+		    }
+		});
+		
 		
 		InputStream mainImagePath = getClass().getResourceAsStream("pickOne.png");
 		Image mainImage = new Image(mainImagePath);
@@ -1416,6 +1576,10 @@ public class Ui extends Application
 		mainScreen.getChildren().add(scenarioTwo);
 		mainScreen.getChildren().add(scenarioThree);
 		mainScreen.getChildren().add(scenarioFour);
+		mainScreen.getChildren().add(scenarioFive);
+		mainScreen.getChildren().add(scenarioSix);
+		mainScreen.getChildren().add(scenarioSeven);
+		mainScreen.getChildren().add(scenarioEight);
 		mainScreen.getChildren().add(mainImageNode);
 		
 	}
