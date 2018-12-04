@@ -135,76 +135,7 @@ public class GameMaster extends Observable{
 	}
 	
 	
-	public void AI_play() {
-		mainHuman.setIsTurn(false);
-		AI1.setIsTurn(true);
-		System.out.println("AI1 REPORT:  ");
-		//AI1.getHand().HandReader();
-		System.out.println("Number of tiles are: " + AI1.getHand().sizeOfHand());
-		if(AI1.play()) System.out.println("AI 1 decide to play");
-		else {
-			if(deck.getDeck().size() > 0)
-				AI1.getHand().addTileToHand(deck.Draw());
-			System.out.println("AI 1 decide not to play");
-		}
-		
-		AI3.getHand().sortTilesByColour();
-		AI1.setIsTurn(false);
-		AI2.setIsTurn(true);
-		Announcement();
-		System.out.println("Number of tiles are: " + AI1.getHand().sizeOfHand());
-		
-		System.out.println("------------------------------");
-		
 
-
-		System.out.println("AI2 REPORT:  ");
-		//AI2.getHand().HandReader();
-		System.out.println("Number of tiles are: " + AI2.getHand().sizeOfHand());
-		if(AI2.play()) System.out.println("AI 2 decide to play");
-		else {
-			if(deck.getDeck().size() > 0) AI2.getHand().addTileToHand(deck.Draw());
-			System.out.println("AI 2 decide not to play");}
-		AI2.getHand().sortTilesByColour();
-		AI2.setIsTurn(false);
-		AI3.setIsTurn(true);
-		Announcement();
-		System.out.println("Number of tiles are: " + AI2.getHand().sizeOfHand());
-		
-		System.out.println("------------------------------");
-		
-
-
-		System.out.println("AI3 REPORT:  ");
-		//AI3.getHand().HandReader();
-		System.out.println("Number of tiles are: " + AI3.getHand().sizeOfHand());
-		if(AI3.play()) System.out.println("AI 3 decide to play");
-		else {
-			if(deck.getDeck().size() > 0) AI3.getHand().addTileToHand(deck.Draw());
-			System.out.println("AI 3 decide not to play");}
-		AI3.getHand().sortTilesByColour();
-		AI3.setIsTurn(false);
-		mainHuman.setIsTurn(true);
-		Announcement();
-		System.out.println("Number of tiles are: " + AI3.getHand().sizeOfHand() + "\n");
-		
-		
-		
-		System.out.println("AI4 REPORT:  ");
-		//AI3.getHand().HandReader();
-		System.out.println("Number of tiles are: " + AI4.getHand().sizeOfHand());
-		if(AI4.play()) System.out.println("AI 4 decide to play");
-		else {
-			if(deck.getDeck().size() > 0) AI4.getHand().addTileToHand(deck.Draw());
-			System.out.println("AI 4 decide not to play");}
-		AI4.getHand().sortTilesByColour();
-		AI4.setIsTurn(false);
-		mainHuman.setIsTurn(true);
-		Announcement();
-		System.out.println("Number of tiles are: " + AI4.getHand().sizeOfHand() + "\n");
-		
-
-	}
 
 	//draw card to human and AI
 	public int[] dealInitialHand(int[] ai) 
