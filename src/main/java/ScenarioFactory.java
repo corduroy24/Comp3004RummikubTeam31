@@ -23,7 +23,7 @@ public class ScenarioFactory {
 		  }
 	      
 	      else if(scenarioType.equalsIgnoreCase("s5")){
-		         return new Scenario4();
+		         return new Scenario5();
 		  }
 	      
 	      return null;

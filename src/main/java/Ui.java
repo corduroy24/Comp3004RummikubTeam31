@@ -1265,19 +1265,19 @@ public class Ui extends Application
 		    	//partially working 
 		    	
 		    	clearMainScreen();
-		    	int maxPlayers  = 4; 
+		    /*	int maxPlayers  = 4; 
 		    	int [] turnOrders = new int[maxPlayers];
 		    	turnOrders[0] = 1;
 		    	turnOrders[1] = 2;
 		    	turnOrders[2] = 3;
-		    	turnOrders[3] = 4;
+		    	turnOrders[3] = 4;*/
 		        ScenarioFactory scenarioFactory = new ScenarioFactory();
 		        Scenario s1 = scenarioFactory.getScenario("s1");
 		        game.Announcement();
 		        game = s1.deal(game);
 		    	setupGameRigging(); 
 
-		    	game.getPlayers().remove(pointer);
+		    	game.getPlayers().remove(game.getHuman());
 		    	
 		    	try {
 					Thread.sleep(2000);
@@ -1287,7 +1287,7 @@ public class Ui extends Application
 		    	
 		    	//turn orders are rigged 
 
-		    	playGameRigging(s1, turnOrders);
+		    	playGameRigging(s1, s1.getTurnOrder());
 		    }		    
 		});
 		
@@ -1421,16 +1421,10 @@ public class Ui extends Application
 		    public void handle(ActionEvent e) 
 		    {
 		    	clearMainScreen();
-		    	int maxPlayers  = 4; 
-		    	int [] turnOrders = new int[maxPlayers];
-		    	turnOrders[0] = 1;
-		    	turnOrders[1] = 2;
-		    	turnOrders[2] = 3;
-		    	turnOrders[3] = 4;
 		        ScenarioFactory scenarioFactory = new ScenarioFactory();
-		        Scenario s4 = scenarioFactory.getScenario("s4");
+		        Scenario s5 = scenarioFactory.getScenario("s5");
 		        game.Announcement();
-		        game = s4.deal(game);
+		        game = s5.deal(game);
 		        
 		    	setupGameRigging(); 
 		    	game.getPlayers().remove(game.getHuman());
@@ -1444,7 +1438,7 @@ public class Ui extends Application
 		    	
 		    	//turn orders are rigged 
 
-		    	playGameRigging(s4, turnOrders);
+		    	playGameRigging(s5, s5.getTurnOrder());
 		    }
 		});
 		
@@ -1959,7 +1953,7 @@ public class Ui extends Application
 	    		prevString += game.getPlayers().get(turnOrders[x]-1).getName() + " drew: ";
 	    		switch(round) {
 		    		case 0:  game = s.secondTurn(game, turnOrders[x]); break; 
-		    		case 1:  game = s.thirdTurn(game, turnOrders[x]); break; 
+		    		//case 1:  game = s.thirdTurn(game, turnOrders[x]); break; 
 		    		default: System.out.println("Scenario finished ");
 	    		}
 	    	}
