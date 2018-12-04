@@ -42,12 +42,16 @@ public class Player implements Observer{
 	public ArrayList<Tile> getPlayedList(){return PlayedTileList; };
 	public ArrayList<Tile> getSuggPlayList(){return SuggPlayTileList; };
 
+	public boolean IsHuman() {
+		if(name.equals("Human"))  return true;
+		else return false;
+		}
 	public void renewPlayedList() {PlayedTileList = new ArrayList<Tile>();}
 	
 	public String return_report() {
 		return report;
 	}
-	
+	public int getId() {return playerID;}
 	public void set_report(String a) {
 		report = a;
 	}
