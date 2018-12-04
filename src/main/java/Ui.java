@@ -1289,7 +1289,7 @@ public class Ui extends Application
 		
 		//Sets up the Scenario 2 Button
 		scenarioTwo = new Button();
-		scenarioTwo.setText("Scenario 2");
+		scenarioTwo.setText("complex");
 		scenarioTwo.setMinSize(100, 50);
 		scenarioTwo.setDisable(false);
 		scenarioTwo.setLayoutX(437);
@@ -1330,7 +1330,7 @@ public class Ui extends Application
 		
 		//Sets up the Scenario 3 Button
 		scenarioThree = new Button();
-		scenarioThree.setText("Scenario 3");
+		scenarioThree.setText("simple 1");
 		scenarioThree.setMinSize(100, 50);
 		scenarioThree.setDisable(false);
 		scenarioThree.setLayoutX(547);
@@ -1369,7 +1369,7 @@ public class Ui extends Application
 		
 		//Sets up the Scenario 4 Button
 		scenarioFour = new Button();
-		scenarioFour.setText("Scenario 4");
+		scenarioFour.setText("Simple 2");
 		scenarioFour.setMinSize(100, 50);
 		scenarioFour.setDisable(false);
 		scenarioFour.setLayoutX(657);
