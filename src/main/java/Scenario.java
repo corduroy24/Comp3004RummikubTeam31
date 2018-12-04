@@ -237,7 +237,60 @@ public interface Scenario {
 		
 	}
 	
+	class Scenario4 implements Scenario{
+		int numTurns = 1; 
+		public GameMaster deal (GameMaster game) {
+			Deck deck = game.getDeck(); 
+			
+			game.addPlayer(2);
+			
+
+		//	game.getAI().setIsfirstMeldComplete(true);
+			game.getAI2().setIsfirstMeldComplete(true);
+	//		game.getAI3().setIsfirstMeldComplete(true);
+//			game.getAI4().setIsfirstMeldComplete(true);
+
+			Tile[] l = {new Tile(2,10),
+					new Tile(1,13),new Tile(3,10)};
+			
+			game.getAI2().getHand().addTilesToHand(l);
+			
+					
+			Tile[] l1 = {new Tile(1,7), new Tile(1,8), new Tile(1,9),new Tile(1,10),new Tile(1,11),new Tile(1,12)};
+			
+			
+			
+			
+			ArrayList<Tile> a = new ArrayList<Tile>();
+			a.addAll(Arrays.asList(l1));
+			game.getTable().addTiles(a);
+			
+		
+			
 	
+			
+			//System.out.println(game.getAI2().getHand());
+			game.Announcement();
+			return game; 
+		}
+		public GameMaster secondTurn (GameMaster game, int player) {
+			Deck deck = game.getDeck(); 
+
+			
+			return game; 
+		}
+		
+		public GameMaster thirdTurn (GameMaster game, int player) {
+			Deck deck = game.getDeck(); 
+
+
+			return game; 
+		}
+		public int getNumTurns() {
+			return this.numTurns;
+		}
+		
+	}	
 	
 	
 	/*	
