@@ -1262,15 +1262,8 @@ public class Ui extends Application
 		{
 		    public void handle(ActionEvent e) 
 		    {
-		    	//partially working 
 		    	
 		    	clearMainScreen();
-		    /*	int maxPlayers  = 4; 
-		    	int [] turnOrders = new int[maxPlayers];
-		    	turnOrders[0] = 1;
-		    	turnOrders[1] = 2;
-		    	turnOrders[2] = 3;
-		    	turnOrders[3] = 4;*/
 		        ScenarioFactory scenarioFactory = new ScenarioFactory();
 		        Scenario s1 = scenarioFactory.getScenario("s1");
 		        game.Announcement();
@@ -1286,7 +1279,6 @@ public class Ui extends Application
 				}
 		    	
 		    	//turn orders are rigged 
-
 		    	playGameRigging(s1, s1.getTurnOrder());
 		    }		    
 		});
@@ -1302,7 +1294,6 @@ public class Ui extends Application
 		{
 		    public void handle(ActionEvent e) 
 		    {
-	//partially working 
 		    	
 		    	clearMainScreen();
 		    	int maxPlayers  = 4; 
@@ -1327,7 +1318,6 @@ public class Ui extends Application
 				}
 		    	
 		    	//turn orders are rigged 
-
 		    	playGameRigging(s2, turnOrders);
 		    }
 		});
@@ -1366,7 +1356,6 @@ public class Ui extends Application
 				}
 		    	
 		    	//turn orders are rigged 
-
 		    	playGameRigging(s3, turnOrders);
 		    }
 		});
@@ -1405,7 +1394,6 @@ public class Ui extends Application
 				}
 		    	
 		    	//turn orders are rigged 
-
 		    	playGameRigging(s4, turnOrders);
 		    }
 		});
@@ -1429,7 +1417,6 @@ public class Ui extends Application
 		    	setupGameRigging(); 
 		    	game.getPlayers().remove(game.getHuman());
 		    	
-		    	
 		    	try {
 					Thread.sleep(2000);
 				} catch (InterruptedException e1) {
@@ -1437,7 +1424,6 @@ public class Ui extends Application
 				}
 		    	
 		    	//turn orders are rigged 
-
 		    	playGameRigging(s5, s5.getTurnOrder());
 		    }
 		});
