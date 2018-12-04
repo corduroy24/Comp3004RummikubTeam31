@@ -1288,7 +1288,7 @@ public class Ui extends Application
 		        game = s2.deal(game);
 		        
 		    	setupGameRigging(); 
-
+		    	game.getPlayers().remove(game.getHuman());
 		    	
 		    	
 		    	try {
