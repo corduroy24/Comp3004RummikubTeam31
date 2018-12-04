@@ -72,8 +72,7 @@ public class Ui extends Application
 	Button scenarioThirteen;
 	Button scenarioFourteen;
 	Button scenarioFifteen;
-
-
+	Button scenarioSixteen;
 
 	
 	boolean isTimerOn=false;
@@ -1419,12 +1418,12 @@ public class Ui extends Application
 		    public void handle(ActionEvent e) 
 		    {
 		    	clearMainScreen();
-		    	int maxPlayers  = 4; 
+		    	/*int maxPlayers  = 4; 
 		    	int [] turnOrders = new int[maxPlayers];
 		    	turnOrders[0] = 1;
 		    	turnOrders[1] = 2;
 		    	turnOrders[2] = 3;
-		    	turnOrders[3] = 4;
+		    	turnOrders[3] = 4;*/
 		        ScenarioFactory scenarioFactory = new ScenarioFactory();
 		        Scenario s5 = scenarioFactory.getScenario("s5");
 		        game.Announcement();
@@ -1440,7 +1439,7 @@ public class Ui extends Application
 				}
 		    	
 		    	//turn orders are rigged 
-		    	playGameRigging(s5, turnOrders);
+		    	playGameRigging(s5, s5.getTurnOrder());
 		    }
 		});
 		
@@ -1794,7 +1793,7 @@ public class Ui extends Application
 		    }
 		});
 		
-		//Sets up the Scenario 9 Button
+		//Sets up the Scenario 15 Button
 		scenarioFifteen = new Button();
 		scenarioFifteen.setText("Strategy 3-4");
 		scenarioFifteen.setMinSize(100, 50);
@@ -1833,6 +1832,45 @@ public class Ui extends Application
 		    }
 		});
 		
+		//Sets up the Scenario 16 Button
+		scenarioSixteen = new Button();
+		scenarioSixteen.setText("Strategy 3-4");
+		scenarioSixteen.setMinSize(100, 50);
+		scenarioSixteen.setDisable(false);
+		scenarioSixteen.setLayoutX(767);
+		scenarioSixteen.setLayoutY(700);
+		scenarioSixteen.setOnAction(new EventHandler<ActionEvent>() 
+		{
+		    public void handle(ActionEvent e) 
+		    {
+		    	clearMainScreen();
+		    	int maxPlayers  = 4; 
+		    	int [] turnOrders = new int[maxPlayers];
+		    	turnOrders[0] = 1;
+		    	turnOrders[1] = 2;
+		    	turnOrders[2] = 3;
+		    	turnOrders[3] = 4;
+		        ScenarioFactory scenarioFactory = new ScenarioFactory();
+		        Scenario s16 = scenarioFactory.getScenario("s16");
+		        game.Announcement();
+		        game = s16.deal(game);
+		        
+		    	setupGameRigging(); 
+		    	game.getPlayers().remove(game.getHuman());
+		    	
+		    	
+		    	try {
+					Thread.sleep(2000);
+				} catch (InterruptedException e1) {
+					e1.printStackTrace();
+				}
+		    	
+		    	//turn orders are rigged 
+
+		    	playGameRigging(s16, turnOrders);
+		    }
+		});
+		
 		
 		InputStream mainImagePath = getClass().getResourceAsStream("pickOne.png");
 		Image mainImage = new Image(mainImagePath);
@@ -1855,6 +1893,8 @@ public class Ui extends Application
 		mainScreen.getChildren().add(scenarioThirteen);
 		mainScreen.getChildren().add(scenarioFourteen);
 		mainScreen.getChildren().add(scenarioFifteen);
+		mainScreen.getChildren().add(scenarioSixteen);
+
 
 
 		mainScreen.getChildren().add(mainImageNode);
@@ -2215,7 +2255,6 @@ public class Ui extends Application
 			System.out.println(turnOrders[x]);
 	
 		System.out.print("\n");
-		
 		int x =0; 
 		int round = 0; 
 		for(int i = 0; i < s.getNumTurns(); i++) {
@@ -2223,7 +2262,7 @@ public class Ui extends Application
 			System.out.println("--------------------------- "+ turnOrders[x]);
 			
 	    	game.Announcement();
-
+	    	
 			game.getPlayers().get(turnOrders[x]-1).getHand().sortTilesByColour();
 			game.getPlayers().get(turnOrders[x]-1).getHand().HandReader(); 
 
@@ -2235,12 +2274,17 @@ public class Ui extends Application
 			else if (game.getDeck().getDeck().size() > 0) 
 			{
 	    		prevString += game.getPlayers().get(turnOrders[x]-1).getName() + " drew: ";
-	    		//System.out.println(turnOrders[x]+"jn "+ x);
 	    		switch(round) {
 		    		case 0:  game = s.secondTurn(game, turnOrders[x]); break; 
 		    		case 1:  game = s.thirdTurn(game, turnOrders[x]); break; 
 		    		default: System.out.println("Scenario finished ");
 	    		}
+	    		/*if(round == 0)
+	    			game = s.secondTurn(game, turnOrders[x]);
+	    		else if (round == 1)
+	    			game = s.thirdTurn(game, turnOrders[x]);
+	    		else 
+	    			System.out.println("Scenario finished ");*/
 	    	}
 			game.Announcement();
 	    	
