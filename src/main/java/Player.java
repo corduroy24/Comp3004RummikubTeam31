@@ -125,7 +125,7 @@ public class Player implements Observer{
         
         enemies.remove(this);
         // update table and deck to decide what to play
-        table.setTable(update.getTable().getTable());
+        table = update.getTable();
         deck = update.getDeck();
         for(int i =0; i < enemies.size();i++) {
         	if(i == 0)
