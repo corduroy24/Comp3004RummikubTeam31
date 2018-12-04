@@ -118,9 +118,11 @@ public interface Scenario {
 			game.getAI2().setIsfirstMeldComplete(true);
 	//		game.getAI3().setIsfirstMeldComplete(true);
 //			game.getAI4().setIsfirstMeldComplete(true);
-
 			
+			Tile[] l = {new Tile(3,4),new Tile(4,4),
+					new Tile(1,5),new Tile(5,14)};
 			
+			game.getAI2().getHand().addTilesToHand(l);
 					
 			Tile[] l1 = {new Tile(1,1), new Tile(1,2), new Tile(1,3), new Tile(1,4)};
 			Tile[] l2 = { new Tile(1,3),new Tile(2,3), new Tile(3,3),new Tile(4,3)};
@@ -177,25 +179,66 @@ public interface Scenario {
 		}
 		
 	}
-	/*	
-	class dealStrategy3 implements Scenario{
-		public void deal (Deck deck, Player p) {
-			p.getHand().DrawThis(new Tile(1,2), deck);
-			p.getHand().DrawThis(new Tile(1,2), deck);
-			p.getHand().DrawThis(new Tile(1,2), deck);
-			p.getHand().DrawThis(new Tile(1,2), deck);
-			p.getHand().DrawThis(new Tile(1,2), deck);
-			p.getHand().DrawThis(new Tile(1,2), deck);
-			p.getHand().DrawThis(new Tile(1,2), deck);
-			p.getHand().DrawThis(new Tile(1,2), deck);
-			p.getHand().DrawThis(new Tile(1,2), deck);
-			p.getHand().DrawThis(new Tile(1,2), deck);
-			p.getHand().DrawThis(new Tile(1,2), deck);
-			p.getHand().DrawThis(new Tile(1,2), deck);
-			p.getHand().DrawThis(new Tile(1,2), deck);
-			p.getHand().DrawThis(new Tile(1,2), deck);		
-			}
+	
+	class Scenario3 implements Scenario{
+		int numTurns = 1; 
+		public GameMaster deal (GameMaster game) {
+			Deck deck = game.getDeck(); 
+			
+			game.addPlayer(2);
+			
+
+		//	game.getAI().setIsfirstMeldComplete(true);
+			game.getAI2().setIsfirstMeldComplete(true);
+	//		game.getAI3().setIsfirstMeldComplete(true);
+//			game.getAI4().setIsfirstMeldComplete(true);
+
+			
+			
+					
+			Tile[] l1 = {new Tile(1,11), new Tile(2,11), new Tile(3,11)};
+			Tile[] l2 = { new Tile(4,11),new Tile(4,12), new Tile(4,13)};
+			
+			
+			
+			ArrayList<Tile> a = new ArrayList<Tile>();
+			a.addAll(Arrays.asList(l1));
+			game.getTable().addTiles(a);
+			
+			ArrayList<Tile> b = new ArrayList<Tile>();
+			b.addAll(Arrays.asList(l2));
+			game.getTable().addTiles(b);
+			
+	
+			
+			//System.out.println(game.getAI2().getHand());
+			game.Announcement();
+			return game; 
+		}
+		public GameMaster secondTurn (GameMaster game, int player) {
+			Deck deck = game.getDeck(); 
+
+			
+			return game; 
+		}
+		
+		public GameMaster thirdTurn (GameMaster game, int player) {
+			Deck deck = game.getDeck(); 
+
+
+			return game; 
+		}
+		public int getNumTurns() {
+			return this.numTurns;
+		}
+		
 	}
+	
+	
+	
+	
+	/*	
+
 	
 	class dealStrategy4 implements Scenario{
 		public void deal (Deck deck, Player p) {
