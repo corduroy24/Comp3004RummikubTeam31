@@ -1273,7 +1273,33 @@ public class Ui extends Application
 		{
 		    public void handle(ActionEvent e) 
 		    {
+	//partially working 
 		    	
+		    	clearMainScreen();
+		    	int maxPlayers  = 4; 
+		    	int [] turnOrders = new int[maxPlayers];
+		    	turnOrders[0] = 1;
+		    	turnOrders[1] = 2;
+		    	turnOrders[2] = 3;
+		    	turnOrders[3] = 4;
+		        ScenarioFactory scenarioFactory = new ScenarioFactory();
+		        Scenario s2 = scenarioFactory.getScenario("s2");
+		        game.Announcement();
+		        game = s2.deal(game);
+		        
+		    	setupGameRigging(); 
+
+		    	
+		    	
+		    	try {
+					Thread.sleep(2000);
+				} catch (InterruptedException e1) {
+					e1.printStackTrace();
+				}
+		    	
+		    	//turn orders are rigged 
+
+		    	playGameRigging(s2, turnOrders);
 		    }
 		});
 		
