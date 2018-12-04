@@ -10,18 +10,18 @@ public class ScenarioFactory {
 	         return new Scenario1();
 	         
 	      } 
-	    /*  else if(handType.equalsIgnoreCase("s2")){
-	         return new ();
-	         
-	      }
+	     else if(scenarioType.equalsIgnoreCase("s2")){
+	         return new Scenario2();
+	        
+	      }/*
 	      else if(handType.equalsIgnoreCase("s3")){
 	         return new ();
 	      }
 	      
 	      else if(handType.equalsIgnoreCase("s4")){
 		         return new ();
-		      }*/
-	      
+		      }
+	      */
 	      return null;
 	   }
 }
