@@ -48,7 +48,7 @@ public class GameMaster extends Observable{
 	}
 	
 	
-	public void deal() {
+	public String deal() {
 		Deck  dd = new Deck();
 		dd.Shuffle();
 		//randomly pick a tile
@@ -70,12 +70,19 @@ public class GameMaster extends Observable{
 		Deck d = new Deck();
 		d.Shuffle();
 		
+		String consoleOutput = "Deciding turn order\n";
+		
 		//randomly pick a tile
 		for(int i =0; i < players.size();i++) {
 			players.get(i).getHand().clear();
 			players.get(i).getHand().drawFirst14(d);
 			System.out.println(players.get(i).getName()+ " player randomly pick up the tile "+ players.get(i).getHand().getTile(0));
+			consoleOutput += players.get(i).getName() + " drew " + players.get(i).getHand().getTile(0).getNumber() + ", ";
 		}
+		consoleOutput += "\n";
+		
+		
+		
 		// sort players turn
 		Collections.sort(players, new SortByCommand());	
 		String order= "So the order of the game is : ";
@@ -89,6 +96,9 @@ public class GameMaster extends Observable{
 			players.get(i).getHand().drawFirst14(deck);
 		}
 		System.out.println(order);
+		order+= "\n---------------------------------------------------------------------------------------------------------------------------------------------------------------\n";
+		
+		return consoleOutput+order;
 	}
 	public int getHumanPosition() {return IndexOfHuman;}
 	

@@ -1047,20 +1047,16 @@ public interface Scenario {
 				//turnOrders[0] = 2; 
 
 				Deck deck = game.getDeck(); 
-				game.addPlayer(1);
+				
 				game.addPlayer(4);
 
 				game.getAI4().setIsfirstMeldComplete(true);
 
-				Tile[] l = {new Tile(2,2),new Tile(4,2),
-							new Tile(3,9), new Tile(1,4),
-							new Tile(1,7)};
+				Tile[] l = {new Tile(3,2),new Tile(2,2),
+							new Tile(1,9), new Tile(1,2),
+							new Tile(1,7),new Tile(1,8),new Tile(1,11),new Tile(1,9)};
 				
-				Tile[] l1 = {new Tile(1,2), new Tile(2,2), new Tile(4,2)};
-				Tile[] l2 = {new Tile(3,1), new Tile(3,2), new Tile(3,3)};
-				Tile[] l3 = {new Tile(1,1), new Tile(1,2), new Tile(1,3)};
-
-				
+				Tile[] l1 = {new Tile(2,2), new Tile(1,2), new Tile(3,2)};
 
 				game.getAI4().getHand().addTilesToHand(l);
 
@@ -1086,3 +1082,49 @@ public interface Scenario {
 			public int getMaxPlayers() {return this.maxPlayers;}
 
 		}	
+	
+	class Scenario21 implements Scenario{
+		int numTurns = 1;
+		int maxPlayers = 1; 
+		int [] turnOrders = new int[maxPlayers]; 
+		public GameMaster deal (GameMaster game) {
+			//turnOrders[0] = 2; 
+
+			Deck deck = game.getDeck(); 
+			
+			game.addPlayer(4);
+
+			game.getAI4().setIsfirstMeldComplete(true);
+
+			Tile[] l = {new Tile(1,1),new Tile(1,2),
+						new Tile(1,9), new Tile(1,3),
+						new Tile(1,7),new Tile(1,8),new Tile(1,11)};
+			
+			Tile[] l1 = {new Tile(1,2), new Tile(2,2), new Tile(3,2)};
+
+			game.getAI4().getHand().addTilesToHand(l);
+
+			ArrayList<Tile> a = new ArrayList<Tile>();
+			a.addAll(Arrays.asList(l1));
+			game.getTable().addTiles(a);
+						
+			game.Announcement();
+			return game; 
+		}
+		
+		public GameMaster secondTurn (GameMaster game, int player) {
+			Deck deck = game.getDeck(); 
+			return game; 
+		}
+		public GameMaster thirdTurn (GameMaster game, int player) {
+			Deck deck = game.getDeck(); 
+			return game;	
+		}
+
+		public int getNumTurns() {return this.numTurns;}
+		public int [] getTurnOrder() {return this.turnOrders; }
+		public int getMaxPlayers() {return this.maxPlayers;}
+
+	}	
+	
+	

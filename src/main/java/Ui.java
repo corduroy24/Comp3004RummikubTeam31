@@ -84,12 +84,14 @@ public class Ui extends Application
 	Button scenarioEighteen;
 	Button scenarioNineteen;
 	Button scenarioTwenty; 
+	Button scenarioTwentyOne; 
 
 
 	Button fileInput; 
 	Label fileName;
 	TextField textField;
 	Button submitInput; 
+
 	Button AiOnly;
 	boolean isTimerOn=false;
 	Button timerButton;
@@ -100,6 +102,7 @@ public class Ui extends Application
 	ArrayList<Button> playerHandButtons = new ArrayList<Button>();
 	
 	TextArea console;
+	String startingConsoleText = "";
 	TextArea scoreConsole;
 	
 	HBox playerHand;
@@ -304,8 +307,6 @@ public class Ui extends Application
 		window.getIcons().add(iconImage);
 		window.setScene(mainMenuScene);
 		window.show();
-		
-		
 	}
 	
 	protected void fileInput() {
@@ -946,7 +947,7 @@ public class Ui extends Application
 		
 		//Creates the text console where it will ouput any necessary info
 		console = new TextArea();
-		console.setText("");
+		console.setText(startingConsoleText);
 		console.setEditable(false); //Makes it not editable
 		console.setMinSize(795, 100); //sets the size of the box
 		console.setMaxSize(795, 100); //sets the size of the box
@@ -1230,42 +1231,45 @@ public class Ui extends Application
 		    	}
 		    	System.out.println("Press again to get details");
 		    	
-		    	
+		    	String consoleText = "\nSuggested Tiles: ";
 		    	for(int x=0;x<playerHandButtons.size();x++)
 		    	{
 		    		String color = "";
+		    		String colorFull = "";
 		    		
 		    		if(playerHandButtons.get(x).getStyle().equals("-fx-background-color: #db4c4c"))
 					{
 						color = "R";
+						colorFull = "Red";
 					}
 					else if(playerHandButtons.get(x).getStyle().equals("-fx-background-color: #3888d8"))
 					{
 						color = "B";
+						colorFull = "Blue";
 					}
 					else if(playerHandButtons.get(x).getStyle().equals("-fx-background-color: #1a9922"))
 					{
 						color = "G";
+						colorFull = "Green";
 					}
 					else if(playerHandButtons.get(x).getStyle().equals("-fx-background-color: #c69033"))
 					{
 						color = "O";
+						colorFull = "Orange";
 					} 
 					else if(playerHandButtons.get(x).getStyle().equals("-fx-background-color: #474747"))
 					{
 						color = "J";
+						colorFull = "Joker";
 					}
+		    		
+		    		
 		    		
 		    		for(int y=0;y<suggestionTiles.size();y++)
 		    		{
 		    			if(suggestionTiles.get(y).getNumber() == 14 && playerHandButtons.get(x).getText().equals("J"))
 		    			{
-		    				DropShadow dropShadow = new DropShadow();
-							dropShadow.setRadius(20.0);
-							dropShadow.setColor(Color.PURPLE);
-							playerHandButtons.get(x).setEffect(dropShadow);
-							
-							suggestionTiles.set(y, new Tile(5, 1));
+		    				consoleText += colorFull + " " +suggestionTiles.get(y).getNumber() + ", ";
 		    			}
 		    			else if(playerHandButtons.get(x).getText().equals("J"))
 		    			{
@@ -1274,15 +1278,12 @@ public class Ui extends Application
 		    			else if(suggestionTiles.get(y).getNumber() == Integer.parseInt(playerHandButtons.get(x).getText()) && 
 			    				color.equals(suggestionTiles.get(y).getColor()))
 			    		{
-			    			DropShadow dropShadow = new DropShadow();
-							dropShadow.setRadius(20.0);
-							dropShadow.setColor(Color.PURPLE);
-							playerHandButtons.get(x).setEffect(dropShadow);
-							
-							suggestionTiles.set(y, new Tile(5, 1));
+		    				consoleText += colorFull + " " +suggestionTiles.get(y).getNumber() + ", ";
 			    		}	
 		    		}	
 		    	} 
+		    	consoleText+="\n";
+		    	console.setText(console.getText()+consoleText);
 		    }
 		});
 		
@@ -1453,7 +1454,7 @@ public class Ui extends Application
 		    	humanOne.setDisable(true);
 		    	game.addPlayer(5);
 		    	if(game.getPlayers().size() == maxPlayers) {
-		    		game.deal();
+		    		console.setText(console.getText()+game.deal());
 		    		check();
 		    		mainGame();
 		    		AisPlay(turnOfHuman,prevString);
@@ -1475,7 +1476,7 @@ public class Ui extends Application
 		    	humanTwo.setDisable(true);
 		    	game.addPlayer(6);
 		    	if(game.getPlayers().size() == maxPlayers) {
-		    		game.deal();
+		    		console.setText(console.getText()+game.deal());
 		    		check();
 		    		mainGame();
 		    		AisPlay(turnOfHuman,prevString);
@@ -1497,7 +1498,7 @@ public class Ui extends Application
 		    	humanThree.setDisable(true);
 		    	game.addPlayer(7);
 		    	if(game.getPlayers().size() == maxPlayers) {
-		    		game.deal();
+		    		console.setText(console.getText()+game.deal());
 		    		check();
 		    		mainGame();
 		    		AisPlay(turnOfHuman,prevString);
@@ -1520,7 +1521,7 @@ public class Ui extends Application
 		    	aiOne.setDisable(true);
 		    	game.addPlayer(1);
 		    	if(game.getPlayers().size() == maxPlayers) {
-		    		game.deal();
+		    		startingConsoleText = game.deal();
 		    		mainGame();
 		    		AisPlay(turnOfHuman,prevString);
 		    	}
@@ -1542,7 +1543,7 @@ public class Ui extends Application
 		    	aiTwo.setDisable(true);
 		    	game.addPlayer(2);
 		    	if(game.getPlayers().size() == maxPlayers) {
-		    		game.deal();
+		    		console.setText(console.getText()+game.deal());
 		    		mainGame();
 		    		AisPlay(turnOfHuman,prevString);
 		    	}
@@ -1564,7 +1565,7 @@ public class Ui extends Application
 		    	aiThree.setDisable(true);
 		    	game.addPlayer(3);
 		    	if(game.getPlayers().size() == maxPlayers) {
-		    		game.deal();
+		    		console.setText(console.getText()+game.deal());
 		    		mainGame();
 		    		AisPlay(turnOfHuman,prevString);
 		    	}
@@ -1586,7 +1587,7 @@ public class Ui extends Application
 		    	aiFour.setDisable(true);
 		    	game.addPlayer(4);
 		    	if(game.getPlayers().size() == maxPlayers) {
-		    		game.deal();
+		    		console.setText(console.getText()+game.deal());
 		    		mainGame();	
 		    		AisPlay(turnOfHuman,prevString);
 		    	}
@@ -2402,6 +2403,43 @@ public class Ui extends Application
 		    	playGameRigging(s20, turnOrders);
 		    }
 		});
+		scenarioTwentyOne = new Button();
+		scenarioTwentyOne.setText("Strategy 4-2");
+		scenarioTwentyOne.setMinSize(100, 50);
+		scenarioTwentyOne.setDisable(false);
+		scenarioTwentyOne.setLayoutX(600);
+		scenarioTwentyOne.setLayoutY(400);
+		scenarioTwentyOne.setOnAction(new EventHandler<ActionEvent>() 
+		{
+		    public void handle(ActionEvent e) 
+		    {
+		    	clearMainScreen();
+		    	int maxPlayers  = 4; 
+		    	int [] turnOrders = new int[maxPlayers];
+		    	turnOrders[0] = 1;
+		    	turnOrders[1] = 2;
+		    	turnOrders[2] = 3;
+		    	turnOrders[3] = 4;
+		        ScenarioFactory scenarioFactory = new ScenarioFactory();
+		        Scenario s21 = scenarioFactory.getScenario("s21");
+		        game.Announcement();
+		        game = s21.deal(game);
+		        
+		    	setupGameRigging(); 
+		    	game.getPlayers().remove(game.getHuman());
+		    	
+		    	
+		    	try {
+					Thread.sleep(2000);
+				} catch (InterruptedException e1) {
+					e1.printStackTrace();
+				}
+		    	
+		    	//turn orders are rigged 
+
+		    	playGameRigging(s21, turnOrders);
+		    }
+		});
 		
 		InputStream mainImagePath = getClass().getResourceAsStream("pickOne.png");
 		Image mainImage = new Image(mainImagePath);
@@ -2429,7 +2467,7 @@ public class Ui extends Application
 		mainScreen.getChildren().add(scenarioEighteen);
 		mainScreen.getChildren().add(scenarioNineteen);
 		mainScreen.getChildren().add(scenarioTwenty);
-
+		mainScreen.getChildren().add(scenarioTwentyOne);
 
 
 		mainScreen.getChildren().add(mainImageNode);

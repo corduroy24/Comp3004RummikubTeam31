@@ -41,18 +41,19 @@
 				ArrayList<ArrayList<Tile>> x1 = new ArrayList<ArrayList<Tile>>();
 				ArrayList<ArrayList<Tile>> x2 = new ArrayList<ArrayList<Tile>>();
 				x1=functions.getSequences(p.getHand().getTiles());
-				x2=functions.getSets(p.getHand().getTiles());
+				
+				x2=functions.getSets(p.getHand().getTiles());//System.out.println(x2);
 				
 				
 				int p1=0;int p2=0; int p3=0;
 				p.setPoints(p1,p2,p3);
 			
-				//prob. for sets 
+				//prob. for seqs 
 				for (int i=0;i<x1.size();i++) {
 					double tempsum=0;
 					for (int j = 0; j<x1.get(i).size();j++) {
 						                                       //Tile         //Table   //Deck     //p1 p2 p3 hand size 
-						tempsum+=functions.getProbability(x1.get(i).get(j),p.getTable(),p.getDeck().DeckofTiles,p1,p2,p3);
+						tempsum+=functions.getProbability(x1.get(i).get(j),p.getTable(),p.getDeck().DeckofTiles,p1,p2,p3);//System.out.println(tempsum);
 					}
 					
 					if (tempsum==0) {//System.out.println("LOL1");
@@ -67,7 +68,7 @@
 				 if (sum!=0) {//System.out.println("LOL2");
 					 AllLeastSeqs.add(leastSeq); 
 				 }
-				 //prob for sequences 
+				 //prob for set
 				 for (int i=0;i<x2.size();i++) {double tempsum=0;
 					for (int j = 0; j<x2.get(i).size();j++) 
 						tempsum+=functions.getProbability(x2.get(i).get(j),p.getTable(),p.getDeck().DeckofTiles,p1,p2,p3); 
@@ -85,8 +86,8 @@
 					 AllLeastSets.add(leastSet);
 				 }
 				 
-		//		 System.out.println(x1);System.out.println(x2);
-			//	 System.out.println(sum);System.out.println(sum2);
+				 //System.out.println(x1);System.out.println(x2);
+				// System.out.println(sum);System.out.println(sum2);
 				 
 				 //find best result 
 				 if ((sum+sum2)==0) {
@@ -127,7 +128,18 @@
 					}
 				}
 				out += "\n";
-				System.out.println(out);
+				double f=1000000;
+				double f2=1000000;
+				if (sum<sum2) {
+					f=sum;
+					f2=sum2;
+				}
+				else {
+					f=sum2;
+					f2=sum;
+				}
+				
+				System.out.println("Will play" + out + " as it has lower probability of " + f + " rather than " +  f2);
 				p.set_report(out);
 				//if size ==0, this player is the winner
 				if(p.getHand().getTiles().size() == 0) p.setWinner();
@@ -267,7 +279,18 @@
 						}
 					}
 					out += "\n";
-					System.out.println(out);
+					double f=1000000;
+					double f2=1000000;
+					if (sum<sum2) {
+						f=sum;
+						f2=sum2;
+					}
+					else {
+						f=sum2;
+						f2=sum;
+					}
+					
+					System.out.println("Will play" + out + " as it has lower probability of " + f + " rather than " +  f2);
 					p.set_report(out);
 					//set the fist meld complete
 					p.setIsfirstMeldComplete(true);
@@ -287,7 +310,18 @@
 						}
 					}
 					out += "\n";
-					System.out.println(out);
+					double f=1000000;
+					double f2=1000000;
+					if (sum<sum2) {
+						f=sum;
+						f2=sum2;
+					}
+					else {
+						f=sum2;
+						f2=sum;
+					}
+					
+					System.out.println("Will play" + out + " as it has lower probability of " + f + " rather than " +  f2);
 					p.set_report(out);
 					//set the fist meld complete
 					p.setIsfirstMeldComplete(true);
@@ -307,7 +341,18 @@
 						}
 					}
 					out += "\n";
-					System.out.println(out);
+					double f=1000000;
+					double f2=1000000;
+					if (sum<sum2) {
+						f=sum;
+						f2=sum2;
+					}
+					else {
+						f=sum2;
+						f2=sum;
+					}
+					
+					System.out.println("Will play" + out + " as it has lower probability of " + f + " rather than " +  f2);
 					p.set_report(out);
 					//set the fist meld complete
 					p.setIsfirstMeldComplete(true);
