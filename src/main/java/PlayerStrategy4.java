@@ -42,7 +42,7 @@
 				ArrayList<ArrayList<Tile>> x2 = new ArrayList<ArrayList<Tile>>();
 				x1=functions.getSequences(p.getHand().getTiles());
 				
-				x2=functions.getSets(p.getHand().getTiles());System.out.println(x2);
+				x2=functions.getSets(p.getHand().getTiles());//System.out.println(x2);
 				
 				
 				int p1=0;int p2=0; int p3=0;
@@ -128,7 +128,18 @@
 					}
 				}
 				out += "\n";
-				System.out.println(out);
+				double f=1000000;
+				double f2=1000000;
+				if (sum<sum2) {
+					f=sum;
+					f2=sum2;
+				}
+				else {
+					f=sum2;
+					f2=sum;
+				}
+				
+				System.out.println("Will play" + out + " as it has lower probability of " + f + " rather than " +  f2);
 				p.set_report(out);
 				//if size ==0, this player is the winner
 				if(p.getHand().getTiles().size() == 0) p.setWinner();
@@ -268,7 +279,18 @@
 						}
 					}
 					out += "\n";
-					System.out.println(out);
+					double f=1000000;
+					double f2=1000000;
+					if (sum<sum2) {
+						f=sum;
+						f2=sum2;
+					}
+					else {
+						f=sum2;
+						f2=sum;
+					}
+					
+					System.out.println("Will play" + out + " as it has lower probability of " + f + " rather than " +  f2);
 					p.set_report(out);
 					//set the fist meld complete
 					p.setIsfirstMeldComplete(true);
@@ -288,7 +310,18 @@
 						}
 					}
 					out += "\n";
-					System.out.println(out);
+					double f=1000000;
+					double f2=1000000;
+					if (sum<sum2) {
+						f=sum;
+						f2=sum2;
+					}
+					else {
+						f=sum2;
+						f2=sum;
+					}
+					
+					System.out.println("Will play" + out + " as it has lower probability of " + f + " rather than " +  f2);
 					p.set_report(out);
 					//set the fist meld complete
 					p.setIsfirstMeldComplete(true);
@@ -308,7 +341,18 @@
 						}
 					}
 					out += "\n";
-					System.out.println(out);
+					double f=1000000;
+					double f2=1000000;
+					if (sum<sum2) {
+						f=sum;
+						f2=sum2;
+					}
+					else {
+						f=sum2;
+						f2=sum;
+					}
+					
+					System.out.println("Will play" + out + " as it has lower probability of " + f + " rather than " +  f2);
 					p.set_report(out);
 					//set the fist meld complete
 					p.setIsfirstMeldComplete(true);
