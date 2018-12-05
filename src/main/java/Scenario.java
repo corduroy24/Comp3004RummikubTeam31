@@ -938,7 +938,8 @@ public interface Scenario {
 	}	
 	
 	
-	//play joker by putting on the board as part of a meld from hand
+	//show valid substitution of a joker played on the table (where joker is a specific card)	
+	//Issue: Meld of {joker, (3,5), (3,3)} does not display
 	class Scenario18 implements Scenario{
 		int numTurns = 1;
 		int maxPlayers = 1; 
@@ -983,3 +984,51 @@ public interface Scenario {
 		public int getMaxPlayers() {return this.maxPlayers;}
 
 	}	
+	
+	//show valid substitution of a joker played on the table (where joker could be one of 2 cards)		
+	//Issue: adds 2 jokers to the game 
+	class Scenario19 implements Scenario{
+			int numTurns = 1;
+			int maxPlayers = 1; 
+			int [] turnOrders = new int[maxPlayers]; 
+			public GameMaster deal (GameMaster game) {
+				//turnOrders[0] = 2; 
+
+				Deck deck = game.getDeck(); 
+				game.addPlayer(2);
+
+				game.getAI2().setIsfirstMeldComplete(true);
+
+				Tile joker = new Tile(14,14);
+				Tile[] l = {new Tile(1,5),new Tile(1,6),
+							new Tile(1,7), new Tile(3,5),
+							new Tile(3,4), new Tile(3,1)};
+				
+				Tile[] l1 = {joker, new Tile(2,1), new Tile(1,1)};
+				
+				joker.setJokerPoint(1);
+
+				game.getAI2().getHand().addTilesToHand(l);
+
+				ArrayList<Tile> a = new ArrayList<Tile>();
+				a.addAll(Arrays.asList(l1));
+				game.getTable().addTiles(a);
+							
+				game.Announcement();
+				return game; 
+			}
+			
+			public GameMaster secondTurn (GameMaster game, int player) {
+				Deck deck = game.getDeck(); 
+				return game; 
+			}
+			public GameMaster thirdTurn (GameMaster game, int player) {
+				Deck deck = game.getDeck(); 
+				return game;	
+			}
+
+			public int getNumTurns() {return this.numTurns;}
+			public int [] getTurnOrder() {return this.turnOrders; }
+			public int getMaxPlayers() {return this.maxPlayers;}
+
+		}	
