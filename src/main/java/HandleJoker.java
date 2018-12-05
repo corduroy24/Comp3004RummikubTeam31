@@ -607,7 +607,7 @@ public class HandleJoker {
 					point = subset.get(i).getNumber();
 				}
 				
-				if(subset.get(i).getNumber()+2 == subset.get(i+1).getNumber()) {
+				if(subset.get(i).getNumber()+2 == subset.get(i+1).getNumber() && subset.size()-NumberOfJoker >= 0) {
 						subset.get(subset.size()-NumberOfJoker).setJokerColor(color);
 						subset.get(subset.size()-NumberOfJoker).setJokerPoint(point);
 						NumberOfJoker--;

@@ -21,7 +21,7 @@ public class p2 implements PlayerStrategy{
 	
 	
 	public boolean playTheGame(Player p) {
-		int num = checkMeld.NumberOfJoker(p.getHand().getTiles());
+		if(p.getCanPlay()) {int num = checkMeld.NumberOfJoker(p.getHand().getTiles());
 		int num2=0;
 		for (int i=0;i<p.getTable().getTable().size();i++) {
 			num2+=checkMeld.NumberOfJoker(p.getTable().getTable().get(i));
@@ -49,7 +49,7 @@ public class p2 implements PlayerStrategy{
 		ArrayList<ArrayList<Tile>> output = new ArrayList<ArrayList<Tile>>();
 		checkMeld.separateList(p.getHand().getTiles()); //  initial tile for each list of 5
 		
-		if((num == 0 )&&(num2 == 0)) {System.out.println("PLAYS AI2 NORMALLY");
+		if((num == 0 )&&(num2 == 0)) {
 		return old_p2.playTheGame(p);}
 		
 		else if(p.getTable().getNumberOfTile() > 0 && p.getIsFirstMeldComplete() == false) {
@@ -108,8 +108,6 @@ public class p2 implements PlayerStrategy{
 					}
 					out += "\n";
 					p.set_report(out);
-					System.out.println("testing:      " + out);
-					System.out.println("Things left" + p.getHand().getTiles());
 					return true;
 				}
 				return false;
@@ -431,9 +429,10 @@ public class p2 implements PlayerStrategy{
 					function.playLastTile(p);//System.out.println("TEST 6");
 					return true;
 				}
-			
 			}
-		
-	return false;
+			return false;
+		}
+		else return false;
+	
 	}
 }

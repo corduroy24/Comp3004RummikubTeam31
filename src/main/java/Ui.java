@@ -2163,7 +2163,6 @@ public class Ui extends Application
 	public boolean updateTable()
 	{
 		Table table = game.getTable();
-		System.out.println(game.getTable().getTable());
 		ArrayList<ArrayList<Tile>> t = table.getTable();
 		for(int x=0;x<tableButtons[0].length;x++)
 		{
