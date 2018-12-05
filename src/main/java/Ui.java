@@ -1258,6 +1258,12 @@ public class Ui extends Application
 		    		{
 		    			if(suggestionTiles.get(y).getNumber() == 14 && playerHandButtons.get(x).getText().equals("J"))
 		    			{
+		    				DropShadow dropShadow = new DropShadow();
+							dropShadow.setRadius(20.0);
+							dropShadow.setColor(Color.PURPLE);
+							playerHandButtons.get(x).setEffect(dropShadow);
+							
+							suggestionTiles.set(y, new Tile(5, 1));
 		    				consoleText += colorFull + " " +suggestionTiles.get(y).getNumber() + ", ";
 		    			}
 		    			else if(playerHandButtons.get(x).getText().equals("J"))
@@ -1267,6 +1273,12 @@ public class Ui extends Application
 		    			else if(suggestionTiles.get(y).getNumber() == Integer.parseInt(playerHandButtons.get(x).getText()) && 
 			    				color.equals(suggestionTiles.get(y).getColor()))
 			    		{
+			    			DropShadow dropShadow = new DropShadow();
+							dropShadow.setRadius(20.0);
+							dropShadow.setColor(Color.PURPLE);
+							playerHandButtons.get(x).setEffect(dropShadow);
+							
+							suggestionTiles.set(y, new Tile(5, 1));
 		    				consoleText += colorFull + " " +suggestionTiles.get(y).getNumber() + ", ";
 			    		}	
 		    		}	
