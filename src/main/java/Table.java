@@ -12,7 +12,6 @@ public class Table{
 	private int totalAdded = 0;
 	private int nextLine = 0;
 	private HandleJoker check = new HandleJoker();
-
 	
 	public Table() {
 		table = new ArrayList<ArrayList<Tile>>();
@@ -54,7 +53,7 @@ public class Table{
 			//System.out.println("Table size: "+table.get(timesAdded).size());
 		}
 		
-		if(isSet(tiles2) || isSequence(tiles2))
+		if(isSequence(tiles2) || isSet(tiles2))
 		{
 			if(totalAdded+tiles2.size()>19)
 			{
@@ -165,9 +164,8 @@ public class Table{
 	    		
 	    		return b.getNumber()-b.getJokerPoint();
 	    		
-	    	}
-	    */	
-	    	//System.out.println(a.getJokerPoint()); System.out.println(a.getNumber());
+	    	}	
+	    	*///System.out.println(a.getJokerPoint()); System.out.println(a.getNumber());
 	        return a.getNumber() - b.getNumber(); 
 	    } 
 	} 
@@ -189,7 +187,8 @@ public class Table{
 			 color = t.get(0).getJokerColor(); 
 		}
 		
-		for(int u =0; u < t.size()-1-NumberOfJoker;u++) {
+		
+		for(int u =0; u < t.size()-1;u++) {
 			int current, next;
 			String current_color = t.get(u).getColor();
 			if (t.get(u).getColor()=="J") {
@@ -203,17 +202,16 @@ public class Table{
 			if (t.get(u+1).getNumber()==14) {
 				next= t.get(0).getJokerPoint(); 
 			}
-			
 			if(next == 14) {
 				return true;}
-			
 			if(!current_color.equals(color)) {
-					return false;}
+				return false;}
 			else {
 				if(current+1 != next) {
-					if(next - current > 2) return false;
+					if(next - current > 2) {return false;}
 					else if((NumberOfJoker > 0) && (next-2 == current))	NumberOfJoker--;
-					else return false;
+					else {
+						return false;}
 				}
 			}
 		}
@@ -324,7 +322,6 @@ public class Table{
 			nextLine++;
 		}
 	}
-	
 	// Add set or sequence on table, return true if success
 		// if it is not a set or sequence, it will return false
 		public boolean AiAddTiles(ArrayList<Tile> tiles2) 
