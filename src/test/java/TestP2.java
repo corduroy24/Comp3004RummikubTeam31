@@ -258,7 +258,8 @@ public class TestP2 extends TestCase{
 	/*
 	 * Player hand (5,6,7) (5,3,1)
 	 * Table (1,1,Joker)	
-	 * Can replace 1 with joker -> using joker to play 3 Joker 5.
+	 * Can replace 1 with joker -> using joker to play 3 Joker 5. 
+	 * (use for scenario - line 63)
 	 */
 	public void testReUseTable3() {
 		Player p = new Player("test",1,new p2());
@@ -282,6 +283,7 @@ public class TestP2 extends TestCase{
 		
 	}
 	public void testReUseTable4() {
+		
 		Player p = new Player("test",1,new p2());
 		Tile joker = new Tile(14,14);
 		Tile[] l = {new Tile(1,5),new Tile(1,6),
@@ -308,7 +310,10 @@ public class TestP2 extends TestCase{
 		p.setIsfirstMeldComplete(true);
 		assertTrue(p.play() == true);
 		p.getHand().HandReader();
+		System.out.println("test---------------------");
+
 		assertTrue(p.getHand().sizeOfHand() == 2);
+
 	}
 	public void testReUseTable5() {
 		Player p = new Player("test",1,new p2());

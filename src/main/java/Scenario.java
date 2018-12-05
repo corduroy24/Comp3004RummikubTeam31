@@ -430,6 +430,8 @@ public interface Scenario {
 
 	}	
 	
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 	// a player has 30+, and p2 plays 30+
 	//p2 wins without board reuse 
 	class Scenario8 implements Scenario{
@@ -885,6 +887,99 @@ public interface Scenario {
 		public int [] getTurnOrder() {
 			return this.turnOrders; 
 		}
+		public int getMaxPlayers() {return this.maxPlayers;}
+
+	}	
+	
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+	//play joker by putting on the board as part of a meld from hand
+	class Scenario17 implements Scenario{
+		int numTurns = 1;
+		int maxPlayers = 1; 
+		int [] turnOrders = new int[maxPlayers]; 
+		public GameMaster deal (GameMaster game) {
+			//turnOrders[0] = 2; 
+
+			Deck deck = game.getDeck(); 
+			game.addPlayer(2);
+
+		//	game.getAI2().setIsfirstMeldComplete(true);
+
+			
+			Tile joker = new Tile(14,14);
+			Tile[] x = {new Tile(1,6),new Tile(1,7),
+						new Tile(1,10), new Tile(1,11), joker};
+			game.getAI2().getHand().addTilesToHand(x);
+			ArrayList<Tile> a = new ArrayList<Tile>();
+			
+			Tile[] x1 = {new Tile(1,1),new Tile(1,2),new Tile(1,3)};
+			a.addAll(Arrays.asList(x1));
+			game.getTable().addTiles(a);
+			
+						
+			game.Announcement();
+			return game; 
+		}
+		
+		public GameMaster secondTurn (GameMaster game, int player) {
+			Deck deck = game.getDeck(); 
+			return game; 
+		}
+		public GameMaster thirdTurn (GameMaster game, int player) {
+			Deck deck = game.getDeck(); 
+			return game;	
+		}
+
+		public int getNumTurns() {return this.numTurns;}
+		public int [] getTurnOrder() {return this.turnOrders; }
+		public int getMaxPlayers() {return this.maxPlayers;}
+
+	}	
+	
+	
+	//play joker by putting on the board as part of a meld from hand
+	class Scenario18 implements Scenario{
+		int numTurns = 1;
+		int maxPlayers = 1; 
+		int [] turnOrders = new int[maxPlayers]; 
+		public GameMaster deal (GameMaster game) {
+			//turnOrders[0] = 2; 
+
+			Deck deck = game.getDeck(); 
+			game.addPlayer(2);
+
+			game.getAI2().setIsfirstMeldComplete(true);
+
+			Tile joker = new Tile(14,14);
+			Tile[] l = {new Tile(1,5),new Tile(1,6),
+						new Tile(1,7), new Tile(3,5),
+						new Tile(3,3), new Tile(3,1)};
+			
+			Tile[] l1 = {joker, new Tile(2,1), new Tile(1,1)};
+			joker.setJokerPoint(1);
+
+			game.getAI2().getHand().addTilesToHand(l);
+
+			ArrayList<Tile> a = new ArrayList<Tile>();
+			a.addAll(Arrays.asList(l1));
+			game.getTable().addTiles(a);
+						
+			game.Announcement();
+			return game; 
+		}
+		
+		public GameMaster secondTurn (GameMaster game, int player) {
+			Deck deck = game.getDeck(); 
+			return game; 
+		}
+		public GameMaster thirdTurn (GameMaster game, int player) {
+			Deck deck = game.getDeck(); 
+			return game;	
+		}
+
+		public int getNumTurns() {return this.numTurns;}
+		public int [] getTurnOrder() {return this.turnOrders; }
 		public int getMaxPlayers() {return this.maxPlayers;}
 
 	}	
