@@ -891,7 +891,7 @@ public class Ui extends Application
 		    	}
 		    	System.out.println("Press again to get details");
 		    	
-		    	
+		    	String consoleText = "\nSuggested Tiles: ";
 		    	for(int x=0;x<playerHandButtons.size();x++)
 		    	{
 		    		String color = "";
@@ -917,16 +917,17 @@ public class Ui extends Application
 						color = "J";
 					}
 		    		
+		    		
+		    		
 		    		for(int y=0;y<suggestionTiles.size();y++)
 		    		{
+		    			
+		    			
+		    			
+		    			
 		    			if(suggestionTiles.get(y).getNumber() == 14 && playerHandButtons.get(x).getText().equals("J"))
 		    			{
-		    				DropShadow dropShadow = new DropShadow();
-							dropShadow.setRadius(20.0);
-							dropShadow.setColor(Color.PURPLE);
-							playerHandButtons.get(x).setEffect(dropShadow);
-							
-							suggestionTiles.set(y, new Tile(5, 1));
+		    				consoleText += suggestionTiles.get(y).getColor() + suggestionTiles.get(y).getNumber() + ", ";
 		    			}
 		    			else if(playerHandButtons.get(x).getText().equals("J"))
 		    			{
@@ -935,15 +936,13 @@ public class Ui extends Application
 		    			else if(suggestionTiles.get(y).getNumber() == Integer.parseInt(playerHandButtons.get(x).getText()) && 
 			    				color.equals(suggestionTiles.get(y).getColor()))
 			    		{
-			    			DropShadow dropShadow = new DropShadow();
-							dropShadow.setRadius(20.0);
-							dropShadow.setColor(Color.PURPLE);
-							playerHandButtons.get(x).setEffect(dropShadow);
-							
-							suggestionTiles.set(y, new Tile(5, 1));
+		    				consoleText += suggestionTiles.get(y).getColor() + suggestionTiles.get(y).getNumber() + ", ";
 			    		}	
+			    		
 		    		}	
 		    	} 
+		    	consoleText+="\n";
+		    	console.setText(console.getText()+consoleText);
 		    }
 		});
 		
