@@ -89,7 +89,6 @@ public class Ui extends Application
 	Button scenarioTwentyThree; 
 	Button scenarioTwentyFour; 
 	Button scenarioTwentyFive; 
-	Button scenarioTwentySix; 
 
 
 
@@ -2474,7 +2473,7 @@ public class Ui extends Application
 		
 		//Sets up the Scenario 23 Button
 		scenarioTwentyThree = new Button();
-		scenarioTwentyThree.setText("Reuse 2");
+		scenarioTwentyThree.setText("Reuse 2-(s)");
 		scenarioTwentyThree.setMinSize(100, 50);
 		scenarioTwentyThree.setDisable(false);
 		scenarioTwentyThree.setLayoutX(327);
@@ -2569,9 +2568,9 @@ public class Ui extends Application
 		    	turnOrders[2] = 3;
 		    	turnOrders[3] = 4;
 		        ScenarioFactory scenarioFactory = new ScenarioFactory();
-		        Scenario s21 = scenarioFactory.getScenario("s21");
+		        Scenario s25 = scenarioFactory.getScenario("s25");
 		        game.Announcement();
-		        game = s21.deal(game);
+		        game = s25.deal(game);
 		        
 		    	setupGameRigging(); 
 		    	game.getPlayers().remove(game.getHuman());
@@ -2585,47 +2584,11 @@ public class Ui extends Application
 		    	
 		    	//turn orders are rigged 
 
-		    	playGameRigging(s21, turnOrders);
+		    	playGameRigging(s25, turnOrders);
 		    }
 		});
 		
-		scenarioTwentySix = new Button();
-		scenarioTwentySix.setText("Reuse 5");
-		scenarioTwentySix.setMinSize(100, 50);
-		scenarioTwentySix.setDisable(false);
-		scenarioTwentySix.setLayoutX(657);
-		scenarioTwentySix.setLayoutY(300);
-		scenarioTwentySix.setOnAction(new EventHandler<ActionEvent>() 
-		{
-		    public void handle(ActionEvent e) 
-		    {
-		    	clearMainScreen();
-		    	int maxPlayers  = 4; 
-		    	int [] turnOrders = new int[maxPlayers];
-		    	turnOrders[0] = 1;
-		    	turnOrders[1] = 2;
-		    	turnOrders[2] = 3;
-		    	turnOrders[3] = 4;
-		        ScenarioFactory scenarioFactory = new ScenarioFactory();
-		        Scenario s26 = scenarioFactory.getScenario("s26");
-		        game.Announcement();
-		        game = s26.deal(game);
-		        
-		    	setupGameRigging(); 
-		    	game.getPlayers().remove(game.getHuman());
-		    	
-		    	
-		    	try {
-					Thread.sleep(2000);
-				} catch (InterruptedException e1) {
-					e1.printStackTrace();
-				}
-		    	
-		    	//turn orders are rigged 
-
-		    	playGameRigging(s26, turnOrders);
-		    }
-		});
+		
 		
 		InputStream mainImagePath = getClass().getResourceAsStream("pickOne.png");
 		Image mainImage = new Image(mainImagePath);
@@ -2658,7 +2621,6 @@ public class Ui extends Application
 		mainScreen.getChildren().add(scenarioTwentyThree);
 		mainScreen.getChildren().add(scenarioTwentyFour);
 		mainScreen.getChildren().add(scenarioTwentyFive);
-		mainScreen.getChildren().add(scenarioTwentySix);
 
 		mainScreen.getChildren().add(mainImageNode);
 		
