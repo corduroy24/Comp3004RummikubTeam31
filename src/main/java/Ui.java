@@ -73,6 +73,10 @@ public class Ui extends Application
 	Button scenarioFourteen;
 	Button scenarioFifteen;
 	Button scenarioSixteen;
+	Button scenarioSeventeen;
+	Button scenarioEighteen;
+	Button scenarioNineteen;
+
 
 	
 	boolean isTimerOn=false;
@@ -1834,7 +1838,7 @@ public class Ui extends Application
 		
 		//Sets up the Scenario 16 Button
 		scenarioSixteen = new Button();
-		scenarioSixteen.setText("Strategy 3-4");
+		scenarioSixteen.setText("Strategy 3-5");
 		scenarioSixteen.setMinSize(100, 50);
 		scenarioSixteen.setDisable(false);
 		scenarioSixteen.setLayoutX(767);
@@ -1871,6 +1875,123 @@ public class Ui extends Application
 		    }
 		});
 		
+		//Sets up the Scenario 17 Button
+		scenarioSeventeen = new Button();
+		scenarioSeventeen.setText("Joker 1");
+		scenarioSeventeen.setMinSize(100, 50);
+		scenarioSeventeen.setDisable(false);
+		scenarioSeventeen.setLayoutX(117);
+		scenarioSeventeen.setLayoutY(400);
+		scenarioSeventeen.setOnAction(new EventHandler<ActionEvent>() 
+		{
+		    public void handle(ActionEvent e) 
+		    {
+		    	clearMainScreen();
+		    	int maxPlayers  = 4; 
+		    	int [] turnOrders = new int[maxPlayers];
+		    	turnOrders[0] = 1;
+		    	turnOrders[1] = 2;
+		    	turnOrders[2] = 3;
+		    	turnOrders[3] = 4;
+		        ScenarioFactory scenarioFactory = new ScenarioFactory();
+		        Scenario s17 = scenarioFactory.getScenario("s17");
+		        game.Announcement();
+		        game = s17.deal(game);
+		        
+		    	setupGameRigging(); 
+		    	game.getPlayers().remove(game.getHuman());
+		    	
+		    	
+		    	try {
+					Thread.sleep(2000);
+				} catch (InterruptedException e1) {
+					e1.printStackTrace();
+				}
+		    	
+		    	//turn orders are rigged 
+
+		    	playGameRigging(s17, turnOrders);
+		    }
+		});
+		
+		//Sets up the Scenario 18 Button
+		scenarioEighteen= new Button();
+		scenarioEighteen.setText("Joker 2");
+		scenarioEighteen.setMinSize(100, 50);
+		scenarioEighteen.setDisable(false);
+		scenarioEighteen.setLayoutX(227);
+		scenarioEighteen.setLayoutY(400);
+		scenarioEighteen.setOnAction(new EventHandler<ActionEvent>() 
+		{
+		    public void handle(ActionEvent e) 
+		    {
+		    	clearMainScreen();
+		    	int maxPlayers  = 4; 
+		    	int [] turnOrders = new int[maxPlayers];
+		    	turnOrders[0] = 1;
+		    	turnOrders[1] = 2;
+		    	turnOrders[2] = 3;
+		    	turnOrders[3] = 4;
+		        ScenarioFactory scenarioFactory = new ScenarioFactory();
+		        Scenario s18 = scenarioFactory.getScenario("s18");
+		        game.Announcement();
+		        game = s18.deal(game);
+		        
+		    	setupGameRigging(); 
+		    	game.getPlayers().remove(game.getHuman());
+		    	
+		    	
+		    	try {
+					Thread.sleep(2000);
+				} catch (InterruptedException e1) {
+					e1.printStackTrace();
+				}
+		    	
+		    	//turn orders are rigged 
+
+		    	playGameRigging(s18, turnOrders);
+		    }
+		});
+		
+		//Sets up the Scenario 19 Button
+		scenarioNineteen = new Button();
+		scenarioNineteen.setText("Joker 3");
+		scenarioNineteen.setMinSize(100, 50);
+		scenarioNineteen.setDisable(false);
+		scenarioNineteen.setLayoutX(337);
+		scenarioNineteen.setLayoutY(400);
+		scenarioNineteen.setOnAction(new EventHandler<ActionEvent>() 
+		{
+		    public void handle(ActionEvent e) 
+		    {
+		    	clearMainScreen();
+		    	int maxPlayers  = 4; 
+		    	int [] turnOrders = new int[maxPlayers];
+		    	turnOrders[0] = 1;
+		    	turnOrders[1] = 2;
+		    	turnOrders[2] = 3;
+		    	turnOrders[3] = 4;
+		        ScenarioFactory scenarioFactory = new ScenarioFactory();
+		        Scenario s19 = scenarioFactory.getScenario("s19");
+		        game.Announcement();
+		        game = s19.deal(game);
+		        
+		    	setupGameRigging(); 
+		    	game.getPlayers().remove(game.getHuman());
+		    	
+		    	
+		    	try {
+					Thread.sleep(2000);
+				} catch (InterruptedException e1) {
+					e1.printStackTrace();
+				}
+		    	
+		    	//turn orders are rigged 
+
+		    	playGameRigging(s19, turnOrders);
+		    }
+		});
+		
 		
 		InputStream mainImagePath = getClass().getResourceAsStream("pickOne.png");
 		Image mainImage = new Image(mainImagePath);
@@ -1894,6 +2015,11 @@ public class Ui extends Application
 		mainScreen.getChildren().add(scenarioFourteen);
 		mainScreen.getChildren().add(scenarioFifteen);
 		mainScreen.getChildren().add(scenarioSixteen);
+		mainScreen.getChildren().add(scenarioSeventeen);
+		mainScreen.getChildren().add(scenarioEighteen);
+		mainScreen.getChildren().add(scenarioNineteen);
+
+
 
 
 
