@@ -91,8 +91,10 @@ public class GameMaster extends Observable{
 		{
 			order += players.get(i).getName() + ", ";
 			players.get(i).getHand().clear();
-			if(players.get(i).getName().equals("Human"))
+			if(players.get(i).getName().equals("Human")) {
 				IndexOfHuman = i;
+				players.get(i).setCanPlay();
+			}
 			players.get(i).getHand().drawFirst14(deck);
 		}
 		System.out.println(order);
