@@ -1007,7 +1007,7 @@ public interface Scenario {
 				Tile joker = new Tile(14,14);
 				Tile[] l = {new Tile(1,5),new Tile(1,6),
 							new Tile(1,7), new Tile(3,5),
-							new Tile(3,4), new Tile(3,1)};
+							new Tile(3,4), new Tile(1,1)};
 				
 				Tile[] l1 = {joker, new Tile(2,1), new Tile(1,1)};
 				

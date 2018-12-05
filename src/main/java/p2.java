@@ -17,7 +17,7 @@ public class p2 implements PlayerStrategy{
 	ArrayList<Tile> orange = new ArrayList<Tile>();
 	ArrayList<Tile> joker = new ArrayList<Tile>();
 	boolean usefull=false;
-	
+	int g=0;
 	
 	
 	public boolean playTheGame(Player p) {
@@ -302,26 +302,41 @@ public class p2 implements PlayerStrategy{
 									p.getHand().playTileFromHand(melds.get(k).get(u));	 
 								}
 								}
-							}
+							}//System.out.println(useless_tile);
 							if (useless_tile.size()>2){
 								int x=0;
+								
 								ArrayList<Tile> l = new ArrayList<Tile>();
 								for (int i=0;i<useless_tile.size();i++) {
 									if (useless_tile.get(i).isJoker()==true) {
 										x=0;
-									}System.out.println(useless_tile);
+									}//System.out.println(useless_tile);
 									for (int z=0;z<useless_tile.size();z++) {
 									for (int j=0;j<useless_tile.size();j++) {
 								//		if (useless_tile.get(i).getColor()==useless_tile.get(z).getColor()) {
 									//		if (((useless_tile.get(i).getNumber()-useless_tile.get(z).getNumber())==1)||
 										//			((useless_tile.get(z).getNumber()-useless_tile.get(i).getNumber())==1)) {
+								//		if (g!=0) {
+										if (useless_tile.get(1).getNumber()-useless_tile.get(0).getNumber()==2) {
 												useless_tile.get(x).setJokerColor(3);useless_tile.get(x).setJokerPoint(4);
-												p.getTable().addTiles(useless_tile);
-										//	}
-										//}
+												p.getTable().addTiles(useless_tile); //g++;
+									}
+									
+									
 									}
 									}
 								}
+								if (g==0) {
+								if (useless_tile.get(1).getColor()==useless_tile.get(0).getColor()) {
+									if (((useless_tile.get(1).getNumber()-useless_tile.get(0).getNumber())==1)||
+											((useless_tile.get(0).getNumber()-useless_tile.get(1).getNumber())==1)) {
+										useless_tile.get(x).setJokerColor((useless_tile.get(0).getNumber()));
+										useless_tile.get(x).setJokerPoint((useless_tile.get(0).getNumber())-1);
+									//	p.getTable().addTiles(useless_tile); g++; 
+													
+					}
+				}
+			}
 							}
 						if ((p.getHand().sizeOfHand()==1)&&(p.getHand().getTile(0).isJoker())) {
 							Tile t = new Tile();
