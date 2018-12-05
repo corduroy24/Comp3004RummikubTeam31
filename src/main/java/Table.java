@@ -187,8 +187,7 @@ public class Table{
 			 color = t.get(0).getJokerColor(); 
 		}
 		
-		
-		for(int u =0; u < t.size()-1;u++) {
+		for(int u =0; u < t.size()-1-NumberOfJoker;u++) {
 			int current, next;
 			String current_color = t.get(u).getColor();
 			if (t.get(u).getColor()=="J") {
@@ -202,16 +201,17 @@ public class Table{
 			if (t.get(u+1).getNumber()==14) {
 				next= t.get(0).getJokerPoint(); 
 			}
+			
 			if(next == 14) {
 				return true;}
+			
 			if(!current_color.equals(color)) {
-				return false;}
+					return false;}
 			else {
 				if(current+1 != next) {
-					if(next - current > 2) {return false;}
+					if(next - current > 2) return false;
 					else if((NumberOfJoker > 0) && (next-2 == current))	NumberOfJoker--;
-					else {
-						return false;}
+					else return false;
 				}
 			}
 		}
