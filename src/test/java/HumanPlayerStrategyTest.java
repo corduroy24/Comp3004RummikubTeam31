@@ -94,7 +94,7 @@ public Support functions;
 		D.DeckofTiles.add(t3);D.DeckofTiles.add(t4);D.DeckofTiles.add(t5);D.DeckofTiles.add(t6);D.DeckofTiles.add(t7);
 		
 		x1=functions.getSequences(hand);
-		x2=functions.getSets(hand);
+		x2=functions.getSets(hand, true);
 		
 		ArrayList<Tile> leastSeq = new ArrayList<Tile>();
 		ArrayList<Tile> leastSet = new ArrayList<Tile>();
