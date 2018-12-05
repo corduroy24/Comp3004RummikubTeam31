@@ -15,7 +15,7 @@ public class TestP2 extends TestCase{
 					new Tile(1,10), new Tile(1,11), joker}; 
 		p.getHand().addTilesToHand(l);	
 		ArrayList<Tile> a = new ArrayList<Tile>();
-		
+		p.setCanPlay();
 		Tile[] l1 = {new Tile(1,1),new Tile(1,2),new Tile(1,3)};
 		a.addAll(Arrays.asList(l1));
 		p.getTable().addTiles(a);
@@ -35,7 +35,7 @@ public class TestP2 extends TestCase{
 					new Tile(1,10), new Tile(1,11), joker};
 		p.getHand().addTilesToHand(l);
 		ArrayList<Tile> a = new ArrayList<Tile>();
-		
+		p.setCanPlay();
 		Tile[] l1 = {new Tile(1,1),new Tile(1,2),new Tile(1,3)};
 		a.addAll(Arrays.asList(l1));
 		p.getTable().addTiles(a);
@@ -55,7 +55,7 @@ public class TestP2 extends TestCase{
 					new Tile(1,2), new Tile(1,3), joker, new Tile(2,10)};
 		p.getHand().addTilesToHand(l);
 		ArrayList<Tile> a = new ArrayList<Tile>();
-		
+		p.setCanPlay();
 		Tile[] l1 = {new Tile(1,1),new Tile(1,2),new Tile(1,3)};
 		a.addAll(Arrays.asList(l1));
 		p.getTable().addTiles(a);
@@ -75,7 +75,7 @@ public class TestP2 extends TestCase{
 					new Tile(1,10), new Tile(1,11), joker};
 		p.getHand().addTilesToHand(l);
 		ArrayList<Tile> a = new ArrayList<Tile>();
-		
+		p.setCanPlay();
 		Tile[] l1 = {new Tile(1,1),new Tile(1,2),new Tile(1,3)};
 		a.addAll(Arrays.asList(l1));
 		//p.getTable().addTiles(a);
@@ -95,7 +95,7 @@ public class TestP2 extends TestCase{
 					new Tile(2,3), new Tile(2,4), joker, new Tile(1,1)};
 		p.getHand().addTilesToHand(l);
 		ArrayList<Tile> a = new ArrayList<Tile>();
-		
+		p.setCanPlay();
 		Tile[] l1 = {new Tile(1,1),new Tile(1,2),new Tile(1,3)};
 		a.addAll(Arrays.asList(l1));
 		p.getTable().addTiles(a);
@@ -114,7 +114,7 @@ public class TestP2 extends TestCase{
 					new Tile(1,11), new Tile(2,11), joker};
 		p.getHand().addTilesToHand(l);
 		ArrayList<Tile> a = new ArrayList<Tile>();
-		
+		p.setCanPlay();
 		Tile[] l1 = {new Tile(1,1),new Tile(1,2),new Tile(1,3)};
 		a.addAll(Arrays.asList(l1));
 		p.getTable().addTiles(a);
@@ -140,7 +140,7 @@ public class TestP2 extends TestCase{
 		Tile[] l1 = {new Tile(1,1),new Tile(1,2),new Tile(1,3)};
 		a.addAll(Arrays.asList(l1));
 		p.getTable().addTiles(a);
-				
+		p.setCanPlay();
 		assertTrue(p.play() == true);
 		assertTrue(p.getHand().sizeOfHand() == 1);
 	}
@@ -184,7 +184,7 @@ public class TestP2 extends TestCase{
 					new Tile(3,5), new Tile(1,3)};
 		
 		Tile[] l1 = {joker, new Tile(1,4), new Tile(1,5)};
-		
+		p.setCanPlay();
 		joker.setJokerPoint(3);
 		joker.setJokerColor(1);
 		//joker.setJoker(true);
@@ -212,7 +212,7 @@ public class TestP2 extends TestCase{
 		Tile[] l = {new Tile(1,6),new Tile(2,6),
 					new Tile(3,6), new Tile(2,5),
 					new Tile(3,5), new Tile(1,1)};
-		
+		p.setCanPlay();
 		Tile[] l1 = {joker, new Tile(2,1), new Tile(3,1), new Tile(1,1)};
 		joker.setJokerPoint(1);
 
@@ -240,7 +240,7 @@ public class TestP2 extends TestCase{
 		Tile[] l = {new Tile(1,8),new Tile(2,8),
 					new Tile(3,8), new Tile(2,5),
 					new Tile(2,6), new Tile(1,1)};
-		
+		p.setCanPlay();
 		Tile[] l1 = {joker, new Tile(2,1), new Tile(3,1)};
 		joker.setJokerPoint(1);
 
@@ -267,7 +267,7 @@ public class TestP2 extends TestCase{
 		Tile[] l = {new Tile(1,5),new Tile(1,6),
 					new Tile(1,7), new Tile(3,5),
 					new Tile(3,3), new Tile(3,1)};
-		
+		p.setCanPlay();
 		Tile[] l1 = {joker, new Tile(2,1), new Tile(1,1)};
 		joker.setJokerPoint(1);
 
@@ -289,7 +289,7 @@ public class TestP2 extends TestCase{
 		Tile[] l = {new Tile(1,5),new Tile(1,6),
 					new Tile(1,7), new Tile(3,7),
 					new Tile(1,3), new Tile(4,8)};
-		
+		p.setCanPlay();
 		Tile[] l1 = {joker, new Tile(1,2), new Tile(1,1)};
 		Tile[] l2 = { new Tile(3,5),new Tile(3,6), new Tile(3,4)};
 		
@@ -324,7 +324,7 @@ public class TestP2 extends TestCase{
 		
 		Tile[] l1 = {joker, new Tile(1,3), new Tile(1,4)};
 		Tile[] l2 = { new Tile(3,5),new Tile(2,5), new Tile(1,5)};
-		
+		p.setCanPlay();
 		joker.setJokerPoint(5);
 		joker.setJokerColor(1);
 		
@@ -350,7 +350,7 @@ public class TestP2 extends TestCase{
 		Tile[] l = {new Tile(1,5),new Tile(1,6),
 					new Tile(1,7), new Tile(4,5),
 					new Tile(2,9), new Tile(2,8)};
-		
+		p.setCanPlay();
 		Tile[] l1 = {joker, new Tile(1,3), new Tile(1,4)};
 		Tile[] l2 = { new Tile(2,7),new Tile(2,6), new Tile(2,5)};
 		
@@ -379,7 +379,7 @@ public class TestP2 extends TestCase{
 		Tile joker = new Tile(14,14);
 		Tile[] l = {new Tile(3,4),new Tile(4,4),
 					new Tile(1,5),joker};
-		
+		p.setCanPlay();
 		Tile[] l1 = {new Tile(1,1), new Tile(1,2), new Tile(1,3), new Tile(1,4)};
 		Tile[] l2 = { new Tile(1,3),new Tile(2,3), new Tile(3,3),new Tile(4,3)};
 		Tile[] l3 = { new Tile(3,3),new Tile(3,4), new Tile(3,5),new Tile(3,6)};
