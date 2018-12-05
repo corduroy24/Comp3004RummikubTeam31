@@ -220,7 +220,7 @@ public class p3 implements PlayerStrategy {
 							table.get(index).get(index_meld).setNumber(useless_tile.get(indexToReplace).getNumber());
 							out += useless_tile.get(indexToReplace).toString();
 							useless_tile.get(indexToReplace).setJoker(true);
-							useless_tile.get(indexToReplace).setColor("J");   
+							useless_tile.get(indexToReplace).setColor("J");
 							useless_tile.get(indexToReplace).setNumber(14);
 							// use joker tile to play tile on hand first.
 							ArrayList<ArrayList<Tile>> melds = new ArrayList<ArrayList<Tile>>();
@@ -276,8 +276,9 @@ public class p3 implements PlayerStrategy {
 							}
 							// else it plays as most as tiles as it can and put in on the table
 							else if(melds.size() > 0 ) {
-								System.out.println(melds);
+								checkMeld.initialOutput(melds,useless_tile);
 								// remove tiles from player' hand
+								System.out.println(melds);
 								for(int k =0; k < melds.size();k++) {
 									p.getTable().AiAddTiles(melds.get(k));
 									for(int  u =0; u < melds.get(k).size();u++) {

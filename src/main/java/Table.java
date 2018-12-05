@@ -60,11 +60,12 @@ public class Table{
 				totalAdded=0;
 				nextLine++;
 			}
-			
+			try {
 			for(int x=0;x<tiles2.size()+1;x++)
 			{
 				isTableSet[totalAdded+x][nextLine] = true;
-			}
+			}}
+			catch(ArrayIndexOutOfBoundsException exception) {}
 			timesAdded++;
 			
 			totalAdded+=tiles2.size()+1;
