@@ -85,6 +85,12 @@ public class Ui extends Application
 	Button scenarioNineteen;
 	Button scenarioTwenty; 
 	Button scenarioTwentyOne; 
+	Button scenarioTwentyTwo; 
+	Button scenarioTwentyThree; 
+	Button scenarioTwentyFour; 
+	Button scenarioTwentyFive; 
+	Button scenarioTwentySix; 
+
 
 
 	Button fileInput; 
@@ -322,7 +328,7 @@ public class Ui extends Application
 		textField.setLayoutX(437);
 		textField.setLayoutY(400);
 		
-		//Sets up the Scenario 20 Button
+		//Sets up the Submit Input Button
 		submitInput = new Button();
 		submitInput.setText("Submit");
 		submitInput.setMinSize(100, 50);
@@ -2387,6 +2393,8 @@ public class Ui extends Application
 		    	playGameRigging(s20, turnOrders);
 		    }
 		});
+		
+		//Sets up the Scenario 21 Button
 		scenarioTwentyOne = new Button();
 		scenarioTwentyOne.setText("Strategy 4-2");
 		scenarioTwentyOne.setMinSize(100, 50);
@@ -2425,6 +2433,200 @@ public class Ui extends Application
 		    }
 		});
 		
+		//Sets up the Scenario 22 Button
+		scenarioTwentyTwo = new Button();
+		scenarioTwentyTwo.setText("Reuse 1");
+		scenarioTwentyTwo.setMinSize(100, 50);
+		scenarioTwentyTwo.setDisable(false);
+		scenarioTwentyTwo.setLayoutX(217);
+		scenarioTwentyTwo.setLayoutY(300);
+		scenarioTwentyTwo.setOnAction(new EventHandler<ActionEvent>() 
+		{
+		    public void handle(ActionEvent e) 
+		    {
+		    	clearMainScreen();
+		    	int maxPlayers  = 4; 
+		    	int [] turnOrders = new int[maxPlayers];
+		    	turnOrders[0] = 1;
+		    	turnOrders[1] = 2;
+		    	turnOrders[2] = 3;
+		    	turnOrders[3] = 4;
+		        ScenarioFactory scenarioFactory = new ScenarioFactory();
+		        Scenario s22 = scenarioFactory.getScenario("s22");
+		        game.Announcement();
+		        game = s22.deal(game);
+		        
+		    	setupGameRigging(); 
+		    	game.getPlayers().remove(game.getHuman());
+		    	
+		    	
+		    	try {
+					Thread.sleep(2000);
+				} catch (InterruptedException e1) {
+					e1.printStackTrace();
+				}
+		    	
+		    	//turn orders are rigged 
+
+		    	playGameRigging(s22, turnOrders);
+		    }
+		});
+		
+		//Sets up the Scenario 23 Button
+		scenarioTwentyThree = new Button();
+		scenarioTwentyThree.setText("Reuse 2");
+		scenarioTwentyThree.setMinSize(100, 50);
+		scenarioTwentyThree.setDisable(false);
+		scenarioTwentyThree.setLayoutX(327);
+		scenarioTwentyThree.setLayoutY(300);
+		scenarioTwentyThree.setOnAction(new EventHandler<ActionEvent>() 
+		{
+		    public void handle(ActionEvent e) 
+		    {
+		    	clearMainScreen();
+		    	int maxPlayers  = 4; 
+		    	int [] turnOrders = new int[maxPlayers];
+		    	turnOrders[0] = 1;
+		    	turnOrders[1] = 2;
+		    	turnOrders[2] = 3;
+		    	turnOrders[3] = 4;
+		        ScenarioFactory scenarioFactory = new ScenarioFactory();
+		        Scenario s23 = scenarioFactory.getScenario("s23");
+		        game.Announcement();
+		        game = s23.deal(game);
+		        
+		    	setupGameRigging(); 
+		    	game.getPlayers().remove(game.getHuman());
+		    	
+		    	
+		    	try {
+					Thread.sleep(2000);
+				} catch (InterruptedException e1) {
+					e1.printStackTrace();
+				}
+		    	
+		    	//turn orders are rigged 
+
+		    	playGameRigging(s23, turnOrders);
+		    }
+		});
+		
+		
+		//Sets up the Scenario 24 Button
+		scenarioTwentyFour = new Button();
+		scenarioTwentyFour.setText("Reuse 3");
+		scenarioTwentyFour.setMinSize(100, 50);
+		scenarioTwentyFour.setDisable(false);
+		scenarioTwentyFour.setLayoutX(437);
+		scenarioTwentyFour.setLayoutY(300);
+		scenarioTwentyFour.setOnAction(new EventHandler<ActionEvent>() 
+		{
+		    public void handle(ActionEvent e) 
+		    {
+		    	clearMainScreen();
+		    	int maxPlayers  = 4; 
+		    	int [] turnOrders = new int[maxPlayers];
+		    	turnOrders[0] = 1;
+		    	turnOrders[1] = 2;
+		    	turnOrders[2] = 3;
+		    	turnOrders[3] = 4;
+		        ScenarioFactory scenarioFactory = new ScenarioFactory();
+		        Scenario s24 = scenarioFactory.getScenario("s24");
+		        game.Announcement();
+		        game = s24.deal(game);
+		        
+		    	setupGameRigging(); 
+		    	game.getPlayers().remove(game.getHuman());
+		    	
+		    	
+		    	try {
+					Thread.sleep(2000);
+				} catch (InterruptedException e1) {
+					e1.printStackTrace();
+				}
+		    	
+		    	//turn orders are rigged 
+
+		    	playGameRigging(s24, turnOrders);
+		    }
+		});
+		
+		scenarioTwentyFive = new Button();
+		scenarioTwentyFive.setText("Reuse 4");
+		scenarioTwentyFive.setMinSize(100, 50);
+		scenarioTwentyFive.setDisable(false);
+		scenarioTwentyFive.setLayoutX(547);
+		scenarioTwentyFive.setLayoutY(300);
+		scenarioTwentyFive.setOnAction(new EventHandler<ActionEvent>() 
+		{
+		    public void handle(ActionEvent e) 
+		    {
+		    	clearMainScreen();
+		    	int maxPlayers  = 4; 
+		    	int [] turnOrders = new int[maxPlayers];
+		    	turnOrders[0] = 1;
+		    	turnOrders[1] = 2;
+		    	turnOrders[2] = 3;
+		    	turnOrders[3] = 4;
+		        ScenarioFactory scenarioFactory = new ScenarioFactory();
+		        Scenario s21 = scenarioFactory.getScenario("s21");
+		        game.Announcement();
+		        game = s21.deal(game);
+		        
+		    	setupGameRigging(); 
+		    	game.getPlayers().remove(game.getHuman());
+		    	
+		    	
+		    	try {
+					Thread.sleep(2000);
+				} catch (InterruptedException e1) {
+					e1.printStackTrace();
+				}
+		    	
+		    	//turn orders are rigged 
+
+		    	playGameRigging(s21, turnOrders);
+		    }
+		});
+		
+		scenarioTwentySix = new Button();
+		scenarioTwentySix.setText("Reuse 5");
+		scenarioTwentySix.setMinSize(100, 50);
+		scenarioTwentySix.setDisable(false);
+		scenarioTwentySix.setLayoutX(657);
+		scenarioTwentySix.setLayoutY(300);
+		scenarioTwentySix.setOnAction(new EventHandler<ActionEvent>() 
+		{
+		    public void handle(ActionEvent e) 
+		    {
+		    	clearMainScreen();
+		    	int maxPlayers  = 4; 
+		    	int [] turnOrders = new int[maxPlayers];
+		    	turnOrders[0] = 1;
+		    	turnOrders[1] = 2;
+		    	turnOrders[2] = 3;
+		    	turnOrders[3] = 4;
+		        ScenarioFactory scenarioFactory = new ScenarioFactory();
+		        Scenario s26 = scenarioFactory.getScenario("s26");
+		        game.Announcement();
+		        game = s26.deal(game);
+		        
+		    	setupGameRigging(); 
+		    	game.getPlayers().remove(game.getHuman());
+		    	
+		    	
+		    	try {
+					Thread.sleep(2000);
+				} catch (InterruptedException e1) {
+					e1.printStackTrace();
+				}
+		    	
+		    	//turn orders are rigged 
+
+		    	playGameRigging(s26, turnOrders);
+		    }
+		});
+		
 		InputStream mainImagePath = getClass().getResourceAsStream("pickOne.png");
 		Image mainImage = new Image(mainImagePath);
 		mainImageNode = new ImageView(mainImage);
@@ -2452,7 +2654,11 @@ public class Ui extends Application
 		mainScreen.getChildren().add(scenarioNineteen);
 		mainScreen.getChildren().add(scenarioTwenty);
 		mainScreen.getChildren().add(scenarioTwentyOne);
-
+		mainScreen.getChildren().add(scenarioTwentyTwo);
+		mainScreen.getChildren().add(scenarioTwentyThree);
+		mainScreen.getChildren().add(scenarioTwentyFour);
+		mainScreen.getChildren().add(scenarioTwentyFive);
+		mainScreen.getChildren().add(scenarioTwentySix);
 
 		mainScreen.getChildren().add(mainImageNode);
 		
