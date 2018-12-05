@@ -40,9 +40,10 @@
 				
 				ArrayList<ArrayList<Tile>> x1 = new ArrayList<ArrayList<Tile>>();
 				ArrayList<ArrayList<Tile>> x2 = new ArrayList<ArrayList<Tile>>();
+				ArrayList<ArrayList<Tile>> x3 = new ArrayList<ArrayList<Tile>>();
 				x1=functions.getSequences(p.getHand().getTiles());
 				
-				x2=functions.getSets(p.getHand().getTiles());//System.out.println(x2);
+				x2=functions.getSets(p.getHand().getTiles(),true);//System.out.println(x2);
 				
 				
 				int p1=0;int p2=0; int p3=0;
@@ -176,7 +177,7 @@
 				ArrayList<ArrayList<Tile>> x1 = new ArrayList<ArrayList<Tile>>();
 				ArrayList<ArrayList<Tile>> x2 = new ArrayList<ArrayList<Tile>>();
 				x1=functions.getSequences(p.getHand().getTiles());
-				x2=functions.getSets(p.getHand().getTiles());
+				x2=functions.getSets(p.getHand().getTiles(),true);
 				
 				
 				if(x >= y) { output3 = firstMelds;  }

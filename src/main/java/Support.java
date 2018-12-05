@@ -31,7 +31,7 @@ public class Support {
 			}
 		}		
 			for (int j=0;j<output.size();j++) {
-				count=getSets(output).get(j).size();
+				count=getSets(output,false).get(j).size();
 				if (count==output.size()) {
 				c=i;
 				done=true;
@@ -114,7 +114,7 @@ public class Support {
 		Collections.sort(hand, new SortbyValue());
 		Collections.sort(hand, new SortToFindSet());
 		//create list hold sets
-		ArrayList<ArrayList<Tile>> sets = getSets(hand);
+		ArrayList<ArrayList<Tile>> sets = getSets(hand,false);
 		hand = renew(hand,sets); // find all sets
 		
 		// create output 
@@ -136,7 +136,7 @@ public class Support {
 		Collections.sort(hand, new SortbyValue());
 		Collections.sort(hand, new SortToFindSet());
 		//create list hold sets
-		ArrayList<ArrayList<Tile>> sets = getSets(hand);
+		ArrayList<ArrayList<Tile>> sets = getSets(hand,false);
 		hand = renew(hand,sets); // find all sets
 		
 		//sort hand to find all sequences
@@ -409,7 +409,7 @@ public class Support {
 		Collections.sort(t, new SortbyValue());
 		Collections.sort(t, new SortToFindSet());
 		//create list hold sets
-		ArrayList<ArrayList<Tile>> sets = getSets(t);
+		ArrayList<ArrayList<Tile>> sets = getSets(t,false);
 		
 		ArrayList<ArrayList<Tile>> sequences = new ArrayList<ArrayList<Tile>>();
 		ArrayList<Tile> check = new ArrayList<Tile>();
@@ -499,13 +499,15 @@ public class Support {
 		return sequences;
 	}
 	//Function get all the sets in the List sorted by value, then sorted by color (this list is sorted 2 times)
-	public ArrayList<ArrayList<Tile>> getSets(ArrayList<Tile> hand){
+	public ArrayList<ArrayList<Tile>> getSets(ArrayList<Tile> hand, boolean x){
 		
 		if(hand == null || hand.size() == 0) return null;
 		ArrayList<ArrayList<Tile>> sets = new ArrayList<ArrayList<Tile>>();
 		ArrayList<Tile> check = new ArrayList<Tile>();
 		HashSet<String> string = new HashSet<String>();
+		if(x==true) {
 		Collections.sort(hand, new SortByColor());
+		}
 		int value = hand.get(0).getNumber();
 		
 		

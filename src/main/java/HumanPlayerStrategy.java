@@ -68,7 +68,7 @@ public class HumanPlayerStrategy implements PlayerStrategy{
 					ArrayList<ArrayList<Tile>> x1 = new ArrayList<ArrayList<Tile>>();
 					ArrayList<ArrayList<Tile>> x2 = new ArrayList<ArrayList<Tile>>();
 					x1=function.getSequences(p.getHand().getTiles());
-					x2=function.getSets(p.getHand().getTiles());
+					x2=function.getSets(p.getHand().getTiles(),false);
 					
 					
 					int p1=0;int p2=0; int p3=0;
@@ -199,7 +199,7 @@ public class HumanPlayerStrategy implements PlayerStrategy{
 					ArrayList<ArrayList<Tile>> x1 = new ArrayList<ArrayList<Tile>>();
 					ArrayList<ArrayList<Tile>> x2 = new ArrayList<ArrayList<Tile>>();
 					x1=function.getSequences(p.getHand().getTiles());
-					x2=function.getSets(p.getHand().getTiles());
+					x2=function.getSets(p.getHand().getTiles(),false);
 					
 					
 					if(x >= y) { output3 = firstMelds;  }
