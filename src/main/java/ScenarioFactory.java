@@ -6,7 +6,7 @@ public class ScenarioFactory {
 	         return null;
 	      }	
 	      
-	      if(scenarioType.equalsIgnoreCase("s1")){
+	      else if(scenarioType.equalsIgnoreCase("s1")){
 	         return new Scenario1();
 	         
 	      } 
@@ -71,6 +71,9 @@ public class ScenarioFactory {
 		  }
 	      else if(scenarioType.equalsIgnoreCase("s19")){
 		         return new Scenario19();
+	      }
+	      else if(scenarioType.equalsIgnoreCase("s20")){
+		         return new Scenario20();
 	      }
 	      return null;
 	   }

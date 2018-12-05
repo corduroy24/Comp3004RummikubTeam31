@@ -76,6 +76,7 @@ public class Ui extends Application
 	Button scenarioSeventeen;
 	Button scenarioEighteen;
 	Button scenarioNineteen;
+	Button scenarioTwenty; 
 
 
 	
@@ -2024,6 +2025,44 @@ public class Ui extends Application
 		    }
 		});
 		
+		//Sets up the Scenario 20 Button
+		scenarioTwenty = new Button();
+		scenarioTwenty.setText("Strategy 4");
+		scenarioTwenty.setMinSize(100, 50);
+		scenarioTwenty.setDisable(false);
+		scenarioTwenty.setLayoutX(447);
+		scenarioTwenty.setLayoutY(400);
+		scenarioTwenty.setOnAction(new EventHandler<ActionEvent>() 
+		{
+		    public void handle(ActionEvent e) 
+		    {
+		    	clearMainScreen();
+		    	int maxPlayers  = 4; 
+		    	int [] turnOrders = new int[maxPlayers];
+		    	turnOrders[0] = 1;
+		    	turnOrders[1] = 2;
+		    	turnOrders[2] = 3;
+		    	turnOrders[3] = 4;
+		        ScenarioFactory scenarioFactory = new ScenarioFactory();
+		        Scenario s20 = scenarioFactory.getScenario("s20");
+		        game.Announcement();
+		        game = s20.deal(game);
+		        
+		    	setupGameRigging(); 
+		    	game.getPlayers().remove(game.getHuman());
+		    	
+		    	
+		    	try {
+					Thread.sleep(2000);
+				} catch (InterruptedException e1) {
+					e1.printStackTrace();
+				}
+		    	
+		    	//turn orders are rigged 
+
+		    	playGameRigging(s20, turnOrders);
+		    }
+		});
 		
 		InputStream mainImagePath = getClass().getResourceAsStream("pickOne.png");
 		Image mainImage = new Image(mainImagePath);
@@ -2050,6 +2089,8 @@ public class Ui extends Application
 		mainScreen.getChildren().add(scenarioSeventeen);
 		mainScreen.getChildren().add(scenarioEighteen);
 		mainScreen.getChildren().add(scenarioNineteen);
+		mainScreen.getChildren().add(scenarioTwenty);
+
 
 
 
