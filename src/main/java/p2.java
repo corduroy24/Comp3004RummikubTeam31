@@ -298,7 +298,29 @@ public class p2 implements PlayerStrategy{
 										}
 									}
 								}
-								else p.getHand().playTileFromHand(melds.get(k).get(u));	
+								else {
+									p.getHand().playTileFromHand(melds.get(k).get(u));	 
+								}
+								}
+							}
+							if (useless_tile.size()>2){
+								int x=0;
+								ArrayList<Tile> l = new ArrayList<Tile>();
+								for (int i=0;i<useless_tile.size();i++) {
+									if (useless_tile.get(i).isJoker()==true) {
+										x=0;
+									}System.out.println(useless_tile);
+									for (int z=0;z<useless_tile.size();z++) {
+									for (int j=0;j<useless_tile.size();j++) {
+								//		if (useless_tile.get(i).getColor()==useless_tile.get(z).getColor()) {
+									//		if (((useless_tile.get(i).getNumber()-useless_tile.get(z).getNumber())==1)||
+										//			((useless_tile.get(z).getNumber()-useless_tile.get(i).getNumber())==1)) {
+												useless_tile.get(x).setJokerColor(3);useless_tile.get(x).setJokerPoint(4);
+												p.getTable().addTiles(useless_tile);
+										//	}
+										//}
+									}
+									}
 								}
 							}
 						if ((p.getHand().sizeOfHand()==1)&&(p.getHand().getTile(0).isJoker())) {
