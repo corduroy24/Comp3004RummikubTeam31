@@ -505,6 +505,7 @@ public class Support {
 		ArrayList<ArrayList<Tile>> sets = new ArrayList<ArrayList<Tile>>();
 		ArrayList<Tile> check = new ArrayList<Tile>();
 		HashSet<String> string = new HashSet<String>();
+		Collections.sort(hand, new SortByColor());
 		int value = hand.get(0).getNumber();
 		
 		

@@ -1047,20 +1047,16 @@ public interface Scenario {
 				//turnOrders[0] = 2; 
 
 				Deck deck = game.getDeck(); 
-				game.addPlayer(1);
+				
 				game.addPlayer(4);
 
 				game.getAI4().setIsfirstMeldComplete(true);
 
-				Tile[] l = {new Tile(2,2),new Tile(4,2),
-							new Tile(3,9), new Tile(1,4),
-							new Tile(1,7)};
+				Tile[] l = {new Tile(3,2),new Tile(2,2),
+							new Tile(1,9), new Tile(1,2),
+							new Tile(1,7),new Tile(1,8),new Tile(1,11),new Tile(1,9)};
 				
-				Tile[] l1 = {new Tile(1,2), new Tile(2,2), new Tile(4,2)};
-				Tile[] l2 = {new Tile(3,1), new Tile(3,2), new Tile(3,3)};
-				Tile[] l3 = {new Tile(1,1), new Tile(1,2), new Tile(1,3)};
-
-				
+				Tile[] l1 = {new Tile(2,2), new Tile(1,2), new Tile(3,2)};
 
 				game.getAI4().getHand().addTilesToHand(l);
 
