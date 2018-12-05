@@ -336,43 +336,37 @@ public class Ui extends Application
 		    	clearMainScreen();
 		    	Deck deck = game.getDeck(); 
 				String[] parseCommands = new String[game.getDeck().getDeck().size()]; 
-	    		boolean c = true;
+				ArrayList<Tile> drawList = new ArrayList<Tile>(); 
+				ArrayList<Integer> orderList = new ArrayList<Integer>(); 
+				int numTurns = 0;
+		    	game.getPlayers().remove(game.getHuman());
 
 		    	parseCommands = readFile(); 
 		    	int color = 0;
 		    	int num = 0; 
 		    	char numChar; 
 		    	char colorChar; 
+		    	
 		    	for (int i = 0; i < parseCommands.length; i++) {
 		    		System.out.println("Command 1: " + parseCommands[i]);
 		    		if(parseCommands[i].equals("S1")) {
 	    				game.addPlayer(1); 
-	    				//System.out.println("Check 1");
 		    			while(!parseCommands[i].equals("S2") && !parseCommands[i].equals("S3") && !parseCommands[i].equals("S4")) {
 		    				i++; 
 				    		System.out.println("Command 2: " + parseCommands[i]);
 	
-		    				//System.out.println("Check 2");
-
 		    				if(parseCommands[i].equals("C")) { 
 		    					game.getAI().setIsfirstMeldComplete(true); 	    				
-		    					//System.out.println("Check 3");
 		    				}
 		    				else {
-			    				//System.out.println("Check 4");
-
 		    					colorChar = parseCommands[i].charAt(0);
-		    					switch(colorChar) {
-		    						case 'R': color  = 1; break; 
-		    						case 'B': color  = 2; break; 
-		    						case 'G': color  = 3; break; 
-		    						case 'O': color  = 4; break; 
-		    						default: System.out.println("Invalid Color");
-		    					}
-		    					num = Character.getNumericValue(parseCommands[i].charAt(1));
+		    					color = convertColorToInt(colorChar);
+
+		    					num = Integer.parseInt(parseCommands[i].substring(1));
+
 		    					System.out.println("Color: "+color+ " num: " + num);
 				    			game.getAI().getHand().DrawThis(new Tile(color, num), deck);
-				    			if((i+1)==parseCommands.length||parseCommands[i+1].equals("S2") || parseCommands[i+1].equals("S3") || parseCommands[i+1].equals("S4"))
+				    			if((i+1)==parseCommands.length||parseCommands[i+1].equals("D")||parseCommands[i+1].equals("S2") || parseCommands[i+1].equals("S3") || parseCommands[i+1].equals("S4"))
 				    				break;
 		    				}
 		    			}
@@ -383,24 +377,17 @@ public class Ui extends Application
 		    				game.addPlayer(2);
 			    			while(!parseCommands[i].equals("S1") && !parseCommands[i].equals("S3") && !parseCommands[i].equals("S4")) {
 			    				i++; 
-					    		System.out.println("Command 2: " + parseCommands[i]);
 			    				if(parseCommands[i].equals("C")) { 
 			    					game.getAI2().setIsfirstMeldComplete(true); 	    				
 			    				}
 			    				else {
 
 			    					colorChar = parseCommands[i].charAt(0);
-			    					switch(colorChar) {
-			    						case 'R': color  = 1; break; 
-			    						case 'B': color  = 2; break; 
-			    						case 'G': color  = 3; break; 
-			    						case 'O': color  = 4; break; 
-			    						default: System.out.println("Invalid Color");
-			    					}
-			    					num = Character.getNumericValue(parseCommands[i].charAt(1));
-			    					System.out.println("Color: "+color+ " num: " + num);
+			    					color = convertColorToInt(colorChar);
+
+		    						num = Integer.parseInt(parseCommands[i].substring(1));
 					    			game.getAI2().getHand().DrawThis(new Tile(color, num), deck);
-					    			if((i+1)==parseCommands.length || parseCommands[i+1].equals("S1") || parseCommands[i+1].equals("S3") || parseCommands[i+1].equals("S4"))
+					    			if((i+1)==parseCommands.length ||parseCommands[i+1].equals("D")|| parseCommands[i+1].equals("S1") || parseCommands[i+1].equals("S3") || parseCommands[i+1].equals("S4"))
 					    				break;
 			    				}
 			    			}
@@ -410,23 +397,16 @@ public class Ui extends Application
 		    			game.addPlayer(3);
 		    			while(!parseCommands[i].equals("S1") && !parseCommands[i].equals("S2") && !parseCommands[i].equals("S4")) {
 		    				i++; 
-				    		System.out.println("Command 2: " + parseCommands[i]);
 		    				if(parseCommands[i].equals("C")) { 
 		    					game.getAI3().setIsfirstMeldComplete(true); 	    				
 		    				}
 		    				else {
 		    					colorChar = parseCommands[i].charAt(0);
-		    					switch(colorChar) {
-		    						case 'R': color  = 1; break; 
-		    						case 'B': color  = 2; break; 
-		    						case 'G': color  = 3; break; 
-		    						case 'O': color  = 4; break; 
-		    						default: System.out.println("Invalid Color");
-		    					}
-		    					num = Character.getNumericValue(parseCommands[i].charAt(1));
-		    					System.out.println("Color: "+color+ " num: " + num);
+		    					color = convertColorToInt(colorChar);
+
+	    						num = Integer.parseInt(parseCommands[i].substring(1));
 				    			game.getAI3().getHand().DrawThis(new Tile(color, num), deck);
-				    			if((i+1)==parseCommands.length || parseCommands[i+1].equals("S1") || parseCommands[i+1].equals("S2") || parseCommands[i+1].equals("S4"))
+				    			if((i+1)==parseCommands.length||parseCommands[i+1].equals("D") || parseCommands[i+1].equals("S1") || parseCommands[i+1].equals("S2") || parseCommands[i+1].equals("S4"))
 				    				break;
 		    				}
 		    			}
@@ -436,66 +416,54 @@ public class Ui extends Application
 		    		else if(parseCommands[i].equals("S4")) { 
 		    			game.addPlayer(4);
 		    			while(!parseCommands[i].equals("S1") && !parseCommands[i].equals("S2") && !parseCommands[i].equals("S3")) {
-		    				i++; 
-				    		System.out.println("Command 2: " + parseCommands[i]);
-	
+		    				i++; 	
 		    				if(parseCommands[i].equals("C")) { 
 		    					game.getAI4().setIsfirstMeldComplete(true); 	    				
 		    				}
 		    				else {
 		    					colorChar = parseCommands[i].charAt(0);
-		    					switch(colorChar) {
-		    						case 'R': color  = 1; break; 
-		    						case 'B': color  = 2; break; 
-		    						case 'G': color  = 3; break; 
-		    						case 'O': color  = 4; break; 
-		    						default: System.out.println("Invalid Color");
-		    					}
-		    					num = Character.getNumericValue(parseCommands[i].charAt(1));
-		    					System.out.println("Color: "+color+ " num: " + num);
+		    					color = convertColorToInt(colorChar);
+
+	    						num = Integer.parseInt(parseCommands[i].substring(1));
 				    			game.getAI4().getHand().DrawThis(new Tile(color, num), deck);
-				    			if((i+1)==parseCommands.length ||parseCommands[i+1].equals("T") || parseCommands[i+1].equals("S1") || parseCommands[i+1].equals("S2") || parseCommands[i+1].equals("S3"))
+				    			if((i+1)==parseCommands.length ||parseCommands[i+1].equals("D") || parseCommands[i+1].equals("S1") || parseCommands[i+1].equals("S2") || parseCommands[i+1].equals("S3"))
 				    				break;
 		    				}
 		    			}
 	    				game.getAI4().getHand().HandReader();
 		    		}
-		    		else if(parseCommands[i].equals("T")) { 
-    					ArrayList<Tile> listTiles = new ArrayList<Tile>(); 
-
+		    		
+		    		else if(parseCommands[i].equals("D")) { 
+		    			while(true) {
+		    				i++; 	
+		    				colorChar = parseCommands[i].charAt(0);
+		    				color = convertColorToInt(colorChar);
+		    				drawList.add(new Tile(color, num));
+	    					num = Integer.parseInt(parseCommands[i].substring(1));
+				    		if((i+1)==parseCommands.length || parseCommands[i+1].equals("O")) break;
+		    			}
+		    		}
+		    		
+		    		else if(parseCommands[i].equals("O")) { 
 		    			while(true) {
 		    				i++; 
 				    		System.out.println("Command 2: " + parseCommands[i]);
-	
-		    					colorChar = parseCommands[i].charAt(0);
-		    					switch(colorChar) {
-		    						case 'R': color  = 1; break; 
-		    						case 'B': color  = 2; break; 
-		    						case 'G': color  = 3; break; 
-		    						case 'O': color  = 4; break; 
-		    						default: System.out.println("Invalid Color");
-		    					}
-		    					listTiles.add(new Tile(color, num));
-
-		    					num = Character.getNumericValue(parseCommands[i].charAt(1));
-		    					System.out.println("Color: "+color+ " num: " + num);
-				    			if((i+1)==parseCommands.length || parseCommands[i+1].equals("T")) {
-			    					game.getTable().addTiles(listTiles); 
-			    					//game.Announcement();
-//			    					//System.out.println("Check");
-				    				c=false; 
-				    				break;
-				    			}
+				    		orderList.add(Integer.parseInt(parseCommands[i].substring(0)));	
+				    		if((i+1)==parseCommands.length || parseCommands[i+1].equals("N")) break;
+		    			}
+		    		}
+		    		else if(parseCommands[i].equals("N")) { 
+		    			while(true) {
+		    				i++; 
+		    				numTurns = Integer.parseInt(parseCommands[i].substring(0)); 
+				    		if((i+1)==parseCommands.length) break;
 		    			}
 		    		}
 		    	}
-		    	int numTurns  = 4;
-		    	int maxPlayers  = 4; 
-		    	int [] turnOrders = new int[maxPlayers];
-		    	turnOrders[0] = 1;
-		    	turnOrders[1] = 2;
-		    	turnOrders[2] = 3;
-		    	turnOrders[3] = 4;
+		    	//int numturns = 8;
+		    	int [] turnOrders = new int[game.getPlayers().size()];
+		    	for(int k =0;k<orderList.size(); k++)
+		    		turnOrders[k] = orderList.get(k);
 
 		        game.Announcement();
 		        
@@ -507,13 +475,24 @@ public class Ui extends Application
 					e1.printStackTrace();
 				}*/
 		    	
-		    	//turn orders are rigged 
-		    	game.getPlayers().remove(game.getHuman());
-
-		    	playGameRigging(turnOrders, numTurns);
+		    	playGameRigging(turnOrders, numTurns, drawList);
 		    }
 
-			private void playGameRigging(int [] turnOrders, int numTurns) {
+			private int convertColorToInt(char colorChar) {
+				// TODO Auto-generated method stub
+				int color =0;
+				switch(colorChar) {
+					case 'R': color  = 1; break; 
+					case 'B': color  = 2; break; 
+					case 'G': color  = 3; break; 
+					case 'O': color  = 4; break; 
+					case 'J': color  = 5; break; 
+					default: System.out.println("Invalid Color");
+				}
+				return color;
+			}
+
+			private void playGameRigging(int [] turnOrders, int numTurns, ArrayList<Tile> drawList) {
 				// TODO Auto-generated method stub
 					setTurnOrder(turnOrders);
 
@@ -543,7 +522,12 @@ public class Ui extends Application
 						else if (game.getDeck().getDeck().size() > 0) 
 						{
 				    		prevString += game.getPlayers().get(turnOrders[x]-1).getName() + " drew: ";
-
+				    		if(drawList.size()>0) {
+				    			Tile remove; 
+				    			game.getPlayers().get(turnOrders[x]-1).getHand().DrawThis(remove = drawList.get(0), game.getDeck());
+				    			drawList.remove(remove);
+				    			System.out.println("Check");
+				    		}
 				    	}
 						game.Announcement();
 				    	
