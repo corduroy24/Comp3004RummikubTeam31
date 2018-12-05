@@ -1012,6 +1012,7 @@ public interface Scenario {
 				Tile[] l1 = {joker, new Tile(2,1), new Tile(1,1)};
 				
 				joker.setJokerPoint(1);
+				joker.setJokerColor(1);
 
 				game.getAI2().getHand().addTilesToHand(l);
 
