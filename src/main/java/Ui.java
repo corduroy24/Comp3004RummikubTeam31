@@ -1,5 +1,10 @@
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
@@ -9,9 +14,11 @@ import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.stage.Stage;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -79,8 +86,10 @@ public class Ui extends Application
 	Button scenarioTwenty; 
 
 
-	
-	
+	Button fileInput; 
+	Label fileName;
+	TextField textField;
+	Button submitInput; 
 	Button AiOnly;
 	boolean isTimerOn=false;
 	Button timerButton;
@@ -152,6 +161,7 @@ public class Ui extends Application
 		    	clearMainScreen();
 		    	whoGoesFirst(2);
 		    	mainScreen.getChildren().remove(AiOnly);
+			   	mainScreen.getChildren().remove(fileInput);
 		    	
 		    }
 		});
@@ -171,6 +181,7 @@ public class Ui extends Application
 		    	clearMainScreen();
 		    	whoGoesFirst(3);
 		    	mainScreen.getChildren().remove(AiOnly);
+			   	mainScreen.getChildren().remove(fileInput);
 		    }
 		});
 		
@@ -189,6 +200,7 @@ public class Ui extends Application
 		    	clearMainScreen();
 		    	whoGoesFirst(4);
 		    	mainScreen.getChildren().remove(AiOnly);
+			   	mainScreen.getChildren().remove(fileInput);
 		    }
 		});
 		
@@ -210,6 +222,7 @@ public class Ui extends Application
 		    	mainScreen.getChildren().remove(humanOne);
 				mainScreen.getChildren().remove(humanTwo);
 				mainScreen.getChildren().remove(humanThree);
+			   	mainScreen.getChildren().remove(fileInput);
 				mainScreen.getChildren().remove(mainImageNode);
 		    }
 		});
@@ -227,6 +240,7 @@ public class Ui extends Application
 				   {
 				   	clearMainScreen();
 				   	mainScreen.getChildren().remove(AiOnly);
+				   	mainScreen.getChildren().remove(fileInput);
 				   	scenariosList();
 				   }
 		});
@@ -258,7 +272,27 @@ public class Ui extends Application
 		    }
 		});
 		
-		mainScreen = new AnchorPane(mainImageNode, twoPlayer, threePlayer, fourPlayer, scenarios,timerButton,AiOnly);
+		//Sets up the file input button
+		fileInput = new Button();
+		fileInput.setText("File Input");
+		fileInput.setMinSize(100, 50);
+		fileInput.setDisable(false);
+		fileInput.setLayoutX(500);
+		fileInput.setLayoutY(700);
+		fileInput.setOnAction(new EventHandler<ActionEvent>() 
+		{
+		    public void handle(ActionEvent e) 
+		    {
+
+			   	clearMainScreen();
+			   	mainScreen.getChildren().remove(AiOnly);
+			   	fileInput();
+			   	mainScreen.getChildren().remove(fileInput);
+
+		    }
+		});
+		
+		mainScreen = new AnchorPane(mainImageNode, twoPlayer, threePlayer, fourPlayer, scenarios,timerButton,AiOnly, fileInput);
 
 		mainScreen.setMinSize(1095,	790);
 		
@@ -274,6 +308,311 @@ public class Ui extends Application
 		
 	}
 	
+	protected void fileInput() {
+		// TODO Auto-generated method stub
+		fileName = new Label("File Name:");
+		fileName.setMinSize(100, 50);
+		fileName.setLayoutX(327);
+		fileName.setLayoutY(400);
+		
+		textField = new TextField ();
+		textField.setMinSize(100, 50);
+		textField.setDisable(false);
+		textField.setLayoutX(437);
+		textField.setLayoutY(400);
+		
+		//Sets up the Scenario 20 Button
+		submitInput = new Button();
+		submitInput.setText("Submit");
+		submitInput.setMinSize(100, 50);
+		submitInput.setDisable(false);
+		submitInput.setLayoutX(657);
+		submitInput.setLayoutY(400);
+		submitInput.setOnAction(new EventHandler<ActionEvent>() 
+		{
+		    public void handle(ActionEvent e) 
+		    {
+		    	clearMainScreen();
+		    	Deck deck = game.getDeck(); 
+				String[] parseCommands = new String[game.getDeck().getDeck().size()]; 
+	    		boolean c = true;
+
+		    	parseCommands = readFile(); 
+		    	int color = 0;
+		    	int num = 0; 
+		    	char numChar; 
+		    	char colorChar; 
+		    	for (int i = 0; i < parseCommands.length; i++) {
+		    		System.out.println("Command 1: " + parseCommands[i]);
+		    		if(parseCommands[i].equals("S1")) {
+	    				game.addPlayer(1); 
+	    				//System.out.println("Check 1");
+		    			while(!parseCommands[i].equals("S2") && !parseCommands[i].equals("S3") && !parseCommands[i].equals("S4")) {
+		    				i++; 
+				    		System.out.println("Command 2: " + parseCommands[i]);
+	
+		    				//System.out.println("Check 2");
+
+		    				if(parseCommands[i].equals("C")) { 
+		    					game.getAI().setIsfirstMeldComplete(true); 	    				
+		    					//System.out.println("Check 3");
+		    				}
+		    				else {
+			    				//System.out.println("Check 4");
+
+		    					colorChar = parseCommands[i].charAt(0);
+		    					switch(colorChar) {
+		    						case 'R': color  = 1; break; 
+		    						case 'B': color  = 2; break; 
+		    						case 'G': color  = 3; break; 
+		    						case 'O': color  = 4; break; 
+		    						default: System.out.println("Invalid Color");
+		    					}
+		    					num = Character.getNumericValue(parseCommands[i].charAt(1));
+		    					System.out.println("Color: "+color+ " num: " + num);
+				    			game.getAI().getHand().DrawThis(new Tile(color, num), deck);
+				    			if((i+1)==parseCommands.length||parseCommands[i+1].equals("S2") || parseCommands[i+1].equals("S3") || parseCommands[i+1].equals("S4"))
+				    				break;
+		    				}
+		    			}
+		    				game.getAI().getHand().HandReader();
+		    		}
+		    		else if(parseCommands[i].equals("S2")) 
+		    			{
+		    				game.addPlayer(2);
+			    			while(!parseCommands[i].equals("S1") && !parseCommands[i].equals("S3") && !parseCommands[i].equals("S4")) {
+			    				i++; 
+					    		System.out.println("Command 2: " + parseCommands[i]);
+			    				if(parseCommands[i].equals("C")) { 
+			    					game.getAI2().setIsfirstMeldComplete(true); 	    				
+			    				}
+			    				else {
+
+			    					colorChar = parseCommands[i].charAt(0);
+			    					switch(colorChar) {
+			    						case 'R': color  = 1; break; 
+			    						case 'B': color  = 2; break; 
+			    						case 'G': color  = 3; break; 
+			    						case 'O': color  = 4; break; 
+			    						default: System.out.println("Invalid Color");
+			    					}
+			    					num = Character.getNumericValue(parseCommands[i].charAt(1));
+			    					System.out.println("Color: "+color+ " num: " + num);
+					    			game.getAI2().getHand().DrawThis(new Tile(color, num), deck);
+					    			if((i+1)==parseCommands.length || parseCommands[i+1].equals("S1") || parseCommands[i+1].equals("S3") || parseCommands[i+1].equals("S4"))
+					    				break;
+			    				}
+			    			}
+			    				game.getAI2().getHand().HandReader();
+		    			}
+		    		else if(parseCommands[i].equals("S3")) {
+		    			game.addPlayer(3);
+		    			while(!parseCommands[i].equals("S1") && !parseCommands[i].equals("S2") && !parseCommands[i].equals("S4")) {
+		    				i++; 
+				    		System.out.println("Command 2: " + parseCommands[i]);
+		    				if(parseCommands[i].equals("C")) { 
+		    					game.getAI3().setIsfirstMeldComplete(true); 	    				
+		    				}
+		    				else {
+		    					colorChar = parseCommands[i].charAt(0);
+		    					switch(colorChar) {
+		    						case 'R': color  = 1; break; 
+		    						case 'B': color  = 2; break; 
+		    						case 'G': color  = 3; break; 
+		    						case 'O': color  = 4; break; 
+		    						default: System.out.println("Invalid Color");
+		    					}
+		    					num = Character.getNumericValue(parseCommands[i].charAt(1));
+		    					System.out.println("Color: "+color+ " num: " + num);
+				    			game.getAI3().getHand().DrawThis(new Tile(color, num), deck);
+				    			if((i+1)==parseCommands.length || parseCommands[i+1].equals("S1") || parseCommands[i+1].equals("S2") || parseCommands[i+1].equals("S4"))
+				    				break;
+		    				}
+		    			}
+		    				game.getAI3().getHand().HandReader();
+		    		}
+		    		
+		    		else if(parseCommands[i].equals("S4")) { 
+		    			game.addPlayer(4);
+		    			while(!parseCommands[i].equals("S1") && !parseCommands[i].equals("S2") && !parseCommands[i].equals("S3")) {
+		    				i++; 
+				    		System.out.println("Command 2: " + parseCommands[i]);
+	
+		    				if(parseCommands[i].equals("C")) { 
+		    					game.getAI4().setIsfirstMeldComplete(true); 	    				
+		    				}
+		    				else {
+		    					colorChar = parseCommands[i].charAt(0);
+		    					switch(colorChar) {
+		    						case 'R': color  = 1; break; 
+		    						case 'B': color  = 2; break; 
+		    						case 'G': color  = 3; break; 
+		    						case 'O': color  = 4; break; 
+		    						default: System.out.println("Invalid Color");
+		    					}
+		    					num = Character.getNumericValue(parseCommands[i].charAt(1));
+		    					System.out.println("Color: "+color+ " num: " + num);
+				    			game.getAI4().getHand().DrawThis(new Tile(color, num), deck);
+				    			if((i+1)==parseCommands.length ||parseCommands[i+1].equals("T") || parseCommands[i+1].equals("S1") || parseCommands[i+1].equals("S2") || parseCommands[i+1].equals("S3"))
+				    				break;
+		    				}
+		    			}
+	    				game.getAI4().getHand().HandReader();
+		    		}
+		    		else if(parseCommands[i].equals("T")) { 
+    					ArrayList<Tile> listTiles = new ArrayList<Tile>(); 
+
+		    			while(true) {
+		    				i++; 
+				    		System.out.println("Command 2: " + parseCommands[i]);
+	
+		    					colorChar = parseCommands[i].charAt(0);
+		    					switch(colorChar) {
+		    						case 'R': color  = 1; break; 
+		    						case 'B': color  = 2; break; 
+		    						case 'G': color  = 3; break; 
+		    						case 'O': color  = 4; break; 
+		    						default: System.out.println("Invalid Color");
+		    					}
+		    					listTiles.add(new Tile(color, num));
+
+		    					num = Character.getNumericValue(parseCommands[i].charAt(1));
+		    					System.out.println("Color: "+color+ " num: " + num);
+				    			if((i+1)==parseCommands.length || parseCommands[i+1].equals("T")) {
+			    					game.getTable().addTiles(listTiles); 
+			    					//game.Announcement();
+//			    					//System.out.println("Check");
+				    				c=false; 
+				    				break;
+				    			}
+		    			}
+		    		}
+		    	}
+		    	int numTurns  = 4;
+		    	int maxPlayers  = 4; 
+		    	int [] turnOrders = new int[maxPlayers];
+		    	turnOrders[0] = 1;
+		    	turnOrders[1] = 2;
+		    	turnOrders[2] = 3;
+		    	turnOrders[3] = 4;
+
+		        game.Announcement();
+		        
+		    	setupGameRigging(); 
+		    	
+		    	/*try {
+					Thread.sleep(2000);
+				} catch (InterruptedException e1) {
+					e1.printStackTrace();
+				}*/
+		    	
+		    	//turn orders are rigged 
+		    	game.getPlayers().remove(game.getHuman());
+
+		    	playGameRigging(turnOrders, numTurns);
+		    }
+
+			private void playGameRigging(int [] turnOrders, int numTurns) {
+				// TODO Auto-generated method stub
+					setTurnOrder(turnOrders);
+
+					int stop = game.getPlayers().size(); 
+					System.out.println(stop);
+					System.out.println("\nUI Class");
+					for(int x=0;x<turnOrders.length;x++)
+						System.out.println(turnOrders[x]);
+				
+					System.out.print("\n");
+					int x =0; 
+					int round = 0; 
+					for(int i = 0; i < numTurns; i++) {
+
+						System.out.println("--------------------------- "+ turnOrders[x]);
+						
+				    	game.Announcement();
+				    	
+						game.getPlayers().get(turnOrders[x]-1).getHand().sortTilesByColour();
+						game.getPlayers().get(turnOrders[x]-1).getHand().HandReader(); 
+
+						if(game.getPlayers().get(turnOrders[x]-1).play()) 
+						{				
+							prevString += game.getPlayers().get(turnOrders[x]-1).getName() +  " played: ";
+					    	prevString += game.getPlayers().get(turnOrders[x]-1).return_report();
+						}
+						else if (game.getDeck().getDeck().size() > 0) 
+						{
+				    		prevString += game.getPlayers().get(turnOrders[x]-1).getName() + " drew: ";
+
+				    	}
+						game.Announcement();
+				    	
+				    	console.setText(console.getText() + prevString);  
+				    	prevString = "\n";
+
+				    	updateTable();
+				    	
+				    		if(game.getPlayers().get(turnOrders[x]-1).getHand().sizeOfHand() == 0) 
+				    			System.out.println("Winner: "+ turnOrders[x]); 
+				    	
+				   	    game.getTable().clearBool();
+				    	x++;
+				    	
+				   	    if(x==stop) {
+				   	    	x=0; 
+				   	    	round++;
+				   	    }
+					}	   
+			}
+
+			private String[] readFile() {
+				// TODO Auto-generated method stub
+		    	String fileName = textField.getText(); 
+			    
+		    	String line = null; 
+				BufferedReader reader = null; 
+				String[] parseCommands = new String[game.getDeck().getDeck().size()]; 
+				String delims = "[ ]+";					
+
+				try {
+					FileReader fileReader =  new FileReader(fileName); 
+				    BufferedReader bufferedReader = new BufferedReader(fileReader); 
+						    
+					while((line = bufferedReader.readLine()) != null){
+						parseCommands = line.split(delims); 
+					    System.out.println(line);
+
+					}
+					bufferedReader.close();
+				//console.close();
+
+				}
+				catch(FileNotFoundException ex) {
+					System.out.println(  "Unable to open file '" +   fileName + "'"); 
+				}
+				catch(IOException ex) {
+					System.out.println( "Error reading file '"  + fileName + "'");                  
+				}		
+				for (int i = 0; i < parseCommands.length; i++)
+					System.out.println(parseCommands[i]);	
+				
+				return parseCommands; 
+			}
+		});
+		
+		InputStream mainImagePath = getClass().getResourceAsStream("pickOne.png");
+		Image mainImage = new Image(mainImagePath);
+		mainImageNode = new ImageView(mainImage);
+		mainImageNode.setX(442);
+		mainImageNode.setY(100);
+		
+		mainScreen.getChildren().add(fileName);
+		mainScreen.getChildren().add(textField);
+		mainScreen.getChildren().add(submitInput);
+
+
+		mainScreen.getChildren().add(mainImageNode);
+	}
+
 	//turnOrder goes by ai numbers and the player is listed as 10
 	public void mainGame()
 	{
@@ -2090,9 +2429,6 @@ public class Ui extends Application
 		mainScreen.getChildren().add(scenarioEighteen);
 		mainScreen.getChildren().add(scenarioNineteen);
 		mainScreen.getChildren().add(scenarioTwenty);
-
-
-
 
 
 
