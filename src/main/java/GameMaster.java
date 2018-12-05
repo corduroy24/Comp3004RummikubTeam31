@@ -49,15 +49,37 @@ public class GameMaster extends Observable{
 	
 	
 	public void deal() {
-		Deck  d = new Deck();
-		d.Shuffle();
-		ArrayList<Tile> or = new ArrayList<Tile>();
+		Deck  dd = new Deck();
+		dd.Shuffle();
+		//randomly pick a tile
 		for(int i =0; i < players.size();i++) {
+			players.get(i).getHand().drawFirst14(dd);
+			System.out.println(players.get(i).getName()+ " player randomly pick up the tile "+ players.get(i).getHand().getTile(0));
+		}
+		// sort players turn
+		Collections.sort(players, new SortToFindTileBreak());	
+		String tile_break = "So the order players should play their tie-break is: ";
+		for(int i =0; i < players.size();i++) {
+			if(i == 0 )players.get(i).set_TileBreak(null);
+			else players.get(i).set_TileBreak(players.get(i-1));
+			tile_break += players.get(i).getName() + " ";
+		}
+		System.out.println(tile_break + "\n");
+		System.out.println("--------------------------------------------\n");
+		
+		Deck d = new Deck();
+		d.Shuffle();
+		
+		//randomly pick a tile
+		for(int i =0; i < players.size();i++) {
+			players.get(i).getHand().clear();
 			players.get(i).getHand().drawFirst14(d);
 			System.out.println(players.get(i).getName()+ " player randomly pick up the tile "+ players.get(i).getHand().getTile(0));
 		}
+		// sort players turn
 		Collections.sort(players, new SortByCommand());	
 		String order= "So the order of the game is : ";
+		//deal tiles for each player
 		for(int i =0; i < players.size();i++) 
 		{
 			order += players.get(i).getName() + ", ";
@@ -349,6 +371,21 @@ public class GameMaster extends Observable{
 	}
 
 	class SortByCommand implements Comparator<Player> 
+	{ 	
+	    public int compare(Player a, Player b) 
+	    { int i =0;
+	    	while(b.getHand().getTile(i).getNumber() - a.getHand().getTile(i).getNumber() == 0){
+	    		i++;
+	    		if(b.getHand().getTile(i).getNumber() - a.getHand().getTile(i).getNumber() != 0)
+	    		{
+	    			return b.getHand().getTile(i).getNumber() -a.getHand().getTile(i).getNumber();}
+	    		
+	    	}   	
+	    	return b.getHand().getTile(i).getNumber() - a.getHand().getTile(i).getNumber();
+	    }
+	}
+	
+	class SortToFindTileBreak implements Comparator<Player> 
 	{ 	
 	    public int compare(Player a, Player b) 
 	    { int i =0;

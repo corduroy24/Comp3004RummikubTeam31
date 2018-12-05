@@ -17,6 +17,9 @@ public class Player implements Observer{
 	private int countdown = 5;
 	private int score = 0;
 	
+	private boolean CanPlay = false;
+	private Player previous_turn;
+	
 	private boolean p1FirstMeldComplete;
 	private boolean p2FirstMeldComplete;
 	private boolean p3FirstMeldComplete; 
@@ -30,7 +33,9 @@ public class Player implements Observer{
 	private String report = "";
 	private ArrayList<Tile> PlayedTileList;
 	private ArrayList<Tile> SuggPlayTileList; //needs to be reset everytime ???
-
+	
+	public void set_TileBreak(Player p) {previous_turn = p;}
+	public boolean getCanPlay() {return CanPlay;}
 	
 	public void setTest(int a, int b, int c ) {firstPlayerPoint= a; secondPlayerPoint = b; thirdPlayerPoint= c;}
 	public void setPoints(int x,int y, int z) {
@@ -131,7 +136,13 @@ public class Player implements Observer{
         // update table and deck to decide what to play
         table = update.getTable();
         deck = update.getDeck();
+        if(previous_turn == null) 
+        	CanPlay = true;
+        
+        if(name.equals("Human")) CanPlay = true;
         for(int i =0; i < enemies.size();i++) {
+        	if(previous_turn != null && enemies.get(i).getName().equals(previous_turn.getName()) && enemies.get(i).getIsFirstMeldComplete())
+        		CanPlay = true;
         	if(i == 0)
         		firstPlayerPoint = enemies.get(0).getHand().sizeOfHand();
         	else if (i == 1)
