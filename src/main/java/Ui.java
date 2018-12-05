@@ -79,6 +79,8 @@ public class Ui extends Application
 
 
 	
+	
+	Button AiOnly;
 	boolean isTimerOn=false;
 	Button timerButton;
 	Timer timer;
@@ -148,6 +150,8 @@ public class Ui extends Application
 		    {
 		    	clearMainScreen();
 		    	whoGoesFirst(2);
+		    	mainScreen.getChildren().remove(AiOnly);
+		    	
 		    }
 		});
 		
@@ -165,6 +169,7 @@ public class Ui extends Application
 		    	//System.out.println("Pressed 3 player button");
 		    	clearMainScreen();
 		    	whoGoesFirst(3);
+		    	mainScreen.getChildren().remove(AiOnly);
 		    }
 		});
 		
@@ -182,9 +187,32 @@ public class Ui extends Application
 		    	//System.out.println("Pressed 4 player button");
 		    	clearMainScreen();
 		    	whoGoesFirst(4);
+		    	mainScreen.getChildren().remove(AiOnly);
 		    }
 		});
 		
+		//Sets up Scenario Button
+		AiOnly = new Button();
+		AiOnly.setText("AiOnly");
+		AiOnly.setMinSize(100, 50);
+		AiOnly.setDisable(false);
+		AiOnly.setLayoutX(390);
+		AiOnly.setLayoutY(600);
+		AiOnly.setOnAction(new EventHandler<ActionEvent>() 
+		{
+		    public void handle(ActionEvent e) 
+		    {
+		    	clearMainScreen();
+		    	whoGoesFirst(4);
+		    	game.getPlayers().remove(0);
+		    	mainScreen.getChildren().remove(AiOnly);
+		    	mainScreen.getChildren().remove(humanOne);
+				mainScreen.getChildren().remove(humanTwo);
+				mainScreen.getChildren().remove(humanThree);
+				mainScreen.getChildren().remove(mainImageNode);
+		    }
+		});
+
 		//Sets up Scenario Button
 		scenarios = new Button();
 		scenarios.setText("Scenarios");
@@ -193,14 +221,18 @@ public class Ui extends Application
 		scenarios.setLayoutX(500);
 		scenarios.setLayoutY(600);
 		scenarios.setOnAction(new EventHandler<ActionEvent>() 
-		{
-		    public void handle(ActionEvent e) 
-		    {
-		    	clearMainScreen();
-		    	scenariosList();
-		    }
+			{
+				   public void handle(ActionEvent e) 
+				   {
+				   	clearMainScreen();
+				   	mainScreen.getChildren().remove(AiOnly);
+				   	scenariosList();
+				   }
 		});
-
+		
+		
+		
+		
 		//Sets up the timer button
 		timerButton = new Button();
 		timerButton.setText("Timer On");
@@ -225,7 +257,7 @@ public class Ui extends Application
 		    }
 		});
 		
-		mainScreen = new AnchorPane(mainImageNode, twoPlayer, threePlayer, fourPlayer, scenarios,timerButton);
+		mainScreen = new AnchorPane(mainImageNode, twoPlayer, threePlayer, fourPlayer, scenarios,timerButton,AiOnly);
 
 		mainScreen.setMinSize(1095,	790);
 		
@@ -2131,6 +2163,7 @@ public class Ui extends Application
 	public boolean updateTable()
 	{
 		Table table = game.getTable();
+		System.out.println(game.getTable().getTable());
 		ArrayList<ArrayList<Tile>> t = table.getTable();
 		for(int x=0;x<tableButtons[0].length;x++)
 		{
