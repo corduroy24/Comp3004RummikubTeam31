@@ -19,9 +19,8 @@ public class Deck{
 		}
 		Tile T = new Tile(14, 14);     //  THESE ARE JOKERS AND WILL BE USED IN ITERATION 2
 		Tile T1 = new Tile(14,14);
-		DeckofTiles.add(104,T);
-	    DeckofTiles.add(105,T1);
-	    count += 2;
+		DeckofTiles.add(T);
+	    DeckofTiles.add(T1);
 	
 	}
 	public void add(Tile t) {
