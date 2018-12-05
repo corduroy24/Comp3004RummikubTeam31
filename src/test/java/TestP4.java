@@ -8,6 +8,7 @@ public class TestP4 extends TestCase{
 		Tile[] l1 = {joker,new Tile(2,2),new Tile(2,3),new Tile(2,5),new Tile(2,6)}; // 2 3 4 5 6 
 		Player p4 = new Player("123",1,new p4());
 		p4.getHand().addTilesToHand(l1);
+		p4.setCanPlay();
 		assertTrue(p4.play() == false);
 		assertTrue(joker.getJokerColor().equals("B"));
 		assertTrue(joker.getJokerPoint() == 4);
@@ -18,6 +19,7 @@ public class TestP4 extends TestCase{
 		Tile[] l1 = {joker,new Tile(1,2),new Tile(1,3), new Tile(1,2),new Tile(1,3),new Tile(1,4)}; // 2 3 4
 		Player p4 = new Player("123",1,new p4());
 		p4.getHand().addTilesToHand(l1);
+		p4.setCanPlay();
 		assertTrue(p4.play() == false);
 		assertTrue(joker.getJokerColor().equals("R"));
 		assertTrue(joker.getJokerPoint() == 4);
@@ -31,6 +33,7 @@ public class TestP4 extends TestCase{
 			 t.add(new Tile(1,2));t.add(new Tile(1,3));t.add(new Tile(1,4));
 			 p4.getTable().addTiles(t);
 		p4.getHand().addTilesToHand(l1);
+		p4.setCanPlay();
 		assertTrue(p4.play() == true);
 		assertTrue(joker.getJokerPoint() == 12);
 	}
@@ -41,6 +44,7 @@ public class TestP4 extends TestCase{
 		Tile[] l1 = {joker,new Tile(1,2),new Tile(1,3), new Tile(1,5) , new Tile(1,6),new Tile(1,10), new Tile(1,11)}; // 2 3 4 6 10 11 player Joker 4 (after the first initial point) 
 		Player p4 = new Player("123",1,new p4());
 		p4.getHand().addTilesToHand(l1);
+		p4.setCanPlay();
 		p4.setIsfirstMeldComplete(true);
 		assertTrue(p4.play() == true);
 		assertTrue(joker.getJokerColor().equals("R"));
@@ -52,7 +56,7 @@ public class TestP4 extends TestCase{
 		Tile[] l1 = {joker,new Tile(1,2),new Tile(1,3), new Tile(1,6),new Tile(1,5),new Tile(1,10), new Tile(1,11)}; // 2 3 5 6 10 11 player Joker 12 (after the first initial point) 
 		Player p4 = new Player("123",1,new p4());
 		p4.getHand().addTilesToHand(l1);
-		
+		p4.setCanPlay();
 		assertTrue(p4.play() == true);
 		assertTrue(joker.getJokerColor().equals("R"));
 		assertTrue(joker.getJokerPoint() == 12);
@@ -63,6 +67,7 @@ public class TestP4 extends TestCase{
 		Tile[] l1 = {joker,new Tile(1,2),new Tile(1,3), new Tile(1,5),new Tile(1,6),new Tile(1,10), new Tile(1,11)}; // 2 3 5 6 10 11 player Joker 5 (after the first initial point) 
 		Player p4 = new Player("123",1,new p4());
 		p4.getHand().addTilesToHand(l1);
+		p4.setCanPlay();
 		p4.setIsfirstMeldComplete(true);
 		
 		assertTrue(p4.play() == true);
@@ -92,7 +97,7 @@ public class TestP4 extends TestCase{
 		Tile[] l1 = {joker,new Tile(1,13), new Tile(2,13),new Tile(3,13)};// use 1 joker to initial the first turn. 
 		Player p4 = new Player("123",1,new p4());
 		p4.getHand().addTilesToHand(l1);
-		
+		p4.setCanPlay();
 		assertTrue(p4.play() == true);
 
 		assertTrue(joker.getJokerPoint() == 13);
@@ -117,7 +122,7 @@ public class TestP4 extends TestCase{
 				new Tile(1,6), new Tile(1,7),new Tile(1,9)}; 
 		Player p4 = new Player("123",1,new p4());
 		p4.getHand().addTilesToHand(l1);
-		
+		p4.setCanPlay();
 		assertTrue(p4.play() == true);
 		assertTrue(joker.getJokerPoint() == 13);
 	}
@@ -138,6 +143,7 @@ public class TestP4 extends TestCase{
 	 ArrayList<Tile> t = new ArrayList<Tile>();
 	// t.add(new Tile(1,2));t.add(new Tile(1,3));t.add(new Tile(1,4));
 	p4.getTable().addTiles(t);
+	p4.setCanPlay();
 	p4.play();
 	assertTrue(p4.getPlayerHand().sizeOfHand()==5);
 	

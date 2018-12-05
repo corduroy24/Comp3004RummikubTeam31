@@ -23,7 +23,7 @@ public class TestP3 extends TestCase{
 		p.getTable().addTiles(a);
 		
 		p.setIsfirstMeldComplete(true);
-
+		p.setCanPlay();
 		assertTrue(p.play() == false);
 		
 		assertTrue(p.getHand().sizeOfHand() == 6);
@@ -51,7 +51,7 @@ public class TestP3 extends TestCase{
 		ArrayList<Tile> a = new ArrayList<Tile>();
 		a.addAll(Arrays.asList(l1));
 		p.getTable().addTiles(a);
-		
+		p.setCanPlay();
 		p.setIsfirstMeldComplete(true);
 		assertTrue(p.play() == true);
 		p.getHand().HandReader();
@@ -76,7 +76,7 @@ public class TestP3 extends TestCase{
 		joker.setJokerPoint(1);
 
 		p.getHand().addTilesToHand(l);
-
+		p.setCanPlay();
 		ArrayList<Tile> a = new ArrayList<Tile>();
 		a.addAll(Arrays.asList(l1));
 		p.getTable().addTiles(a);
@@ -102,7 +102,7 @@ public class TestP3 extends TestCase{
 		joker.setJokerPoint(3);
 		joker.setJokerColor(1);
 		
-
+		p.setCanPlay();
 		p.getHand().addTilesToHand(l);
 		ArrayList<Tile> a = new ArrayList<Tile>();
 		a.addAll(Arrays.asList(l1));
@@ -128,7 +128,7 @@ public class TestP3 extends TestCase{
 		
 		Tile[] l1 = {joker, new Tile(1,3), new Tile(1,4)};
 		Tile[] l2 = { new Tile(3,5),new Tile(2,5), new Tile(1,5)};
-		
+		p.setCanPlay();
 		joker.setJokerPoint(5);
 		joker.setJokerColor(1);
 		
@@ -164,7 +164,7 @@ public class TestP3 extends TestCase{
 		joker.setJokerPoint(5);
 		joker.setJokerColor(1);
 		
-
+		p.setCanPlay();
 		p.getHand().addTilesToHand(l);
 
 		ArrayList<Tile> a = new ArrayList<Tile>();

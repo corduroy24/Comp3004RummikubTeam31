@@ -43,7 +43,7 @@ public class Player implements Observer{
 		y = secondPlayerPoint;
 		z = thirdPlayerPoint;		
 	}
-	
+	public void setCanPlay() {CanPlay = true;}
 	public ArrayList<Tile> getPlayedList(){return PlayedTileList; };
 	public ArrayList<Tile> getSuggPlayList(){return SuggPlayTileList; };
 
