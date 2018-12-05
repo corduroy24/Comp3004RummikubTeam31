@@ -1438,8 +1438,8 @@ public class Ui extends Application
 		    	humanOne.setDisable(true);
 		    	game.addPlayer(5);
 		    	if(game.getPlayers().size() == maxPlayers) {
-		    		console.setText(console.getText()+game.deal());
 		    		check();
+		    		startingConsoleText = game.deal();
 		    		mainGame();
 		    		AisPlay(turnOfHuman,prevString);
 		    	}
@@ -1460,8 +1460,8 @@ public class Ui extends Application
 		    	humanTwo.setDisable(true);
 		    	game.addPlayer(6);
 		    	if(game.getPlayers().size() == maxPlayers) {
-		    		console.setText(console.getText()+game.deal());
 		    		check();
+		    		startingConsoleText = game.deal();
 		    		mainGame();
 		    		AisPlay(turnOfHuman,prevString);
 		    	}
@@ -1482,8 +1482,8 @@ public class Ui extends Application
 		    	humanThree.setDisable(true);
 		    	game.addPlayer(7);
 		    	if(game.getPlayers().size() == maxPlayers) {
-		    		console.setText(console.getText()+game.deal());
 		    		check();
+		    		startingConsoleText = game.deal();
 		    		mainGame();
 		    		AisPlay(turnOfHuman,prevString);
 		    	}
@@ -1527,7 +1527,7 @@ public class Ui extends Application
 		    	aiTwo.setDisable(true);
 		    	game.addPlayer(2);
 		    	if(game.getPlayers().size() == maxPlayers) {
-		    		console.setText(console.getText()+game.deal());
+		    		startingConsoleText = game.deal();
 		    		mainGame();
 		    		AisPlay(turnOfHuman,prevString);
 		    	}
@@ -1549,7 +1549,7 @@ public class Ui extends Application
 		    	aiThree.setDisable(true);
 		    	game.addPlayer(3);
 		    	if(game.getPlayers().size() == maxPlayers) {
-		    		console.setText(console.getText()+game.deal());
+		    		startingConsoleText = game.deal();
 		    		mainGame();
 		    		AisPlay(turnOfHuman,prevString);
 		    	}
@@ -1571,8 +1571,8 @@ public class Ui extends Application
 		    	aiFour.setDisable(true);
 		    	game.addPlayer(4);
 		    	if(game.getPlayers().size() == maxPlayers) {
-		    		console.setText(console.getText()+game.deal());
-		    		mainGame();	
+		    		startingConsoleText = game.deal();
+		    		mainGame();
 		    		AisPlay(turnOfHuman,prevString);
 		    	}
 		    }
