@@ -79,9 +79,6 @@ public class Ui extends Application
 	Button scenarioTwenty; 
 	Button scenarioTwentyOne; 
 
-
-	
-	
 	Button AiOnly;
 	boolean isTimerOn=false;
 	Button timerButton;
@@ -92,6 +89,7 @@ public class Ui extends Application
 	ArrayList<Button> playerHandButtons = new ArrayList<Button>();
 	
 	TextArea console;
+	String startingConsoleText = "";
 	TextArea scoreConsole;
 	
 	HBox playerHand;
@@ -271,8 +269,6 @@ public class Ui extends Application
 		window.getIcons().add(iconImage);
 		window.setScene(mainMenuScene);
 		window.show();
-		
-		
 	}
 	
 	//turnOrder goes by ai numbers and the player is listed as 10
@@ -608,7 +604,7 @@ public class Ui extends Application
 		
 		//Creates the text console where it will ouput any necessary info
 		console = new TextArea();
-		console.setText("");
+		console.setText(startingConsoleText);
 		console.setEditable(false); //Makes it not editable
 		console.setMinSize(795, 100); //sets the size of the box
 		console.setMaxSize(795, 100); //sets the size of the box
@@ -1115,7 +1111,7 @@ public class Ui extends Application
 		    	humanOne.setDisable(true);
 		    	game.addPlayer(5);
 		    	if(game.getPlayers().size() == maxPlayers) {
-		    		game.deal();
+		    		console.setText(console.getText()+game.deal());
 		    		check();
 		    		mainGame();
 		    		AisPlay(turnOfHuman,prevString);
@@ -1137,7 +1133,7 @@ public class Ui extends Application
 		    	humanTwo.setDisable(true);
 		    	game.addPlayer(6);
 		    	if(game.getPlayers().size() == maxPlayers) {
-		    		game.deal();
+		    		console.setText(console.getText()+game.deal());
 		    		check();
 		    		mainGame();
 		    		AisPlay(turnOfHuman,prevString);
@@ -1159,7 +1155,7 @@ public class Ui extends Application
 		    	humanThree.setDisable(true);
 		    	game.addPlayer(7);
 		    	if(game.getPlayers().size() == maxPlayers) {
-		    		game.deal();
+		    		console.setText(console.getText()+game.deal());
 		    		check();
 		    		mainGame();
 		    		AisPlay(turnOfHuman,prevString);
@@ -1182,7 +1178,7 @@ public class Ui extends Application
 		    	aiOne.setDisable(true);
 		    	game.addPlayer(1);
 		    	if(game.getPlayers().size() == maxPlayers) {
-		    		game.deal();
+		    		startingConsoleText = game.deal();
 		    		mainGame();
 		    		AisPlay(turnOfHuman,prevString);
 		    	}
@@ -1204,7 +1200,7 @@ public class Ui extends Application
 		    	aiTwo.setDisable(true);
 		    	game.addPlayer(2);
 		    	if(game.getPlayers().size() == maxPlayers) {
-		    		game.deal();
+		    		console.setText(console.getText()+game.deal());
 		    		mainGame();
 		    		AisPlay(turnOfHuman,prevString);
 		    	}
@@ -1226,7 +1222,7 @@ public class Ui extends Application
 		    	aiThree.setDisable(true);
 		    	game.addPlayer(3);
 		    	if(game.getPlayers().size() == maxPlayers) {
-		    		game.deal();
+		    		console.setText(console.getText()+game.deal());
 		    		mainGame();
 		    		AisPlay(turnOfHuman,prevString);
 		    	}
@@ -1248,7 +1244,7 @@ public class Ui extends Application
 		    	aiFour.setDisable(true);
 		    	game.addPlayer(4);
 		    	if(game.getPlayers().size() == maxPlayers) {
-		    		game.deal();
+		    		console.setText(console.getText()+game.deal());
 		    		mainGame();	
 		    		AisPlay(turnOfHuman,prevString);
 		    	}
