@@ -895,39 +895,41 @@ public class Ui extends Application
 		    	for(int x=0;x<playerHandButtons.size();x++)
 		    	{
 		    		String color = "";
+		    		String colorFull = "";
 		    		
 		    		if(playerHandButtons.get(x).getStyle().equals("-fx-background-color: #db4c4c"))
 					{
 						color = "R";
+						colorFull = "Red";
 					}
 					else if(playerHandButtons.get(x).getStyle().equals("-fx-background-color: #3888d8"))
 					{
 						color = "B";
+						colorFull = "Blue";
 					}
 					else if(playerHandButtons.get(x).getStyle().equals("-fx-background-color: #1a9922"))
 					{
 						color = "G";
+						colorFull = "Green";
 					}
 					else if(playerHandButtons.get(x).getStyle().equals("-fx-background-color: #c69033"))
 					{
 						color = "O";
+						colorFull = "Orange";
 					} 
 					else if(playerHandButtons.get(x).getStyle().equals("-fx-background-color: #474747"))
 					{
 						color = "J";
+						colorFull = "Joker";
 					}
 		    		
 		    		
 		    		
 		    		for(int y=0;y<suggestionTiles.size();y++)
 		    		{
-		    			
-		    			
-		    			
-		    			
 		    			if(suggestionTiles.get(y).getNumber() == 14 && playerHandButtons.get(x).getText().equals("J"))
 		    			{
-		    				consoleText += suggestionTiles.get(y).getColor() + suggestionTiles.get(y).getNumber() + ", ";
+		    				consoleText += colorFull + " " +suggestionTiles.get(y).getNumber() + ", ";
 		    			}
 		    			else if(playerHandButtons.get(x).getText().equals("J"))
 		    			{
@@ -936,9 +938,8 @@ public class Ui extends Application
 		    			else if(suggestionTiles.get(y).getNumber() == Integer.parseInt(playerHandButtons.get(x).getText()) && 
 			    				color.equals(suggestionTiles.get(y).getColor()))
 			    		{
-		    				consoleText += suggestionTiles.get(y).getColor() + suggestionTiles.get(y).getNumber() + ", ";
+		    				consoleText += colorFull + " " +suggestionTiles.get(y).getNumber() + ", ";
 			    		}	
-			    		
 		    		}	
 		    	} 
 		    	consoleText+="\n";
