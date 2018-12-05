@@ -2435,7 +2435,7 @@ public class Ui extends Application
 		
 		//Sets up the Scenario 22 Button
 		scenarioTwentyTwo = new Button();
-		scenarioTwentyTwo.setText("Reuse 1");
+		scenarioTwentyTwo.setText("simple 3");
 		scenarioTwentyTwo.setMinSize(100, 50);
 		scenarioTwentyTwo.setDisable(false);
 		scenarioTwentyTwo.setLayoutX(217);

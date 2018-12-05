@@ -1129,4 +1129,52 @@ public interface Scenario {
 
 	}	
 	
+	class Scenario22 implements Scenario{
+		int numTurns = 1;
+		int maxPlayers = 1; 
+		int [] turnOrders = new int[maxPlayers]; 
+		public GameMaster deal (GameMaster game) {
+			//turnOrders[0] = 2; 
+
+			Deck deck = game.getDeck(); 
+			
+			game.addPlayer(2);
+
+			game.getAI2().setIsfirstMeldComplete(true);
+
+			Tile[] l = {new Tile(1,4),new Tile(2,4),
+						new Tile(3,4)};
+			Tile[] l2 = { new Tile(1,5),
+					new Tile(1,6),new Tile(1,7)};
+			
+			Tile[] l1 = {new Tile(1,4), new Tile(4,4), new Tile(1,8)};
+
+			game.getAI2().getHand().addTilesToHand(l1);
+
+			ArrayList<Tile> a = new ArrayList<Tile>();
+			a.addAll(Arrays.asList(l));
+			game.getTable().addTiles(a);
+			
+			ArrayList<Tile> b = new ArrayList<Tile>();
+			a.addAll(Arrays.asList(l2));
+			game.getTable().addTiles(b);
+						
+			game.Announcement();
+			return game; 
+		}
+		
+		public GameMaster secondTurn (GameMaster game, int player) {
+			Deck deck = game.getDeck(); 
+			return game; 
+		}
+		public GameMaster thirdTurn (GameMaster game, int player) {
+			Deck deck = game.getDeck(); 
+			return game;	
+		}
+
+		public int getNumTurns() {return this.numTurns;}
+		public int [] getTurnOrder() {return this.turnOrders; }
+		public int getMaxPlayers() {return this.maxPlayers;}
+
+	}	
 	
